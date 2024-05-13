@@ -19,7 +19,9 @@ class _BuildPostState extends State<BuildPost> {
         if (!(state is Loading && cubit.posts.isEmpty)) {
           return _listV(cubit.posts);
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
       },
     );
