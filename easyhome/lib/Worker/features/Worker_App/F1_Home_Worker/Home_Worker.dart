@@ -26,7 +26,7 @@ class HomeWorkerMain extends StatelessWidget {
     GetMeWorker getMeWorker = GetMeWorker();
     return FutureBuilder<String>(
         future: getMeWorker.getMeWorker(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE1MjY1ODIxLCJleHAiOjE3MjMwNDE4MjF9.xvSfns86_RrA4fUCiVJGmTCqGu9IV2yPISumotOp25w"),
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNTYzMzkxMywiZXhwIjoxNzIzNDA5OTEzfQ.bmNgcIy7c5manUtuUukkVMSg56RzmW6HrjSV1gVTZdk"),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
@@ -446,7 +446,7 @@ class PostItem extends StatelessWidget {
                               DeleteApp deleteApp = DeleteApp();
                               providerok2.setOk(!providerok2.isOk);
                               if (await deleteApp.deleteApp(
-                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
+                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNTYzMzkxMywiZXhwIjoxNzIzNDA5OTEzfQ.bmNgcIy7c5manUtuUukkVMSg56RzmW6HrjSV1gVTZdk",
                                   application["id"])) {
                                 providerload.setLoad(false);
                               }
@@ -502,7 +502,7 @@ class PostItem extends StatelessWidget {
 
                               SavePost savePost = SavePost();
                               if (await savePost.savePost(
-                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
+                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNTYzMzkxMywiZXhwIjoxNzIzNDA5OTEzfQ.bmNgcIy7c5manUtuUukkVMSg56RzmW6HrjSV1gVTZdk",
                                   postId)) {
                                 print("+++");
                                 Post["isSaved"] = !Post["isSaved"];
