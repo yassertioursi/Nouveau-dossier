@@ -23,11 +23,11 @@ class _Home_UserState extends State<Home_User> {
   int currentTab = 0;
   final List<Widget> screens = [
     HomeUser(),
-    Map(),
+    const Map(),
     Deals_Apps(),
     MultiBlocProvider(
         providers: [BlocProvider(create: (context) => MyCubit(getIt()))],
-        child: UserProfileScreen()),
+        child: const UserProfileScreen()),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = HomeUser();
@@ -40,7 +40,7 @@ class _Home_UserState extends State<Home_User> {
         floatingActionButton: Container(
           child: FloatingActionButton(
             backgroundColor: Colors.black,
-            child: Icon(Icons.add, color: Colors.white),
+            child: const Icon(Icons.add, color: Colors.white),
             onPressed: () {
               Create_Post New_Post = Create_Post();
               New_Post.creat_post(context);
@@ -55,7 +55,7 @@ class _Home_UserState extends State<Home_User> {
         bottomNavigationBar: BottomAppBar(
           height: 70,
           color: MyColors.mainblue,
-          shape: CircularNotchedRectangle(),
+          shape: const CircularNotchedRectangle(),
           notchMargin: 3,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 0.0),
@@ -82,15 +82,15 @@ class _Home_UserState extends State<Home_User> {
                               currentTab == 0 ? Colors.white : MyColors.grey4,
                         ),
                         currentTab == 0
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 2.0),
+                            ? const Padding(
+                                padding: EdgeInsets.only(top: 2.0),
                                 child: Text("Home",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold)),
                               )
-                            : Padding(
-                                padding: const EdgeInsets.only(top: 2.0),
+                            : const Padding(
+                                padding: EdgeInsets.only(top: 2.0),
                                 child: Text(''),
                               ),
                       ],
@@ -105,7 +105,7 @@ class _Home_UserState extends State<Home_User> {
                     child: MaterialButton(
                       onPressed: () {
                         setState(() {
-                          currentScreen = Map();
+                          currentScreen = const Map();
                           currentTab = 1;
                         });
                       },
@@ -119,16 +119,16 @@ class _Home_UserState extends State<Home_User> {
                                 currentTab == 1 ? Colors.white : MyColors.grey4,
                           ),
                           currentTab == 1
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
+                              ? const Padding(
+                                  padding: EdgeInsets.only(top: 2.0),
                                   child: Text(" Map",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       )),
                                 )
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
+                              : const Padding(
+                                  padding: EdgeInsets.only(top: 2.0),
                                   child: Text(''),
                                 ),
                         ],
@@ -158,15 +158,15 @@ class _Home_UserState extends State<Home_User> {
                                 currentTab == 2 ? Colors.white : MyColors.grey4,
                           ),
                           currentTab == 2
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
+                              ? const Padding(
+                                  padding: EdgeInsets.only(top: 2.0),
                                   child: Text(" Deals",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold)),
                                 )
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
+                              : const Padding(
+                                  padding: EdgeInsets.only(top: 2.0),
                                   child: Text(''),
                                 ),
                         ],
@@ -183,7 +183,7 @@ class _Home_UserState extends State<Home_User> {
                         BlocProvider(create: (context) => SwitchCubit(getIt())),
                         BlocProvider(
                             create: (context) => FavoriteCubit(getIt())),
-                      ], child: UserProfileScreen());
+                      ], child: const UserProfileScreen());
                       currentTab = 3;
                     });
                   },
@@ -199,16 +199,16 @@ class _Home_UserState extends State<Home_User> {
                         ),
                       ),
                       currentTab == 3
-                          ? Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
+                          ? const Padding(
+                              padding: EdgeInsets.only(top: 2.0),
                               child: Text("Account",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   )),
                             )
-                          : Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
+                          : const Padding(
+                              padding: EdgeInsets.only(top: 2.0),
                               child: Text(''),
                             ),
                     ],
@@ -228,7 +228,7 @@ class Map extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Text("Map"),
     );
   }

@@ -2,6 +2,7 @@ import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// ignore: must_be_immutable
 class Worker_One extends StatelessWidget {
   late String firstName;
   late String lastName;
@@ -33,7 +34,7 @@ class Worker_One extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       height: 180,
       child: ListView.builder(
         itemCount: 5,
@@ -41,13 +42,17 @@ class Worker_One extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) => Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 10),
           child: Container(
-            padding: EdgeInsets.only(bottom: 0),
+            padding: const EdgeInsets.only(bottom: 0),
             width: 170,
             child: Stack(children: [
               Padding(
                 padding: const EdgeInsets.only(top: 45.0),
                 child: Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 5, top: 8),
                     child: Column(
@@ -57,11 +62,11 @@ class Worker_One extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             isCertified
-                                ? Icon(
+                                ? const Icon(
                                     Icons.verified_user_rounded,
                                     color: Color(0xFF137A23),
                                   )
-                                : Text(''),
+                                : const Text(''),
                           ],
                         ),
                         Padding(
@@ -76,7 +81,7 @@ class Worker_One extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Icon(
+                                const Icon(
                                   FontAwesomeIcons.solidStar,
                                   color: Color(0xFFED8A19),
                                   size: 17,
@@ -86,7 +91,7 @@ class Worker_One extends StatelessWidget {
                                       left: 4.0, top: 3.0),
                                   child: Text(
                                     "$rating",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -95,7 +100,7 @@ class Worker_One extends StatelessWidget {
                             ),
                             Text(
                               "$experience",
-                              style: TextStyle(color: Color(0xFFC7C7C7)),
+                              style: const TextStyle(color: Color(0xFFC7C7C7)),
                             )
                           ],
                         ),
@@ -103,17 +108,13 @@ class Worker_One extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
                             "$job",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: MyColors.mainorange,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
@@ -130,7 +131,7 @@ class Worker_One extends StatelessWidget {
                         ),
                       ),
                       child: ClipOval(
-                        child: Container(
+                        child: SizedBox(
                           height: 80,
                           width: 80,
                           child: Image.network(

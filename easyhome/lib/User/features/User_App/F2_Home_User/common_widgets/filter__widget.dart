@@ -1,5 +1,7 @@
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Select_job.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Search_Main.dart';
+// ignore_for_file: must_be_immutable
+
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Select_job.dart';
+
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/SearchWorkers.dart';
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/utils/constants/Wilayas.dart';
@@ -55,7 +57,7 @@ class FilterWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Sort by :",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -64,7 +66,7 @@ class FilterWidget extends StatelessWidget {
                       ),
                       Container(
                         height: 40,
-                        margin: EdgeInsets.only(left: 20),
+                        margin: const EdgeInsets.only(left: 20),
                         child: DropdownButton<String>(
                           itemHeight: kMinInteractiveDimension,
                           alignment: Alignment.center,
@@ -72,7 +74,7 @@ class FilterWidget extends StatelessWidget {
                           underline: Container(),
                           focusColor: Colors.white,
                           value: sortByProvider.selectedSort,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.keyboard_arrow_down,
                             color: MyColors.mainblue,
                             size: 30,
@@ -86,7 +88,7 @@ class FilterWidget extends StatelessWidget {
                               value: value,
                               child: Text(
                                 value,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: MyColors.mainblue,
                                 ),
                               ),
@@ -110,7 +112,7 @@ class FilterWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Wilaya :",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -125,7 +127,7 @@ class FilterWidget extends StatelessWidget {
                           underline: Container(),
                           focusColor: Colors.white,
                           value: wilayaProvider.selectedWilaya,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.keyboard_arrow_down,
                             color: MyColors.mainblue,
                             size: 30,
@@ -143,7 +145,7 @@ class FilterWidget extends StatelessWidget {
                                 value,
                                 textAlign: TextAlign.left,
                                 selectionColor: MyColors.mainblue,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: MyColors.mainblue,
                                 ),
                               ),
@@ -161,7 +163,7 @@ class FilterWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Rating :",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -179,8 +181,9 @@ class FilterWidget extends StatelessWidget {
                           direction: Axis.horizontal,
                           allowHalfRating: false,
                           itemCount: 5,
-                          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                          itemBuilder: (context, _) => Icon(
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 4.0),
+                          itemBuilder: (context, _) => const Icon(
                                 color: MyColors.stars,
                                 FontAwesomeIcons.solidStar,
                               ),
@@ -199,10 +202,10 @@ class FilterWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 5.0),
+                      padding: EdgeInsets.only(bottom: 5.0),
                       child: Text(
                         "Jobs:",
                         style: TextStyle(
@@ -461,7 +464,7 @@ class FilterWidget extends StatelessWidget {
                                     postId: "",
                                   ));
                             },
-                            child: Text(
+                            child: const Text(
                               "Apply",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,

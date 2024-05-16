@@ -1,25 +1,25 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/Dwwira.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Ok_Provider.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/BloC/Provider_Filter.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/BloC/Provider_Posts.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Apply_For_Post.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
+import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Filter.dart';
+import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Posts.dart';
+
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Delete_App.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/GetMyRequests.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Get_All_Posts.dart';
+
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Get_Me_Worker.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Save_Post.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/common_widgets/Filter_Widget_Worker.dart';
+
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/common_widgets/SendApp.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/common_widgets/details.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Requests extends StatelessWidget {
+  // ignore: prefer_const_constructors_in_immutables
   Requests({super.key});
 
   @override
@@ -35,9 +35,14 @@ class Requests extends StatelessWidget {
                 elevation: 0,
                 backgroundColor: Colors.white,
               ),
-              body: Center(
-                  child:
-                      Dwwira(color: MyColors.mainblue, height: 60, width: 60)),
+              body: const Center(
+                  child: SizedBox(
+                height: 60.0,
+                width: 60.0,
+                child: CircularProgressIndicator(
+                  color: MyColors.mainblue,
+                ),
+              )),
             );
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
@@ -48,6 +53,7 @@ class Requests extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class HomeWorker extends StatefulWidget {
   String myJob;
   HomeWorker({Key? key, required this.myJob}) : super(key: key);
@@ -71,13 +77,14 @@ class _HomeWorkerState extends State<HomeWorker> {
               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE1MjY1ODIxLCJleHAiOjE3MjMwNDE4MjF9.xvSfns86_RrA4fUCiVJGmTCqGu9IV2yPISumotOp25w"),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Dwwira(
+              return const Center(
+                  child: SizedBox(
+                height: 60.0,
+                width: 60.0,
+                child: CircularProgressIndicator(
                   color: MyColors.mainblue,
-                  height: 60.0,
-                  width: 60.0,
                 ),
-              );
+              ));
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
@@ -121,6 +128,7 @@ class _HomeWorkerState extends State<HomeWorker> {
   }
 }
 
+// ignore: must_be_immutable
 class RequestItem extends StatelessWidget {
   var Image_Controller = PageController();
   String userName;
@@ -164,10 +172,10 @@ class RequestItem extends StatelessWidget {
           create: (BuildContext context) => ProviderOk(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => bloc_five(),
+          create: (BuildContext context) => ProviderLoading(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => bloc_five_One(),
+          create: (BuildContext context) => ProviderLoading1(),
         ),
         ChangeNotifierProvider(
           create: (BuildContext context) => ProviderOk2(),
@@ -181,7 +189,7 @@ class RequestItem extends StatelessWidget {
             border: Border.symmetric(
                 horizontal: BorderSide(
                     color: Colors.grey.withOpacity(0.3), width: 0.5))),
-        padding: EdgeInsets.only(top: 30, bottom: 30),
+        padding: const EdgeInsets.only(top: 30, bottom: 30),
         height: postImages.isEmpty ? (postTitle.length > 40 ? 400 : 300) : 800,
         width: MediaQuery.of(context).size.width - 80,
         child: Column(
@@ -194,7 +202,7 @@ class RequestItem extends StatelessWidget {
                   Row(
                     children: [
                       ClipOval(
-                        child: Container(
+                        child: SizedBox(
                           height: 55,
                           width: 55,
                           child: userProfilePicture == "default.jpg"
@@ -215,16 +223,16 @@ class RequestItem extends StatelessWidget {
                           children: [
                             Text(
                               userName,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 4),
+                              padding: const EdgeInsets.only(top: 4),
                               child: Text(
                                 userWilaya,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: MyColors.mainorange,
                                     fontWeight: FontWeight.w600),
                               ),
@@ -238,7 +246,7 @@ class RequestItem extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: IconButton(
                         onPressed: () {},
-                        icon: Icon(
+                        icon: const Icon(
                           size: 40,
                           Icons.more_vert,
                           color: Colors.black,
@@ -266,7 +274,7 @@ class RequestItem extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox(
+                : const SizedBox(
                     height: 20,
                   ),
             Padding(
@@ -275,7 +283,7 @@ class RequestItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Consumer<ProviderOk2>(builder: (context, providerok2, child) {
-                    return Consumer<bloc_five_One>(
+                    return Consumer<ProviderLoading1>(
                         builder: (context, providerload, child) {
                       if (yesorno1) {
                         providerok2.setOk(application["applied"]);
@@ -283,7 +291,7 @@ class RequestItem extends StatelessWidget {
                       }
                       return InkWell(
                         child: providerok2.isOk
-                            ? Icon(
+                            ? const Icon(
                                 Icons.work,
                                 size: 40,
                                 color: Colors.black,
@@ -296,7 +304,7 @@ class RequestItem extends StatelessWidget {
                               backgroundColor: Colors.white,
                               useSafeArea: true,
                               isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(20.0),
                                   topRight: Radius.circular(20.0),
@@ -337,7 +345,7 @@ class RequestItem extends StatelessWidget {
                             child: SmoothPageIndicator(
                               controller: Image_Controller,
                               count: postImages.length,
-                              effect: ScrollingDotsEffect(
+                              effect: const ScrollingDotsEffect(
                                 dotColor: Color(0xFFD7D4D4),
                                 activeDotColor: MyColors.mainorange,
                                 dotHeight: 9,
@@ -347,13 +355,13 @@ class RequestItem extends StatelessWidget {
                             ),
                           ),
                         )
-                      : Text(""),
+                      : const Text(""),
                   SizedBox(
                     height: 60,
                     width: 60,
                     child: Consumer<ProviderOk>(
                         builder: (context, providerok, child) {
-                      return Consumer<bloc_five>(
+                      return Consumer<ProviderLoading>(
                           builder: (context, providerload, child) {
                         if (yesorno) {
                           providerok.setOk(isSaved);
@@ -398,7 +406,7 @@ class RequestItem extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Text(
                     postTitle,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: 17),
@@ -411,7 +419,7 @@ class RequestItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         "MaxPrice :",
                         style: TextStyle(
                             color: Color(0xFF3E3E3E),
@@ -422,7 +430,7 @@ class RequestItem extends StatelessWidget {
                         postPrice != "null"
                             ? " $postPrice DA"
                             : " Not Mentioned",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Color(0xFF137A23),
                             fontWeight: FontWeight.bold),
                       ),
@@ -434,7 +442,7 @@ class RequestItem extends StatelessWidget {
                         backgroundColor: Colors.white,
                         useSafeArea: true,
                         isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20.0),
                             topRight: Radius.circular(20.0),
@@ -449,8 +457,8 @@ class RequestItem extends StatelessWidget {
                         },
                       );
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.only(
+                    child: const Padding(
+                      padding: EdgeInsets.only(
                         left: 12.0,
                         right: 12,
                       ),

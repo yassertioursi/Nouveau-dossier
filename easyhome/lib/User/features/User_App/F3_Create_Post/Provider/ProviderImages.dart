@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:multiple_images_picker/multiple_images_picker.dart';
 
-class Bloc_Image extends ChangeNotifier {
+class ProviderImages extends ChangeNotifier {
   List<File> Images = [];
 
   void Add_Image(List<File> tmpImages) {

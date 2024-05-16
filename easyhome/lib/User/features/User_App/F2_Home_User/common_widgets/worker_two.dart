@@ -1,12 +1,13 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Ok_Provider.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Add_Fav.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Get_Worker_ById.dart';
+
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class Worker_two extends StatelessWidget {
   String name;
   String email;
@@ -40,11 +41,12 @@ class Worker_two extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (BuildContext context) => ProviderOk()),
-        ChangeNotifierProvider(create: (BuildContext context) => bloc_five()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderLoading()),
       ],
       child: Container(
-        margin: EdgeInsets.fromLTRB(20, 25, 20, 20),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.fromLTRB(20, 25, 20, 20),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -53,7 +55,7 @@ class Worker_two extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
               height: 120,
@@ -88,12 +90,12 @@ class Worker_two extends StatelessWidget {
                           children: [
                             Text(
                               "$name",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.verified_user_rounded,
                               color: MyColors.green,
                             ),
@@ -110,7 +112,7 @@ class Worker_two extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 0.0, left: 20),
                         child: Text(
                           job,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: MyColors.mainorange,
                               fontWeight: FontWeight.bold),
                         ),
@@ -119,7 +121,7 @@ class Worker_two extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 10.0),
                         child: Consumer<ProviderOk>(
                             builder: (context, providerok, child) {
-                          return Consumer<bloc_five>(
+                          return Consumer<ProviderLoading>(
                               builder: (context, providerload, child) {
                             if (yesorno) {
                               providerok.setOk(isFav);
@@ -134,16 +136,15 @@ class Worker_two extends StatelessWidget {
                                     providerok.setOk(!providerok.isOk);
                                     if (await addFav.addFav(
                                         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
-                                        id)) ;
-                                    providerload.setLoad(false);
+                                        id)) providerload.setLoad(false);
                                   }
                                 },
                                 child: providerok.isOk
-                                    ? Icon(
+                                    ? const Icon(
                                         Icons.favorite,
-                                        color: Color.fromARGB(255, 255, 17, 0),
+                                        color: Color(0xFFFF1100),
                                       )
-                                    : Icon(Icons.favorite_outline,
+                                    : const Icon(Icons.favorite_outline,
                                         color: Colors.black));
                           });
                         }),
@@ -161,7 +162,7 @@ class Worker_two extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Icon(
+                                const Icon(
                                   FontAwesomeIcons.solidStar,
                                   color: MyColors.stars,
                                   size: 17,
@@ -171,7 +172,7 @@ class Worker_two extends StatelessWidget {
                                       left: 4.0, top: 3.0),
                                   child: Text(
                                     "$rating ",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -182,14 +183,14 @@ class Worker_two extends StatelessWidget {
                         ),
                         Text(
                           "$wilaya",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: MyColors.mainblue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           "($experience)",
-                          style: TextStyle(color: Color(0xFFC7C7C7)),
+                          style: const TextStyle(color: Color(0xFFC7C7C7)),
                         ),
                       ],
                     ),

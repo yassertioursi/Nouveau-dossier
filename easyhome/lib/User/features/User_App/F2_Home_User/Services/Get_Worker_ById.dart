@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:easyhome/Models/Worker_Model.dart';
-import 'package:easyhome/Worker/features/Worker_App/workerProfile/data/model/worker.dart';
 
 class GetWorker {
   Dio dio = Dio();

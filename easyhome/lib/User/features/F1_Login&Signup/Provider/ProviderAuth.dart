@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/text_log_sign_field.dart';
-import 'package:provider/provider.dart';
 
-class bloc_one with ChangeNotifier {
+class ProviderValidate with ChangeNotifier {
   bool validated = true;
 
   void setValidated(bool value) {
@@ -11,7 +9,7 @@ class bloc_one with ChangeNotifier {
   }
 }
 
-class bloc_two with ChangeNotifier {
+class ProviderObscure with ChangeNotifier {
   bool isObscured = true;
 
   void setObscure(bool value) {
@@ -20,7 +18,7 @@ class bloc_two with ChangeNotifier {
   }
 }
 
-class bloc_three with ChangeNotifier {
+class ProviderEqual with ChangeNotifier {
   bool equal = false;
 
   void setPassword(bool value) {
@@ -29,7 +27,7 @@ class bloc_three with ChangeNotifier {
   }
 }
 
-class bloc_four with ChangeNotifier {
+class ProviderValue with ChangeNotifier {
   String val = "null";
 
   void setVal(String value) {
@@ -38,7 +36,7 @@ class bloc_four with ChangeNotifier {
   }
 }
 
-class bloc_five with ChangeNotifier {
+class ProviderLoading with ChangeNotifier {
   bool isLoading = false;
 
   void setLoad(bool value) {
@@ -47,7 +45,7 @@ class bloc_five with ChangeNotifier {
   }
 }
 
-class bloc_five_One with ChangeNotifier {
+class ProviderLoading1 with ChangeNotifier {
   bool isLoading = false;
 
   void setLoad(bool value) {

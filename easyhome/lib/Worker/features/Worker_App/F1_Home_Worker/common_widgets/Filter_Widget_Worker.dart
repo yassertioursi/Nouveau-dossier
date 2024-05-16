@@ -1,11 +1,12 @@
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Select_job.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/filter__widget.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Select_job.dart';
+
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class FilterWidgetWorker extends StatelessWidget {
   GlobalKey<FormState> formstate_min = GlobalKey();
   GlobalKey<FormState> formstate_max = GlobalKey();
@@ -41,10 +42,10 @@ class FilterWidgetWorker extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
+                      padding: EdgeInsets.only(bottom: 10.0),
                       child: Text(
                         "Price :",
                         style: TextStyle(
@@ -81,16 +82,18 @@ class FilterWidgetWorker extends StatelessWidget {
                                   return "Min must be\nless than max";
                                 }
                               }
+                              return null;
                             },
                             keyboardType: TextInputType.number,
-                            style: TextStyle(fontSize: 14, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.black),
                             textAlign: TextAlign.start,
                             onChanged: (value) {
                               formstate_min.currentState!.validate();
                             },
                             controller: minController,
                             cursorColor: Colors.black,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               errorMaxLines: 3,
                               errorStyle: TextStyle(fontSize: 8),
                               counterText: "",
@@ -160,15 +163,17 @@ class FilterWidgetWorker extends StatelessWidget {
                                   return "Max must be \ngreater than Min";
                                 }
                               }
+                              return null;
                             },
                             keyboardType: TextInputType.number,
-                            style: TextStyle(fontSize: 14, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.black),
                             onChanged: (value) {
                               formstate_max.currentState!.validate();
                             },
                             controller: maxController,
                             cursorColor: Colors.black,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               errorMaxLines: 3,
                               errorStyle: TextStyle(fontSize: 8),
                               counterText: "",
@@ -228,10 +233,10 @@ class FilterWidgetWorker extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 5.0),
+                      padding: EdgeInsets.only(bottom: 5.0),
                       child: Text(
                         "Jobs:",
                         style: TextStyle(
@@ -489,7 +494,7 @@ class FilterWidgetWorker extends StatelessWidget {
                               }
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             "Apply",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,

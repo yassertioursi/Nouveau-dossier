@@ -4,19 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DropJobs extends StatelessWidget {
+  const DropJobs({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<DropJobsProvider>(
       builder: (context, provider, child) {
         return Container(
-          padding: EdgeInsets.only(right: 4),
+          padding: const EdgeInsets.only(right: 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.black, width: 1.5),
           ),
           child: Flexible(
             child: DropdownButton<String>(
-              hint: Text(
+              hint: const Text(
                 "  Job:",
                 style: TextStyle(
                   color: MyColors.mainblue,
@@ -27,7 +29,7 @@ class DropJobs extends StatelessWidget {
               underline: Container(),
               focusColor: Colors.white,
               value: provider.dropdownValue,
-              icon: Icon(
+              icon: const Icon(
                 Icons.keyboard_arrow_down,
                 color: MyColors.mainblue,
                 size: 25,
@@ -43,7 +45,7 @@ class DropJobs extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       "  $value",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: MyColors.mainblue,
                         fontWeight: FontWeight.bold,
                       ),
@@ -61,7 +63,7 @@ class DropJobs extends StatelessWidget {
 
 class DropJobsProvider with ChangeNotifier {
   String? _dropdownValue;
-  List<String> _categories = Workers_Cat().cats;
+  final List<String> _categories = Workers_Cat().cats;
 
   String? get dropdownValue => _dropdownValue;
   List<String> get categories => _categories;

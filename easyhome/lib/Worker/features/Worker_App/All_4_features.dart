@@ -1,6 +1,5 @@
-import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Create_Post.dart';
-import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Deals&Apps.dart';
+
 import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Deals&Requs.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +17,13 @@ class Home_Worker extends StatefulWidget {
 class _Home_UserState extends State<Home_Worker> {
   int currentTab = 0;
   final List<Widget> screens = [
-    HomeWorkerMain(),
-    Map(),
+    const HomeWorkerMain(),
+    const Map(),
     DealsRequs(),
-    Profile(),
+    const Profile(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = HomeWorkerMain();
+  Widget currentScreen = const HomeWorkerMain();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class _Home_UserState extends State<Home_Worker> {
         floatingActionButton: Container(
           child: FloatingActionButton(
             backgroundColor: Colors.black,
-            child: Icon(Icons.add, color: Colors.white),
+            child: const Icon(Icons.add, color: Colors.white),
             onPressed: () {
               Create_Post New_Post = new Create_Post();
               New_Post.creat_post(context);
@@ -49,7 +48,7 @@ class _Home_UserState extends State<Home_Worker> {
         bottomNavigationBar: BottomAppBar(
           height: 70,
           color: MyColors.mainblue,
-          shape: CircularNotchedRectangle(),
+          shape: const CircularNotchedRectangle(),
           notchMargin: 3,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 0.0),
@@ -62,7 +61,7 @@ class _Home_UserState extends State<Home_Worker> {
                   child: MaterialButton(
                     onPressed: () {
                       setState(() {
-                        currentScreen = HomeWorkerMain();
+                        currentScreen = const HomeWorkerMain();
                         currentTab = 0;
                       });
                     },
@@ -76,15 +75,15 @@ class _Home_UserState extends State<Home_Worker> {
                               currentTab == 0 ? Colors.white : MyColors.grey4,
                         ),
                         currentTab == 0
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 2.0),
+                            ? const Padding(
+                                padding: EdgeInsets.only(top: 2.0),
                                 child: Text("Home",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold)),
                               )
-                            : Padding(
-                                padding: const EdgeInsets.only(top: 2.0),
+                            : const Padding(
+                                padding: EdgeInsets.only(top: 2.0),
                                 child: Text(''),
                               ),
                       ],
@@ -99,7 +98,7 @@ class _Home_UserState extends State<Home_Worker> {
                     child: MaterialButton(
                       onPressed: () {
                         setState(() {
-                          currentScreen = Map();
+                          currentScreen = const Map();
                           currentTab = 1;
                         });
                       },
@@ -113,16 +112,16 @@ class _Home_UserState extends State<Home_Worker> {
                                 currentTab == 1 ? Colors.white : MyColors.grey4,
                           ),
                           currentTab == 1
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
+                              ? const Padding(
+                                  padding: EdgeInsets.only(top: 2.0),
                                   child: Text(" Map",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       )),
                                 )
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
+                              : const Padding(
+                                  padding: EdgeInsets.only(top: 2.0),
                                   child: Text(''),
                                 ),
                         ],
@@ -152,15 +151,15 @@ class _Home_UserState extends State<Home_Worker> {
                                 currentTab == 2 ? Colors.white : MyColors.grey4,
                           ),
                           currentTab == 2
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
+                              ? const Padding(
+                                  padding: EdgeInsets.only(top: 2.0),
                                   child: Text(" Deals",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold)),
                                 )
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
+                              : const Padding(
+                                  padding: EdgeInsets.only(top: 2.0),
                                   child: Text(''),
                                 ),
                         ],
@@ -171,7 +170,7 @@ class _Home_UserState extends State<Home_Worker> {
                 MaterialButton(
                   onPressed: () {
                     setState(() {
-                      currentScreen = Profile();
+                      currentScreen = const Profile();
                       currentTab = 3;
                     });
                   },
@@ -187,16 +186,16 @@ class _Home_UserState extends State<Home_Worker> {
                         ),
                       ),
                       currentTab == 3
-                          ? Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
+                          ? const Padding(
+                              padding: EdgeInsets.only(top: 2.0),
                               child: Text("Account",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   )),
                             )
-                          : Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
+                          : const Padding(
+                              padding: EdgeInsets.only(top: 2.0),
                               child: Text(''),
                             ),
                     ],
@@ -216,7 +215,7 @@ class Map extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Text("Map"),
     );
   }
@@ -227,6 +226,6 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

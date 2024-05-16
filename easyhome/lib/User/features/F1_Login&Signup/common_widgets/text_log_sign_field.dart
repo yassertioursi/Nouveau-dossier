@@ -1,19 +1,19 @@
 import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/Validators.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:email_validator/email_validator.dart';
 
-Validators validators = new Validators();
+Validators validators = Validators();
 
+// ignore: must_be_immutable
 class Log_Field extends StatelessWidget {
   final GlobalKey<FormState> formstate;
   final String hint_text;
   final TextEditingController? controller;
   final Icon prefixIcon;
   final IconButton? suffixIcon;
-  bool isObscure = true;
+  bool? isObscure;
   String field_id;
   TextInputType keyboardtype;
 
@@ -30,16 +30,18 @@ class Log_Field extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (BuildContext context) => bloc_one()),
-        ChangeNotifierProvider(create: (BuildContext context) => bloc_two()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderValidate()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderObscure()),
       ],
-      child: Consumer<bloc_one>(builder: (context, bloc_1, child) {
+      child: Consumer<ProviderValidate>(builder: (context, bloc_1, child) {
         return Container(
           decoration: BoxDecoration(
             color: MyColors.loggrey1,
             boxShadow: [
               BoxShadow(
-                offset: Offset(0, 0.5),
+                offset: const Offset(0, 0.5),
                 blurRadius: bloc_1.validated ? 18 : 2,
                 color: bloc_1.validated
                     ? Colors.black.withOpacity(0.25)
@@ -49,13 +51,13 @@ class Log_Field extends StatelessWidget {
           ),
           child: Form(
               key: formstate,
-              child: Consumer<bloc_two>(
+              child: Consumer<ProviderObscure>(
                 builder: (context, bloc_2, child) => TextFormField(
                   maxLines: 1,
                   keyboardType: keyboardtype,
                   cursorWidth: 3,
                   cursorColor: MyColors.mainblue,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: MyColors.mainblue,
                     fontWeight: FontWeight.w800,
                     fontSize: 20,
@@ -124,6 +126,7 @@ class Log_Field extends StatelessWidget {
                         }
                         break;
                     }
+                    return null;
                   },
                   obscureText: this.field_id == "signup-password" ||
                           this.field_id == "login-password"
@@ -152,14 +155,14 @@ class Log_Field extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontSize: 17,
                     ),
-                    border: OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
+                    border: const OutlineInputBorder(),
+                    enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0)),
                       borderSide: BorderSide(
                         color: MyColors.loggrey1,
                       ),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0)),
                       borderSide: BorderSide(
                         color: Colors.white,

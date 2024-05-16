@@ -1,14 +1,15 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/Dwwira.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Ok_Provider.dart';
-import 'package:easyhome/User/features/User_App/F3_Create_Post/Bloc/images_bloc.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+
+import 'package:easyhome/User/features/User_App/F3_Create_Post/Provider/ProviderImages.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Services/Create_post_service.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/UploadImages.dart';
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -28,7 +29,7 @@ class Create_Post {
       backgroundColor: Colors.white,
       useSafeArea: true,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20.0),
           topRight: Radius.circular(20.0),
@@ -42,18 +43,18 @@ class Create_Post {
               create: (context) => DropJobsProvider(),
             ),
             ChangeNotifierProvider(
-              create: (BuildContext context) => Bloc_Image(),
+              create: (BuildContext context) => ProviderImages(),
             ),
             ChangeNotifierProvider(
-              create: (BuildContext context) => bloc_five(),
+              create: (BuildContext context) => ProviderLoading(),
             ),
           ],
-          child: Consumer<Bloc_Image>(
-            builder: (context, bloc_image, child) {
+          child: Consumer<ProviderImages>(
+            builder: (context, providerimages, child) {
               return Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 20),
                 height: MediaQuery.of(context).size.height - 50,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(16.0),
@@ -65,12 +66,12 @@ class Create_Post {
                     Column(
                       children: [
                         Container(
-                          color: Color(0xFFA2A2A2),
+                          color: const Color(0xFFA2A2A2),
                           height: 7,
                           width: 70,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0, bottom: 20),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 15.0, bottom: 20),
                           child: Text(
                             "Create a new post",
                             style: TextStyle(
@@ -82,15 +83,16 @@ class Create_Post {
                         ),
                         Container(
                           height: 0.1,
-                          decoration:
-                              BoxDecoration(color: Colors.grey, boxShadow: [
-                            BoxShadow(
+                          decoration: const BoxDecoration(
                               color: Colors.grey,
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                              offset: Offset(0, -1),
-                            )
-                          ]),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: Offset(0, -1),
+                                )
+                              ]),
                         )
                       ],
                     ),
@@ -112,12 +114,13 @@ class Create_Post {
                                     if (value!.isEmpty) {
                                       return "Enter a title";
                                     }
+                                    return null;
                                   },
                                   maxLengthEnforcement:
                                       MaxLengthEnforcement.enforced,
                                   maxLength: 70,
                                   cursorColor: MyColors.mainblue,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     label: Text(
                                       "Title :",
                                       style: TextStyle(
@@ -177,7 +180,7 @@ class Create_Post {
                                     maxLength: 200,
                                     maxLines: 7,
                                     cursorColor: MyColors.mainblue,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       label: Text(
                                         "Description :",
                                         style: TextStyle(
@@ -232,9 +235,10 @@ class Create_Post {
                                               !value.isEmpty) {
                                             return "";
                                           }
+                                          return null;
                                         },
                                         keyboardType: TextInputType.number,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 14, color: Colors.black),
                                         textAlign: TextAlign.start,
                                         onChanged: (value) {
@@ -243,7 +247,7 @@ class Create_Post {
                                         },
                                         controller: priceController,
                                         cursorColor: Colors.black,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           isDense: true,
                                           errorMaxLines: 3,
                                           errorStyle: TextStyle(fontSize: 8),
@@ -293,16 +297,25 @@ class Create_Post {
                                 ),
                               ],
                             ),
-                            Consumer<Bloc_Image>(
-                              builder: (context, bloc_image, child) {
+                            Consumer<ProviderImages>(
+                              builder: (context, providerimages, child) {
                                 ImagesUpload images_upload = ImagesUpload();
-                                if (bloc_image.Images.isEmpty) {
+                                if (providerimages.Images.isEmpty) {
                                   return Padding(
                                     padding: const EdgeInsets.fromLTRB(
                                         15, 30, 15, 20),
                                     child: Container(
                                       width: MediaQuery.of(context).size.width -
                                           30,
+                                      height: 180,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFFDCECFF),
+                                        border: Border.all(
+                                          color: MyColors.mainblue,
+                                          width: 3,
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -314,12 +327,12 @@ class Create_Post {
                                             ),
                                             onTap: () async {
                                               await images_upload.uploadImages(
-                                                  context, bloc_image);
+                                                  context, providerimages);
 
-                                              bloc_image.just_notify();
+                                              providerimages.just_notify();
                                             },
                                           ),
-                                          Text(
+                                          const Text(
                                             "Upload Images",
                                             style: TextStyle(
                                               color: MyColors.mainblue,
@@ -327,15 +340,6 @@ class Create_Post {
                                             ),
                                           ),
                                         ],
-                                      ),
-                                      height: 180,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFDCECFF),
-                                        border: Border.all(
-                                          color: MyColors.mainblue,
-                                          width: 3,
-                                        ),
-                                        borderRadius: BorderRadius.circular(15),
                                       ),
                                     ),
                                   );
@@ -347,7 +351,7 @@ class Create_Post {
                                         padding: const EdgeInsets.only(
                                           top: 30.0,
                                         ),
-                                        child: Container(
+                                        child: SizedBox(
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .width +
@@ -358,13 +362,14 @@ class Create_Post {
                                               20,
                                           child: PageView.builder(
                                             controller: Image_Controller,
-                                            itemCount: bloc_image.Images.length,
+                                            itemCount:
+                                                providerimages.Images.length,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
                                               return AspectRatio(
                                                 aspectRatio: 1.0,
                                                 child: Image.file(
-                                                  bloc_image.Images[index],
+                                                  providerimages.Images[index],
                                                   fit: BoxFit.fill,
                                                 ),
                                               );
@@ -372,16 +377,17 @@ class Create_Post {
                                           ),
                                         ),
                                       ),
-                                      bloc_image.Images.length > 1
+                                      providerimages.Images.length > 1
                                           ? Center(
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     top: 25.0, bottom: 25),
                                                 child: SmoothPageIndicator(
                                                   controller: Image_Controller,
-                                                  count:
-                                                      bloc_image.Images.length,
-                                                  effect: ScrollingDotsEffect(
+                                                  count: providerimages
+                                                      .Images.length,
+                                                  effect:
+                                                      const ScrollingDotsEffect(
                                                     dotColor: Color(0xFFD7D4D4),
                                                     activeDotColor:
                                                         MyColors.mainorange,
@@ -392,7 +398,7 @@ class Create_Post {
                                                 ),
                                               ),
                                             )
-                                          : Text(""" """),
+                                          : const Text(""" """),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
@@ -406,7 +412,7 @@ class Create_Post {
                                                   "lib/utils/images/photo.png",
                                                   fit: BoxFit.fill,
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "Add Images",
                                                   style: TextStyle(
                                                     color: MyColors.mainblue,
@@ -418,18 +424,17 @@ class Create_Post {
                                             onTap: () async {
                                               await images_upload
                                                   .uploadImageFromCamera(
-                                                      context, bloc_image);
-                                              bloc_image.just_notify();
+                                                      context, providerimages);
+                                              providerimages.just_notify();
                                             },
                                           ),
                                           InkWell(
-                                            child: Column(
+                                            child: const Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(2),
+                                                  padding: EdgeInsets.all(2),
                                                   child: Icon(
                                                     Icons.delete,
                                                     size: 30,
@@ -446,8 +451,8 @@ class Create_Post {
                                               ],
                                             ),
                                             onTap: () async {
-                                              bloc_image.Images.clear();
-                                              bloc_image.just_notify();
+                                              providerimages.Images.clear();
+                                              providerimages.just_notify();
                                             },
                                           ),
                                         ],
@@ -463,13 +468,13 @@ class Create_Post {
                               child: SizedBox(
                                 height: 40,
                                 width: MediaQuery.of(context).size.width - 120,
-                                child: Consumer<bloc_five>(
-                                    builder: (context, bloc_5, child) {
+                                child: Consumer<ProviderLoading>(
+                                    builder: (context, providerloading, child) {
                                   return Consumer<DropJobsProvider>(
                                       builder: (context, providerdrop, child) {
                                     return ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Colors.black,
+                                          backgroundColor: Colors.black,
                                         ),
                                         onPressed: () async {
                                           if (formstate_title.currentState!.validate() &&
@@ -477,8 +482,8 @@ class Create_Post {
                                                   .validate() &&
                                               Workers_Cat().cats.contains(
                                                   providerdrop.dropdownValue)) {
-                                            if (!bloc_5.isLoading) {
-                                              bloc_5.setLoad(true);
+                                            if (!providerloading.isLoading) {
+                                              providerloading.setLoad(true);
                                               CreatePostService
                                                   create_post_ser =
                                                   CreatePostService();
@@ -487,24 +492,24 @@ class Create_Post {
                                                 priceController.text,
                                                 descController.text,
                                                 providerdrop.dropdownValue!,
-                                                bloc_image.Images,
+                                                providerimages.Images,
                                                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDQ3MTg1NSwiZXhwIjoxNzIyMjQ3ODU1fQ.qXVSs5UooaLHCjjhJzIfL5DsCVW5oxzEvBdFrPF07M4",
                                               );
-                                              bloc_5.setLoad(false);
+                                              providerloading.setLoad(false);
                                             }
                                           } else {
                                             print(providerdrop.dropdownValue);
                                             print("error");
                                           }
                                         },
-                                        child: !bloc_5.isLoading
-                                            ? Text("Create",
+                                        child: !providerloading.isLoading
+                                            ? const Text("Create",
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 20,
                                                     fontWeight:
                                                         FontWeight.bold))
-                                            : SizedBox(
+                                            : const SizedBox(
                                                 height: 20,
                                                 width: 20,
                                                 child:

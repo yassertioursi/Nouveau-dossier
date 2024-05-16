@@ -7,9 +7,9 @@ class MyColors {
   static const Color mainpink = Color(0xFFFFB0B0);
   static const Color stars = Color(0xFFED8A19);
   static const Color maingrey = Color(0xFFEFECEC);
-  static Color loggrey1 = Color(0xFFEEEEEE);
-  static Color loggrey2 = Color(0xFFE9E9E9);
-  static Color grey3 = Color(0xFF757575);
-  static Color grey4 = Color(0xFFB4B4B4);
-  static Color green = Color(0xFF137A23);
+  static const Color loggrey1 = Color(0xFFEEEEEE);
+  static const Color loggrey2 = Color(0xFFE9E9E9);
+  static const Color grey3 = Color(0xFF757575);
+  static const Color grey4 = Color(0xFFB4B4B4);
+  static const Color green = Color.fromRGBO(19, 122, 35, 1);
 }

@@ -1,8 +1,8 @@
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/Dwwira.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Ok_Provider.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/workers_search.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/workers_selected.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Get_Worker_ById.dart';
+// ignore_for_file: must_be_immutable
+
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_search.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_selected.dart';
+
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Search_Main.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Send_Request(update_post).dart';
 
@@ -10,7 +10,7 @@ import 'package:easyhome/utils/constants/colors.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:provider/provider.dart';
 
 import 'filter__widget.dart';
@@ -38,19 +38,19 @@ class SearchWorkers extends SearchDelegate {
 
   @override
   TextStyle? get searchFieldStyle =>
-      TextStyle(color: MyColors.mainblue, fontSize: 20);
+      const TextStyle(color: MyColors.mainblue, fontSize: 20);
 
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
-      textSelectionTheme: TextSelectionThemeData(
+      textSelectionTheme: const TextSelectionThemeData(
         cursorColor: MyColors.mainblue,
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         toolbarHeight: 90,
         color: MyColors.mainblue,
       ),
-      inputDecorationTheme: InputDecorationTheme(
+      inputDecorationTheme: const InputDecorationTheme(
         contentPadding: EdgeInsets.fromLTRB(15, 15, 10, 15),
         filled: true,
         fillColor: Colors.white,
@@ -113,7 +113,7 @@ class SearchWorkers extends SearchDelegate {
                 },
               );
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.tune,
               size: 30,
             )),
@@ -127,7 +127,7 @@ class SearchWorkers extends SearchDelegate {
         onPressed: () {
           close(context, "");
         },
-        icon: Icon(
+        icon: const Icon(
           Icons.keyboard_arrow_left,
           size: 50,
         ));
@@ -135,7 +135,7 @@ class SearchWorkers extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text("");
+    return const Text("");
   }
 
   @override
@@ -157,8 +157,14 @@ class SearchWorkers extends SearchDelegate {
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: Dwwira(color: MyColors.mainblue, height: 50, width: 50));
+            return const Center(
+                child: SizedBox(
+              height: 50,
+              width: 50,
+              child: CircularProgressIndicator(
+                color: MyColors.mainblue,
+              ),
+            ));
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
@@ -174,9 +180,14 @@ class SearchWorkers extends SearchDelegate {
                     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                        child: Dwwira(
-                            color: MyColors.mainblue, height: 50, width: 50));
+                    return const Center(
+                        child: SizedBox(
+                      height: 50.0,
+                      width: 20.0,
+                      child: CircularProgressIndicator(
+                        color: MyColors.mainblue,
+                      ),
+                    ));
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
@@ -193,7 +204,7 @@ class SearchWorkers extends SearchDelegate {
       );
     } else if (Id_Search == 1) {
       if (query.isEmpty) {
-        return Text("");
+        return const Text("");
       } else {
         Search search = Search();
 
@@ -211,9 +222,14 @@ class SearchWorkers extends SearchDelegate {
                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                    child: Dwwira(
-                        color: MyColors.mainblue, height: 50, width: 50));
+                return const Center(
+                    child: SizedBox(
+                  height: 50.0,
+                  width: 50.0,
+                  child: CircularProgressIndicator(
+                    color: MyColors.mainblue,
+                  ),
+                ));
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
@@ -272,9 +288,14 @@ class SearchWorkers extends SearchDelegate {
               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                  child:
-                      Dwwira(color: MyColors.mainblue, height: 50, width: 50));
+              return const Center(
+                  child: SizedBox(
+                height: 50,
+                width: 50,
+                child: CircularProgressIndicator(
+                  color: MyColors.mainblue,
+                ),
+              ));
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
@@ -330,6 +351,7 @@ class WorkersList extends StatelessWidget {
                       ),
                       postId.isNotEmpty
                           ? Align(
+                              alignment: Alignment.topLeft,
                               child: Padding(
                                 padding:
                                     const EdgeInsets.only(top: 30, left: 22),
@@ -347,23 +369,23 @@ class WorkersList extends StatelessWidget {
                                   },
                                   child: !workerselectprovider.workers.contains(
                                           search.workers![index]["_id"])
-                                      ? Icon(Icons.circle_outlined)
-                                      : Icon(Icons.check_circle),
+                                      ? const Icon(Icons.circle_outlined)
+                                      : const Icon(Icons.check_circle),
                                 ),
                               ),
-                              alignment: Alignment.topLeft,
                             )
-                          : Text(" "),
+                          : const Text(" "),
                       Align(
                         alignment: Alignment.topRight,
                         child: Padding(
-                            padding: EdgeInsets.only(top: 24, right: 30),
+                            padding: const EdgeInsets.only(top: 24, right: 30),
                             child: IconButton(
                                 onPressed: () {
                                   search.workers!.removeAt(index);
+
                                   workersprovider.notifyListeners();
                                 },
-                                icon: Icon(Icons.close))),
+                                icon: const Icon(Icons.close))),
                       ),
                     ],
                   );
@@ -384,7 +406,7 @@ class WorkersList extends StatelessWidget {
                         height: 70,
                         width: MediaQuery.of(context).size.width,
                         color: Colors.black,
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Send",
                             style: TextStyle(
@@ -397,7 +419,7 @@ class WorkersList extends StatelessWidget {
                       ),
                     ),
                   )
-                : Text(''),
+                : const Text(''),
           ],
         );
       });

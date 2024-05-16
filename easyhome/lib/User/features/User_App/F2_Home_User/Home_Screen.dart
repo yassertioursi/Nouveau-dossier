@@ -1,10 +1,11 @@
-import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Search_Main.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/SearchWorkers.dart';
 
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'common_widgets/Worker_One.dart';
@@ -42,7 +43,7 @@ class HomeUser extends StatelessWidget {
                       color: MyColors.loggrey1,
                       boxShadow: [
                         BoxShadow(
-                          offset: Offset(0, 0.5),
+                          offset: const Offset(0, 0.5),
                           blurRadius: 1,
                           color: Colors.black.withOpacity(0.1),
                         ),
@@ -68,14 +69,14 @@ class HomeUser extends StatelessWidget {
                         maxLines: 1,
                         cursorWidth: 3,
                         cursorColor: MyColors.mainblue,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: MyColors.mainblue,
                           fontWeight: FontWeight.w800,
                           fontSize: 20,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(20),
-                          suffixIcon: Icon(
+                          contentPadding: const EdgeInsets.all(20),
+                          suffixIcon: const Icon(
                             Icons.search,
                             color: Colors.grey,
                           ),
@@ -87,14 +88,14 @@ class HomeUser extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             fontSize: 17,
                           ),
-                          border: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(
+                          border: const OutlineInputBorder(),
+                          enabledBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             borderSide: BorderSide(
                               color: Colors.white,
                             ),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             borderSide: BorderSide(
                               color: Colors.white,
@@ -109,8 +110,8 @@ class HomeUser extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15.0, bottom: 13),
+          const Padding(
+            padding: EdgeInsets.only(left: 15.0, bottom: 13),
             child: Text(
               "Categorys",
               style: TextStyle(
@@ -122,41 +123,39 @@ class HomeUser extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 25),
-            child: Container(
+            child: SizedBox(
               height: 70,
               child: ListView.builder(
                 itemCount: workers_cat.cats.length,
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => Container(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: MyColors.mainblue,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: Center(
-                          child: TextButton(
-                            child: Text("${workers_cat.cats[index]}",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                            onPressed: () {
-                              showSearch(
-                                  context: context,
-                                  delegate: SearchWorkers(
-                                      jobs: workers_cat.cats
-                                          .sublist(index, index + 1),
-                                      Id_Search: 2,
-                                      rating: 0,
-                                      wilaya: "All",
-                                      sort: "Default",
-                                      postId: ""));
-                              ;
-                            },
-                          ),
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: MyColors.mainblue,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: Center(
+                        child: TextButton(
+                          child: Text("${workers_cat.cats[index]}",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          onPressed: () {
+                            showSearch(
+                                context: context,
+                                delegate: SearchWorkers(
+                                    jobs: workers_cat.cats
+                                        .sublist(index, index + 1),
+                                    Id_Search: 2,
+                                    rating: 0,
+                                    wilaya: "All",
+                                    sort: "Default",
+                                    postId: ""));
+                            ;
+                          },
                         ),
                       ),
                     ),
@@ -167,7 +166,7 @@ class HomeUser extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0.0, 0, 0, 5),
-            child: Container(
+            child: SizedBox(
               height: 220,
               child: PageView(
                 controller: Image_Controller,
@@ -202,7 +201,7 @@ class HomeUser extends StatelessWidget {
               child: SmoothPageIndicator(
                   controller: Image_Controller,
                   count: 3,
-                  effect: ExpandingDotsEffect(
+                  effect: const ExpandingDotsEffect(
                       dotColor: Color(0xFFD7D4D4),
                       activeDotColor: Color(0xFF666363),
                       dotHeight: 13,
@@ -210,8 +209,8 @@ class HomeUser extends StatelessWidget {
                   onDotClicked: (index) {}),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15.0, bottom: 20),
+          const Padding(
+            padding: EdgeInsets.only(left: 15.0, bottom: 20),
             child: Text(
               "Best Workers",
               style: TextStyle(
