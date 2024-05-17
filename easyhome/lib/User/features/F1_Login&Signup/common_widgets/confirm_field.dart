@@ -32,8 +32,8 @@ class Confirm_field extends StatelessWidget {
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  offset: const Offset(0, 0.5),
-                  blurRadius: providervalidate.validated ? 18 : 2,
+                  offset: const Offset(0, 0.2),
+                  blurRadius: providervalidate.validated ? 4 : 2,
                   color: providervalidate.validated
                       ? Colors.black.withOpacity(0.25)
                       : Colors.black.withOpacity(0.0),

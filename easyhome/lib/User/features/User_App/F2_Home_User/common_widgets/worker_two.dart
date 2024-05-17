@@ -89,7 +89,7 @@ class Worker_two extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "$name",
+                              name,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -182,14 +182,14 @@ class Worker_two extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          "$wilaya",
+                          wilaya,
                           style: const TextStyle(
                             color: MyColors.mainblue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          "($experience)",
+                          "(${experience.toInt()})",
                           style: const TextStyle(color: Color(0xFFC7C7C7)),
                         ),
                       ],

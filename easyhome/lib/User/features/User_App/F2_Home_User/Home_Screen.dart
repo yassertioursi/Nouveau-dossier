@@ -25,7 +25,7 @@ class HomeUser extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 120,
                 width: 80,
                 child: Image.asset(
@@ -111,7 +111,7 @@ class HomeUser extends StatelessWidget {
             ],
           ),
           const Padding(
-            padding: EdgeInsets.only(left: 15.0, bottom: 13),
+            padding: EdgeInsets.only(left: 15.0, bottom: 15),
             child: Text(
               "Categorys",
               style: TextStyle(
@@ -122,7 +122,9 @@ class HomeUser extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 25),
+            padding: const EdgeInsets.only(
+              bottom: 25,
+            ),
             child: SizedBox(
               height: 70,
               child: ListView.builder(
@@ -139,7 +141,7 @@ class HomeUser extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                       child: Center(
                         child: TextButton(
-                          child: Text("${workers_cat.cats[index]}",
+                          child: Text(workers_cat.cats[index],
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold)),
@@ -165,9 +167,9 @@ class HomeUser extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 0, 0, 5),
+            padding: const EdgeInsets.fromLTRB(0.0, 20, 0, 5),
             child: SizedBox(
-              height: 220,
+              height: 240,
               child: PageView(
                 controller: Image_Controller,
                 children: [
@@ -210,7 +212,7 @@ class HomeUser extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(left: 15.0, bottom: 20),
+            padding: EdgeInsets.only(left: 15.0, bottom: 20, top: 25),
             child: Text(
               "Best Workers",
               style: TextStyle(

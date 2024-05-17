@@ -11,6 +11,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../Provider/rating_provider.dart';
+import '../Provider/sort_by_provider.dart';
+import '../Provider/wilaya_provider.dart';
+
 class FilterWidget extends StatelessWidget {
   List<String> jobs;
   String wilaya;
@@ -482,31 +486,5 @@ class FilterWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class SortByProvider extends ChangeNotifier {
-  String selectedSort = "Default";
-
-  void setSelectedSort(String sort) {
-    selectedSort = sort;
-    notifyListeners();
-  }
-}
-
-class WilayaProvider extends ChangeNotifier {
-  String selectedWilaya = "All";
-
-  void setSelectedWilaya(String wilaya) {
-    selectedWilaya = wilaya;
-    notifyListeners();
-  }
-}
-
-class RatingProvider extends ChangeNotifier {
-  double rating = 0;
-
-  setrating(r) {
-    rating = r;
   }
 }

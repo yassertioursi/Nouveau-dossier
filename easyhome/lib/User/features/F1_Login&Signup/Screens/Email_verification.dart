@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/End.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/dialogs.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Animation/animation.dart';

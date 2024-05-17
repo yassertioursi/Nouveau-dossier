@@ -5,6 +5,7 @@ import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_se
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Search_Main.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Send_Request(update_post).dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 
 import 'package:easyhome/utils/constants/colors.dart';
 
@@ -153,8 +154,7 @@ class SearchWorkers extends SearchDelegate {
       }
 
       return FutureBuilder<String>(
-        future: search.search_workers(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+        future: search.search_workers(TokenUser.token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -176,8 +176,7 @@ class SearchWorkers extends SearchDelegate {
                     create: (BuildContext context) => WorkersSelect()),
               ],
               child: FutureBuilder<String>(
-                future: search.search_workers(
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+                future: search.search_workers(TokenUser.token),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -218,8 +217,7 @@ class SearchWorkers extends SearchDelegate {
                 create: (BuildContext context) => WorkersSelect()),
           ],
           child: FutureBuilder<String>(
-            future: search.search_workers(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+            future: search.search_workers(TokenUser.token),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -284,8 +282,7 @@ class SearchWorkers extends SearchDelegate {
               create: (BuildContext context) => WorkersSelect()),
         ],
         child: FutureBuilder<String>(
-          future: search.search_workers(
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+          future: search.search_workers(TokenUser.token),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -332,6 +329,11 @@ class WorkersList extends StatelessWidget {
             ListView.builder(
                 itemCount: search.workers!.length,
                 itemBuilder: (BuildContext context, int index) {
+                  String rt1 = search.workers![index]["rating"].toString();
+                  String exp1 = search.workers![index]["experience"].toString();
+                  double rating = double.parse(rt1);
+                  double exp = double.parse(exp1);
+
                   return Stack(
                     children: [
                       Worker_two(
@@ -339,8 +341,8 @@ class WorkersList extends StatelessWidget {
                         email: "",
                         wilaya: search.workers![index]["wilaya"] ?? "",
                         phoneNumber: "",
-                        rating: search.workers![index]["rating"] ?? "",
-                        experience: search.workers![index]["experience"] ?? "",
+                        rating: rating,
+                        experience: exp,
                         profilePicture:
                             search.workers![index]["profilePicture"] ?? "",
                         job: search.workers![index]["job"] ?? "",
@@ -398,7 +400,7 @@ class WorkersList extends StatelessWidget {
                         print(workerselectprovider.workers);
                         SendRequest sendRequest = SendRequest();
                         sendRequest.sendRequest(
-                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
+                            TokenUser.token,
                             "663428a0685145d9db5d5067",
                             workerselectprovider.workers);
                       },

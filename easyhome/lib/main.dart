@@ -1,3 +1,5 @@
+import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
+import 'package:easyhome/User/features/User_App/All_5_features.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
 import 'package:easyhome/Worker/features/Worker_App/All_4_features.dart';
@@ -18,7 +20,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
+    return const ScreenUtilInit(
       // ignore: prefer_const_constructors
       designSize: Size(360, 690),
       minTextAdapt: true,

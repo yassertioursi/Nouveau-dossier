@@ -35,15 +35,16 @@ class Log_Field extends StatelessWidget {
         ChangeNotifierProvider(
             create: (BuildContext context) => ProviderObscure()),
       ],
-      child: Consumer<ProviderValidate>(builder: (context, bloc_1, child) {
+      child: Consumer<ProviderValidate>(
+          builder: (context, providervalidate, child) {
         return Container(
           decoration: BoxDecoration(
             color: MyColors.loggrey1,
             boxShadow: [
               BoxShadow(
-                offset: const Offset(0, 0.5),
-                blurRadius: bloc_1.validated ? 18 : 2,
-                color: bloc_1.validated
+                offset: const Offset(0, 0.2),
+                blurRadius: providervalidate.validated ? 8 : 2,
+                color: providervalidate.validated
                     ? Colors.black.withOpacity(0.25)
                     : Colors.black.withOpacity(0.0),
               ),
@@ -89,29 +90,29 @@ class Log_Field extends StatelessWidget {
                       case "signup-email":
                         if (validators.Validate_email_signup(value!) ==
                             "Email not valid") {
-                          bloc_1.setValidated(false);
+                          providervalidate.setValidated(false);
                           return "Email not valid";
                         } else {
-                          bloc_1.setValidated(true);
+                          providervalidate.setValidated(true);
                         }
 
                         break;
                       case "signup-password":
                         if (validators.Validate_password_signup(value!) ==
                             "At least 6 characters") {
-                          bloc_1.setValidated(false);
+                          providervalidate.setValidated(false);
                           return "At least 6 characters";
                         } else
-                          bloc_1.setValidated(true);
+                          providervalidate.setValidated(true);
                         ;
                         break;
                       case "signup-fname" || "signup-lname":
                         if (validators.Validate_name(value!) ==
                             "Enter a valid name") {
-                          bloc_1.setValidated(false);
+                          providervalidate.setValidated(false);
                           return "Enter a valid name";
                         } else {
-                          bloc_1.setValidated(true);
+                          providervalidate.setValidated(true);
                         }
 
                         break;
@@ -119,10 +120,10 @@ class Log_Field extends StatelessWidget {
                       case "phone-nbr":
                         if (validators.Validate_phone_number(value!) ==
                             "Enter a Valid number") {
-                          bloc_1.setValidated(false);
+                          providervalidate.setValidated(false);
                           return "Enter a Valid number:(exp: 0793818443)";
                         } else {
-                          bloc_1.setValidated(true);
+                          providervalidate.setValidated(true);
                         }
                         break;
                     }

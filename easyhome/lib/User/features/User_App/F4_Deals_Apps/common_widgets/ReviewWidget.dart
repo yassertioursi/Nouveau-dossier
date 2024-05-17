@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/filter__widget.dart';
+
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Accept_Finish.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Create_Review.dart';
 import 'package:easyhome/utils/constants/colors.dart';
@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+
+import '../../F2_Home_User/Provider/rating_provider.dart';
 
 // ignore: must_be_immutable
 class Review extends StatelessWidget {
