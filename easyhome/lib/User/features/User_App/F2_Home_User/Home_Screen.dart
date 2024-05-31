@@ -1,5 +1,7 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:easyhome/User/features/User_App/F2_Home_User/Services/GetBestWorker.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/SearchWorkers.dart';
 
@@ -16,6 +18,7 @@ class HomeUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GetBestWorkers getBestWorkers = GetBestWorkers();
     Workers_Cat workers_cat = Workers_Cat();
     return SingleChildScrollView(
       child: Column(
@@ -107,6 +110,13 @@ class HomeUser extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              InkWell(
+                child: Icon(
+                  Icons.notifications_rounded,
+                  color: MyColors.mainblue,
+                ),
+                onTap: () {},
               ),
             ],
           ),
@@ -222,19 +232,64 @@ class HomeUser extends StatelessWidget {
               ),
             ),
           ),
-          Worker_One(
-            firstName: "Levi",
-            lastName: "Ackeraman",
-            email: "levi@gmail.com",
-            wilaya: "Tlemcen",
-            phoneNumber: "0799999999",
-            rating: "4.8",
-            ratingsNumber: "99",
-            experience: "150",
-            profilePicture:
-                "https://m.media-amazon.com/images/I/41AY0W4qFOL._AC_UF894,1000_QL80_.jpg",
-            job: "CLeaner",
-            isCertified: true,
+          FutureBuilder<String>(
+            future: getBestWorkers.getbestworkers(TokenUser.token),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: const Center(
+                      child: SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: MyColors.mainblue,
+                      ),
+                    ),
+                  )),
+                );
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                return SizedBox(
+                  height: 210,
+                  child: ListView.builder(
+                      itemCount: getBestWorkers.bestWorkers!.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        String rt1 = getBestWorkers.bestWorkers![index]
+                                ["rating"]
+                            .toString();
+                        String exp1 = getBestWorkers.bestWorkers![index]
+                                ["experience"]
+                            .toString();
+                        double rating = double.parse(rt1);
+                        double exp = double.parse(exp1);
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
+                          child: Worker_One(
+                            name: getBestWorkers.bestWorkers![index]["name"] ??
+                                "",
+                            wilaya: getBestWorkers.bestWorkers![index]
+                                    ["wilaya"] ??
+                                "",
+                            experience: "44",
+                            profilePicture: getBestWorkers.bestWorkers![index]
+                                    ["profilePicture"] ??
+                                "",
+                            job:
+                                getBestWorkers.bestWorkers![index]["job"] ?? "",
+                            isCertified: getBestWorkers.bestWorkers![index]
+                                    ["isCertified"] ??
+                                false,
+                            rating: rating,
+                          ),
+                        );
+                      }),
+                );
+              }
+            },
           ),
         ],
       ),

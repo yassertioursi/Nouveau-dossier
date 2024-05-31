@@ -37,6 +37,8 @@ class Worker_two extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    String ratingStr = rating.toString();
+    double roundedRating = double.parse(rating.toStringAsFixed(1));
     bool yesorno = true;
     return MultiProvider(
       providers: [
@@ -171,7 +173,7 @@ class Worker_two extends StatelessWidget {
                                   padding: const EdgeInsets.only(
                                       left: 4.0, top: 3.0),
                                   child: Text(
-                                    "$rating ",
+                                    "$roundedRating ",
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
@@ -188,9 +190,21 @@ class Worker_two extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          "(${experience.toInt()})",
-                          style: const TextStyle(color: Color(0xFFC7C7C7)),
+                        Column(
+                          children: [
+                            Column(
+                              children: [
+                                const Text("EXP",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500)),
+                                Text(
+                                  "${experience.toInt()}",
+                                  style:
+                                      const TextStyle(color: Color(0xFFC7C7C7)),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),
