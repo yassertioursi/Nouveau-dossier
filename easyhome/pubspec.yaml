@@ -57,6 +57,7 @@ flutter:
     - lib/utils/images/save-instagram1.png
     - lib/utils/images/web-browser.png
     - lib/utils/images/web-browser1.png
+    - lib/utils/images/alert.png
     
     
 

@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/GetBestWorker.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/NotificationsWidget.dart';
+import 'package:easyhome/User/features/User_App/F3_Create_Post/Create_Post.dart';
 import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/SearchWorkers.dart';
@@ -111,12 +113,19 @@ class HomeUser extends StatelessWidget {
                   ),
                 ),
               ),
-              InkWell(
-                child: Icon(
-                  Icons.notifications_rounded,
-                  color: MyColors.mainblue,
+              Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: InkWell(
+                  child: Icon(
+                    size: 40,
+                    Icons.notifications_rounded,
+                    color: MyColors.mainblue,
+                  ),
+                  onTap: () {
+                    MyNotifications notifications = MyNotifications();
+                    notifications.showMyNotifications(context);
+                  },
                 ),
-                onTap: () {},
               ),
             ],
           ),

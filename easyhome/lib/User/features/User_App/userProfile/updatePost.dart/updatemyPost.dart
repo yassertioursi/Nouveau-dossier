@@ -21,6 +21,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../F3_Create_Post/Services/drop_jobs_provider.dart';
+
 class UpdateMyPost {
   GlobalKey<FormState> formstate_title = GlobalKey();
   GlobalKey<FormState> formstate_desc = GlobalKey();

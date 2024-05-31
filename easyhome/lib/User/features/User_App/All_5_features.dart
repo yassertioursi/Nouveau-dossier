@@ -67,7 +67,7 @@ class _Home_UserState extends State<Home_User> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 buildNavItem(
-                  icon: FontAwesomeIcons.home,
+                  icon: FontAwesomeIcons.house,
                   label: 'Home',
                   index: 0,
                 ),

@@ -5,6 +5,8 @@ import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../Services/drop_jobs_provider.dart';
+
 class DropJobs extends StatelessWidget {
   String inital;
   DropJobs({super.key, required this.inital});
@@ -66,18 +68,5 @@ class DropJobs extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class DropJobsProvider with ChangeNotifier {
-  String? _dropdownValue;
-  final List<String> _categories = Workers_Cat().cats;
-
-  String? get dropdownValue => _dropdownValue;
-  List<String> get categories => _categories;
-
-  void updateDropdownValue(String? newValue) {
-    _dropdownValue = newValue;
-    notifyListeners();
   }
 }

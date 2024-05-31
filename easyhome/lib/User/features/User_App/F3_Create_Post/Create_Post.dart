@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import 'Services/drop_jobs_provider.dart';
 import 'commonWidgets/Drop__jobs.dart';
 
 class Create_Post {

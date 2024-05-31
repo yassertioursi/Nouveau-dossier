@@ -10,6 +10,7 @@ import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Decline_Ap
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Get_My_Apps.dart';
 
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/common_widgets/CreateDealWidget.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -26,8 +27,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (BuildContext context) => RefreshApps()),
       ],
       child: FutureBuilder<String>(
-        future: getapps.getApps(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+        future: getapps.getApps(TokenUser.token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -253,9 +253,7 @@ class AppItem extends StatelessWidget {
                           if (!providerloading.isLoading) {
                             providerloading.setLoad(true);
                             DeclineApp declineApp = DeclineApp();
-                            await declineApp.declineApp(
-                                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
-                                appId);
+                            await declineApp.declineApp(TokenUser.token, appId);
 
                             stss[index] = "Declined";
 

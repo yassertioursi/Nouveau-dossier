@@ -10,6 +10,7 @@ import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart'
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Home_Worker.dart';
 import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Deals&Requs.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/Switch/switch_cubit.dart';
+import 'package:easyhome/Worker/features/Worker_App/workerProfile/UI/screens/worker_profile_sceen.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,11 +36,11 @@ class _Home_UserState extends State<Home_Worker> {
         BlocProvider(create: (context) => SwitchCubit(getIt())),
         BlocProvider(create: (context) => FavoriteCubit(getIt())),
       ],
-      child: const UserProfileScreen(),
+      child: const WorkerProfileScreen(),
     ),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = HomeUser();
+  Widget currentScreen = HomeWorkerMain();
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +71,7 @@ class _Home_UserState extends State<Home_Worker> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 buildNavItem(
-                  icon: FontAwesomeIcons.home,
+                  icon: FontAwesomeIcons.house,
                   label: 'Home',
                   index: 0,
                 ),

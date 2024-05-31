@@ -9,6 +9,7 @@ import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Delete_Dea
 
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Get_My_Deals.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Update_Deal.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -232,7 +233,7 @@ class DealItem extends StatelessWidget {
                                     bloc_save_text.setChanged(false);
                                     UpdateDeal updateDeal = UpdateDeal();
                                     await updateDeal.updateDealtitle(
-                                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
+                                        TokenUser.token,
                                         dealId,
                                         titleController.text);
                                     deal["userTitle"] = titleController.text;
@@ -412,8 +413,7 @@ class DealItem extends StatelessWidget {
                                         providerloading.setLoad(true);
                                         DeclineDeal declinedeal = DeclineDeal();
                                         await declinedeal.declineDeal(
-                                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNTQzMjAwMywiZXhwIjoxNzIzMjA4MDAzfQ.jC-aZ2mvvmFXtm-QaIbRVHi-TuEejefkb8OQ9JiBrfc",
-                                            dealId);
+                                            TokenUser.token, dealId);
 
                                         deal["status"] = declinedeal.status!;
                                         providerstatus
@@ -554,8 +554,7 @@ class DealItem extends StatelessWidget {
                                             DeleteDeal deleteDeal =
                                                 DeleteDeal();
                                             await deleteDeal.deleteDeal(
-                                                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNTQzMjAwMywiZXhwIjoxNzIzMjA4MDAzfQ.jC-aZ2mvvmFXtm-QaIbRVHi-TuEejefkb8OQ9JiBrfc",
-                                                dealId);
+                                                TokenUser.token, dealId);
 
                                             deal["status"] = deleteDeal.status!;
                                             providerstatus
