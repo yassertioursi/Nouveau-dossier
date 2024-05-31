@@ -1,15 +1,23 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DropJobs extends StatelessWidget {
-  const DropJobs({super.key});
+  String inital;
+  DropJobs({super.key, required this.inital});
 
   @override
   Widget build(BuildContext context) {
+    bool yesorno = true;
     return Consumer<DropJobsProvider>(
       builder: (context, provider, child) {
+        if (yesorno) {
+          provider.updateDropdownValue(inital);
+          yesorno = false;
+        }
         return Container(
           padding: const EdgeInsets.only(right: 4),
           decoration: BoxDecoration(
@@ -18,8 +26,8 @@ class DropJobs extends StatelessWidget {
           ),
           child: Flexible(
             child: DropdownButton<String>(
-              hint: const Text(
-                "  Job:",
+              hint: Text(
+                inital,
                 style: TextStyle(
                   color: MyColors.mainblue,
                   fontWeight: FontWeight.w600,

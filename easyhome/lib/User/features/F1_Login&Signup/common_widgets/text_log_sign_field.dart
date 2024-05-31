@@ -66,20 +66,20 @@ class Log_Field extends StatelessWidget {
                   onChanged: (value) {
                     switch (field_id) {
                       case "signup-password":
-                        this.formstate.currentState!.validate();
+                        formstate.currentState!.validate();
                         break;
                     }
                   },
                   onEditingComplete: () {
                     switch (field_id) {
                       case "phone-nbr":
-                        this.formstate.currentState!.validate();
+                        formstate.currentState!.validate();
                         break;
                     }
                   },
                   controller: controller,
                   validator: (value) {
-                    switch (this.field_id) {
+                    switch (field_id) {
                       case "login-email":
                         //
                         break;
@@ -129,13 +129,13 @@ class Log_Field extends StatelessWidget {
                     }
                     return null;
                   },
-                  obscureText: this.field_id == "signup-password" ||
-                          this.field_id == "login-password"
+                  obscureText: field_id == "signup-password" ||
+                          field_id == "login-password"
                       ? bloc_2.isObscured
                       : false,
                   decoration: InputDecoration(
-                    suffixIcon: this.field_id == "signup-password" ||
-                            this.field_id == "login-password"
+                    suffixIcon: field_id == "signup-password" ||
+                            field_id == "login-password"
                         ? IconButton(
                             icon: Icon(
                               bloc_2.isObscured

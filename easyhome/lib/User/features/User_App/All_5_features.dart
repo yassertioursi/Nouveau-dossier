@@ -6,6 +6,7 @@ import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/
 import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
+import 'package:easyhome/User/features/User_App/userProfile/updatePost.dart/updatemyPost.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/Switch/switch_cubit.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -85,8 +86,11 @@ class _Home_UserState extends State<Home_User> {
                   height: double.infinity,
                   child: FloatingActionButton(
                     onPressed: () {
-                      Create_Post New_Post = Create_Post();
-                      New_Post.creat_post(context);
+                      /*   Create_Post New_Post = Create_Post();
+                      New_Post.creat_post(context);*/
+                      UpdateMyPost updateMyPost = UpdateMyPost();
+                      updateMyPost.update_post(
+                          context, "663140fa974c32abb0219fd0");
                     },
                     backgroundColor: MyColors.mainblue,
                     child: const Icon(Icons.add),

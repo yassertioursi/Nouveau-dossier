@@ -1,10 +1,13 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+import 'dart:io';
 
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Provider/ProviderImages.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Services/Create_post_service.dart';
-import 'package:easyhome/User/features/User_App/F3_Create_Post/UploadImages.dart';
+import 'package:easyhome/User/features/User_App/F3_Create_Post/commonWidgets/UploadImages.dart';
+import 'package:easyhome/User/features/User_App/F3_Create_Post/commonWidgets/fromCameraOrGalery.dart';
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'Drop__jobs.dart';
+import 'commonWidgets/Drop__jobs.dart';
 
 class Create_Post {
   GlobalKey<FormState> formstate_title = GlobalKey();
@@ -37,6 +40,7 @@ class Create_Post {
       ),
       context: context,
       builder: (BuildContext context) {
+        ImagesUpload images_upload = ImagesUpload();
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(
@@ -216,9 +220,9 @@ class Create_Post {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                DropJobs(),
+                                DropJobs(inital: "  Job :"),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 20.0),
+                                  padding: const EdgeInsets.only(top: 12.0),
                                   child: SizedBox(
                                     width: 120,
                                     height: 65,
@@ -299,7 +303,6 @@ class Create_Post {
                             ),
                             Consumer<ProviderImages>(
                               builder: (context, providerimages, child) {
-                                ImagesUpload images_upload = ImagesUpload();
                                 if (providerimages.Images.isEmpty) {
                                   return Padding(
                                     padding: const EdgeInsets.fromLTRB(
@@ -326,10 +329,27 @@ class Create_Post {
                                               fit: BoxFit.fill,
                                             ),
                                             onTap: () async {
-                                              await images_upload.uploadImages(
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return CameraOrGalery(
+                                                    onImagesSelected:
+                                                        (List<File> images) {
+                                                      providerimages.Add_Image(
+                                                          images);
+                                                      /* deal["status"] = status;
+                                              providerstatus.setStatus(status);*/
+                                                    },
+                                                    providerImages:
+                                                        providerimages,
+                                                  );
+                                                },
+                                              );
+                                              /*await images_upload.uploadImages(
                                                   context, providerimages);
 
-                                              providerimages.just_notify();
+                                              providerimages.just_notify();*/
                                             },
                                           ),
                                           const Text(
@@ -366,12 +386,40 @@ class Create_Post {
                                                 providerimages.Images.length,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
-                                              return AspectRatio(
-                                                aspectRatio: 1.0,
-                                                child: Image.file(
-                                                  providerimages.Images[index],
-                                                  fit: BoxFit.fill,
-                                                ),
+                                              return Stack(
+                                                children: [
+                                                  SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width -
+                                                            20,
+                                                    child: Image.file(
+                                                      providerimages
+                                                          .Images[index],
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.topRight,
+                                                    child: InkWell(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Icon(
+                                                          Icons.close,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      onTap: () {
+                                                        providerimages
+                                                            .Del_Image(index);
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
                                               );
                                             },
                                           ),
@@ -422,10 +470,27 @@ class Create_Post {
                                               ],
                                             ),
                                             onTap: () async {
-                                              await images_upload
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return CameraOrGalery(
+                                                    onImagesSelected:
+                                                        (List<File> images) {
+                                                      providerimages.Add_Image(
+                                                          images);
+                                                      /* deal["status"] = status;
+                                              providerstatus.setStatus(status);*/
+                                                    },
+                                                    providerImages:
+                                                        providerimages,
+                                                  );
+                                                },
+                                              );
+                                              /*await images_upload
                                                   .uploadImageFromCamera(
                                                       context, providerimages);
-                                              providerimages.just_notify();
+                                              providerimages.just_notify(); */
                                             },
                                           ),
                                           InkWell(

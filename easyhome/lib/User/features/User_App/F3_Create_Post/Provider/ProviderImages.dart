@@ -19,3 +19,21 @@ class ProviderImages extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class ProviderImagesNetwork extends ChangeNotifier {
+  List Images = [];
+
+  void Add_Image(List tmpImages) {
+    Images = Images + tmpImages;
+    notifyListeners();
+  }
+
+  void Del_Image(int index) {
+    Images.removeAt(index);
+    notifyListeners();
+  }
+
+  void just_notify() {
+    notifyListeners();
+  }
+}

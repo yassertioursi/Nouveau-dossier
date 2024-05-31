@@ -143,7 +143,7 @@ class Review extends StatelessWidget {
                   ),
                 ),
                 id == "1"
-                    ? Column(
+                    ? Row(
                         children: [
                           Consumer<ProviderLoading1>(
                               builder: (context, providerloading1, child) {
@@ -175,8 +175,7 @@ class Review extends StatelessWidget {
                                   }
                                 },
                                 child: Container(
-                                  height: 40,
-                                  width: MediaQuery.of(context).size.width / 2,
+                                  height: 35,
                                   decoration: BoxDecoration(
                                     color: MyColors.mainblue,
                                     borderRadius: BorderRadius.circular(20),
@@ -223,8 +222,7 @@ class Review extends StatelessWidget {
                                 }
                               },
                               child: Container(
-                                height: 40,
-                                width: MediaQuery.of(context).size.width / 2,
+                                height: 35,
                                 decoration: BoxDecoration(
                                   color: Colors.black,
                                   borderRadius: BorderRadius.circular(20),

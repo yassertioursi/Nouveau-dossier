@@ -255,7 +255,7 @@ class RequestItem extends StatelessWidget {
                 ],
               ),
             ),
-            !postImages.isEmpty
+            postImages.isNotEmpty
                 ? Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 15.0, bottom: 5),

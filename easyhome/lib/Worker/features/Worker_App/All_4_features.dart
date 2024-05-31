@@ -2,7 +2,6 @@
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
 
-import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Deals&Apps.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/favorite_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
