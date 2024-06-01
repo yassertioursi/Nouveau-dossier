@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 
-class GetMyRequests {
+class GetNotification {
   Dio dio = Dio();
-  List? requests;
+  List? notifications;
 
-  Future<String> getMyRequests(String jwtToken) async {
+  Future<String> getmynotifications(String jwtToken) async {
     String url =
-        "https://easyhome-lcvx.onrender.com/api/v1/workers/me/requests";
+        "https://easyhome-lcvx.onrender.com/api/v1/users/me/notifications";
+
     try {
       Response response = await dio.get(
         url,
@@ -19,8 +20,8 @@ class GetMyRequests {
       );
 
       if (response.statusCode == 200) {
-        requests = response.data["data"];
-        print(requests);
+        print("----------------${response.data}---------------");
+        notifications = response.data["data"];
 
         return "true";
       } else {

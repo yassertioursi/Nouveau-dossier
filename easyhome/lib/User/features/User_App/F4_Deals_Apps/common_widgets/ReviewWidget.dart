@@ -4,6 +4,7 @@ import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dar
 
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Accept_Finish.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Create_Review.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -156,13 +157,12 @@ class Review extends StatelessWidget {
                                     AcceptFinishDeal acceptfinishDeal =
                                         AcceptFinishDeal();
                                     if (await acceptfinishDeal.acceptfinishDeal(
-                                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
-                                        dealId)) {
+                                        TokenUser.token, dealId)) {
                                       onDealFinished(acceptfinishDeal.status!);
                                       CreateReview createReview =
                                           CreateReview();
                                       if (await createReview.createReview(
-                                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
+                                          TokenUser.token,
                                           dealId,
                                           providerRating.rating,
                                           reviewController.text)) {
@@ -212,8 +212,7 @@ class Review extends StatelessWidget {
                                   AcceptFinishDeal acceptfinishDeal =
                                       AcceptFinishDeal();
                                   if (await acceptfinishDeal.acceptfinishDeal(
-                                      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
-                                      dealId)) {
+                                      TokenUser.token, dealId)) {
                                     onDealFinished(acceptfinishDeal.status!);
                                   }
                                   Navigator.pop(context);
@@ -259,14 +258,13 @@ class Review extends StatelessWidget {
 
                                 CreateReview createReview = CreateReview();
                                 if (await createReview.createReview(
-                                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
+                                    TokenUser.token,
                                     dealId,
                                     providerRating.rating,
                                     reviewController.text)) {
                                   onReviewCreated(true);
                                 }
 
-                                ;
                                 Navigator.pop(context);
                                 // providerstatus.setStatus(acceptfinishDeal.status!);
                                 providerloaing1.setLoad(false);

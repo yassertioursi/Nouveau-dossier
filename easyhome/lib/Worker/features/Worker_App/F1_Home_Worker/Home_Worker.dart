@@ -1,6 +1,9 @@
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/NotificationsWidget.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/GetCount.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Filter.dart';
 
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Delete_App.dart';
@@ -24,8 +27,7 @@ class HomeWorkerMain extends StatelessWidget {
   Widget build(BuildContext context) {
     GetMeWorker getMeWorker = GetMeWorker();
     return FutureBuilder<String>(
-        future: getMeWorker.getMeWorker(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNTYzMzkxMywiZXhwIjoxNzIzNDA5OTEzfQ.bmNgcIy7c5manUtuUukkVMSg56RzmW6HrjSV1gVTZdk"),
+        future: getMeWorker.getMeWorker(TokenWorker.token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
@@ -69,6 +71,7 @@ class _HomeWorkerState extends State<HomeWorker> {
 
   @override
   Widget build(BuildContext context) {
+    GetCountNotification getCountNotification = GetCountNotification();
     String postUrl = "https://easyhome-lcvx.onrender.com/api/v1/users/posts?";
 
     if (minPrice.isNotEmpty) {
@@ -156,34 +159,55 @@ class _HomeWorkerState extends State<HomeWorker> {
             ),
           ],
           backgroundColor: MyColors.mainblue,
-          leading: SizedBox(
-            width: 40,
-            height: 40,
-            child: Stack(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
+          leading: Padding(
+            padding: const EdgeInsets.only(right: 15.0, left: 5),
+            child: InkWell(
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 14.0),
+                    child: Icon(
+                      size: 30,
+                      Icons.notifications_rounded,
+                      color: Colors.white,
+                    ),
                   ),
-                  width: 80,
-                  height: 120,
-                ),
-                ClipOval(
-                  child: Image.asset(
-                    "lib/utils/images/logo2.png",
-                    height: 120,
-                    width: 80,
-                    fit: BoxFit.contain,
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.0, left: 20),
+                    child: FutureBuilder<String>(
+                        future:
+                            getCountNotification.getmycount(TokenWorker.token),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text("");
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return Text(
+                              "${getCountNotification.mycount}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                              ),
+                            );
+                          }
+                        }),
                   ),
-                ),
-              ],
+                ],
+              ),
+              onTap: () {
+                MyNotifications notifications =
+                    MyNotifications(TokenWorker.token);
+                notifications.showMyNotifications(context);
+              },
             ),
           ),
         ),
         body: FutureBuilder<String>(
           future: getAllPosts.getAllPosts(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE1MjY1ODIxLCJleHAiOjE3MjMwNDE4MjF9.xvSfns86_RrA4fUCiVJGmTCqGu9IV2yPISumotOp25w",
+            TokenWorker.token,
             postUrl,
           ),
           builder: (context, snapshot) {
@@ -346,36 +370,6 @@ class PostItem extends StatelessWidget {
                       )
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    child: PopupMenuButton<String>(
-                      tooltip: '',
-                      onSelected: (value) {
-                        print('Selected: $value');
-                      },
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry<String>>[
-                        const PopupMenuItem<String>(
-                          value: 'Hide Post',
-                          child: Text(
-                            'Hide Post',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ],
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 12), // Adjust padding
-                        child: Icon(
-                          Icons.more_vert,
-                          size: 33,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
@@ -452,8 +446,7 @@ class PostItem extends StatelessWidget {
                               DeleteApp deleteApp = DeleteApp();
                               providerok2.setOk(!providerok2.isOk);
                               if (await deleteApp.deleteApp(
-                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNTYzMzkxMywiZXhwIjoxNzIzNDA5OTEzfQ.bmNgcIy7c5manUtuUukkVMSg56RzmW6HrjSV1gVTZdk",
-                                  application["id"])) {
+                                  TokenWorker.token, application["id"])) {
                                 providerload.setLoad(false);
                               }
                             }

@@ -2,6 +2,8 @@
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/GetBestWorker.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/NotificationsWidget.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/GetCount.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/GetNorification.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Create_Post.dart';
 import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/Categorys.dart';
@@ -20,6 +22,8 @@ class HomeUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GetCountNotification getCountNotification = GetCountNotification();
+
     GetBestWorkers getBestWorkers = GetBestWorkers();
     Workers_Cat workers_cat = Workers_Cat();
     return SingleChildScrollView(
@@ -116,13 +120,41 @@ class HomeUser extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: InkWell(
-                  child: Icon(
-                    size: 40,
-                    Icons.notifications_rounded,
-                    color: MyColors.mainblue,
+                  child: Stack(
+                    children: [
+                      Icon(
+                        size: 40,
+                        Icons.notifications_rounded,
+                        color: MyColors.mainblue,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0, left: 20),
+                        child: FutureBuilder<String>(
+                            future: getCountNotification
+                                .getmycount(TokenUser.token),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Text("");
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return Text(
+                                  "${getCountNotification.mycount}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                  ),
+                                );
+                              }
+                            }),
+                      ),
+                    ],
                   ),
                   onTap: () {
-                    MyNotifications notifications = MyNotifications();
+                    MyNotifications notifications =
+                        MyNotifications(TokenUser.token);
                     notifications.showMyNotifications(context);
                   },
                 ),

@@ -1,11 +1,14 @@
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Filter.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Posts.dart';
 
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Delete_App.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/GetMyRequests.dart';
+import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Provider/ProviderMyRequests.dart';
+import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Service/Decline_Requ.dart';
+import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Service/GetMyRequests.dart';
 
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Get_Me_Worker.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Save_Post.dart';
@@ -25,9 +28,9 @@ class Requests extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GetMeWorker getMeWorker = GetMeWorker();
+
     return FutureBuilder<String>(
-        future: getMeWorker.getMeWorker(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE1MjY1ODIxLCJleHAiOjE3MjMwNDE4MjF9.xvSfns86_RrA4fUCiVJGmTCqGu9IV2yPISumotOp25w"),
+        future: getMeWorker.getMeWorker(TokenWorker.token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
@@ -56,6 +59,7 @@ class Requests extends StatelessWidget {
 // ignore: must_be_immutable
 class HomeWorker extends StatefulWidget {
   String myJob;
+
   HomeWorker({Key? key, required this.myJob}) : super(key: key);
 
   @override
@@ -65,16 +69,18 @@ class HomeWorker extends StatefulWidget {
 class _HomeWorkerState extends State<HomeWorker> {
   @override
   Widget build(BuildContext context) {
+    bool yesorno = true;
     GetMyRequests getMyRequests = GetMyRequests();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
             create: (BuildContext context) => ProviderFilter()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderMyRequests()),
       ],
       child: Scaffold(
         body: FutureBuilder<String>(
-          future: getMyRequests.getMyRequests(
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE1MjY1ODIxLCJleHAiOjE3MjMwNDE4MjF9.xvSfns86_RrA4fUCiVJGmTCqGu9IV2yPISumotOp25w"),
+          future: getMyRequests.getMyRequests(TokenWorker.token),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -88,38 +94,51 @@ class _HomeWorkerState extends State<HomeWorker> {
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
-              return ListView.builder(
-                itemCount: getMyRequests.requests!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return SafeArea(
-                    child: RequestItem(
-                      userName: getMyRequests.requests![index]["post"]["user"]
-                          ["name"],
-                      userId: getMyRequests.requests![index]["post"]["user"]
-                          ["_id"],
-                      userWilaya: getMyRequests.requests![index]["post"]["user"]
-                          ["wilaya"],
-                      postId: getMyRequests.requests![index]["post"]["_id"],
-                      postTitle: getMyRequests.requests![index]["post"]
-                          ["title"],
-                      postDesc: getMyRequests.requests![index]["post"]
-                          ["description"],
-                      postPrice: getMyRequests.requests![index]["post"]["price"]
-                          .toString(),
-                      postCreatedAt: getMyRequests.requests![index]["post"]
-                          ["createdAt"],
-                      postImages: getMyRequests.requests![index]["post"]
-                          ["images"],
-                      userProfilePicture: getMyRequests.requests![index]["post"]
-                          ["user"]["profilePicture"],
-                      isSaved: getMyRequests.requests![index]["isSaved"],
-                      application: getMyRequests.requests![index]
-                          ["application"],
-                      Post: getMyRequests.requests![index],
-                    ),
-                  );
-                },
-              );
+              return Consumer<ProviderMyRequests>(
+                  builder: (context, providermyrequests, child) {
+                if (yesorno) {
+                  providermyrequests.requests = getMyRequests.requests!;
+                  yesorno = false;
+                }
+                return ListView.builder(
+                  itemCount: providermyrequests.requests.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return SafeArea(
+                      child: RequestItem(
+                        requestId: providermyrequests.requests[index]["post"]
+                            ["_id"],
+                        userName: providermyrequests.requests[index]["post"]
+                            ["user"]["name"],
+                        userId: providermyrequests.requests[index]["post"]
+                            ["user"]["_id"],
+                        userWilaya: providermyrequests.requests[index]["post"]
+                            ["user"]["wilaya"],
+                        postId: providermyrequests.requests[index]["post"]
+                            ["_id"],
+                        postTitle: providermyrequests.requests[index]["post"]
+                            ["title"],
+                        postDesc: providermyrequests.requests[index]["post"]
+                            ["description"],
+                        postPrice: providermyrequests.requests[index]["post"]
+                                ["price"]
+                            .toString(),
+                        postCreatedAt: providermyrequests.requests[index]
+                            ["post"]["createdAt"],
+                        postImages: providermyrequests.requests[index]["post"]
+                            ["images"],
+                        userProfilePicture: providermyrequests.requests[index]
+                            ["post"]["user"]["profilePicture"],
+                        isSaved: providermyrequests.requests[index]["isSaved"],
+                        application: providermyrequests.requests[index]
+                            ["application"],
+                        Post: providermyrequests.requests[index],
+                        index: index,
+                        providermyrequests: providermyrequests,
+                      ),
+                    );
+                  },
+                );
+              });
             }
           },
         ),
@@ -131,6 +150,8 @@ class _HomeWorkerState extends State<HomeWorker> {
 // ignore: must_be_immutable
 class RequestItem extends StatelessWidget {
   var Image_Controller = PageController();
+  int index;
+  ProviderMyRequests providermyrequests;
   String userName;
   String userId;
   String userWilaya;
@@ -144,9 +165,13 @@ class RequestItem extends StatelessWidget {
   bool isSaved;
   Map application;
   Map Post;
+  String requestId;
 
   RequestItem({
     Key? key,
+    required this.index,
+    required this.providermyrequests,
+    required this.requestId,
     required this.userName,
     required this.userId,
     required this.userWilaya,
@@ -183,6 +208,8 @@ class RequestItem extends StatelessWidget {
         ChangeNotifierProvider(
           create: (BuildContext context) => ProviderPosts(),
         ),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderMyRequests()),
       ],
       child: Container(
         decoration: BoxDecoration(
@@ -239,19 +266,44 @@ class RequestItem extends StatelessWidget {
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          size: 40,
-                          Icons.more_vert,
-                          color: Colors.black,
-                        )),
-                  )
+                  Consumer<ProviderLoading>(
+                      builder: (context, providerloading, child) {
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red[800],
+                      ),
+                      onPressed: () async {
+                        if (!providerloading.isLoading) {
+                          providerloading.setLoad(true);
+                          DeclineRequest declineRequest = DeclineRequest();
+                          if (await declineRequest.declineRequest(
+                              TokenWorker.token, requestId)) {
+                            print(index);
+                            providermyrequests.requests.removeAt(index);
+                            providermyrequests.notifyListeners();
+                          }
+                          providerloading.setLoad(false);
+                        }
+                      },
+                      child: !providerloading.isLoading
+                          ? const Text(
+                              "Decline",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          : const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                    );
+                  }),
                 ],
               ),
             ),

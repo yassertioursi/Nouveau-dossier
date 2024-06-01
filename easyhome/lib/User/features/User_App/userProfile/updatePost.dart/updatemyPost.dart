@@ -132,7 +132,7 @@ class UpdateMyPost {
                             titleController.text = getmypost.post["title"];
                             descController.text = getmypost.post["description"];
                             priceController.text =
-                                getmypost.post["price"] ?? "";
+                                getmypost.post["price"].toString() ?? "";
                             _isInitialized = true;
                           }
 

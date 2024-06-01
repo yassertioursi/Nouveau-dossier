@@ -1,15 +1,14 @@
 import 'package:dio/dio.dart';
 
-class GetCountNotification {
+class DeleteNotification {
   Dio dio = Dio();
-  int? mycount;
 
-  Future<String> getmycount(String jwtToken) async {
+  Future<bool> deleteNot(String jwtToken, String idOfNotification) async {
     String url =
-        "https://easyhome-lcvx.onrender.com/api/v1/users/me/notificationsCount";
+        "https://easyhome-lcvx.onrender.com/api/v1/notifications/$idOfNotification";
 
     try {
-      Response response = await dio.get(
+      Response response = await dio.delete(
         url,
         options: Options(
           headers: {
@@ -21,12 +20,11 @@ class GetCountNotification {
 
       if (response.statusCode == 200) {
         print("----------------${response.data}---------------");
-        mycount = response.data["count"];
 
-        return "true";
+        return true;
       } else {
         print(false);
-        return "false";
+        return false;
       }
     } on DioError catch (error) {
       if (error.response != null) {
@@ -36,7 +34,7 @@ class GetCountNotification {
       } else {
         print('Error: $error');
       }
-      return "false";
+      return false;
     }
   }
 }

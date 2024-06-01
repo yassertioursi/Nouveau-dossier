@@ -5,6 +5,7 @@ import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Save_Text
 
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Decline_Deal.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Delete_Deal.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Service/Finish_Deal.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Get_My_Deals.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Update_Deal.dart';
@@ -23,17 +24,16 @@ class DealWorker extends StatelessWidget {
     GetDeals getdeals = GetDeals();
 
     return FutureBuilder<String>(
-      future: getdeals.getDeals(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g"),
+      future: getdeals.getDeals(TokenWorker.token),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
               child: SizedBox(
+            height: 60.0,
+            width: 60.0,
             child: CircularProgressIndicator(
               color: MyColors.mainblue,
             ),
-            height: 60.0,
-            width: 60.0,
           ));
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
@@ -373,15 +373,14 @@ class DealItem extends StatelessWidget {
                                     builder: (context, providerloading, child) {
                                   return ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: Colors.red[800],
+                                      backgroundColor: Colors.red[800],
                                     ),
                                     onPressed: () async {
                                       if (!providerloading.isLoading) {
                                         providerloading.setLoad(true);
                                         DeleteDeal deleteDeal = DeleteDeal();
                                         await deleteDeal.deleteDeal(
-                                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
-                                            dealId);
+                                            TokenWorker.token, dealId);
 
                                         deal["status"] = deleteDeal.status!;
                                         providerstatus

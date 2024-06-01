@@ -12,4 +12,5 @@ class MyColors {
   static const Color grey3 = Color(0xFF757575);
   static const Color grey4 = Color(0xFFB4B4B4);
   static const Color green = Color.fromRGBO(19, 122, 35, 1);
+  static const Color red = Color(0xFFFF1100);
 }

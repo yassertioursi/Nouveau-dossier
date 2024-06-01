@@ -25,15 +25,18 @@ class MainApp extends StatelessWidget {
       designSize: Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(debugShowCheckedModeBanner: false, home: Home_User()
-          /* routes: 
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home:
+            Home_Worker(), /* routes: 
+          
             '/login': (context) => Login(),
             '/Signup_1': (context) => Signup(),
             //'/Signup_2': (context) => Signup_2(),
             '/Email_Verification': (context) => Email_verifcation(),
             '/Forget_password': (context) => Forget_Pass(),
           }*/
-          ),
+      ),
     );
   }
 }
