@@ -167,7 +167,7 @@ Widget valid(bool isValid) {
       height: 23.h,
     );
   } else {
-    return Container(
+    return SizedBox(
       height: 23.h,
       child: Text(
         "Not Valid Yet",

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Create_Post.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Deals&Apps.dart';
@@ -6,6 +8,7 @@ import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/
 import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
+import 'package:easyhome/User/features/User_App/userProfile/updatePost.dart/updatemyPost.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/Switch/switch_cubit.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +26,17 @@ class _Home_UserState extends State<Home_User> {
   int currentTab = 0;
   final List<Widget> screens = [
     HomeUser(),
-    Map(),
+    const Map(),
     Deals_Apps(),
     MultiBlocProvider(
-        providers: [BlocProvider(create: (context) => MyCubit(getIt()))],
-        child: UserProfileScreen()),
+      providers: [
+        BlocProvider(create: (context) => MyCubit(getIt())),
+        BlocProvider(create: (context) => PostCubit(getIt())),
+        BlocProvider(create: (context) => SwitchCubit(getIt())),
+        BlocProvider(create: (context) => FavoriteCubit(getIt())),
+      ],
+      child: const UserProfileScreen(),
+    ),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = HomeUser();
@@ -37,186 +46,63 @@ class _Home_UserState extends State<Home_User> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: MyColors.loggrey1,
-        floatingActionButton: Container(
-          child: FloatingActionButton(
-            backgroundColor: Colors.black,
-            child: Icon(Icons.add, color: Colors.white),
-            onPressed: () {
-              Create_Post New_Post = Create_Post();
-              New_Post.creat_post(context);
-            },
-          ),
-        ),
         body: PageStorage(
-          child: currentScreen,
           bucket: bucket,
+          child: currentScreen,
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          height: 70,
-          color: MyColors.mainblue,
-          shape: CircularNotchedRectangle(),
-          notchMargin: 3,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                SizedBox(
-                  height: 70,
-                  width: 70,
-                  child: MaterialButton(
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = HomeUser();
-                        currentTab = 0;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          size: 20,
-                          FontAwesomeIcons.home,
-                          color:
-                              currentTab == 0 ? Colors.white : MyColors.grey4,
-                        ),
-                        currentTab == 0
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 2.0),
-                                child: Text("Home",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold)),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.only(top: 2.0),
-                                child: Text(''),
-                              ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: SizedBox(
-                    height: 70,
-                    width: 70,
-                    child: MaterialButton(
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = Map();
-                          currentTab = 1;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            size: 20,
-                            FontAwesomeIcons.mapLocationDot,
-                            color:
-                                currentTab == 1 ? Colors.white : MyColors.grey4,
-                          ),
-                          currentTab == 1
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(" Map",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(''),
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: SizedBox(
-                    height: 70,
-                    width: 70,
-                    child: MaterialButton(
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = Deals_Apps();
-                          currentTab = 2;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            size: 20,
-                            FontAwesomeIcons.solidHandshake,
-                            color:
-                                currentTab == 2 ? Colors.white : MyColors.grey4,
-                          ),
-                          currentTab == 2
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(" Deals",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold)),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(''),
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                MaterialButton(
-                  onPressed: () {
-                    setState(() {
-                      currentScreen = MultiBlocProvider(providers: [
-                        BlocProvider(create: (context) => MyCubit(getIt())),
-                        BlocProvider(create: (context) => PostCubit(getIt())),
-                        BlocProvider(create: (context) => SwitchCubit(getIt())),
-                        BlocProvider(
-                            create: (context) => FavoriteCubit(getIt())),
-                      ], child: UserProfileScreen());
-                      currentTab = 3;
-                    });
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Icon(
-                          FontAwesomeIcons.solidUser,
-                          size: 20,
-                          color:
-                              currentTab == 3 ? Colors.white : MyColors.grey4,
-                        ),
-                      ),
-                      currentTab == 3
-                          ? Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
-                              child: Text("Account",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
-                              child: Text(''),
-                            ),
-                    ],
-                  ),
-                ),
-              ],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentTab,
+          onTap: (index) {
+            setState(() {
+              if (index == 2) {
+                Create_Post createMyPost = Create_Post();
+                createMyPost.creat_post(context);
+              } else {
+                currentTab = index;
+                currentScreen = screens[index < 2 ? index : index - 1];
+              }
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.house),
+              label: 'Home',
             ),
-          ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.mapLocationDot),
+              label: 'Map',
+            ),
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 1.5),
+                      color: Colors.transparent,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.add, color: Colors.white),
+                    )),
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.solidHandshake),
+              label: ' Deals',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.solidUser),
+              label: 'Profile',
+            ),
+          ],
+          backgroundColor: MyColors.mainblue,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: MyColors.grey4,
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
         ),
       ),
     );
@@ -228,8 +114,10 @@ class Map extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text("Map"),
+    return const Scaffold(
+      body: Center(
+        child: Text("Map"),
+      ),
     );
   }
 }

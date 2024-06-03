@@ -1,7 +1,7 @@
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class Details extends StatelessWidget {
   String? desc;
   String? createdAt;
@@ -14,9 +14,9 @@ class Details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 20),
       height: MediaQuery.of(context).size.height / 2,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16.0),
@@ -28,12 +28,12 @@ class Details extends StatelessWidget {
           Column(
             children: [
               Container(
-                color: Color(0xFFA2A2A2),
+                color: const Color(0xFFA2A2A2),
                 height: 6,
                 width: 50,
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 15),
+              const Padding(
+                padding: EdgeInsets.only(top: 10.0, bottom: 15),
                 child: Text(
                   "Details",
                   style: TextStyle(
@@ -45,7 +45,7 @@ class Details extends StatelessWidget {
               ),
               Container(
                 height: 0.05,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.grey,
                   boxShadow: [
                     BoxShadow(
@@ -72,7 +72,7 @@ class Details extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                         child: Row(
                           children: [
-                            Text(
+                            const Text(
                               "Created At :",
                               style: TextStyle(
                                   color: MyColors.mainblue,
@@ -81,14 +81,14 @@ class Details extends StatelessWidget {
                             ),
                             Text(
                               createdAt!.substring(0, 10),
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 20),
                             ),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
+                      const Padding(
+                        padding: EdgeInsets.only(
                           top: 10.0,
                         ),
                         child: Text(
@@ -101,7 +101,8 @@ class Details extends StatelessWidget {
                       ),
                       Text(
                         desc!,
-                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 16),
                       ),
                     ],
                   ),

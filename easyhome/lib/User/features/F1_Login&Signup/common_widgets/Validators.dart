@@ -1,5 +1,4 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter/material.dart';
 
 class Validators {
   final RegExp regex = RegExp(r'^[a-zA-Z]+$');

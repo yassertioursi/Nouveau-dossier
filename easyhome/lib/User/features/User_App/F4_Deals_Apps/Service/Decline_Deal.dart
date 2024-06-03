@@ -4,7 +4,7 @@ class DeclineDeal {
   Dio dio = Dio();
   String? status;
 
-  Future<String> declineDeal(String jwtToken, String dealId) async {
+  Future<bool> declineDeal(String jwtToken, String dealId) async {
     String url =
         "https://easyhome-lcvx.onrender.com/api/v1/deals/$dealId/finishDecline";
     try {
@@ -22,10 +22,10 @@ class DeclineDeal {
         print(response.data["deal"]);
         status = response.data["deal"]["status"];
 
-        return "true";
+        return true;
       } else {
         print(false);
-        return "false";
+        return false;
       }
     } on DioError catch (error) {
       if (error.response != null) {
@@ -35,7 +35,7 @@ class DeclineDeal {
       } else {
         print('Error: $error');
       }
-      return "false ";
+      return false;
     }
   }
 }

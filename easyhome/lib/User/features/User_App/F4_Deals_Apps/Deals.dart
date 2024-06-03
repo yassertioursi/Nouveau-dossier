@@ -1,20 +1,22 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/Dwwira.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Ok_Provider.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Get_Worker_ById.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/filter__widget.dart';
-import 'package:easyhome/User/features/User_App/F4_Deals_Apps/BloC/Change_Status.dart';
-import 'package:easyhome/User/features/User_App/F4_Deals_Apps/BloC/Save_Text.dart';
-import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Accept_Finish.dart';
+// ignore_for_file: sort_child_properties_last
+
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
+
+import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Change_Status.dart';
+import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Save_Text.dart';
+
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Decline_Deal.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Delete_Deal.dart';
-import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Service/Finish_Deal.dart';
+
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Get_My_Deals.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Update_Deal.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -26,13 +28,18 @@ class Deal extends StatelessWidget {
     GetDeals getdeals = GetDeals();
 
     return FutureBuilder<String>(
-      future: getdeals.getDeals(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+      future: getdeals.getDeals(TokenUser.token),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-              child:
-                  Dwwira(color: MyColors.mainblue, height: 60.0, width: 60.0));
+          return const Center(
+            child: SizedBox(
+              child: CircularProgressIndicator(
+                color: MyColors.mainblue,
+              ),
+              height: 50.0,
+              width: 50.0,
+            ),
+          );
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -63,6 +70,7 @@ class Deal extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class DealItem extends StatelessWidget {
   GlobalKey<FormState> formstate_title = GlobalKey();
   GlobalKey<FormState> formstate_desc = GlobalKey();
@@ -110,15 +118,16 @@ class DealItem extends StatelessWidget {
               create: (BuildContext context) => Save_Text_One()),
           ChangeNotifierProvider(
               create: (BuildContext context) => ChangeStatus()),
-          ChangeNotifierProvider(create: (BuildContext context) => bloc_five()),
           ChangeNotifierProvider(
-              create: (BuildContext context) => bloc_five_One()),
+              create: (BuildContext context) => ProviderLoading()),
+          ChangeNotifierProvider(
+              create: (BuildContext context) => ProviderLoading1()),
           ChangeNotifierProvider(
               create: (BuildContext context) => ProviderOk()),
         ],
         child: Container(
-          margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-          padding: EdgeInsets.all(20),
+          margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -139,7 +148,7 @@ class DealItem extends StatelessWidget {
                       ),
                     ),
                     child: ClipOval(
-                      child: Container(
+                      child: SizedBox(
                           height: 60,
                           width: 60,
                           child: profilePicture != "default.jpg"
@@ -161,24 +170,24 @@ class DealItem extends StatelessWidget {
                           children: [
                             Text(
                               name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
                             ),
                             isCertified
-                                ? Icon(
+                                ? const Icon(
                                     Icons.verified_user_rounded,
                                     color: Color(0xFF137A23),
                                   )
-                                : Text(''),
+                                : const Text(''),
                           ],
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 5.0, left: 0),
                           child: Text(
                             job,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: MyColors.mainorange,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -205,11 +214,11 @@ class DealItem extends StatelessWidget {
                         onChanged: (value) {
                           bloc_save_text.setChanged(true);
                         },
-                        maxLength: 100,
+                        maxLength: 70,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         cursorColor: MyColors.mainblue,
                         decoration: InputDecoration(
-                          disabledBorder: OutlineInputBorder(
+                          disabledBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(
                               width: 1.5,
@@ -218,7 +227,7 @@ class DealItem extends StatelessWidget {
                           ),
                           suffixIcon: bloc_save_text.changed
                               ? IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.playlist_add_check_circle_sharp,
                                     color: MyColors.mainorange,
                                   ),
@@ -226,7 +235,7 @@ class DealItem extends StatelessWidget {
                                     bloc_save_text.setChanged(false);
                                     UpdateDeal updateDeal = UpdateDeal();
                                     await updateDeal.updateDealtitle(
-                                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
+                                        TokenUser.token,
                                         dealId,
                                         titleController.text);
                                     deal["userTitle"] = titleController.text;
@@ -238,7 +247,7 @@ class DealItem extends StatelessWidget {
                                   },
                                 )
                               : null,
-                          label: Text(
+                          label: const Text(
                             "Title",
                             style: TextStyle(
                               color: MyColors.mainblue,
@@ -248,15 +257,15 @@ class DealItem extends StatelessWidget {
                           focusColor: Colors.white,
                           filled: true,
                           fillColor: Colors.white,
-                          border: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(
+                          border: const OutlineInputBorder(),
+                          enabledBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(
                               width: 1.5,
                               color: Colors.black,
                             ),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide:
                                 BorderSide(width: 2, color: Colors.black),
@@ -284,12 +293,12 @@ class DealItem extends StatelessWidget {
                           bloc_save_text1.setChanged(true);
                         },
                         controller: descriptionController,
-                        maxLength: 100,
+                        maxLength: 200,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         maxLines: 7,
                         cursorColor: MyColors.mainblue,
                         decoration: InputDecoration(
-                          disabledBorder: OutlineInputBorder(
+                          disabledBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(
                               width: 1.5,
@@ -302,10 +311,9 @@ class DealItem extends StatelessWidget {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 13.0, right: 7),
+                                          top: 13.0, right: 1),
                                       child: IconButton(
-                                        icon: Icon(
-                                          size: 30,
+                                        icon: const Icon(
                                           Icons.playlist_add_check_circle_sharp,
                                           color: MyColors.mainorange,
                                         ),
@@ -313,7 +321,7 @@ class DealItem extends StatelessWidget {
                                           bloc_save_text1.setChanged(false);
                                           UpdateDeal updateDeal = UpdateDeal();
                                           await updateDeal.updateDealdesc(
-                                              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
+                                              TokenUser.token,
                                               dealId,
                                               descriptionController.text);
                                           deal["userDescription"] =
@@ -329,7 +337,7 @@ class DealItem extends StatelessWidget {
                                   ],
                                 )
                               : null,
-                          label: Text(
+                          label: const Text(
                             "Description",
                             style: TextStyle(
                               color: MyColors.mainblue,
@@ -340,15 +348,15 @@ class DealItem extends StatelessWidget {
                           focusColor: Colors.white,
                           filled: true,
                           fillColor: Colors.white,
-                          border: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(
+                          border: const OutlineInputBorder(),
+                          enabledBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(
                               width: 1.5,
                               color: Colors.black,
                             ),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide:
                                 BorderSide(width: 2, color: Colors.black),
@@ -395,98 +403,95 @@ class DealItem extends StatelessWidget {
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Consumer<bloc_five>(
-                                    builder: (context, bloc_5_1, child) {
+                                Consumer<ProviderLoading>(
+                                    builder: (context, providerloading, child) {
                                   return ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Colors.red[800],
-                                    ),
-                                    onPressed: () async {
-                                      if (!bloc_5_1.isLoading) {
-                                        bloc_5_1.setLoad(true);
-                                        DeclineDeal declinedeal = DeclineDeal();
-                                        await declinedeal.declineDeal(
-                                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNTQzMjAwMywiZXhwIjoxNzIzMjA4MDAzfQ.jC-aZ2mvvmFXtm-QaIbRVHi-TuEejefkb8OQ9JiBrfc",
-                                            dealId);
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.red[800],
+                                      ),
+                                      onPressed: () async {
+                                        if (!providerloading.isLoading) {
+                                          providerloading.setLoad(true);
+                                          DeclineDeal declinedeal =
+                                              DeclineDeal();
+                                          if (await declinedeal.declineDeal(
+                                              TokenUser.token, dealId)) {
+                                            providerstatus
+                                                .setStatus(declinedeal.status!);
+                                            deal["status"] =
+                                                declinedeal.status!;
+                                            context.showSuccessMessage(
+                                                "Success",
+                                                "The deal has been declined successfully.");
+                                          } else {
+                                            context.showErrorMessage("Error!",
+                                                "Failed to decline the deal.");
+                                          }
 
-                                        deal["status"] = declinedeal.status!;
-                                        providerstatus
-                                            .setStatus(declinedeal.status!);
-                                        bloc_5_1.setLoad(false);
-                                      }
-                                    },
-                                    child: !bloc_5_1.isLoading
-                                        ? Text(
-                                            "Decline",
-                                            style: TextStyle(
+                                          providerloading.setLoad(false);
+                                        }
+                                      },
+                                      child: !providerloading.isLoading
+                                          ? const Text(
+                                              "Decline",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          : const SizedBox(
+                                              height: 15,
+                                              width: 15,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
                                                 color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        : SizedBox(
-                                            height: 20,
-                                            width: 20,
-                                            child: CircularProgressIndicator(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                  );
+                                              ),
+                                            ));
                                 }),
-                                SizedBox(
+                                const SizedBox(
                                   width: 20,
                                 ),
-                                Consumer<bloc_five_One>(
-                                    builder: (context, bloc_5_2, child) {
+                                Consumer<ProviderLoading1>(builder:
+                                    (context, providerloading1, child) {
                                   return ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: MyColors.green,
-                                    ),
-                                    onPressed: () async {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Review(
-                                            dealId: dealId,
-                                            id: "1",
-                                            workerId: workerId,
-                                            onReviewCreated: (bool status) {
-                                              providerok.setOk(status);
-                                              reviews[index] = status;
-                                            },
-                                            onDealFinished: (String status) {
-                                              deal["status"] = status;
-                                              providerstatus.setStatus(status);
-                                            },
-                                          );
-                                        },
-                                      );
-
-                                      /*  if (!bloc_5_2.isLoading) {
-                                      bloc_5_2.setLoad(true);
-                                      AcceptFinishDeal acceptfinishDeal =
-                                          AcceptFinishDeal();
-                                      await acceptfinishDeal.acceptfinishDeal(
-                                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
-                                          dealId);
-                                      providerstatus
-                                          .setStatus(acceptfinishDeal.status!);
-                                      bloc_5_2.setLoad(false);
-                                    }*/
-                                    },
-                                    child: !bloc_5_2.isLoading
-                                        ? Text(
-                                            "Finish",
-                                            style: TextStyle(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: MyColors.green,
+                                      ),
+                                      onPressed: () async {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Review(
+                                              dealId: dealId,
+                                              id: "1",
+                                              workerId: workerId,
+                                              onReviewCreated: (bool status) {
+                                                providerok.setOk(status);
+                                                reviews[index] = status;
+                                              },
+                                              onDealFinished: (String status) {
+                                                deal["status"] = status;
+                                                providerstatus
+                                                    .setStatus(status);
+                                              },
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: !providerloading1.isLoading
+                                          ? const Text(
+                                              "Finish",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          : const SizedBox(
+                                              height: 15,
+                                              width: 15,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
                                                 color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        : SizedBox(
-                                            height: 20,
-                                            width: 20,
-                                            child: CircularProgressIndicator(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                  );
+                                              ),
+                                            ));
                                 }),
                               ],
                             )
@@ -517,17 +522,17 @@ class DealItem extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("Review",
+                                      const Text("Review",
                                           style: TextStyle(
                                               color: MyColors.mainorange,
                                               fontWeight: FontWeight.bold)),
                                       !providerok.isOk
-                                          ? Icon(
+                                          ? const Icon(
                                               FontAwesomeIcons.star,
                                               // color: MyColors.stars,
                                               size: 17,
                                             )
-                                          : Icon(
+                                          : const Icon(
                                               FontAwesomeIcons.solidStar,
                                               color: MyColors.stars,
                                               size: 17,
@@ -536,46 +541,54 @@ class DealItem extends StatelessWidget {
                                   ),
                                 )
                               : providerstatus.status == "OnGoing"
-                                  ? Consumer<bloc_five>(
-                                      builder: (context, bloc_5_1, child) {
+                                  ? Consumer<ProviderLoading>(builder:
+                                      (context, providerloading, child) {
                                       return ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.red[800],
-                                        ),
-                                        onPressed: () async {
-                                          if (!bloc_5_1.isLoading) {
-                                            bloc_5_1.setLoad(true);
-                                            DeleteDeal deleteDeal =
-                                                DeleteDeal();
-                                            await deleteDeal.deleteDeal(
-                                                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNTQzMjAwMywiZXhwIjoxNzIzMjA4MDAzfQ.jC-aZ2mvvmFXtm-QaIbRVHi-TuEejefkb8OQ9JiBrfc",
-                                                dealId);
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.red[800],
+                                          ),
+                                          onPressed: () async {
+                                            if (!providerloading.isLoading) {
+                                              providerloading.setLoad(true);
+                                              DeleteDeal deleteDeal =
+                                                  DeleteDeal();
+                                              if (await deleteDeal.deleteDeal(
+                                                  TokenUser.token, dealId)) {
+                                                deal["status"] =
+                                                    deleteDeal.status!;
+                                                providerstatus.setStatus(
+                                                    deleteDeal.status!);
+                                                context.showSuccessMessage(
+                                                    "Success",
+                                                    "The deal was finished successfully.");
+                                              } else {
+                                                context.showErrorMessage(
+                                                    "Error!",
+                                                    "Failed to discard the deal.");
+                                              }
+                                            }
 
-                                            deal["status"] = deleteDeal.status!;
-                                            providerstatus
-                                                .setStatus(deleteDeal.status!);
-                                            bloc_5_1.setLoad(false);
-                                          }
-                                        },
-                                        child: !bloc_5_1.isLoading
-                                            ? Text(
-                                                "Discard",
-                                                style: TextStyle(
+                                            providerloading.setLoad(false);
+                                          },
+                                          child: !providerloading.isLoading
+                                              ? const Text(
+                                                  "Discard",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )
+                                              : const SizedBox(
+                                                  height: 15,
+                                                  width: 15,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    strokeWidth: 2,
                                                     color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            : SizedBox(
-                                                height: 20,
-                                                width: 20,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                      );
+                                                  ),
+                                                ));
                                     })
-                                  : Text(""),
+                                  : const Text(""),
                     ],
                   );
                 });

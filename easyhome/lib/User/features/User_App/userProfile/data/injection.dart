@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/favorite_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/password_Cubit/passwrod_cubit.dart';
@@ -73,8 +74,7 @@ class Dioah {
       ..options.receiveTimeout = const Duration(seconds: 20)
       // ..options.queryParameters.addAll({"posts": 1})
       ..options.headers.addAll({
-        "Authorization":
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzgwNTc1YjBhOTVjMDUxYmI1ZTc4NiIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE1Mzg0MjIwLCJleHAiOjE3MjMxNjAyMjB9.674IskwKs5lBJfeJIAE_IwpYUPejHXFa6s7w7NNC0As",
+        "Authorization": "Bearer ${TokenUser.token}",
       });
 
     dio!.interceptors.add(LogInterceptor(

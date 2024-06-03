@@ -1,12 +1,22 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Create_Post.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Deals&Apps.dart';
+import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
+import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/favorite_cubit.dart';
+import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
+import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
+import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
+import 'package:easyhome/User/features/User_App/userProfile/updatePost.dart/updatemyPost.dart';
+import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Home_Worker.dart';
 import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Deals&Requs.dart';
+import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/Switch/switch_cubit.dart';
+import 'package:easyhome/Worker/features/Worker_App/workerProfile/UI/screens/worker_profile_sceen.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'F1_Home_Worker/Home_Worker.dart';
 
 class Home_Worker extends StatefulWidget {
   const Home_Worker({Key? key});
@@ -19,9 +29,17 @@ class _Home_UserState extends State<Home_Worker> {
   int currentTab = 0;
   final List<Widget> screens = [
     HomeWorkerMain(),
-    Map(),
+    const Map(),
     DealsRequs(),
-    Profile(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => MyCubit(getIt())),
+        BlocProvider(create: (context) => PostCubit(getIt())),
+        BlocProvider(create: (context) => SwitchCubit(getIt())),
+        BlocProvider(create: (context) => FavoriteCubit(getIt())),
+      ],
+      child: const WorkerProfileScreen(),
+    ),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = HomeWorkerMain();
@@ -31,179 +49,44 @@ class _Home_UserState extends State<Home_Worker> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: MyColors.loggrey1,
-        floatingActionButton: Container(
-          child: FloatingActionButton(
-            backgroundColor: Colors.black,
-            child: Icon(Icons.add, color: Colors.white),
-            onPressed: () {
-              Create_Post New_Post = new Create_Post();
-              New_Post.creat_post(context);
-            },
-          ),
-        ),
         body: PageStorage(
-          child: currentScreen,
           bucket: bucket,
+          child: currentScreen,
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          height: 70,
-          color: MyColors.mainblue,
-          shape: CircularNotchedRectangle(),
-          notchMargin: 3,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                SizedBox(
-                  height: 70,
-                  width: 70,
-                  child: MaterialButton(
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = HomeWorkerMain();
-                        currentTab = 0;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          size: 20,
-                          FontAwesomeIcons.home,
-                          color:
-                              currentTab == 0 ? Colors.white : MyColors.grey4,
-                        ),
-                        currentTab == 0
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 2.0),
-                                child: Text("Home",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold)),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.only(top: 2.0),
-                                child: Text(''),
-                              ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 30.0),
-                  child: SizedBox(
-                    height: 70,
-                    width: 70,
-                    child: MaterialButton(
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = Map();
-                          currentTab = 1;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            size: 20,
-                            FontAwesomeIcons.mapLocationDot,
-                            color:
-                                currentTab == 1 ? Colors.white : MyColors.grey4,
-                          ),
-                          currentTab == 1
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(" Map",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(''),
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: SizedBox(
-                    height: 70,
-                    width: 70,
-                    child: MaterialButton(
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = DealsRequs();
-                          currentTab = 2;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            size: 20,
-                            FontAwesomeIcons.solidHandshake,
-                            color:
-                                currentTab == 2 ? Colors.white : MyColors.grey4,
-                          ),
-                          currentTab == 2
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(" Deals",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold)),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(''),
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                MaterialButton(
-                  onPressed: () {
-                    setState(() {
-                      currentScreen = Profile();
-                      currentTab = 3;
-                    });
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Icon(
-                          FontAwesomeIcons.solidUser,
-                          size: 20,
-                          color:
-                              currentTab == 3 ? Colors.white : MyColors.grey4,
-                        ),
-                      ),
-                      currentTab == 3
-                          ? Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
-                              child: Text("Account",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.only(top: 2.0),
-                              child: Text(''),
-                            ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+        bottomNavigationBar: SizedBox(
+          height: 80,
+          child: BottomNavigationBar(
+            currentIndex: currentTab,
+            onTap: (index) {
+              setState(() {
+                currentTab = index;
+                currentScreen = screens[index];
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.house),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.mapLocationDot),
+                label: 'Map',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.solidHandshake),
+                label: ' Deals',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.solidUser),
+                label: 'Profile',
+              ),
+            ],
+            backgroundColor: MyColors.mainblue,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: MyColors.grey4,
+            type: BottomNavigationBarType.fixed,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
           ),
         ),
       ),
@@ -216,17 +99,10 @@ class Map extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text("Map"),
+    return const Scaffold(
+      body: Center(
+        child: Text("Map"),
+      ),
     );
-  }
-}
-
-class Profile extends StatelessWidget {
-  const Profile({Key? key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
   }
 }

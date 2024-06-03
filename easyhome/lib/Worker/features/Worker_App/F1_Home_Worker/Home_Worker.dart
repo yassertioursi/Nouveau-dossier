@@ -1,8 +1,14 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/Dwwira.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Ok_Provider.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/BloC/Provider_Filter.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Apply_For_Post.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/NotificationsWidget.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/GetCount.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
+import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Filter.dart';
+
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Delete_App.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Get_All_Posts.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Get_Me_Worker.dart';
@@ -11,8 +17,7 @@ import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/common_widget
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/common_widgets/SendApp.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -25,8 +30,7 @@ class HomeWorkerMain extends StatelessWidget {
   Widget build(BuildContext context) {
     GetMeWorker getMeWorker = GetMeWorker();
     return FutureBuilder<String>(
-        future: getMeWorker.getMeWorker(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE1MjY1ODIxLCJleHAiOjE3MjMwNDE4MjF9.xvSfns86_RrA4fUCiVJGmTCqGu9IV2yPISumotOp25w"),
+        future: getMeWorker.getMeWorker(TokenWorker.token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
@@ -34,9 +38,14 @@ class HomeWorkerMain extends StatelessWidget {
                 elevation: 0,
                 backgroundColor: Colors.white,
               ),
-              body: Center(
-                  child:
-                      Dwwira(color: MyColors.mainblue, height: 60, width: 60)),
+              body: const Center(
+                  child: SizedBox(
+                height: 50.0,
+                width: 50.0,
+                child: CircularProgressIndicator(
+                  color: MyColors.mainblue,
+                ),
+              )),
             );
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
@@ -47,6 +56,7 @@ class HomeWorkerMain extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class HomeWorker extends StatefulWidget {
   String myJob;
   HomeWorker({Key? key, required this.myJob}) : super(key: key);
@@ -64,6 +74,7 @@ class _HomeWorkerState extends State<HomeWorker> {
 
   @override
   Widget build(BuildContext context) {
+    GetCountNotification getCountNotification = GetCountNotification();
     String postUrl = "https://easyhome-lcvx.onrender.com/api/v1/users/posts?";
 
     if (minPrice.isNotEmpty) {
@@ -76,8 +87,7 @@ class _HomeWorkerState extends State<HomeWorker> {
     if (jobs.isNotEmpty) {
       int i = 0;
       for (i = 0; i < jobs.length; i++) {
-        selected_jobs =
-            selected_jobs + "&\$or[${i}][job]=${jobs!.elementAt(i)}";
+        selected_jobs = selected_jobs + "&\$or[${i}][job]=${jobs.elementAt(i)}";
       }
       if (i == 0 && !selected_jobs.isEmpty) {
         selected_jobs = "&job=${selected_jobs[0]}";
@@ -97,7 +107,7 @@ class _HomeWorkerState extends State<HomeWorker> {
             alignment: Alignment.center,
             child: Text(
               widget.myJob,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 17,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -142,55 +152,78 @@ class _HomeWorkerState extends State<HomeWorker> {
                   },
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+              child: const Padding(
+                padding: EdgeInsets.only(right: 8.0, left: 8.0),
                 child: Icon(
                   Icons.tune,
+                  color: Colors.white,
                   size: 30,
                 ),
               ),
             ),
           ],
           backgroundColor: MyColors.mainblue,
-          leading: SizedBox(
-            width: 40,
-            height: 40,
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
+          leading: Padding(
+            padding: const EdgeInsets.only(right: 15.0, left: 5),
+            child: InkWell(
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 14.0),
+                    child: Icon(
+                      size: 30,
+                      Icons.notifications_rounded,
+                      color: Colors.white,
+                    ),
                   ),
-                  width: 80,
-                  height: 120,
-                ),
-                ClipOval(
-                  child: Image.asset(
-                    "lib/utils/images/logo2.png",
-                    height: 120,
-                    width: 80,
-                    fit: BoxFit.contain,
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.0, left: 20),
+                    child: FutureBuilder<String>(
+                        future:
+                            getCountNotification.getmycount(TokenWorker.token),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text("");
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return Text(
+                              "${getCountNotification.mycount}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                              ),
+                            );
+                          }
+                        }),
                   ),
-                ),
-              ],
+                ],
+              ),
+              onTap: () {
+                MyNotifications notifications =
+                    MyNotifications(TokenWorker.token);
+                notifications.showMyNotifications(context);
+              },
             ),
           ),
         ),
         body: FutureBuilder<String>(
           future: getAllPosts.getAllPosts(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE1MjY1ODIxLCJleHAiOjE3MjMwNDE4MjF9.xvSfns86_RrA4fUCiVJGmTCqGu9IV2yPISumotOp25w",
+            TokenWorker.token,
             postUrl,
           ),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Dwwira(
+              return const Center(
+                  child: SizedBox(
+                height: 50,
+                width: 50,
+                child: CircularProgressIndicator(
                   color: MyColors.mainblue,
-                  height: 60.0,
-                  width: 60.0,
                 ),
-              );
+              ));
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
@@ -230,6 +263,7 @@ class _HomeWorkerState extends State<HomeWorker> {
   }
 }
 
+// ignore: must_be_immutable
 class PostItem extends StatelessWidget {
   var Image_Controller = PageController();
   String userName;
@@ -273,10 +307,10 @@ class PostItem extends StatelessWidget {
           create: (BuildContext context) => ProviderOk(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => bloc_five(),
+          create: (BuildContext context) => ProviderLoading(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => bloc_five_One(),
+          create: (BuildContext context) => ProviderLoading1(),
         ),
         ChangeNotifierProvider(
           create: (BuildContext context) => ProviderOk2(),
@@ -287,7 +321,7 @@ class PostItem extends StatelessWidget {
             border: Border.symmetric(
                 horizontal: BorderSide(
                     color: Colors.grey.withOpacity(0.3), width: 0.5))),
-        padding: EdgeInsets.only(top: 30, bottom: 30),
+        padding: const EdgeInsets.only(top: 30, bottom: 30),
         height: postImages.isEmpty ? (postTitle.length > 40 ? 400 : 300) : 800,
         width: MediaQuery.of(context).size.width - 80,
         child: Column(
@@ -321,16 +355,16 @@ class PostItem extends StatelessWidget {
                           children: [
                             Text(
                               userName,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 4),
+                              padding: const EdgeInsets.only(top: 4),
                               child: Text(
                                 userWilaya,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: MyColors.mainorange,
                                     fontWeight: FontWeight.w600),
                               ),
@@ -340,36 +374,6 @@ class PostItem extends StatelessWidget {
                       )
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    child: PopupMenuButton<String>(
-                      tooltip: '',
-                      onSelected: (value) {
-                        print('Selected: $value');
-                      },
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry<String>>[
-                        PopupMenuItem<String>(
-                          value: 'Hide Post',
-                          child: Text(
-                            'Hide Post',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ],
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 12), // Adjust padding
-                        child: Icon(
-                          Icons.more_vert,
-                          size: 33,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
@@ -392,7 +396,7 @@ class PostItem extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox(
+                : const SizedBox(
                     height: 20,
                   ),
             Padding(
@@ -401,59 +405,64 @@ class PostItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Consumer<ProviderOk2>(builder: (context, providerok2, child) {
-                    return Consumer<bloc_five_One>(
+                    return Consumer<ProviderLoading>(
                         builder: (context, providerload, child) {
                       if (yesorno1) {
                         providerok2.setOk(application["applied"]);
                         yesorno1 = false;
                       }
                       return InkWell(
-                        child: providerok2.isOk
-                            ? Icon(
-                                Icons.work,
-                                size: 40,
-                                color: Colors.black,
-                              )
-                            : Icon(Icons.work_outline,
-                                size: 40, color: Colors.black.withOpacity(0.7)),
-                        onTap: () async {
-                          if (!providerok2.isOk) {
-                            showModalBottomSheet(
-                              backgroundColor: Colors.white,
-                              useSafeArea: true,
-                              isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20.0),
-                                  topRight: Radius.circular(20.0),
+                          child: providerok2.isOk
+                              ? const Icon(
+                                  Icons.work,
+                                  size: 40,
+                                  color: Colors.black,
+                                )
+                              : Icon(Icons.work_outline,
+                                  size: 40, color: Colors.black),
+                          onTap: () async {
+                            if (!providerok2.isOk) {
+                              showModalBottomSheet(
+                                backgroundColor: Colors.white,
+                                useSafeArea: true,
+                                isScrollControlled: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20.0),
+                                    topRight: Radius.circular(20.0),
+                                  ),
                                 ),
-                              ),
-                              context: context,
-                              builder: (BuildContext context) {
-                                return SendAppWidget(
-                                  postId: postId,
-                                  onAppCreated: (bool status) {
-                                    providerok2.setOk(status);
-                                    Post["application"]["applied"] =
-                                        !Post["application"]["applied"];
-                                  },
-                                );
-                              },
-                            );
-                          } else {
-                            if (!providerload.isLoading) {
-                              providerload.setLoad(true);
-                              DeleteApp deleteApp = DeleteApp();
-                              providerok2.setOk(!providerok2.isOk);
-                              if (await deleteApp.deleteApp(
-                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
-                                  application["id"])) {
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SendAppWidget(
+                                    postId: postId,
+                                    onAppCreated: (bool status) {
+                                      providerok2.setOk(status);
+                                      Post["application"]["applied"] =
+                                          !Post["application"]["applied"];
+                                    },
+                                  );
+                                },
+                              );
+                            } else {
+                              if (!providerload.isLoading) {
+                                providerload.setLoad(true);
+                                DeleteApp deleteApp = DeleteApp();
+                                providerok2.setOk(!providerok2.isOk);
+                                if (await deleteApp.deleteApp(
+                                    TokenWorker.token, application["id"])) {
+                                  context.showSuccessMessage("Success",
+                                      "the application has been deleted  successfully.");
+                                } else {
+                                  context.showSuccessMessage("Success",
+                                      "Failed to delete the application.");
+                                  providerok2.setOk(!providerok2.isOk);
+                                }
+
                                 providerload.setLoad(false);
                               }
                             }
-                          }
-                        },
-                      );
+                          });
                     });
                   }),
                   postImages.length != 1
@@ -463,7 +472,7 @@ class PostItem extends StatelessWidget {
                             child: SmoothPageIndicator(
                               controller: Image_Controller,
                               count: postImages.length,
-                              effect: ScrollingDotsEffect(
+                              effect: const ScrollingDotsEffect(
                                 dotColor: Color(0xFFD7D4D4),
                                 activeDotColor: MyColors.mainorange,
                                 dotHeight: 9,
@@ -473,13 +482,13 @@ class PostItem extends StatelessWidget {
                             ),
                           ),
                         )
-                      : Text(""),
+                      : const Text(""),
                   SizedBox(
-                    height: 60,
-                    width: 60,
+                    height: 30,
+                    width: 30,
                     child: Consumer<ProviderOk>(
                         builder: (context, providerok, child) {
-                      return Consumer<bloc_five>(
+                      return Consumer<ProviderLoading>(
                           builder: (context, providerload, child) {
                         if (yesorno) {
                           providerok.setOk(isSaved);
@@ -487,11 +496,11 @@ class PostItem extends StatelessWidget {
                         }
                         return InkWell(
                           child: Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(0.0),
                             child: Image.asset(
                               providerok.isOk
-                                  ? "lib/utils/images/save-instagram.png"
-                                  : "lib/utils/images/save-instagram1.png",
+                                  ? "lib/utils/images/save.png"
+                                  : "lib/utils/images/save1.png",
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -502,11 +511,20 @@ class PostItem extends StatelessWidget {
 
                               SavePost savePost = SavePost();
                               if (await savePost.savePost(
-                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
-                                  postId)) {
-                                print("+++");
+                                  TokenWorker.token, postId)) {
+                                if (providerok.isOk) {
+                                  context.showSuccessMessage(
+                                      "Success", "Post saved successfully.");
+                                } else {
+                                  context.showSuccessMessage(
+                                      "Success", "Post unsaved successfully.");
+                                }
                                 Post["isSaved"] = !Post["isSaved"];
                                 providerload.setLoad(false);
+                              } else {
+                                context.showErrorMessage(
+                                    "Error!", "Failed to save the post.");
+                                providerok.setOk(!providerok.isOk);
                               }
                               ;
                             }
@@ -522,12 +540,15 @@ class PostItem extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Align(
                   alignment: Alignment.topLeft,
-                  child: Text(
-                    postTitle,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 17),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      postTitle,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 17),
+                    ),
                   )),
             ),
             Padding(
@@ -537,7 +558,7 @@ class PostItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         "MaxPrice :",
                         style: TextStyle(
                             color: Color(0xFF3E3E3E),
@@ -548,7 +569,7 @@ class PostItem extends StatelessWidget {
                         postPrice != "null"
                             ? " $postPrice DA"
                             : " Not Mentioned",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Color(0xFF137A23),
                             fontWeight: FontWeight.bold),
                       ),
@@ -560,7 +581,7 @@ class PostItem extends StatelessWidget {
                         backgroundColor: Colors.white,
                         useSafeArea: true,
                         isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20.0),
                             topRight: Radius.circular(20.0),
@@ -575,8 +596,8 @@ class PostItem extends StatelessWidget {
                         },
                       );
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.only(
+                    child: const Padding(
+                      padding: EdgeInsets.only(
                         left: 12.0,
                         right: 12,
                       ),

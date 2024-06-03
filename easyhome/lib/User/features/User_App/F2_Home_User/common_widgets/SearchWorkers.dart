@@ -1,16 +1,19 @@
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/Dwwira.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Ok_Provider.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/workers_search.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/workers_selected.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Get_Worker_ById.dart';
+// ignore_for_file: must_be_immutable, prefer_const_constructors
+
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_search.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_selected.dart';
+
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Search_Main.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Send_Request(update_post).dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 
 import 'package:easyhome/utils/constants/colors.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:provider/provider.dart';
 
 import 'filter__widget.dart';
@@ -38,19 +41,19 @@ class SearchWorkers extends SearchDelegate {
 
   @override
   TextStyle? get searchFieldStyle =>
-      TextStyle(color: MyColors.mainblue, fontSize: 20);
+      const TextStyle(color: Colors.black, fontSize: 20);
 
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
-      textSelectionTheme: TextSelectionThemeData(
-        cursorColor: MyColors.mainblue,
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: Colors.black,
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         toolbarHeight: 90,
         color: MyColors.mainblue,
       ),
-      inputDecorationTheme: InputDecorationTheme(
+      inputDecorationTheme: const InputDecorationTheme(
         contentPadding: EdgeInsets.fromLTRB(15, 15, 10, 15),
         filled: true,
         fillColor: Colors.white,
@@ -113,9 +116,10 @@ class SearchWorkers extends SearchDelegate {
                 },
               );
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.tune,
               size: 30,
+              color: Colors.white,
             )),
       ),
     ];
@@ -127,7 +131,8 @@ class SearchWorkers extends SearchDelegate {
         onPressed: () {
           close(context, "");
         },
-        icon: Icon(
+        icon: const Icon(
+          color: Colors.white,
           Icons.keyboard_arrow_left,
           size: 50,
         ));
@@ -135,7 +140,7 @@ class SearchWorkers extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text("");
+    return const Text("");
   }
 
   @override
@@ -153,12 +158,17 @@ class SearchWorkers extends SearchDelegate {
       }
 
       return FutureBuilder<String>(
-        future: search.search_workers(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+        future: search.search_workers(TokenUser.token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: Dwwira(color: MyColors.mainblue, height: 50, width: 50));
+            return const Center(
+                child: SizedBox(
+              height: 50,
+              width: 50,
+              child: CircularProgressIndicator(
+                color: MyColors.mainblue,
+              ),
+            ));
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
@@ -170,13 +180,17 @@ class SearchWorkers extends SearchDelegate {
                     create: (BuildContext context) => WorkersSelect()),
               ],
               child: FutureBuilder<String>(
-                future: search.search_workers(
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+                future: search.search_workers(TokenUser.token),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                        child: Dwwira(
-                            color: MyColors.mainblue, height: 50, width: 50));
+                    return const Center(
+                        child: SizedBox(
+                      height: 50.0,
+                      width: 50.0,
+                      child: CircularProgressIndicator(
+                        color: MyColors.mainblue,
+                      ),
+                    ));
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
@@ -193,7 +207,7 @@ class SearchWorkers extends SearchDelegate {
       );
     } else if (Id_Search == 1) {
       if (query.isEmpty) {
-        return Text("");
+        return const Text("");
       } else {
         Search search = Search();
 
@@ -207,13 +221,17 @@ class SearchWorkers extends SearchDelegate {
                 create: (BuildContext context) => WorkersSelect()),
           ],
           child: FutureBuilder<String>(
-            future: search.search_workers(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+            future: search.search_workers(TokenUser.token),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                    child: Dwwira(
-                        color: MyColors.mainblue, height: 50, width: 50));
+                return const Center(
+                    child: SizedBox(
+                  height: 50.0,
+                  width: 50.0,
+                  child: CircularProgressIndicator(
+                    color: MyColors.mainblue,
+                  ),
+                ));
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
@@ -268,13 +286,17 @@ class SearchWorkers extends SearchDelegate {
               create: (BuildContext context) => WorkersSelect()),
         ],
         child: FutureBuilder<String>(
-          future: search.search_workers(
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+          future: search.search_workers(TokenUser.token),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                  child:
-                      Dwwira(color: MyColors.mainblue, height: 50, width: 50));
+              return const Center(
+                  child: SizedBox(
+                height: 50,
+                width: 50,
+                child: CircularProgressIndicator(
+                  color: MyColors.mainblue,
+                ),
+              ));
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
@@ -306,20 +328,28 @@ class WorkersList extends StatelessWidget {
     return Consumer<WorkersSearch>(builder: (context, workersprovider, child) {
       return Consumer<WorkersSelect>(
           builder: (context, workerselectprovider, child) {
-        return Stack(
-          children: [
-            ListView.builder(
-                itemCount: search.workers!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Stack(
-                    children: [
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+                create: (BuildContext context) => ProviderLoading()),
+          ],
+          child: Stack(
+            children: [
+              ListView.builder(
+                  itemCount: search.workers!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    String rt1 = search.workers![index]["rating"].toString();
+                    String exp1 =
+                        search.workers![index]["experience"].toString();
+                    double rating = double.parse(rt1);
+                    double exp = double.parse(exp1);
+
+                    return Stack(children: [
                       Worker_two(
                         name: search.workers![index]["name"] ?? "",
-                        email: "",
                         wilaya: search.workers![index]["wilaya"] ?? "",
-                        phoneNumber: "",
-                        rating: search.workers![index]["rating"] ?? "",
-                        experience: search.workers![index]["experience"] ?? "",
+                        rating: rating,
+                        experience: exp,
                         profilePicture:
                             search.workers![index]["profilePicture"] ?? "",
                         job: search.workers![index]["job"] ?? "",
@@ -330,6 +360,7 @@ class WorkersList extends StatelessWidget {
                       ),
                       postId.isNotEmpty
                           ? Align(
+                              alignment: Alignment.topLeft,
                               child: Padding(
                                 padding:
                                     const EdgeInsets.only(top: 30, left: 22),
@@ -347,58 +378,84 @@ class WorkersList extends StatelessWidget {
                                   },
                                   child: !workerselectprovider.workers.contains(
                                           search.workers![index]["_id"])
-                                      ? Icon(Icons.circle_outlined)
-                                      : Icon(Icons.check_circle),
+                                      ? const Icon(Icons.circle_outlined)
+                                      : const Icon(Icons.check_circle),
                                 ),
                               ),
-                              alignment: Alignment.topLeft,
                             )
-                          : Text(" "),
+                          : const Text(" "),
                       Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                            padding: EdgeInsets.only(top: 24, right: 30),
-                            child: IconButton(
-                                onPressed: () {
-                                  search.workers!.removeAt(index);
-                                  workersprovider.notifyListeners();
-                                },
-                                icon: Icon(Icons.close))),
-                      ),
-                    ],
-                  );
-                }),
-            postId.isNotEmpty && workerselectprovider.workers.length > 0
-                ? Align(
-                    alignment: Alignment.bottomCenter,
-                    child: InkWell(
-                      onTap: () {
-                        print(workerselectprovider.workers);
-                        SendRequest sendRequest = SendRequest();
-                        sendRequest.sendRequest(
-                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
-                            "663428a0685145d9db5d5067",
-                            workerselectprovider.workers);
-                      },
-                      child: Container(
-                        height: 70,
-                        width: MediaQuery.of(context).size.width,
-                        color: Colors.black,
-                        child: Center(
-                          child: Text(
-                            "Send",
-                            style: TextStyle(
-                              fontSize: 23,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 24, right: 30),
+                              child: InkWell(
+                                  onTap: () {
+                                    search.workers!.removeAt(index);
+
+                                    workersprovider.notifyListeners();
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, right: 8),
+                                    child: const Icon(Icons.close),
+                                  )))),
+                    ]);
+                  }),
+              postId.isNotEmpty && workerselectprovider.workers.length > 0
+                  ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Consumer<ProviderLoading>(
+                          builder: (context, providerloading, child) {
+                        return InkWell(
+                          onTap: () async {
+                            if (!providerloading.isLoading) {
+                              providerloading.setLoad(true);
+                              print(workerselectprovider.workers);
+                              SendRequest sendRequest = SendRequest();
+                              if (await sendRequest.sendRequest(
+                                  TokenUser.token,
+                                  "663428a0685145d9db5d5067",
+                                  workerselectprovider.workers)) {
+                                context.showSuccessMessage("Success",
+                                    "The post has been declined successfully.");
+                              } else {
+                                context.showErrorMessage(
+                                    "Error!", "Failed to send your post.");
+                              }
+                              providerloading.setLoad(false);
+                            }
+                          },
+                          child: Container(
+                            height: 70,
+                            width: MediaQuery.of(context).size.width,
+                            color: Colors.black,
+                            child: Center(
+                              child: !providerloading.isLoading
+                                  ? Text(
+                                      "Send",
+                                      style: TextStyle(
+                                        fontSize: 23,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      height: 23,
+                                      width: 23,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 3,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  )
-                : Text(''),
-          ],
+                        );
+                      }),
+                    )
+                  : const Text(''),
+            ],
+          ),
         );
       });
     });

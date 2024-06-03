@@ -40,6 +40,7 @@ class HomeWorker extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Post extends StatelessWidget {
   var Image_Controller = PageController();
   Post({Key? key, required this.post}) : super(key: key);

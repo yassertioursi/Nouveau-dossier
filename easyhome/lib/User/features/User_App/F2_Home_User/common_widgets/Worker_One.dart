@@ -1,28 +1,23 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// ignore: must_be_immutable
 class Worker_One extends StatelessWidget {
-  late String firstName;
-  late String lastName;
-  late String email;
-  late String wilaya;
-  late String phoneNumber;
-  late String _id;
-  late String rating;
-  late String ratingsNumber;
-  late String experience;
-  late String profilePicture;
-  late String job;
-  late bool isCertified;
+  String name;
+
+  String wilaya;
+  String profilePicture;
+  double rating;
+  String experience;
+  String job;
+  bool isCertified;
   Worker_One({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
+    required this.name,
     required this.wilaya,
-    required this.phoneNumber,
     required this.rating,
-    required this.ratingsNumber,
     required this.experience,
     required this.profilePicture,
     required this.job,
@@ -32,121 +27,126 @@ class Worker_One extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      height: 180,
-      child: ListView.builder(
-        itemCount: 5,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) => Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 10),
+    String ratingStr = rating.toString();
+    double roundedRating = double.parse(rating.toStringAsFixed(1));
+    return SizedBox(
+      height: 200,
+      width: 170,
+      child: Stack(children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 45.0),
           child: Container(
-            padding: EdgeInsets.only(bottom: 0),
-            width: 170,
-            child: Stack(children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 45.0),
-                child: Container(
-                  padding: EdgeInsets.all(8),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 5, top: 8),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            isCertified
-                                ? Icon(
-                                    Icons.verified_user_rounded,
-                                    color: Color(0xFF137A23),
-                                  )
-                                : Text(''),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "$firstName $lastName",
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.solidStar,
-                                  color: Color(0xFFED8A19),
-                                  size: 17,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 4.0, top: 3.0),
-                                  child: Text(
-                                    "$rating",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Text(
-                              "$experience",
-                              style: TextStyle(color: Color(0xFFC7C7C7)),
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10, top: 8),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      isCertified
+                          ? const Icon(
+                              Icons.verified_user_rounded,
+                              color: Color(0xFF137A23),
                             )
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            "$job",
-                            style: TextStyle(
-                                color: MyColors.mainorange,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
+                          : const Text(''),
+                    ],
+                  ),
+                  Padding(
+                    padding: isCertified
+                        ? const EdgeInsets.fromLTRB(8, 4, 8, 0)
+                        : const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                    child: Text(
+                      "$name ",
                     ),
                   ),
-                  decoration: BoxDecoration(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Icon(
+                            FontAwesomeIcons.solidStar,
+                            color: Color(0xFFED8A19),
+                            size: 17,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 4.0, top: 3.0),
+                            child: Text(
+                              "$roundedRating ",
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            "EXP",
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "$experience",
+                            style: const TextStyle(color: Color(0xFFC7C7C7)),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: !isCertified
+                        ? const EdgeInsets.only(top: 0.0)
+                        : const EdgeInsets.only(top: 0),
+                    child: Text(
+                      "$job",
+                      style: const TextStyle(
+                          color: MyColors.mainorange,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                    width: 4,
                   ),
                 ),
-              ),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 4,
-                        ),
-                      ),
-                      child: ClipOval(
-                        child: Container(
-                          height: 80,
-                          width: 80,
-                          child: Image.network(
+                child: ClipOval(
+                  child: SizedBox(
+                    height: 80,
+                    width: 80,
+                    child: profilePicture == "default.jpg" ||
+                            profilePicture.isEmpty
+                        ? Image.asset("lib/utils/images/default.jpg")
+                        : Image.network(
                             profilePicture,
                             fit: BoxFit.cover,
                           ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ]),
+            ],
           ),
         ),
-      ),
+      ]),
     );
   }
 }

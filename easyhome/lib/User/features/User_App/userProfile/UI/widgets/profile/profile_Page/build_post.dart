@@ -33,15 +33,12 @@ class _BuildPostState extends State<BuildPost> {
   }
 
   Widget _listV(List<PData> posts) {
-    return Container(
-      color: Colors.grey,
-      child: ListView.builder(
-        itemCount: posts.length,
-        itemBuilder: (context, index) {
-          posts.length;
-          return postUI(context, posts[index]);
-        },
-      ),
+    return ListView.builder(
+      itemCount: posts.length,
+      itemBuilder: (context, index) {
+        posts.length;
+        return postUI(context, posts[index]);
+      },
     );
   }
 }

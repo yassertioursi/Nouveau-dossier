@@ -1,14 +1,14 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/text_verify_field.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DropDown extends StatefulWidget {
+class DropDownWilaya extends StatefulWidget {
   final GlobalKey<FormState> formstate_wilaya;
   final void Function(String) onWilayaChanged;
 
-  DropDown(
+  DropDownWilaya(
       {Key? key, required this.formstate_wilaya, required this.onWilayaChanged})
       : super(key: key);
 
@@ -16,7 +16,7 @@ class DropDown extends StatefulWidget {
   _DropDownState createState() => _DropDownState();
 }
 
-class _DropDownState extends State<DropDown> {
+class _DropDownState extends State<DropDownWilaya> {
   String? valueChoose;
   List<String> wilayasList = [
     '01   Adrar',
@@ -73,17 +73,19 @@ class _DropDownState extends State<DropDown> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (BuildContext context) => bloc_one()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderValidate()),
       ],
-      child: Consumer<bloc_one>(builder: (context, bloc_1, child) {
+      child: Consumer<ProviderValidate>(
+          builder: (context, providervalidate, child) {
         return Container(
           decoration: BoxDecoration(
             color: MyColors.loggrey1,
             boxShadow: [
               BoxShadow(
-                offset: Offset(0, 0.5),
-                blurRadius: bloc_1.validated ? 18 : 2,
-                color: bloc_1.validated
+                offset: const Offset(0, 0.5),
+                blurRadius: providervalidate.validated ? 18 : 2,
+                color: providervalidate.validated
                     ? Colors.black.withOpacity(0.25)
                     : Colors.black.withOpacity(0.0),
               ),
@@ -95,7 +97,7 @@ class _DropDownState extends State<DropDown> {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.place,
                   color: MyColors.mainblue,
                 ),
@@ -105,14 +107,14 @@ class _DropDownState extends State<DropDown> {
                   fontWeight: FontWeight.w600,
                   fontSize: 17,
                 ),
-                border: OutlineInputBorder(),
-                enabledBorder: OutlineInputBorder(
+                border: const OutlineInputBorder(),
+                enabledBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(0)),
                   borderSide: BorderSide(
                     color: MyColors.loggrey1,
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(0)),
                   borderSide: BorderSide(
                     color: Colors.white,
@@ -123,7 +125,7 @@ class _DropDownState extends State<DropDown> {
               iconEnabledColor: MyColors.mainblue,
               iconDisabledColor: Colors.red,
               dropdownColor: Colors.white,
-              icon: Icon(Icons.keyboard_arrow_down_rounded),
+              icon: const Icon(Icons.keyboard_arrow_down_rounded),
               iconSize: 36,
               isDense: true,
               isExpanded: false,
@@ -137,20 +139,21 @@ class _DropDownState extends State<DropDown> {
               },
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  bloc_1.setValidated(false);
+                  providervalidate.setValidated(false);
                   return 'Please select a wilaya';
                 } else {
-                  bloc_1.setValidated(true);
+                  providervalidate.setValidated(true);
                 }
                 ;
+                return null;
               },
               items: wilayasList.map((valueItem) {
                 return DropdownMenuItem(
                   value: valueItem,
                   child: Text(
                     valueItem,
-                    style: TextStyle(
-                      color: const Color.fromARGB(255, 134, 143, 154),
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 134, 143, 154),
                       fontWeight: FontWeight.w800,
                       fontSize: 20,
                     ),

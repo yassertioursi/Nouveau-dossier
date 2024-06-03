@@ -1,19 +1,19 @@
 import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/Validators.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:email_validator/email_validator.dart';
 
-Validators validators = new Validators();
+Validators validators = Validators();
 
+// ignore: must_be_immutable
 class Log_Field extends StatelessWidget {
   final GlobalKey<FormState> formstate;
   final String hint_text;
   final TextEditingController? controller;
   final Icon prefixIcon;
   final IconButton? suffixIcon;
-  bool isObscure = true;
+  bool? isObscure;
   String field_id;
   TextInputType keyboardtype;
 
@@ -30,18 +30,21 @@ class Log_Field extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (BuildContext context) => bloc_one()),
-        ChangeNotifierProvider(create: (BuildContext context) => bloc_two()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderValidate()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderObscure()),
       ],
-      child: Consumer<bloc_one>(builder: (context, bloc_1, child) {
+      child: Consumer<ProviderValidate>(
+          builder: (context, providervalidate, child) {
         return Container(
           decoration: BoxDecoration(
             color: MyColors.loggrey1,
             boxShadow: [
               BoxShadow(
-                offset: Offset(0, 0.5),
-                blurRadius: bloc_1.validated ? 18 : 2,
-                color: bloc_1.validated
+                offset: const Offset(0, 0.2),
+                blurRadius: providervalidate.validated ? 8 : 2,
+                color: providervalidate.validated
                     ? Colors.black.withOpacity(0.25)
                     : Colors.black.withOpacity(0.0),
               ),
@@ -49,13 +52,13 @@ class Log_Field extends StatelessWidget {
           ),
           child: Form(
               key: formstate,
-              child: Consumer<bloc_two>(
+              child: Consumer<ProviderObscure>(
                 builder: (context, bloc_2, child) => TextFormField(
                   maxLines: 1,
                   keyboardType: keyboardtype,
                   cursorWidth: 3,
                   cursorColor: MyColors.mainblue,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: MyColors.mainblue,
                     fontWeight: FontWeight.w800,
                     fontSize: 20,
@@ -63,20 +66,20 @@ class Log_Field extends StatelessWidget {
                   onChanged: (value) {
                     switch (field_id) {
                       case "signup-password":
-                        this.formstate.currentState!.validate();
+                        formstate.currentState!.validate();
                         break;
                     }
                   },
                   onEditingComplete: () {
                     switch (field_id) {
                       case "phone-nbr":
-                        this.formstate.currentState!.validate();
+                        formstate.currentState!.validate();
                         break;
                     }
                   },
                   controller: controller,
                   validator: (value) {
-                    switch (this.field_id) {
+                    switch (field_id) {
                       case "login-email":
                         //
                         break;
@@ -87,29 +90,29 @@ class Log_Field extends StatelessWidget {
                       case "signup-email":
                         if (validators.Validate_email_signup(value!) ==
                             "Email not valid") {
-                          bloc_1.setValidated(false);
+                          providervalidate.setValidated(false);
                           return "Email not valid";
                         } else {
-                          bloc_1.setValidated(true);
+                          providervalidate.setValidated(true);
                         }
 
                         break;
                       case "signup-password":
                         if (validators.Validate_password_signup(value!) ==
                             "At least 6 characters") {
-                          bloc_1.setValidated(false);
+                          providervalidate.setValidated(false);
                           return "At least 6 characters";
                         } else
-                          bloc_1.setValidated(true);
+                          providervalidate.setValidated(true);
                         ;
                         break;
                       case "signup-fname" || "signup-lname":
                         if (validators.Validate_name(value!) ==
                             "Enter a valid name") {
-                          bloc_1.setValidated(false);
+                          providervalidate.setValidated(false);
                           return "Enter a valid name";
                         } else {
-                          bloc_1.setValidated(true);
+                          providervalidate.setValidated(true);
                         }
 
                         break;
@@ -117,21 +120,22 @@ class Log_Field extends StatelessWidget {
                       case "phone-nbr":
                         if (validators.Validate_phone_number(value!) ==
                             "Enter a Valid number") {
-                          bloc_1.setValidated(false);
+                          providervalidate.setValidated(false);
                           return "Enter a Valid number:(exp: 0793818443)";
                         } else {
-                          bloc_1.setValidated(true);
+                          providervalidate.setValidated(true);
                         }
                         break;
                     }
+                    return null;
                   },
-                  obscureText: this.field_id == "signup-password" ||
-                          this.field_id == "login-password"
+                  obscureText: field_id == "signup-password" ||
+                          field_id == "login-password"
                       ? bloc_2.isObscured
                       : false,
                   decoration: InputDecoration(
-                    suffixIcon: this.field_id == "signup-password" ||
-                            this.field_id == "login-password"
+                    suffixIcon: field_id == "signup-password" ||
+                            field_id == "login-password"
                         ? IconButton(
                             icon: Icon(
                               bloc_2.isObscured
@@ -152,14 +156,14 @@ class Log_Field extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontSize: 17,
                     ),
-                    border: OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
+                    border: const OutlineInputBorder(),
+                    enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0)),
                       borderSide: BorderSide(
                         color: MyColors.loggrey1,
                       ),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(0)),
                       borderSide: BorderSide(
                         color: Colors.white,

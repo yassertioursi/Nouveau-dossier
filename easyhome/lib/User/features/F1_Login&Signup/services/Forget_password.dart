@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/dialogs.dart';
 
-import 'package:flutter/material.dart';
-
-Dio dio = new Dio();
+Dio dio = Dio();
 
 class Forgot_pass_ser {
   late String result;

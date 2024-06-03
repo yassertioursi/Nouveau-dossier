@@ -1,10 +1,18 @@
-import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Search_Main.dart';
+// ignore_for_file: must_be_immutable, prefer_const_constructors
+
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/Services/GetBestWorker.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/NotificationsWidget.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/GetCount.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/GetNorification.dart';
+import 'package:easyhome/User/features/User_App/F3_Create_Post/Create_Post.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/SearchWorkers.dart';
 
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'common_widgets/Worker_One.dart';
@@ -15,6 +23,9 @@ class HomeUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GetCountNotification getCountNotification = GetCountNotification();
+
+    GetBestWorkers getBestWorkers = GetBestWorkers();
     Workers_Cat workers_cat = Workers_Cat();
     return SingleChildScrollView(
       child: Column(
@@ -24,7 +35,7 @@ class HomeUser extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 120,
                 width: 80,
                 child: Image.asset(
@@ -42,7 +53,7 @@ class HomeUser extends StatelessWidget {
                       color: MyColors.loggrey1,
                       boxShadow: [
                         BoxShadow(
-                          offset: Offset(0, 0.5),
+                          offset: const Offset(0, 0.5),
                           blurRadius: 1,
                           color: Colors.black.withOpacity(0.1),
                         ),
@@ -68,14 +79,14 @@ class HomeUser extends StatelessWidget {
                         maxLines: 1,
                         cursorWidth: 3,
                         cursorColor: MyColors.mainblue,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: MyColors.mainblue,
                           fontWeight: FontWeight.w800,
                           fontSize: 20,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(20),
-                          suffixIcon: Icon(
+                          contentPadding: const EdgeInsets.all(20),
+                          suffixIcon: const Icon(
                             Icons.search,
                             color: Colors.grey,
                           ),
@@ -87,14 +98,14 @@ class HomeUser extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             fontSize: 17,
                           ),
-                          border: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(
+                          border: const OutlineInputBorder(),
+                          enabledBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             borderSide: BorderSide(
                               color: Colors.white,
                             ),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             borderSide: BorderSide(
                               color: Colors.white,
@@ -107,10 +118,52 @@ class HomeUser extends StatelessWidget {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: InkWell(
+                  child: Stack(
+                    children: [
+                      Icon(
+                        size: 40,
+                        Icons.notifications_rounded,
+                        color: MyColors.mainblue,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0, left: 20),
+                        child: FutureBuilder<String>(
+                            future: getCountNotification
+                                .getmycount(TokenUser.token),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Text("");
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return Text(
+                                  "${getCountNotification.mycount}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                  ),
+                                );
+                              }
+                            }),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    MyNotifications notifications =
+                        MyNotifications(TokenUser.token);
+                    notifications.showMyNotifications(context);
+                  },
+                ),
+              ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15.0, bottom: 13),
+          const Padding(
+            padding: EdgeInsets.only(left: 15.0, bottom: 15),
             child: Text(
               "Categorys",
               style: TextStyle(
@@ -121,15 +174,28 @@ class HomeUser extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 25),
-            child: Container(
+            padding: const EdgeInsets.only(
+              bottom: 25,
+            ),
+            child: SizedBox(
               height: 70,
               child: ListView.builder(
                 itemCount: workers_cat.cats.length,
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => Container(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
+                  child: InkWell(
+                    onTap: () {
+                      showSearch(
+                          context: context,
+                          delegate: SearchWorkers(
+                              jobs: workers_cat.cats.sublist(index, index + 1),
+                              Id_Search: 2,
+                              rating: 0,
+                              wilaya: "All",
+                              sort: "Default",
+                              postId: ""));
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         color: MyColors.mainblue,
@@ -138,24 +204,13 @@ class HomeUser extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Center(
-                          child: TextButton(
-                            child: Text("${workers_cat.cats[index]}",
-                                style: TextStyle(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(right: 10.0, left: 10),
+                            child: Text(workers_cat.cats[index],
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold)),
-                            onPressed: () {
-                              showSearch(
-                                  context: context,
-                                  delegate: SearchWorkers(
-                                      jobs: workers_cat.cats
-                                          .sublist(index, index + 1),
-                                      Id_Search: 2,
-                                      rating: 0,
-                                      wilaya: "All",
-                                      sort: "Default",
-                                      postId: ""));
-                              ;
-                            },
                           ),
                         ),
                       ),
@@ -166,9 +221,9 @@ class HomeUser extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 0, 0, 5),
-            child: Container(
-              height: 220,
+            padding: const EdgeInsets.fromLTRB(0.0, 20, 0, 5),
+            child: SizedBox(
+              height: 240,
               child: PageView(
                 controller: Image_Controller,
                 children: [
@@ -202,7 +257,7 @@ class HomeUser extends StatelessWidget {
               child: SmoothPageIndicator(
                   controller: Image_Controller,
                   count: 3,
-                  effect: ExpandingDotsEffect(
+                  effect: const ExpandingDotsEffect(
                       dotColor: Color(0xFFD7D4D4),
                       activeDotColor: Color(0xFF666363),
                       dotHeight: 13,
@@ -210,8 +265,8 @@ class HomeUser extends StatelessWidget {
                   onDotClicked: (index) {}),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15.0, bottom: 20),
+          const Padding(
+            padding: EdgeInsets.only(left: 15.0, bottom: 20, top: 25),
             child: Text(
               "Best Workers",
               style: TextStyle(
@@ -221,19 +276,64 @@ class HomeUser extends StatelessWidget {
               ),
             ),
           ),
-          Worker_One(
-            firstName: "Levi",
-            lastName: "Ackeraman",
-            email: "levi@gmail.com",
-            wilaya: "Tlemcen",
-            phoneNumber: "0799999999",
-            rating: "4.8",
-            ratingsNumber: "99",
-            experience: "150",
-            profilePicture:
-                "https://m.media-amazon.com/images/I/41AY0W4qFOL._AC_UF894,1000_QL80_.jpg",
-            job: "CLeaner",
-            isCertified: true,
+          FutureBuilder<String>(
+            future: getBestWorkers.getbestworkers(TokenUser.token),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: const Center(
+                      child: SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: MyColors.mainblue,
+                      ),
+                    ),
+                  )),
+                );
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                return SizedBox(
+                  height: 210,
+                  child: ListView.builder(
+                      itemCount: getBestWorkers.bestWorkers!.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        String rt1 = getBestWorkers.bestWorkers![index]
+                                ["rating"]
+                            .toString();
+                        String exp1 = getBestWorkers.bestWorkers![index]
+                                ["experience"]
+                            .toString();
+                        double rating = double.parse(rt1);
+                        double exp = double.parse(exp1);
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
+                          child: Worker_One(
+                            name: getBestWorkers.bestWorkers![index]["name"] ??
+                                "",
+                            wilaya: getBestWorkers.bestWorkers![index]
+                                    ["wilaya"] ??
+                                "",
+                            experience: "44",
+                            profilePicture: getBestWorkers.bestWorkers![index]
+                                    ["profilePicture"] ??
+                                "",
+                            job:
+                                getBestWorkers.bestWorkers![index]["job"] ?? "",
+                            isCertified: getBestWorkers.bestWorkers![index]
+                                    ["isCertified"] ??
+                                false,
+                            rating: rating,
+                          ),
+                        );
+                      }),
+                );
+              }
+            },
           ),
         ],
       ),
