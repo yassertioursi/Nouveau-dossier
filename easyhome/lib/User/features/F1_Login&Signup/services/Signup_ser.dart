@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import 'package:easyhome/Models/User_model.dart';
+import 'package:easyhome/Models/User_Model.dart';
 
 Dio dio = Dio();
 

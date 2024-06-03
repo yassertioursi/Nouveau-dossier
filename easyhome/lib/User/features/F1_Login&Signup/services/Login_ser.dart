@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
-
-import 'package:easyhome/Models/User_model.dart';
+import 'package:easyhome/Models/User_Model.dart';
 
 Dio dio = Dio();
 
 class Login_ser {
-  UserYasser user = new UserYasser();
+  UserYasser user = UserYasser();
   late String result;
   Future<bool> login_post(String email, String password) async {
     String postUrl = 'https://easyhome-lcvx.onrender.com/api/v1/auth/login';

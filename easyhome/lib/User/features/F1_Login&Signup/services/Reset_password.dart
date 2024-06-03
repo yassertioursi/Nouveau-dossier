@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
-
-import 'package:easyhome/Models/User_model.dart';
+import 'package:easyhome/Models/User_Model.dart';
 
 Dio dio = Dio();
 
 class Reset_pass_ser {
-  UserYasser user = new UserYasser();
+  UserYasser user = UserYasser();
   late String result;
   Future<bool> reset_password_post(
       String email, String otp, String password, String passwordConfirm) async {
