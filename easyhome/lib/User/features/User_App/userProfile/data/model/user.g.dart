@@ -8,14 +8,14 @@ part of 'user.dart';
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
       status: json['status'] as String?,
-      data: json['user'] == null
+      data: json['data'] == null
           ? null
-          : MyData.fromJson(json['user'] as Map<String, dynamic>),
+          : MyData.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'status': instance.status,
-      'user': instance.data,
+      'data': instance.data,
     };
 
 MyData _$MyDataFromJson(Map<String, dynamic> json) => MyData(
