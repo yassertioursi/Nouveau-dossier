@@ -3,7 +3,7 @@ import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/
 import 'package:easyhome/User/features/User_App/userProfile/BloC/password_Cubit/passwrod_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
-import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -128,13 +128,13 @@ void savo(BuildContext context) {
         builder: (context) => MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => MyCubit(getIt<Repo>()),
+              create: (context) => MyCubit(locator<Repo>()),
             ),
             BlocProvider(
-              create: (context) => FavoriteCubit(getIt<Repo>()),
+              create: (context) => FavoriteCubit(locator<Repo>()),
             ),
             BlocProvider(
-              create: (context) => PostCubit(getIt<Repo>()),
+              create: (context) => PostCubit(locator<Repo>()),
             ),
           ],
           child: const UserProfileScreen(),

@@ -6,7 +6,7 @@ import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_prof
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/avatar_circle.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/save_button.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/text_fields.dart';
-import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/cubit/worker_cubit.dart';
@@ -41,13 +41,13 @@ class _EditUserScreenState extends State<EditUserScreen> {
                   builder: (context) => MultiBlocProvider(
                     providers: [
                       BlocProvider(
-                        create: (context) => MyCubit(getIt<Repo>()),
+                        create: (context) => MyCubit(locator<Repo>()),
                       ),
                       BlocProvider(
-                        create: (context) => FavoriteCubit(getIt<Repo>()),
+                        create: (context) => FavoriteCubit(locator<Repo>()),
                       ),
                       BlocProvider(
-                        create: (context) => PostCubit(getIt<Repo>()),
+                        create: (context) => PostCubit(locator<Repo>()),
                       ),
                     ],
                     child: const UserProfileScreen(),
@@ -60,10 +60,10 @@ class _EditUserScreenState extends State<EditUserScreen> {
                   builder: (context) => MultiBlocProvider(
                     providers: [
                       BlocProvider(
-                        create: (context) => getIt<WorkerCubit>(),
+                        create: (context) => locator<WorkerCubit>(),
                       ),
                       BlocProvider(
-                        create: (context) => getIt<PortfolioCubit>(),
+                        create: (context) => locator<PortfolioCubit>(),
                       ),
                     ],
                     child: const WorkerProfileScreen(),

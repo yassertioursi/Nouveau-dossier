@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/favorite_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
@@ -5,7 +6,6 @@ import 'package:easyhome/User/features/User_App/userProfile/BloC/update_cubit/up
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/edit_user_profile_screen.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/drawer_items.dart';
-import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/Switch/switch_cubit.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/savePosts/save_posts_cubit.dart';
@@ -32,16 +32,16 @@ List<Widget> drawerItemsList(MyWorker? worker, BuildContext context) {
                 builder: (context) => MultiBlocProvider(
                   providers: [
                     BlocProvider(
-                      create: (context) => MyCubit(getIt<Repo>()),
+                      create: (context) => MyCubit(locator<Repo>()),
                     ),
                     BlocProvider(
-                      create: (context) => FavoriteCubit(getIt<Repo>()),
+                      create: (context) => FavoriteCubit(locator<Repo>()),
                     ),
                     BlocProvider(
-                      create: (context) => PostCubit(getIt<Repo>()),
+                      create: (context) => PostCubit(locator<Repo>()),
                     ),
                     BlocProvider(
-                      create: (context) => SwitchCubit(getIt<Repo>()),
+                      create: (context) => SwitchCubit(locator<Repo>()),
                     ),
                   ],
                   child: const UserProfileScreen(),
@@ -64,7 +64,7 @@ List<Widget> drawerItemsList(MyWorker? worker, BuildContext context) {
               context,
               MaterialPageRoute(
                 builder: (context) => BlocProvider(
-                  create: (context) => SavePostsCubit(getIt<Repo>()),
+                  create: (context) => SavePostsCubit(locator<Repo>()),
                   child: const SavedPosts(),
                 ),
               ));
@@ -77,7 +77,7 @@ List<Widget> drawerItemsList(MyWorker? worker, BuildContext context) {
               context,
               MaterialPageRoute(
                 builder: (context) => BlocProvider(
-                  create: (context) => UpdateCubit(getIt<Repo>()),
+                  create: (context) => UpdateCubit(locator<Repo>()),
                   child: const EditUserScreen(
                     isUser: false,
                   ),

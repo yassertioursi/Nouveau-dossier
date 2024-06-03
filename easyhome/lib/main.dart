@@ -2,7 +2,7 @@ import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
 import 'package:easyhome/User/features/User_App/All_5_features.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
-import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/Worker/features/Worker_App/All_4_features.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Home_Worker.dart';
 
@@ -11,8 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Dioah.init();
-  // await initGetIt();
   await setupLocator();
   runApp(MainApp());
 }

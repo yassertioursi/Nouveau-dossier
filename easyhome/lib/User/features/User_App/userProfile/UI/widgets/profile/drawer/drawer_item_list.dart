@@ -3,7 +3,7 @@ import 'package:easyhome/User/features/User_App/userProfile/BloC/update_cubit/up
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/edit_user_profile_screen.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/changePassword/change_password.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/drawer_items.dart';
-import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/user.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/Certificate/certificate_cubit.dart';
@@ -52,20 +52,21 @@ class _DrawerItemListState extends State<DrawerItemList> {
                       builder: (context) => MultiBlocProvider(
                         providers: [
                           BlocProvider(
-                            create: (context) => WorkerCubit(getIt<Repo>()),
-                          ),
-                          BlocProvider(
-                            create: (context) => PortfolioCubit(getIt<Repo>()),
-                          ),
-                          BlocProvider(
-                            create: (context) => ReviewsCubit(getIt<Repo>()),
+                            create: (context) => WorkerCubit(locator<Repo>()),
                           ),
                           BlocProvider(
                             create: (context) =>
-                                CertificateCubit(getIt<Repo>()),
+                                PortfolioCubit(locator<Repo>()),
                           ),
                           BlocProvider(
-                            create: (context) => SwitchCubit(getIt<Repo>()),
+                            create: (context) => ReviewsCubit(locator<Repo>()),
+                          ),
+                          BlocProvider(
+                            create: (context) =>
+                                CertificateCubit(locator<Repo>()),
+                          ),
+                          BlocProvider(
+                            create: (context) => SwitchCubit(locator<Repo>()),
                           ),
                         ],
                         child: const WorkerProfileScreen(),
@@ -91,7 +92,7 @@ class _DrawerItemListState extends State<DrawerItemList> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => BlocProvider(
-                    create: (context) => UpdateCubit(getIt<Repo>()),
+                    create: (context) => UpdateCubit(locator<Repo>()),
                     child: const EditUserScreen(isUser: true),
                   ),
                 ));
@@ -104,7 +105,7 @@ class _DrawerItemListState extends State<DrawerItemList> {
               context,
               MaterialPageRoute(
                 builder: (context) => BlocProvider(
-                  create: (context) => PasswrodCubit(getIt<Repo>()),
+                  create: (context) => PasswrodCubit(locator<Repo>()),
                   child: const ChangePassword(),
                 ),
               ));

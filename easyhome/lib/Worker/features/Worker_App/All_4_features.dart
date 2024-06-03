@@ -8,7 +8,7 @@ import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.
 import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/favorite_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
-import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/User_App/userProfile/updatePost.dart/updatemyPost.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Home_Worker.dart';
 import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Deals&Requs.dart';
@@ -34,10 +34,10 @@ class _Home_UserState extends State<Home_Worker> {
     DealsRequs(),
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => MyCubit(getIt())),
-        BlocProvider(create: (context) => PostCubit(getIt())),
-        BlocProvider(create: (context) => SwitchCubit(getIt())),
-        BlocProvider(create: (context) => FavoriteCubit(getIt())),
+        BlocProvider(create: (context) => MyCubit(locator())),
+        BlocProvider(create: (context) => PostCubit(locator())),
+        BlocProvider(create: (context) => SwitchCubit(locator())),
+        BlocProvider(create: (context) => FavoriteCubit(locator())),
       ],
       child: const WorkerProfileScreen(),
     ),
