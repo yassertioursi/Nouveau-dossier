@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 extension SnackBars on BuildContext {
@@ -8,6 +10,11 @@ extension SnackBars on BuildContext {
         children: [
           Container(
             padding: const EdgeInsets.all(16),
+            height: 90,
+            decoration: BoxDecoration(
+              color: Colors.green[700],
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
             child: Row(
               children: [
                 const SizedBox(
@@ -25,7 +32,7 @@ extension SnackBars on BuildContext {
                             fontWeight: FontWeight.w700),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 3.0),
                         child: Text(
                           message,
                           style: const TextStyle(
@@ -38,11 +45,6 @@ extension SnackBars on BuildContext {
                   ),
                 ),
               ],
-            ),
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.green[700],
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
             ),
           ),
           Positioned(
@@ -92,6 +94,11 @@ extension SnackBars on BuildContext {
         children: [
           Container(
             padding: const EdgeInsets.all(16),
+            height: 90,
+            decoration: BoxDecoration(
+              color: Colors.yellow[700],
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
             child: Row(
               children: [
                 const SizedBox(
@@ -109,7 +116,7 @@ extension SnackBars on BuildContext {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 3.0),
                         child: Text(
                           message,
                           style: const TextStyle(
@@ -122,11 +129,6 @@ extension SnackBars on BuildContext {
                   ),
                 ),
               ],
-            ),
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.yellow[700],
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
             ),
           ),
           Positioned(
@@ -176,6 +178,11 @@ extension SnackBars on BuildContext {
         children: [
           Container(
             padding: const EdgeInsets.all(16),
+            height: 90,
+            decoration: BoxDecoration(
+              color: Colors.red[700],
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
             child: Row(
               children: [
                 SizedBox(
@@ -193,7 +200,7 @@ extension SnackBars on BuildContext {
                             fontWeight: FontWeight.w700),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 0.0),
                         child: Text(
                           message,
                           style: TextStyle(
@@ -206,11 +213,6 @@ extension SnackBars on BuildContext {
                   ),
                 ),
               ],
-            ),
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.red[700],
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
             ),
           ),
           Positioned(
@@ -260,6 +262,11 @@ extension SnackBars on BuildContext {
         children: [
           Container(
             padding: const EdgeInsets.all(10),
+            height: 90,
+            decoration: BoxDecoration(
+              color: Colors.blue[700],
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
             child: Row(
               children: [
                 SizedBox(
@@ -277,7 +284,7 @@ extension SnackBars on BuildContext {
                             fontWeight: FontWeight.w700),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 0),
                         child: Text(
                           message,
                           style: TextStyle(
@@ -290,11 +297,6 @@ extension SnackBars on BuildContext {
                   ),
                 ),
               ],
-            ),
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.blue[700],
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
             ),
           ),
           Positioned(

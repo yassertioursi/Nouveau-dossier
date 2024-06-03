@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Create_Post.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Deals&Apps.dart';
@@ -48,101 +50,59 @@ class _Home_UserState extends State<Home_User> {
           bucket: bucket,
           child: currentScreen,
         ),
-        bottomNavigationBar: BottomAppBar(
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 3,
-          child: Container(
-            height: 70,
-            decoration: BoxDecoration(
-              color: MyColors.mainblue,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 5,
-                  spreadRadius: 1,
-                ),
-              ],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentTab,
+          onTap: (index) {
+            setState(() {
+              if (index == 2) {
+                Create_Post createMyPost = Create_Post();
+                createMyPost.creat_post(context);
+              } else {
+                currentTab = index;
+                currentScreen = screens[index < 2 ? index : index - 1];
+              }
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.house),
+              label: 'Home',
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                buildNavItem(
-                  icon: FontAwesomeIcons.house,
-                  label: 'Home',
-                  index: 0,
-                ),
-                buildNavItem(
-                  icon: FontAwesomeIcons.mapLocationDot,
-                  label: 'Map',
-                  index: 1,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2),
-                    color: Colors.white,
-                  ),
-                  width: 48, // Adjust the width of the container as needed
-                  height: double.infinity,
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      /*   Create_Post New_Post = Create_Post();
-                      New_Post.creat_post(context);*/
-                      UpdateMyPost updateMyPost = UpdateMyPost();
-                      updateMyPost.update_post(
-                          context, "663140fa974c32abb0219fd0");
-                    },
-                    backgroundColor: MyColors.mainblue,
-                    child: const Icon(Icons.add),
-                  ),
-                ),
-                buildNavItem(
-                  icon: FontAwesomeIcons.solidHandshake,
-                  label: ' Deals',
-                  index: 2,
-                ),
-                buildNavItem(
-                  icon: FontAwesomeIcons.solidUser,
-                  label: 'Profile',
-                  index: 3,
-                ),
-              ],
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.mapLocationDot),
+              label: 'Map',
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildNavItem(
-      {required IconData icon, required String label, required int index}) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          currentScreen = screens[index];
-          currentTab = index;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: 24,
-              color: currentTab == index ? Colors.white : MyColors.grey4,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                color: currentTab == index ? Colors.white : MyColors.grey4,
-                fontWeight: FontWeight.bold,
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 1.5),
+                      color: Colors.transparent,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.add, color: Colors.white),
+                    )),
               ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.solidHandshake),
+              label: ' Deals',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.solidUser),
+              label: 'Profile',
             ),
           ],
+          backgroundColor: MyColors.mainblue,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: MyColors.grey4,
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
         ),
       ),
     );

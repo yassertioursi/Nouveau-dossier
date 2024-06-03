@@ -1,3 +1,4 @@
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
@@ -269,7 +270,7 @@ class RequestItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Consumer<ProviderLoading>(
+                  Consumer<ProviderLoading1>(
                       builder: (context, providerloading, child) {
                     return ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -281,9 +282,13 @@ class RequestItem extends StatelessWidget {
                           DeclineRequest declineRequest = DeclineRequest();
                           if (await declineRequest.declineRequest(
                               TokenWorker.token, requestId)) {
-                            print(index);
                             providermyrequests.requests.removeAt(index);
                             providermyrequests.notifyListeners();
+                            context.showSuccessMessage("Success",
+                                "The application has been declined successfully.");
+                          } else {
+                            context.showErrorMessage(
+                                "Error!", "Failed to decline the application.");
                           }
                           providerloading.setLoad(false);
                         }
@@ -296,9 +301,10 @@ class RequestItem extends StatelessWidget {
                                   fontWeight: FontWeight.bold),
                             )
                           : const SizedBox(
-                              height: 20,
-                              width: 20,
+                              height: 15,
+                              width: 15,
                               child: CircularProgressIndicator(
+                                strokeWidth: 2,
                                 color: Colors.white,
                               ),
                             ),
@@ -424,8 +430,8 @@ class RequestItem extends StatelessWidget {
                             padding: const EdgeInsets.all(15.0),
                             child: Image.asset(
                               providerok.isOk
-                                  ? "lib/utils/images/save-instagram.png"
-                                  : "lib/utils/images/save-instagram1.png",
+                                  ? "lib/utils/images/save.png"
+                                  : "lib/utils/images/save1.png",
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -436,13 +442,21 @@ class RequestItem extends StatelessWidget {
 
                               SavePost savePost = SavePost();
                               if (await savePost.savePost(
-                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
-                                  postId)) {
-                                print("+++");
+                                  TokenWorker.token, postId)) {
+                                if (providerok.isOk) {
+                                  context.showSuccessMessage(
+                                      "Success", "Post saved successfully.");
+                                } else {
+                                  context.showSuccessMessage(
+                                      "Success", "Post unsaved successfully.");
+                                }
                                 Post["isSaved"] = !Post["isSaved"];
                                 providerload.setLoad(false);
+                              } else {
+                                context.showErrorMessage(
+                                    "Error!", "Failed to save the post.");
+                                providerok.setOk(!providerok.isOk);
                               }
-                              ;
                             }
                           },
                         );

@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_search.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_selected.dart';
@@ -118,6 +119,7 @@ class SearchWorkers extends SearchDelegate {
             icon: const Icon(
               Icons.tune,
               size: 30,
+              color: Colors.white,
             )),
       ),
     ];
@@ -130,6 +132,7 @@ class SearchWorkers extends SearchDelegate {
           close(context, "");
         },
         icon: const Icon(
+          color: Colors.white,
           Icons.keyboard_arrow_left,
           size: 50,
         ));
@@ -412,10 +415,16 @@ class WorkersList extends StatelessWidget {
                               providerloading.setLoad(true);
                               print(workerselectprovider.workers);
                               SendRequest sendRequest = SendRequest();
-                              await sendRequest.sendRequest(
+                              if (await sendRequest.sendRequest(
                                   TokenUser.token,
                                   "663428a0685145d9db5d5067",
-                                  workerselectprovider.workers);
+                                  workerselectprovider.workers)) {
+                                context.showSuccessMessage("Success",
+                                    "The post has been declined successfully.");
+                              } else {
+                                context.showErrorMessage(
+                                    "Error!", "Failed to send your post.");
+                              }
                               providerloading.setLoad(false);
                             }
                           },

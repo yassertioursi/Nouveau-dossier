@@ -17,21 +17,26 @@ class DealsRequs extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: MyColors.mainblue,
             bottom: const TabBar(
-                indicatorWeight: 3,
+                indicatorWeight: 4,
                 indicatorColor: Colors.white,
+                indicatorSize: TabBarIndicatorSize.tab,
                 tabs: [
                   Tab(
                     child: Text(
                       "Deals",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.white),
                     ),
                   ),
                   Tab(
                     child: Text(
                       "Requests",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.white),
                     ),
                   ),
                 ]),

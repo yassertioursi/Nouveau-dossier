@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_const_constructors
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Select_job.dart';
 
@@ -494,6 +494,7 @@ class FilterWidget extends StatelessWidget {
                               child: const Text(
                                 "Apply",
                                 style: TextStyle(
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

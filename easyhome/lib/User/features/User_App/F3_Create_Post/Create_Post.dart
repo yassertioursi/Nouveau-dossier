@@ -2,12 +2,14 @@
 
 import 'dart:io';
 
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Provider/ProviderImages.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Services/Create_post_service.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/commonWidgets/UploadImages.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/commonWidgets/fromCameraOrGalery.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -264,7 +266,11 @@ class Create_Post {
                                           ),
                                           suffixText: " DA",
                                           hintText: "Price :",
-                                          hintStyle: TextStyle(fontSize: 18),
+                                          hintStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: MyColors.mainblue,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                           focusColor: Colors.white,
                                           filled: true,
                                           fillColor: Colors.white,
@@ -543,29 +549,43 @@ class Create_Post {
                                           backgroundColor: Colors.black,
                                         ),
                                         onPressed: () async {
-                                          if (formstate_title.currentState!.validate() &&
-                                              formstate_price.currentState!
-                                                  .validate() &&
-                                              Workers_Cat().cats.contains(
-                                                  providerdrop.dropdownValue)) {
-                                            if (!providerloading.isLoading) {
-                                              providerloading.setLoad(true);
-                                              CreatePostService
-                                                  create_post_ser =
-                                                  CreatePostService();
-                                              await create_post_ser.createPost(
-                                                titleController.text,
-                                                priceController.text,
-                                                descController.text,
-                                                providerdrop.dropdownValue!,
-                                                providerimages.Images,
-                                                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDQ3MTg1NSwiZXhwIjoxNzIyMjQ3ODU1fQ.qXVSs5UooaLHCjjhJzIfL5DsCVW5oxzEvBdFrPF07M4",
-                                              );
-                                              providerloading.setLoad(false);
+                                          if (Workers_Cat().cats.contains(
+                                              providerdrop.dropdownValue)) {
+                                            if (formstate_title.currentState!
+                                                    .validate() &&
+                                                formstate_price.currentState!
+                                                    .validate()) {
+                                              if (!providerloading.isLoading) {
+                                                providerloading.setLoad(true);
+                                                CreatePostService
+                                                    create_post_ser =
+                                                    CreatePostService();
+                                                if (await create_post_ser
+                                                    .createPost(
+                                                  titleController.text,
+                                                  priceController.text,
+                                                  descController.text,
+                                                  providerdrop.dropdownValue!,
+                                                  providerimages.Images,
+                                                  TokenUser.token,
+                                                )) {
+                                                  Navigator.pop(context);
+                                                  context.showSuccessMessage(
+                                                      "Success",
+                                                      "The post has been created successfully.");
+                                                } else {
+                                                  Navigator.pop(context);
+                                                  context.showErrorMessage(
+                                                      "Error!",
+                                                      "Failed to create the post.");
+                                                }
+                                                providerloading.setLoad(false);
+                                              }
                                             }
                                           } else {
-                                            print(providerdrop.dropdownValue);
-                                            print("error");
+                                            Navigator.pop(context);
+                                            context.showErrorMessage("Error!",
+                                                "You must select a job.");
                                           }
                                         },
                                         child: !providerloading.isLoading
@@ -576,10 +596,11 @@ class Create_Post {
                                                     fontWeight:
                                                         FontWeight.bold))
                                             : const SizedBox(
-                                                height: 20,
-                                                width: 20,
+                                                height: 15,
+                                                width: 15,
                                                 child:
                                                     CircularProgressIndicator(
+                                                  strokeWidth: 2,
                                                   color: Colors.white,
                                                 ),
                                               ));

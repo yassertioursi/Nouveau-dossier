@@ -156,6 +156,7 @@ class _HomeWorkerState extends State<HomeWorker> {
                 padding: EdgeInsets.only(right: 8.0, left: 8.0),
                 child: Icon(
                   Icons.tune,
+                  color: Colors.white,
                   size: 30,
                 ),
               ),

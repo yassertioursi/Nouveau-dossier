@@ -58,7 +58,9 @@ class Worker_One extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: isCertified
+                        ? const EdgeInsets.fromLTRB(8, 4, 8, 0)
+                        : const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     child: Text(
                       "$name ",
                     ),
@@ -101,7 +103,7 @@ class Worker_One extends StatelessWidget {
                   ),
                   Padding(
                     padding: !isCertified
-                        ? const EdgeInsets.only(top: 8.0)
+                        ? const EdgeInsets.only(top: 0.0)
                         : const EdgeInsets.only(top: 0),
                     child: Text(
                       "$job",

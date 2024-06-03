@@ -9,24 +9,19 @@ import '../Services/drop_jobs_provider.dart';
 
 class DropJobs extends StatelessWidget {
   String inital;
-  DropJobs({super.key, required this.inital});
+  DropJobs({Key? key, required this.inital});
 
   @override
   Widget build(BuildContext context) {
-    bool yesorno = true;
     return Consumer<DropJobsProvider>(
       builder: (context, provider, child) {
-        if (yesorno) {
-          provider.updateDropdownValue(inital);
-          yesorno = false;
-        }
         return Container(
           padding: const EdgeInsets.only(right: 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.black, width: 1.5),
           ),
-          child: Flexible(
+          child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               hint: Text(
                 inital,
@@ -70,3 +65,5 @@ class DropJobs extends StatelessWidget {
     );
   }
 }
+
+// Add other imports and definitions as needed.

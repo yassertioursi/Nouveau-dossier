@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
-
+import 'package:easyhome/User/features/User_App/F3_Create_Post/Create_Post.dart';
+import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Deals&Apps.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/favorite_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/injection.dart';
+import 'package:easyhome/User/features/User_App/userProfile/updatePost.dart/updatemyPost.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Home_Worker.dart';
 import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Deals&Requs.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/Switch/switch_cubit.dart';
@@ -51,82 +53,41 @@ class _Home_UserState extends State<Home_Worker> {
           bucket: bucket,
           child: currentScreen,
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 10,
-          child: Container(
-            height: 70,
-            decoration: BoxDecoration(
-              color: MyColors.mainblue,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 5,
-                  spreadRadius: 1,
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                buildNavItem(
-                  icon: FontAwesomeIcons.house,
-                  label: 'Home',
-                  index: 0,
-                ),
-                buildNavItem(
-                  icon: FontAwesomeIcons.mapLocationDot,
-                  label: 'Map',
-                  index: 1,
-                ),
-                buildNavItem(
-                  icon: FontAwesomeIcons.solidHandshake,
-                  label: '  Deals',
-                  index: 2,
-                ),
-                buildNavItem(
-                  icon: FontAwesomeIcons.solidUser,
-                  label: 'Profile',
-                  index: 3,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildNavItem(
-      {required IconData icon, required String label, required int index}) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          currentScreen = screens[index];
-          currentTab = index;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: 24,
-              color: currentTab == index ? Colors.white : MyColors.grey4,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                color: currentTab == index ? Colors.white : MyColors.grey4,
-                fontWeight: FontWeight.bold,
+        bottomNavigationBar: SizedBox(
+          height: 80,
+          child: BottomNavigationBar(
+            currentIndex: currentTab,
+            onTap: (index) {
+              setState(() {
+                currentTab = index;
+                currentScreen = screens[index];
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.house),
+                label: 'Home',
               ),
-            ),
-          ],
+              BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.mapLocationDot),
+                label: 'Map',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.solidHandshake),
+                label: ' Deals',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.solidUser),
+                label: 'Profile',
+              ),
+            ],
+            backgroundColor: MyColors.mainblue,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: MyColors.grey4,
+            type: BottomNavigationBarType.fixed,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+          ),
         ),
       ),
     );

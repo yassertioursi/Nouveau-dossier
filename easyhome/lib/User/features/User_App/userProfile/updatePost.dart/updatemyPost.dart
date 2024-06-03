@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/commonWidgets/Drop__jobs.dart';
 
@@ -142,7 +143,7 @@ class UpdateMyPost {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(
-                                        15, 20, 15, 20),
+                                        15, 70, 15, 20),
                                     child: Form(
                                       key: formstate_title,
                                       child: TextFormField(
@@ -363,7 +364,7 @@ class UpdateMyPost {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        bottom: 20.0, top: 20),
+                                        bottom: 20.0, top: 50),
                                     child: SizedBox(
                                       height: 40,
                                       width: MediaQuery.of(context).size.width -
@@ -394,7 +395,7 @@ class UpdateMyPost {
                                                     UpdatePostService
                                                         updatemyPost =
                                                         UpdatePostService();
-                                                    await updatemyPost
+                                                    if (await updatemyPost
                                                         .updatePost(
                                                             titleController
                                                                 .text,
@@ -404,7 +405,15 @@ class UpdateMyPost {
                                                             providerdrop
                                                                 .dropdownValue!,
                                                             postId,
-                                                            TokenUser.token);
+                                                            TokenUser.token)) {
+                                                      context.showSuccessMessage(
+                                                          "Success",
+                                                          "The post has been updated successfully.");
+                                                    } else {
+                                                      context.showErrorMessage(
+                                                          "Error!",
+                                                          "Failed to update the post.");
+                                                    }
 
                                                     providerloading
                                                         .setLoad(false);
@@ -424,10 +433,11 @@ class UpdateMyPost {
                                                               FontWeight.bold))
                                                   : Center(
                                                       child: const SizedBox(
-                                                        height: 20,
-                                                        width: 20,
+                                                        height: 15,
+                                                        width: 15,
                                                         child:
                                                             CircularProgressIndicator(
+                                                          strokeWidth: 2,
                                                           color: Colors.white,
                                                         ),
                                                       ),
