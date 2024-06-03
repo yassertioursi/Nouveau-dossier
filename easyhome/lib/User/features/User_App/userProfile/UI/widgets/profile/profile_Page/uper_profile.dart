@@ -20,15 +20,18 @@ Widget buildUperProfile(
 Widget _buildDrawer(GlobalKey<ScaffoldState> key, User userDetails) {
   return Positioned(
     right: 0,
-    child: IconButton(
-        onPressed: () {
-          key.currentState!.openEndDrawer();
-        },
-        icon: Icon(
-          Icons.format_list_bulleted,
-          size: 40.sp,
-          color: Mycolors.myWhite,
-        )),
+    child: Padding(
+      padding: const EdgeInsets.only(top: 15.0, right: 8),
+      child: IconButton(
+          onPressed: () {
+            key.currentState!.openEndDrawer();
+          },
+          icon: Icon(
+            Icons.format_list_bulleted,
+            size: 40.sp,
+            color: Mycolors.myWhite,
+          )),
+    ),
   );
 }
 

@@ -321,52 +321,57 @@ Widget details(BuildContext context, PData post) {
 }
 
 Widget _popupmenu(PData post) {
-  return PopupMenuButton(
+  return Container(
+    color: Colors.white,
+    child: PopupMenuButton(
       itemBuilder: (context) => [
-            PopupMenuItem(
-              textStyle: const TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.w600,
-              ),
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Row(
-                  children: [
-                    Icon(Icons.edit),
-                    Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Text("Edit Post")),
-                  ],
-                ),
-              ),
+        PopupMenuItem(
+          textStyle: const TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.w600,
+          ),
+          child: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: const Row(
+              children: [
+                Icon(Icons.edit),
+                Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text("Edit Post")),
+              ],
             ),
-            PopupMenuItem(
-                textStyle: const TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.w800,
-                ),
-                child: InkWell(
-                  onTap: () {
-                    // post.id ?? ''
-                    BlocProvider.of<PostCubit>(context).emitDeletePost(post);
-                    Navigator.of(context).pop();
-                  },
-                  child: const Row(
-                    children: [
-                      Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Text(
-                          "Delete Post",
-                        ),
-                      ),
-                    ],
+          ),
+        ),
+        PopupMenuItem(
+            textStyle: const TextStyle(
+              fontSize: 35,
+              fontWeight: FontWeight.w800,
+            ),
+            child: InkWell(
+              onTap: () {
+                // post.id ?? ''
+                BlocProvider.of<PostCubit>(context).emitDeletePost(post);
+                Navigator.of(context).pop();
+              },
+              child: const Row(
+                children: [
+                  Icon(
+                    Icons.delete,
+                    color: Colors.red,
                   ),
-                )),
-          ]);
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text(
+                      "Delete Post",
+                    ),
+                  ),
+                ],
+              ),
+            )),
+      ],
+      color: Colors.white,
+    ),
+  );
 }
