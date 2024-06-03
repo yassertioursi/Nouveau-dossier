@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Accept_Finish.dart';
@@ -144,7 +145,7 @@ class Review extends StatelessWidget {
                   ),
                 ),
                 id == "1"
-                    ? Row(
+                    ? Column(
                         children: [
                           Consumer<ProviderLoading1>(
                               builder: (context, providerloading1, child) {
@@ -166,7 +167,13 @@ class Review extends StatelessWidget {
                                           dealId,
                                           providerRating.rating,
                                           reviewController.text)) {
+                                        context.showSuccessMessage("Success",
+                                            "The review has been left successfully.");
+
                                         onReviewCreated(true);
+                                      } else {
+                                        context.showErrorMessage("Error!",
+                                            "Failed to leave the review.");
                                       }
                                     }
                                     Navigator.pop(context);
@@ -189,9 +196,10 @@ class Review extends StatelessWidget {
                                                 fontWeight: FontWeight.bold),
                                           )
                                         : const SizedBox(
-                                            height: 20,
-                                            width: 20,
+                                            height: 17,
+                                            width: 17,
                                             child: CircularProgressIndicator(
+                                              strokeWidth: 2,
                                               color: Colors.white,
                                             ),
                                           ),
@@ -235,9 +243,10 @@ class Review extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                         )
                                       : const SizedBox(
-                                          height: 20,
-                                          width: 20,
+                                          height: 17,
+                                          width: 17,
                                           child: CircularProgressIndicator(
+                                            strokeWidth: 2,
                                             color: Colors.white,
                                           ),
                                         ),
@@ -286,9 +295,10 @@ class Review extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                       )
                                     : const SizedBox(
-                                        height: 20,
-                                        width: 20,
+                                        height: 17,
+                                        width: 17,
                                         child: CircularProgressIndicator(
+                                          strokeWidth: 2,
                                           color: Colors.white,
                                         ),
                                       ),

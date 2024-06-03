@@ -1,3 +1,5 @@
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Provider/ProviderNotificationsSelected.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/DeleteNotification.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/GetNorification.dart';
@@ -32,6 +34,8 @@ class MyNotifications {
             providers: [
               ChangeNotifierProvider(
                   create: (BuildContext context) => ProviderMyNots()),
+              ChangeNotifierProvider(
+                  create: (BuildContext context) => ProviderLoading()),
             ],
             child: Container(
               padding: const EdgeInsets.only(top: 20),
@@ -192,62 +196,86 @@ class MyNotifications {
                                 mynotsprovider.notifications.length == 1
                                     ? Align(
                                         alignment: Alignment.bottomCenter,
-                                        child: InkWell(
-                                          onTap: () async {
-                                            DeleteNotification
-                                                deleteNotification =
-                                                DeleteNotification();
+                                        child: Consumer<ProviderLoading>(
+                                            builder: (context, providerloading,
+                                                child) {
+                                          return InkWell(
+                                            onTap: () async {
+                                              providerloading.setLoad(true);
+                                              DeleteNotification
+                                                  deleteNotification =
+                                                  DeleteNotification();
 
-                                            if (await deleteNotification
-                                                .deleteNot(
-                                                    token,
-                                                    mynotsprovider
-                                                        .notifications[0])) {
-                                              for (int i = 0;
-                                                  i <
+                                              if (await deleteNotification
+                                                  .deleteNot(
+                                                      token,
                                                       mynotsprovider
-                                                          .currentNotifications
-                                                          .length;
-                                                  i++) {
-                                                if (mynotsprovider
-                                                            .currentNotifications[
-                                                        i]["_id"] ==
+                                                          .notifications[0])) {
+                                                for (int i = 0;
+                                                    i <
+                                                        mynotsprovider
+                                                            .currentNotifications
+                                                            .length;
+                                                    i++) {
+                                                  if (mynotsprovider
+                                                              .currentNotifications[
+                                                          i]["_id"] ==
+                                                      mynotsprovider
+                                                          .notifications[0]) {
                                                     mynotsprovider
-                                                        .notifications[0]) {
-                                                  print("yooooooo");
+                                                        .currentNotifications
+                                                        .remove(mynotsprovider
+                                                            .currentNotifications[i]);
+                                                    mynotsprovider.notifications
+                                                        .remove(mynotsprovider
+                                                            .notifications[0]);
+                                                    mynotsprovider
+                                                        .notifyListeners();
 
-                                                  mynotsprovider
-                                                      .currentNotifications
-                                                      .remove(mynotsprovider
-                                                          .currentNotifications[i]);
-                                                  mynotsprovider.notifications
-                                                      .remove(mynotsprovider
-                                                          .notifications[0]);
-                                                  mynotsprovider
-                                                      .notifyListeners();
-                                                  break;
+                                                    break;
+                                                  }
                                                 }
+                                                context.showSuccessMessage(
+                                                    "Success",
+                                                    "the notification was successfully deleted.");
+                                              } else {
+                                                context.showErrorMessage(
+                                                    "Error",
+                                                    "An error occurred while deleting the notification.");
                                               }
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 70,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            color: Colors.red[800],
-                                            child: const Center(
-                                              child: Text(
-                                                "Delete",
-                                                style: TextStyle(
-                                                  fontSize: 23,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                              providerloading.setLoad(false);
+                                            },
+                                            child: Container(
+                                              height: 70,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              color: Colors.red[800],
+                                              child: Center(
+                                                child: !providerloading
+                                                        .isLoading
+                                                    ? const Text(
+                                                        "Delete",
+                                                        style: TextStyle(
+                                                          fontSize: 23,
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      )
+                                                    : const SizedBox(
+                                                        height: 23,
+                                                        width: 23,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          strokeWidth: 3,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
                                               ),
                                             ),
-                                          ),
-                                        ),
+                                          );
+                                        }),
                                       )
                                     : const Text(""),
                               ],

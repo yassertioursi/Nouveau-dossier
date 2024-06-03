@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/GetBestWorker.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/NotificationsWidget.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/GetCount.dart';
@@ -183,32 +184,34 @@ class HomeUser extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: MyColors.mainblue,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                      child: Center(
-                        child: TextButton(
-                          child: Text(workers_cat.cats[index],
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
-                          onPressed: () {
-                            showSearch(
-                                context: context,
-                                delegate: SearchWorkers(
-                                    jobs: workers_cat.cats
-                                        .sublist(index, index + 1),
-                                    Id_Search: 2,
-                                    rating: 0,
-                                    wilaya: "All",
-                                    sort: "Default",
-                                    postId: ""));
-                            ;
-                          },
+                  child: InkWell(
+                    onTap: () {
+                      showSearch(
+                          context: context,
+                          delegate: SearchWorkers(
+                              jobs: workers_cat.cats.sublist(index, index + 1),
+                              Id_Search: 2,
+                              rating: 0,
+                              wilaya: "All",
+                              sort: "Default",
+                              postId: ""));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: MyColors.mainblue,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: Center(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(right: 10.0, left: 10),
+                            child: Text(workers_cat.cats[index],
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)),
+                          ),
                         ),
                       ),
                     ),

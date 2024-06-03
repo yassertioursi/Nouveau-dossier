@@ -35,7 +35,7 @@ Widget _buildBackground() {
   return Column(
     children: [
       Container(
-        height: 180.h,
+        height: 120.h,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,

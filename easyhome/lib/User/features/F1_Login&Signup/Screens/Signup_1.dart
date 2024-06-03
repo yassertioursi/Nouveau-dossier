@@ -133,7 +133,7 @@ class Signup extends StatelessWidget {
                     ),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: MyColors.mainblue,
+                          backgroundColor: MyColors.mainblue,
                           fixedSize: const Size(330, 50),
                         ),
                         onPressed: () {

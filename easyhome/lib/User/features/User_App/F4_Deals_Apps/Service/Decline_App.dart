@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class DeclineApp {
   Dio dio = Dio();
 
-  Future<String> declineApp(String jwtToken, String appId) async {
+  Future<bool> declineApp(String jwtToken, String appId) async {
     String url =
         "https://easyhome-lcvx.onrender.com/api/v1/applications/$appId/decline";
     try {
@@ -20,10 +20,10 @@ class DeclineApp {
       if (response.statusCode == 204) {
         print(response.data);
 
-        return "true";
+        return true;
       } else {
         print(false);
-        return "false";
+        return false;
       }
     } on DioError catch (error) {
       if (error.response != null) {
@@ -33,7 +33,7 @@ class DeclineApp {
       } else {
         print('Error: $error');
       }
-      return "false ";
+      return false;
     }
   }
 }

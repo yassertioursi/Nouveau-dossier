@@ -1,5 +1,6 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_search.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_selected.dart';
 
@@ -39,13 +40,13 @@ class SearchWorkers extends SearchDelegate {
 
   @override
   TextStyle? get searchFieldStyle =>
-      const TextStyle(color: MyColors.mainblue, fontSize: 20);
+      const TextStyle(color: Colors.black, fontSize: 20);
 
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
       textSelectionTheme: const TextSelectionThemeData(
-        cursorColor: MyColors.mainblue,
+        cursorColor: Colors.black,
       ),
       appBarTheme: const AppBarTheme(
         toolbarHeight: 90,
@@ -182,7 +183,7 @@ class SearchWorkers extends SearchDelegate {
                     return const Center(
                         child: SizedBox(
                       height: 50.0,
-                      width: 20.0,
+                      width: 50.0,
                       child: CircularProgressIndicator(
                         color: MyColors.mainblue,
                       ),
@@ -324,18 +325,23 @@ class WorkersList extends StatelessWidget {
     return Consumer<WorkersSearch>(builder: (context, workersprovider, child) {
       return Consumer<WorkersSelect>(
           builder: (context, workerselectprovider, child) {
-        return Stack(
-          children: [
-            ListView.builder(
-                itemCount: search.workers!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  String rt1 = search.workers![index]["rating"].toString();
-                  String exp1 = search.workers![index]["experience"].toString();
-                  double rating = double.parse(rt1);
-                  double exp = double.parse(exp1);
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+                create: (BuildContext context) => ProviderLoading()),
+          ],
+          child: Stack(
+            children: [
+              ListView.builder(
+                  itemCount: search.workers!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    String rt1 = search.workers![index]["rating"].toString();
+                    String exp1 =
+                        search.workers![index]["experience"].toString();
+                    double rating = double.parse(rt1);
+                    double exp = double.parse(exp1);
 
-                  return Stack(
-                    children: [
+                    return Stack(children: [
                       Worker_two(
                         name: search.workers![index]["name"] ?? "",
                         email: "",
@@ -378,51 +384,71 @@ class WorkersList extends StatelessWidget {
                             )
                           : const Text(" "),
                       Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                            padding: const EdgeInsets.only(top: 24, right: 30),
-                            child: IconButton(
-                                onPressed: () {
-                                  search.workers!.removeAt(index);
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 24, right: 30),
+                              child: InkWell(
+                                  onTap: () {
+                                    search.workers!.removeAt(index);
 
-                                  workersprovider.notifyListeners();
-                                },
-                                icon: const Icon(Icons.close))),
-                      ),
-                    ],
-                  );
-                }),
-            postId.isNotEmpty && workerselectprovider.workers.length > 0
-                ? Align(
-                    alignment: Alignment.bottomCenter,
-                    child: InkWell(
-                      onTap: () {
-                        print(workerselectprovider.workers);
-                        SendRequest sendRequest = SendRequest();
-                        sendRequest.sendRequest(
-                            TokenUser.token,
-                            "663428a0685145d9db5d5067",
-                            workerselectprovider.workers);
-                      },
-                      child: Container(
-                        height: 70,
-                        width: MediaQuery.of(context).size.width,
-                        color: Colors.black,
-                        child: const Center(
-                          child: Text(
-                            "Send",
-                            style: TextStyle(
-                              fontSize: 23,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                                    workersprovider.notifyListeners();
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, right: 8),
+                                    child: const Icon(Icons.close),
+                                  )))),
+                    ]);
+                  }),
+              postId.isNotEmpty && workerselectprovider.workers.length > 0
+                  ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Consumer<ProviderLoading>(
+                          builder: (context, providerloading, child) {
+                        return InkWell(
+                          onTap: () async {
+                            if (!providerloading.isLoading) {
+                              providerloading.setLoad(true);
+                              print(workerselectprovider.workers);
+                              SendRequest sendRequest = SendRequest();
+                              await sendRequest.sendRequest(
+                                  TokenUser.token,
+                                  "663428a0685145d9db5d5067",
+                                  workerselectprovider.workers);
+                              providerloading.setLoad(false);
+                            }
+                          },
+                          child: Container(
+                            height: 70,
+                            width: MediaQuery.of(context).size.width,
+                            color: Colors.black,
+                            child: Center(
+                              child: !providerloading.isLoading
+                                  ? Text(
+                                      "Send",
+                                      style: TextStyle(
+                                        fontSize: 23,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      height: 23,
+                                      width: 23,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 3,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  )
-                : const Text(''),
-          ],
+                        );
+                      }),
+                    )
+                  : const Text(''),
+            ],
+          ),
         );
       });
     });

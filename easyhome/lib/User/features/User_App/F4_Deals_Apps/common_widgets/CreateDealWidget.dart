@@ -1,6 +1,8 @@
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Change_Status.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Create_Deal.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -230,7 +232,7 @@ class CreateDealWidget extends StatelessWidget {
                         Center(
                           child: Padding(
                             padding:
-                                const EdgeInsets.only(bottom: 20.0, top: 20),
+                                const EdgeInsets.only(bottom: 20.0, top: 12),
                             child: SizedBox(
                               height: 40,
                               width: MediaQuery.of(context).size.width - 120,
@@ -247,11 +249,16 @@ class CreateDealWidget extends StatelessWidget {
                                         providerloading.setLoad(true);
                                         CreateDeal createDeal = CreateDeal();
                                         if (await createDeal.createDeal(
-                                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDc2MTA5OSwiZXhwIjoxNzIyNTM3MDk5fQ.-Rk_0F4vkqM49fnnUh0RCjNXuxNCy2JXil1E__SCcrU",
+                                            TokenUser.token,
                                             appId!,
                                             titleController.text,
                                             descController.text)) {
                                           onDealCreated("Accepted");
+                                          context.showSuccessMessage("Success",
+                                              "The deal has been created successfully.");
+                                        } else {
+                                          context.showErrorMessage("Error!",
+                                              "Failed to create the deal.");
                                         }
 
                                         providerloading.setLoad(false);
@@ -266,9 +273,10 @@ class CreateDealWidget extends StatelessWidget {
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold))
                                         : const SizedBox(
-                                            height: 20,
-                                            width: 20,
+                                            height: 15,
+                                            width: 15,
                                             child: CircularProgressIndicator(
+                                              strokeWidth: 2,
                                               color: Colors.white,
                                             ),
                                           ),

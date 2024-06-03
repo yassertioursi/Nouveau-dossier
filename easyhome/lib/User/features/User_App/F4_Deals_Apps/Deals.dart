@@ -1,3 +1,6 @@
+// ignore_for_file: sort_child_properties_last
+
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
 
@@ -25,8 +28,7 @@ class Deal extends StatelessWidget {
     GetDeals getdeals = GetDeals();
 
     return FutureBuilder<String>(
-      future: getdeals.getDeals(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+      future: getdeals.getDeals(TokenUser.token),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -34,8 +36,8 @@ class Deal extends StatelessWidget {
               child: CircularProgressIndicator(
                 color: MyColors.mainblue,
               ),
-              height: 20.0,
-              width: 20.0,
+              height: 50.0,
+              width: 50.0,
             ),
           );
         } else if (snapshot.hasError) {
@@ -212,7 +214,7 @@ class DealItem extends StatelessWidget {
                         onChanged: (value) {
                           bloc_save_text.setChanged(true);
                         },
-                        maxLength: 100,
+                        maxLength: 70,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         cursorColor: MyColors.mainblue,
                         decoration: InputDecoration(
@@ -291,7 +293,7 @@ class DealItem extends StatelessWidget {
                           bloc_save_text1.setChanged(true);
                         },
                         controller: descriptionController,
-                        maxLength: 100,
+                        maxLength: 200,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         maxLines: 7,
                         cursorColor: MyColors.mainblue,
@@ -309,10 +311,9 @@ class DealItem extends StatelessWidget {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 13.0, right: 7),
+                                          top: 13.0, right: 1),
                                       child: IconButton(
                                         icon: const Icon(
-                                          size: 30,
                                           Icons.playlist_add_check_circle_sharp,
                                           color: MyColors.mainorange,
                                         ),
@@ -320,7 +321,7 @@ class DealItem extends StatelessWidget {
                                           bloc_save_text1.setChanged(false);
                                           UpdateDeal updateDeal = UpdateDeal();
                                           await updateDeal.updateDealdesc(
-                                              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
+                                              TokenUser.token,
                                               dealId,
                                               descriptionController.text);
                                           deal["userDescription"] =
@@ -405,37 +406,46 @@ class DealItem extends StatelessWidget {
                                 Consumer<ProviderLoading>(
                                     builder: (context, providerloading, child) {
                                   return ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Colors.red[800],
-                                    ),
-                                    onPressed: () async {
-                                      if (!providerloading.isLoading) {
-                                        providerloading.setLoad(true);
-                                        DeclineDeal declinedeal = DeclineDeal();
-                                        await declinedeal.declineDeal(
-                                            TokenUser.token, dealId);
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.red[800],
+                                      ),
+                                      onPressed: () async {
+                                        if (!providerloading.isLoading) {
+                                          providerloading.setLoad(true);
+                                          DeclineDeal declinedeal =
+                                              DeclineDeal();
+                                          if (await declinedeal.declineDeal(
+                                              TokenUser.token, dealId)) {
+                                            providerstatus
+                                                .setStatus(declinedeal.status!);
+                                            deal["status"] =
+                                                declinedeal.status!;
+                                            context.showSuccessMessage(
+                                                "Success",
+                                                "The deal has been declined successfully.");
+                                          } else {
+                                            context.showErrorMessage("Error!",
+                                                "Failed to decline the deal.");
+                                          }
 
-                                        deal["status"] = declinedeal.status!;
-                                        providerstatus
-                                            .setStatus(declinedeal.status!);
-                                        providerloading.setLoad(false);
-                                      }
-                                    },
-                                    child: !providerloading.isLoading
-                                        ? const Text(
-                                            "Decline",
-                                            style: TextStyle(
+                                          providerloading.setLoad(false);
+                                        }
+                                      },
+                                      child: !providerloading.isLoading
+                                          ? const Text(
+                                              "Decline",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          : const SizedBox(
+                                              height: 15,
+                                              width: 15,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
                                                 color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        : const SizedBox(
-                                            height: 20,
-                                            width: 20,
-                                            child: CircularProgressIndicator(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                  );
+                                              ),
+                                            ));
                                 }),
                                 const SizedBox(
                                   width: 20,
@@ -443,56 +453,45 @@ class DealItem extends StatelessWidget {
                                 Consumer<ProviderLoading1>(builder:
                                     (context, providerloading1, child) {
                                   return ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: MyColors.green,
-                                    ),
-                                    onPressed: () async {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Review(
-                                            dealId: dealId,
-                                            id: "1",
-                                            workerId: workerId,
-                                            onReviewCreated: (bool status) {
-                                              providerok.setOk(status);
-                                              reviews[index] = status;
-                                            },
-                                            onDealFinished: (String status) {
-                                              deal["status"] = status;
-                                              providerstatus.setStatus(status);
-                                            },
-                                          );
-                                        },
-                                      );
-
-                                      /*  if (!bloc_5_2.isLoading) {
-                                      bloc_5_2.setLoad(true);
-                                      AcceptFinishDeal acceptfinishDeal =
-                                          AcceptFinishDeal();
-                                      await acceptfinishDeal.acceptfinishDeal(
-                                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
-                                          dealId);
-                                      providerstatus
-                                          .setStatus(acceptfinishDeal.status!);
-                                      bloc_5_2.setLoad(false);
-                                    }*/
-                                    },
-                                    child: !providerloading1.isLoading
-                                        ? const Text(
-                                            "Finish",
-                                            style: TextStyle(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: MyColors.green,
+                                      ),
+                                      onPressed: () async {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Review(
+                                              dealId: dealId,
+                                              id: "1",
+                                              workerId: workerId,
+                                              onReviewCreated: (bool status) {
+                                                providerok.setOk(status);
+                                                reviews[index] = status;
+                                              },
+                                              onDealFinished: (String status) {
+                                                deal["status"] = status;
+                                                providerstatus
+                                                    .setStatus(status);
+                                              },
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: !providerloading1.isLoading
+                                          ? const Text(
+                                              "Finish",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          : const SizedBox(
+                                              height: 15,
+                                              width: 15,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
                                                 color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        : const SizedBox(
-                                            height: 20,
-                                            width: 20,
-                                            child: CircularProgressIndicator(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                  );
+                                              ),
+                                            ));
                                 }),
                               ],
                             )
@@ -545,40 +544,49 @@ class DealItem extends StatelessWidget {
                                   ? Consumer<ProviderLoading>(builder:
                                       (context, providerloading, child) {
                                       return ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.red[800],
-                                        ),
-                                        onPressed: () async {
-                                          if (!providerloading.isLoading) {
-                                            providerloading.setLoad(true);
-                                            DeleteDeal deleteDeal =
-                                                DeleteDeal();
-                                            await deleteDeal.deleteDeal(
-                                                TokenUser.token, dealId);
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.red[800],
+                                          ),
+                                          onPressed: () async {
+                                            if (!providerloading.isLoading) {
+                                              providerloading.setLoad(true);
+                                              DeleteDeal deleteDeal =
+                                                  DeleteDeal();
+                                              if (await deleteDeal.deleteDeal(
+                                                  TokenUser.token, dealId)) {
+                                                deal["status"] =
+                                                    deleteDeal.status!;
+                                                providerstatus.setStatus(
+                                                    deleteDeal.status!);
+                                                context.showSuccessMessage(
+                                                    "Success",
+                                                    "The deal was finished successfully.");
+                                              } else {
+                                                context.showErrorMessage(
+                                                    "Error!",
+                                                    "Failed to discard the deal.");
+                                              }
+                                            }
 
-                                            deal["status"] = deleteDeal.status!;
-                                            providerstatus
-                                                .setStatus(deleteDeal.status!);
                                             providerloading.setLoad(false);
-                                          }
-                                        },
-                                        child: !providerloading.isLoading
-                                            ? const Text(
-                                                "Discard",
-                                                style: TextStyle(
+                                          },
+                                          child: !providerloading.isLoading
+                                              ? const Text(
+                                                  "Discard",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )
+                                              : const SizedBox(
+                                                  height: 15,
+                                                  width: 15,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    strokeWidth: 2,
                                                     color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            : const SizedBox(
-                                                height: 20,
-                                                width: 20,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                      );
+                                                  ),
+                                                ));
                                     })
                                   : const Text(""),
                     ],

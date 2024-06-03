@@ -1,6 +1,7 @@
 // ignore: file_names
 // ignore_for_file: must_be_immutable
 
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Change_Status.dart';
@@ -32,8 +33,8 @@ class App extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
                 child: SizedBox(
-              height: 60,
-              width: 60,
+              height: 50,
+              width: 50,
               child: CircularProgressIndicator(
                 color: MyColors.mainblue,
               ),
@@ -247,13 +248,20 @@ class AppItem extends StatelessWidget {
                         builder: (context, providerloading, child) {
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.red[800],
+                          backgroundColor: Colors.red[800],
                         ),
                         onPressed: () async {
                           if (!providerloading.isLoading) {
                             providerloading.setLoad(true);
                             DeclineApp declineApp = DeclineApp();
-                            await declineApp.declineApp(TokenUser.token, appId);
+                            if (await declineApp.declineApp(
+                                TokenUser.token, appId)) {
+                              context.showSuccessMessage("Success",
+                                  "The application has been declined successfully.");
+                            } else {
+                              context.showErrorMessage("Error!",
+                                  "Failed to decline the application.");
+                            }
 
                             stss[index] = "Declined";
 
@@ -263,9 +271,10 @@ class AppItem extends StatelessWidget {
                         },
                         child: providerloading.isLoading
                             ? const SizedBox(
-                                height: 20,
-                                width: 20,
+                                height: 15,
+                                width: 15,
                                 child: CircularProgressIndicator(
+                                  strokeWidth: 2,
                                   color: Colors.white,
                                 ),
                               )
@@ -284,7 +293,7 @@ class AppItem extends StatelessWidget {
                         builder: (context, providerloading1, child) {
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: MyColors.green,
+                          backgroundColor: MyColors.green,
                         ),
                         onPressed: () async {
                           showModalBottomSheet(
@@ -322,9 +331,10 @@ class AppItem extends StatelessWidget {
                         },
                         child: providerloading1.isLoading
                             ? const SizedBox(
-                                height: 20,
-                                width: 20,
+                                height: 15,
+                                width: 15,
                                 child: CircularProgressIndicator(
+                                  strokeWidth: 2,
                                   color: Colors.white,
                                 ),
                               )

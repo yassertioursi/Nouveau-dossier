@@ -42,23 +42,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - lib/utils/images/logo.png
-    - lib/utils/images/logo1.png
-    - lib/utils/images/logo2.png
-    - lib/utils/images/Mobile login-bro.png
-    - lib/utils/images/Authentication-rafiki.png
-    - lib/utils/images/Confirmed-bro.png
-    - lib/utils/images/pageview1.png
-    - lib/utils/images/pageview2.png
-    - lib/utils/images/worker.png
-    - lib/utils/images/photo.png
-    - lib/utils/images/default.jpg
-    - lib/utils/images/save-instagram.png
-    - lib/utils/images/save-instagram1.png
-    - lib/utils/images/web-browser.png
-    - lib/utils/images/web-browser1.png
-    - lib/utils/images/alert.png
-    - lib/utils/images/Pushnotifications-rafiki.png
+    - lib/utils/images/
+
     
     
 

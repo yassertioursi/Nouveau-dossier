@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
@@ -37,8 +40,8 @@ class HomeWorkerMain extends StatelessWidget {
               ),
               body: const Center(
                   child: SizedBox(
-                height: 60.0,
-                width: 20.0,
+                height: 50.0,
+                width: 50.0,
                 child: CircularProgressIndicator(
                   color: MyColors.mainblue,
                 ),
@@ -214,8 +217,8 @@ class _HomeWorkerState extends State<HomeWorker> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                   child: SizedBox(
-                height: 60,
-                width: 60,
+                height: 50,
+                width: 50,
                 child: CircularProgressIndicator(
                   color: MyColors.mainblue,
                 ),
@@ -408,51 +411,57 @@ class PostItem extends StatelessWidget {
                         yesorno1 = false;
                       }
                       return InkWell(
-                        child: providerok2.isOk
-                            ? const Icon(
-                                Icons.work,
-                                size: 40,
-                                color: Colors.black,
-                              )
-                            : Icon(Icons.work_outline,
-                                size: 40, color: Colors.black.withOpacity(0.7)),
-                        onTap: () async {
-                          if (!providerok2.isOk) {
-                            showModalBottomSheet(
-                              backgroundColor: Colors.white,
-                              useSafeArea: true,
-                              isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20.0),
-                                  topRight: Radius.circular(20.0),
+                          child: providerok2.isOk
+                              ? const Icon(
+                                  Icons.work,
+                                  size: 40,
+                                  color: Colors.black,
+                                )
+                              : Icon(Icons.work_outline,
+                                  size: 40, color: Colors.black),
+                          onTap: () async {
+                            if (!providerok2.isOk) {
+                              showModalBottomSheet(
+                                backgroundColor: Colors.white,
+                                useSafeArea: true,
+                                isScrollControlled: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20.0),
+                                    topRight: Radius.circular(20.0),
+                                  ),
                                 ),
-                              ),
-                              context: context,
-                              builder: (BuildContext context) {
-                                return SendAppWidget(
-                                  postId: postId,
-                                  onAppCreated: (bool status) {
-                                    providerok2.setOk(status);
-                                    Post["application"]["applied"] =
-                                        !Post["application"]["applied"];
-                                  },
-                                );
-                              },
-                            );
-                          } else {
-                            if (!providerload.isLoading) {
-                              providerload.setLoad(true);
-                              DeleteApp deleteApp = DeleteApp();
-                              providerok2.setOk(!providerok2.isOk);
-                              if (await deleteApp.deleteApp(
-                                  TokenWorker.token, application["id"])) {
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SendAppWidget(
+                                    postId: postId,
+                                    onAppCreated: (bool status) {
+                                      providerok2.setOk(status);
+                                      Post["application"]["applied"] =
+                                          !Post["application"]["applied"];
+                                    },
+                                  );
+                                },
+                              );
+                            } else {
+                              if (!providerload.isLoading) {
+                                providerload.setLoad(true);
+                                DeleteApp deleteApp = DeleteApp();
+                                providerok2.setOk(!providerok2.isOk);
+                                if (await deleteApp.deleteApp(
+                                    TokenWorker.token, application["id"])) {
+                                  context.showSuccessMessage("Success",
+                                      "the application has been deleted  successfully.");
+                                } else {
+                                  context.showSuccessMessage("Success",
+                                      "Failed to delete the application.");
+                                  providerok2.setOk(!providerok2.isOk);
+                                }
+
                                 providerload.setLoad(false);
                               }
                             }
-                          }
-                        },
-                      );
+                          });
                     });
                   }),
                   postImages.length != 1
@@ -474,8 +483,8 @@ class PostItem extends StatelessWidget {
                         )
                       : const Text(""),
                   SizedBox(
-                    height: 60,
-                    width: 60,
+                    height: 30,
+                    width: 30,
                     child: Consumer<ProviderOk>(
                         builder: (context, providerok, child) {
                       return Consumer<ProviderLoading>(
@@ -486,11 +495,11 @@ class PostItem extends StatelessWidget {
                         }
                         return InkWell(
                           child: Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(0.0),
                             child: Image.asset(
                               providerok.isOk
-                                  ? "lib/utils/images/save-instagram.png"
-                                  : "lib/utils/images/save-instagram1.png",
+                                  ? "lib/utils/images/save.png"
+                                  : "lib/utils/images/save1.png",
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -501,11 +510,20 @@ class PostItem extends StatelessWidget {
 
                               SavePost savePost = SavePost();
                               if (await savePost.savePost(
-                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNTYzMzkxMywiZXhwIjoxNzIzNDA5OTEzfQ.bmNgcIy7c5manUtuUukkVMSg56RzmW6HrjSV1gVTZdk",
-                                  postId)) {
-                                print("+++");
+                                  TokenWorker.token, postId)) {
+                                if (providerok.isOk) {
+                                  context.showSuccessMessage(
+                                      "Success", "Post saved successfully.");
+                                } else {
+                                  context.showSuccessMessage(
+                                      "Success", "Post unsaved successfully.");
+                                }
                                 Post["isSaved"] = !Post["isSaved"];
                                 providerload.setLoad(false);
+                              } else {
+                                context.showErrorMessage(
+                                    "Error!", "Failed to save the post.");
+                                providerok.setOk(!providerok.isOk);
                               }
                               ;
                             }
@@ -521,12 +539,15 @@ class PostItem extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Align(
                   alignment: Alignment.topLeft,
-                  child: Text(
-                    postTitle,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 17),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      postTitle,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 17),
+                    ),
                   )),
             ),
             Padding(

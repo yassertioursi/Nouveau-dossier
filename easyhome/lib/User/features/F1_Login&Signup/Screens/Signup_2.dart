@@ -142,7 +142,7 @@ class Signup_2 extends StatelessWidget {
                         builder: (context, providerloading, child) {
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: MyColors.mainblue,
+                          backgroundColor: MyColors.mainblue,
                           fixedSize: const Size(330, 50),
                         ),
                         onPressed: () async {

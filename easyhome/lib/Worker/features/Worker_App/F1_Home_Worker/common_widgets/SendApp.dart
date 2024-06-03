@@ -1,4 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Apply_For_Post.dart';
 import 'package:easyhome/utils/constants/colors.dart';
@@ -8,9 +12,8 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class SendAppWidget extends StatelessWidget {
-  GlobalKey<FormState> formstate_title = GlobalKey();
   GlobalKey<FormState> formstate_desc = GlobalKey();
-  TextEditingController titleController = TextEditingController();
+
   TextEditingController descController = TextEditingController();
   final Function(bool status) onAppCreated;
 
@@ -92,6 +95,12 @@ class SendAppWidget extends StatelessWidget {
                             child: SizedBox(
                               height: 140,
                               child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "You must send a description";
+                                  }
+                                  return null;
+                                },
                                 controller: descController,
                                 maxLengthEnforcement:
                                     MaxLengthEnforcement.enforced,
@@ -141,35 +150,46 @@ class SendAppWidget extends StatelessWidget {
                                   builder: (context, providerloading, child) {
                                 return ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    primary: Colors.black,
+                                    backgroundColor: Colors.black,
                                   ),
                                   onPressed: () async {
-                                    if (!providerloading.isLoading) {
-                                      providerloading.setLoad(true);
-                                      ApplyForPost applyForPost =
-                                          ApplyForPost();
-                                      if (await applyForPost.applyforPost(
-                                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0OTk3MTQxLCJleHAiOjE3MjI3NzMxNDF9.uCvlps3RC7k8FcGccytiPgbRmK7cejk60LujUU6znJs",
-                                        postId,
-                                        descController.text,
-                                      )) {
-                                        onAppCreated(true);
+                                    if (formstate_desc.currentState!
+                                        .validate()) {
+                                      if (!providerloading.isLoading) {
+                                        providerloading.setLoad(true);
+                                        ApplyForPost applyForPost =
+                                            ApplyForPost();
+                                        if (await applyForPost.applyforPost(
+                                          TokenWorker.token,
+                                          postId,
+                                          descController.text,
+                                        )) {
+                                          context.showSuccessMessage("Success",
+                                              "The application has been sent successfully.");
+                                          onAppCreated(true);
+                                        } else {
+                                          context.showErrorMessage("Error!",
+                                              "Failed to send the application.");
+                                          providerloading.setLoad(false);
+                                        }
+                                        Navigator.pop(context);
                                       }
-
-                                      providerloading.setLoad(false);
                                     }
-                                    Navigator.pop(context);
                                   },
                                   child: !providerloading.isLoading
-                                      ? const Text("Apply",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold))
+                                      ? Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: const Text("Apply",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold)),
+                                        )
                                       : const SizedBox(
                                           height: 20,
                                           width: 20,
                                           child: CircularProgressIndicator(
+                                            strokeWidth: 2,
                                             color: Colors.white,
                                           ),
                                         ),

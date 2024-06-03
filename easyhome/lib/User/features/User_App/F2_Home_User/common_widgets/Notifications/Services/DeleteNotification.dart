@@ -18,7 +18,7 @@ class DeleteNotification {
         ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 204) {
         print("----------------${response.data}---------------");
 
         return true;

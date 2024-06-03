@@ -1,3 +1,4 @@
+import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Change_Status.dart';
@@ -207,7 +208,7 @@ class DealItem extends StatelessWidget {
                                     bloc_save_text.setChanged(false);
                                     UpdateDeal updateDeal = UpdateDeal();
                                     await updateDeal.updateDealtitle(
-                                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
+                                        TokenWorker.token,
                                         dealId,
                                         titleController.text);
                                     deal["workerTitle"] = titleController.text;
@@ -294,7 +295,7 @@ class DealItem extends StatelessWidget {
                                           bloc_save_text1.setChanged(false);
                                           UpdateDeal updateDeal = UpdateDeal();
                                           await updateDeal.updateDealdesc(
-                                              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
+                                              TokenWorker.token,
                                               dealId,
                                               descriptionController.text);
                                           deal["workerDescription"] =
@@ -372,74 +373,87 @@ class DealItem extends StatelessWidget {
                                 child: Consumer<ProviderLoading>(
                                     builder: (context, providerloading, child) {
                                   return ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red[800],
-                                    ),
-                                    onPressed: () async {
-                                      if (!providerloading.isLoading) {
-                                        providerloading.setLoad(true);
-                                        DeleteDeal deleteDeal = DeleteDeal();
-                                        await deleteDeal.deleteDeal(
-                                            TokenWorker.token, dealId);
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.red[800],
+                                      ),
+                                      onPressed: () async {
+                                        if (!providerloading.isLoading) {
+                                          providerloading.setLoad(true);
+                                          DeleteDeal deleteDeal = DeleteDeal();
+                                          if (await deleteDeal.deleteDeal(
+                                              TokenWorker.token, dealId)) {
+                                            deal["status"] = deleteDeal.status!;
+                                            providerstatus
+                                                .setStatus(deleteDeal.status!);
+                                            context.showSuccessMessage(
+                                                "Success",
+                                                "The request of finishing the deal has been sent successfully.");
+                                          } else {
+                                            context.showErrorMessage("Error!",
+                                                "Failed to finish the deal.");
+                                          }
 
-                                        deal["status"] = deleteDeal.status!;
-                                        providerstatus
-                                            .setStatus(deleteDeal.status!);
-                                        providerloading.setLoad(false);
-                                      }
-                                    },
-                                    child: !providerloading.isLoading
-                                        ? const Text(
-                                            "Discard",
-                                            style: TextStyle(
+                                          providerloading.setLoad(false);
+                                        }
+                                      },
+                                      child: !providerloading.isLoading
+                                          ? const Text(
+                                              "Discard",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          : const SizedBox(
+                                              height: 15,
+                                              width: 15,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
                                                 color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        : const SizedBox(
-                                            height: 20,
-                                            width: 20,
-                                            child: CircularProgressIndicator(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                  );
+                                              ),
+                                            ));
                                 }),
                               ),
                               Consumer<ProviderLoading1>(
                                   builder: (context, providerloading1, child) {
                                 return ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: MyColors.green,
-                                  ),
-                                  onPressed: () async {
-                                    if (!providerloading1.isLoading) {
-                                      providerloading1.setLoad(true);
-                                      FinishDeal finishDeal = FinishDeal();
-                                      await finishDeal.finishDeal(
-                                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
-                                          dealId);
-                                      //  status = finishDeal.status!;
-                                      deal["status"] = finishDeal.status!;
-                                      providerstatus
-                                          .setStatus(finishDeal.status!);
-                                      providerloading1.setLoad(false);
-                                    }
-                                  },
-                                  child: !providerloading1.isLoading
-                                      ? const Text(
-                                          "Finish",
-                                          style: TextStyle(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: MyColors.green,
+                                    ),
+                                    onPressed: () async {
+                                      if (!providerloading1.isLoading) {
+                                        providerloading1.setLoad(true);
+                                        FinishDeal finishDeal = FinishDeal();
+                                        if (await finishDeal.finishDeal(
+                                            TokenWorker.token, dealId)) {
+                                          deal["status"] = finishDeal.status!;
+                                          providerstatus
+                                              .setStatus(finishDeal.status!);
+                                          context.showSuccessMessage("Success",
+                                              "The request of finishing the deal has been sent successfully.");
+                                        } else {
+                                          context.showErrorMessage("Error!",
+                                              "Failed to send the request of finishing the deal.");
+                                        }
+                                        //  status = finishDeal.status!;
+
+                                        providerloading1.setLoad(false);
+                                      }
+                                    },
+                                    child: !providerloading1.isLoading
+                                        ? const Text(
+                                            "Finish",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        : const SizedBox(
+                                            height: 15,
+                                            width: 15,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2,
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : const SizedBox(
-                                          height: 20,
-                                          width: 20,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                );
+                                            ),
+                                          ));
                               }),
                             ],
                           )
@@ -447,41 +461,45 @@ class DealItem extends StatelessWidget {
                             ? Consumer<ProviderLoading1>(
                                 builder: (context, providerloading1, child) {
                                 return ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.red[800],
-                                  ),
-                                  onPressed: () async {
-                                    if (!providerloading1.isLoading) {
-                                      providerloading1.setLoad(true);
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.red[800],
+                                    ),
+                                    onPressed: () async {
+                                      if (!providerloading1.isLoading) {
+                                        providerloading1.setLoad(true);
 
-                                      DeclineDeal declineDeal = DeclineDeal();
+                                        DeclineDeal declineDeal = DeclineDeal();
 
-                                      await declineDeal.declineDeal(
-                                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
-                                          dealId);
+                                        if (await declineDeal.declineDeal(
+                                            TokenWorker.token, dealId)) {
+                                          deal["status"] = declineDeal.status!;
+                                          providerstatus
+                                              .setStatus(declineDeal.status!);
+                                          context.showSuccessMessage("Success",
+                                              "The request of finishing the deal has been canceled successfully.");
+                                        } else {
+                                          context.showErrorMessage("Error!",
+                                              "Failed to cancel the request of finishing the deal.");
+                                        }
 
-                                      deal["status"] = declineDeal.status!;
-                                      providerstatus
-                                          .setStatus(declineDeal.status!);
-
-                                      providerloading1.setLoad(false);
-                                    }
-                                  },
-                                  child: !providerloading1.isLoading
-                                      ? const Text(
-                                          "Cancel Finish",
-                                          style: TextStyle(
+                                        providerloading1.setLoad(false);
+                                      }
+                                    },
+                                    child: !providerloading1.isLoading
+                                        ? const Text(
+                                            "Cancel Finish",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        : const SizedBox(
+                                            height: 15,
+                                            width: 15,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2,
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      : const SizedBox(
-                                          height: 20,
-                                          width: 20,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                );
+                                            ),
+                                          ));
                               })
                             : const Text(''),
                   ],
