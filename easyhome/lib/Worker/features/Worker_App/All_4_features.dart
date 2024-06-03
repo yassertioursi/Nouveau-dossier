@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:easyhome/Rechidi/module/workermap/page/index.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Create_Post.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Deals&Apps.dart';
@@ -29,7 +30,7 @@ class _Home_UserState extends State<Home_Worker> {
   int currentTab = 0;
   final List<Widget> screens = [
     HomeWorkerMain(),
-    const Map(),
+    const PostsMap(),
     DealsRequs(),
     MultiBlocProvider(
       providers: [
@@ -89,19 +90,6 @@ class _Home_UserState extends State<Home_Worker> {
             showUnselectedLabels: true,
           ),
         ),
-      ),
-    );
-  }
-}
-
-class Map extends StatelessWidget {
-  const Map({Key? key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("Map"),
       ),
     );
   }

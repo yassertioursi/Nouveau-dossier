@@ -9,7 +9,6 @@ import '../../module/workermap/data/repository/repository.dart';
 import '../../module/workermap/data/src/datasource.dart';
 import '../helper/dio.dart';
 
-
 final locator = GetIt.instance;
 
 Future<void> setupLocator() async {

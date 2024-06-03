@@ -24,7 +24,7 @@ class _Scaffold extends StatelessWidget {
           _map,
           Column(
             children: [
-              height(50),
+              height(30),
               _jobList,
             ],
           ),

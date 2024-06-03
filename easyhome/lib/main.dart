@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
 import 'package:easyhome/User/features/User_App/All_5_features.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
@@ -8,10 +9,11 @@ import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Home_Worker.d
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Dioah.init();
-  initGetIt();
+  // await initGetIt();
+  await setupLocator();
   runApp(MainApp());
 }
 
@@ -22,7 +24,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const ScreenUtilInit(
       // ignore: prefer_const_constructors
-      designSize: Size(360, 690),
+      designSize: Size(360, 800),
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
