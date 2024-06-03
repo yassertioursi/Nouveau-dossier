@@ -12,9 +12,9 @@ import 'package:provider/provider.dart';
 // ignore: must_be_immutable
 class Worker_two extends StatelessWidget {
   String name;
-  String email;
+
   String wilaya;
-  String phoneNumber;
+
   String id;
   double rating;
 
@@ -25,9 +25,7 @@ class Worker_two extends StatelessWidget {
   bool isFav;
   Worker_two({
     required this.name,
-    required this.email,
     required this.wilaya,
-    required this.phoneNumber,
     required this.rating,
     required this.experience,
     required this.profilePicture,

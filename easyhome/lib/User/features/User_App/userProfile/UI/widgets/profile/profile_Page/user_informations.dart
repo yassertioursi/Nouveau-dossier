@@ -42,59 +42,72 @@ Widget _buildBio() {
 Widget _contact() {
   return Padding(
     padding: const EdgeInsets.all(8.0),
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Colors.black,
-          width: 1,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(
+            color: Colors.black,
+            width: 1.5,
+          ),
         ),
-      ),
-      child: Column(
-        children: [
-          Container(
-            width: 360.w,
-            padding: EdgeInsets.fromLTRB(8, 10.h, 0, 4),
-            child: Center(
-              child: Text(
-                'Contacts ',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    fontSize: 19.sp,
-                    fontWeight: FontWeight.w600,
-                    color: MyColors.mainorange),
+        child: Column(
+          children: [
+            Container(
+              width: 360.w,
+              padding: EdgeInsets.fromLTRB(8, 10.h, 0, 4),
+              child: Center(
+                child: Text(
+                  'Contacts ',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontSize: 19.sp,
+                      fontWeight: FontWeight.w600,
+                      color: MyColors.mainorange),
+                ),
               ),
             ),
-          ),
-          _infoItems(Icons.mail_outline, userDetails.data?.email ?? ''),
-          _infoItems(Icons.phone, userDetails.data?.phoneNumber ?? ''),
-          _infoItems(Icons.facebook, userDetails.data?.facebook ?? ''),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _infoItems(Icons.mail, userDetails.data?.email ?? ''),
+                  _infoItems(Icons.phone, userDetails.data?.phoneNumber ?? ''),
+                  if (userDetails.data?.facebook?.isEmpty == true)
+                    _infoItems(
+                        Icons.facebook, userDetails.data?.facebook ?? ''),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     ),
   );
 }
 
 Widget _infoItems(IconData icon, String title) {
-  return Padding(
-    padding: EdgeInsets.fromLTRB(14.w, 5.h, 0, 0),
-    child: Row(
+  return Expanded(
+    child: Column(
       children: [
-        Icon(
-          icon,
-          color: MyColors.mainblue,
-          size: 25.w,
-        ),
-        Container(
-          width: 10.w,
-        ),
-        Text(
-          title,
-          style: TextStyle(
-              fontSize: 17.sp,
+        if (title.isNotEmpty)
+          Icon(
+            icon,
+            color: MyColors.mainblue,
+            size: 25.w,
+          ),
+        if (title.isNotEmpty)
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: const Color.fromARGB(255, 57, 64, 68)),
-        )
+              color: Colors.black,
+            ),
+          ),
       ],
     ),
   );

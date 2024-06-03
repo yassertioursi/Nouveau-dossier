@@ -347,9 +347,7 @@ class WorkersList extends StatelessWidget {
                     return Stack(children: [
                       Worker_two(
                         name: search.workers![index]["name"] ?? "",
-                        email: "",
                         wilaya: search.workers![index]["wilaya"] ?? "",
-                        phoneNumber: "",
                         rating: rating,
                         experience: exp,
                         profilePicture:
