@@ -1,7 +1,11 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/filter__widget.dart';
+// ignore_for_file: file_names, use_build_context_synchronously
+
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Accept_Finish.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Create_Review.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +13,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../../F2_Home_User/Provider/rating_provider.dart';
+
+// ignore: must_be_immutable
 class Review extends StatelessWidget {
   GlobalKey<FormState> formstate_review = GlobalKey();
   TextEditingController reviewController = TextEditingController();
@@ -33,15 +40,16 @@ class Review extends StatelessWidget {
         ChangeNotifierProvider(
             create: (BuildContext context) => RatingProvider()),
         ChangeNotifierProvider(
-            create: (BuildContext context) => bloc_five_One()),
-        ChangeNotifierProvider(create: (BuildContext context) => bloc_five()),
+            create: (BuildContext context) => ProviderLoading()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderLoading1()),
       ],
       child: Center(
         child: AlertDialog(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
+              const Expanded(
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -58,7 +66,7 @@ class Review extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.close,
                   color: Colors.black,
                   size: 30,
@@ -83,8 +91,8 @@ class Review extends StatelessWidget {
                       direction: Axis.horizontal,
                       allowHalfRating: false,
                       itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                      itemBuilder: (context, _) => Icon(
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      itemBuilder: (context, _) => const Icon(
                         color: MyColors.stars,
                         FontAwesomeIcons.solidStar,
                       ),
@@ -106,7 +114,7 @@ class Review extends StatelessWidget {
                         maxLength: 70,
                         maxLines: 7,
                         cursorColor: MyColors.mainblue,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           label: Text(
                             "Review :",
                             style: TextStyle(
@@ -139,55 +147,59 @@ class Review extends StatelessWidget {
                 id == "1"
                     ? Column(
                         children: [
-                          Consumer<bloc_five_One>(
-                              builder: (context, bloc_5_1, child) {
+                          Consumer<ProviderLoading1>(
+                              builder: (context, providerloading1, child) {
                             return Consumer<RatingProvider>(
-                                builder: (context, provider_rating, child) {
+                                builder: (context, providerRating, child) {
                               return InkWell(
                                 onTap: () async {
-                                  if (!bloc_5_1.isLoading) {
-                                    bloc_5_1.setLoad(true);
+                                  if (!providerloading1.isLoading) {
+                                    providerloading1.setLoad(true);
                                     AcceptFinishDeal acceptfinishDeal =
                                         AcceptFinishDeal();
                                     if (await acceptfinishDeal.acceptfinishDeal(
-                                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
-                                        dealId)) {
+                                        TokenUser.token, dealId)) {
                                       onDealFinished(acceptfinishDeal.status!);
                                       CreateReview createReview =
                                           CreateReview();
                                       if (await createReview.createReview(
-                                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
+                                          TokenUser.token,
                                           dealId,
-                                          provider_rating.rating,
+                                          providerRating.rating,
                                           reviewController.text)) {
+                                        context.showSuccessMessage("Success",
+                                            "The review has been left successfully.");
+
                                         onReviewCreated(true);
+                                      } else {
+                                        context.showErrorMessage("Error!",
+                                            "Failed to leave the review.");
                                       }
                                     }
-                                    ;
                                     Navigator.pop(context);
                                     // providerstatus.setStatus(acceptfinishDeal.status!);
-                                    bloc_5_1.setLoad(false);
+                                    providerloading1.setLoad(false);
                                   }
                                 },
                                 child: Container(
-                                  height: 40,
-                                  width: MediaQuery.of(context).size.width / 2,
+                                  height: 35,
                                   decoration: BoxDecoration(
                                     color: MyColors.mainblue,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Center(
-                                    child: !bloc_5_1.isLoading
-                                        ? Text(
+                                    child: !providerloading1.isLoading
+                                        ? const Text(
                                             "Save Review and Finish",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold),
                                           )
-                                        : SizedBox(
-                                            height: 20,
-                                            width: 20,
+                                        : const SizedBox(
+                                            height: 17,
+                                            width: 17,
                                             child: CircularProgressIndicator(
+                                              strokeWidth: 2,
                                               color: Colors.white,
                                             ),
                                           ),
@@ -196,46 +208,45 @@ class Review extends StatelessWidget {
                               );
                             });
                           }),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
-                          Consumer<bloc_five>(
-                              builder: (context, bloc_5_2, child) {
+                          Consumer<ProviderLoading>(
+                              builder: (context, providerloading, child) {
                             return InkWell(
                               onTap: () async {
-                                if (!bloc_5_2.isLoading) {
-                                  bloc_5_2.setLoad(true);
+                                if (!providerloading.isLoading) {
+                                  providerloading.setLoad(true);
                                   AcceptFinishDeal acceptfinishDeal =
                                       AcceptFinishDeal();
                                   if (await acceptfinishDeal.acceptfinishDeal(
-                                      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
-                                      dealId)) {
+                                      TokenUser.token, dealId)) {
                                     onDealFinished(acceptfinishDeal.status!);
                                   }
                                   Navigator.pop(context);
                                   // providerstatus.setStatus(acceptfinishDeal.status!);
-                                  bloc_5_2.setLoad(false);
+                                  providerloading.setLoad(false);
                                 }
                               },
                               child: Container(
-                                height: 40,
-                                width: MediaQuery.of(context).size.width / 2,
+                                height: 35,
                                 decoration: BoxDecoration(
                                   color: Colors.black,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Center(
-                                  child: !bloc_5_2.isLoading
-                                      ? Text(
+                                  child: !providerloading.isLoading
+                                      ? const Text(
                                           "Skip Reviw and Finish",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold),
                                         )
-                                      : SizedBox(
-                                          height: 20,
-                                          width: 20,
+                                      : const SizedBox(
+                                          height: 17,
+                                          width: 17,
                                           child: CircularProgressIndicator(
+                                            strokeWidth: 2,
                                             color: Colors.white,
                                           ),
                                         ),
@@ -245,28 +256,27 @@ class Review extends StatelessWidget {
                           }),
                         ],
                       )
-                    : Consumer<bloc_five_One>(
-                        builder: (context, bloc_5_1, child) {
+                    : Consumer<ProviderLoading1>(
+                        builder: (context, providerloaing1, child) {
                         return Consumer<RatingProvider>(
-                            builder: (context, provider_rating, child) {
+                            builder: (context, providerRating, child) {
                           return InkWell(
                             onTap: () async {
-                              if (!bloc_5_1.isLoading) {
-                                bloc_5_1.setLoad(true);
+                              if (!providerloaing1.isLoading) {
+                                providerloaing1.setLoad(true);
 
                                 CreateReview createReview = CreateReview();
                                 if (await createReview.createReview(
-                                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
+                                    TokenUser.token,
                                     dealId,
-                                    provider_rating.rating,
+                                    providerRating.rating,
                                     reviewController.text)) {
                                   onReviewCreated(true);
                                 }
 
-                                ;
                                 Navigator.pop(context);
                                 // providerstatus.setStatus(acceptfinishDeal.status!);
-                                bloc_5_1.setLoad(false);
+                                providerloaing1.setLoad(false);
                               }
                             },
                             child: Container(
@@ -277,17 +287,18 @@ class Review extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Center(
-                                child: !bloc_5_1.isLoading
-                                    ? Text(
+                                child: !providerloaing1.isLoading
+                                    ? const Text(
                                         "Save Review",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
                                       )
-                                    : SizedBox(
-                                        height: 20,
-                                        width: 20,
+                                    : const SizedBox(
+                                        height: 17,
+                                        width: 17,
                                         child: CircularProgressIndicator(
+                                          strokeWidth: 2,
                                           color: Colors.white,
                                         ),
                                       ),

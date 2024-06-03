@@ -96,7 +96,7 @@ Widget portPostUI(BuildContext context, PortfolioData post) {
         Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Align(
                   alignment: Alignment.topLeft,
                   child: ReadMoreText(
@@ -169,9 +169,9 @@ Widget _popmenu(PortfolioData post) {
                 },
                 child: Row(
                   children: [
-                    Icon(Icons.edit),
+                    const Icon(Icons.edit),
                     Padding(
-                        padding: EdgeInsets.only(left: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         child: Text(
                           "Edit Post",
                           style:
@@ -200,7 +200,7 @@ Widget _popmenu(PortfolioData post) {
                         color: Colors.red[800],
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         child: Text(
                           "Delete Post",
                           style: TextStyle(

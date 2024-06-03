@@ -1,11 +1,14 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
-import 'package:easyhome/User/features/User_App/F4_Deals_Apps/BloC/Change_Status.dart';
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Change_Status.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Create_Deal.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class CreateDealWidget extends StatelessWidget {
   GlobalKey<FormState> formstate_title = GlobalKey();
   GlobalKey<FormState> formstate_desc = GlobalKey();
@@ -26,16 +29,16 @@ class CreateDealWidget extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => bloc_five(),
+          create: (context) => ProviderLoading(),
         ),
         ChangeNotifierProvider(
           create: (context) => ChangeStatus(),
         ),
       ],
       child: Container(
-        padding: EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 20),
         height: MediaQuery.of(context).size.height / 2 + 60,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16.0),
@@ -47,12 +50,12 @@ class CreateDealWidget extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  color: Color(0xFFA2A2A2),
+                  color: const Color(0xFFA2A2A2),
                   height: 6,
                   width: 50,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 15),
+                const Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 15),
                   child: Text(
                     "Create Deal",
                     style: TextStyle(
@@ -64,7 +67,7 @@ class CreateDealWidget extends StatelessWidget {
                 ),
                 Container(
                   height: 0.05,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.grey,
                     boxShadow: [
                       BoxShadow(
@@ -90,18 +93,18 @@ class CreateDealWidget extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: 'After you accept the application, a ',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                             children: <TextSpan>[
-                              TextSpan(
+                              const TextSpan(
                                 text: 'deal',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),
                               ),
-                              TextSpan(
+                              const TextSpan(
                                 text: ' will be created between you and ',
                                 style: TextStyle(
                                     fontSize: 17,
@@ -110,11 +113,11 @@ class CreateDealWidget extends StatelessWidget {
                               ),
                               TextSpan(
                                 text: '$workerName',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: MyColors.mainblue),
                               ),
-                              TextSpan(
+                              const TextSpan(
                                 text:
                                     '.\n \nEnter the information for this deal:',
                                 style: TextStyle(
@@ -135,7 +138,7 @@ class CreateDealWidget extends StatelessWidget {
                                   MaxLengthEnforcement.enforced,
                               maxLength: 70,
                               cursorColor: MyColors.mainblue,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 label: Text(
                                   "Title :",
                                   style: TextStyle(
@@ -194,7 +197,7 @@ class CreateDealWidget extends StatelessWidget {
                                 maxLength: 200,
                                 maxLines: 7,
                                 cursorColor: MyColors.mainblue,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   label: Text(
                                     "Description :",
                                     style: TextStyle(
@@ -229,44 +232,51 @@ class CreateDealWidget extends StatelessWidget {
                         Center(
                           child: Padding(
                             padding:
-                                const EdgeInsets.only(bottom: 20.0, top: 20),
+                                const EdgeInsets.only(bottom: 20.0, top: 12),
                             child: SizedBox(
                               height: 40,
                               width: MediaQuery.of(context).size.width - 120,
-                              child: Consumer<bloc_five>(
-                                  builder: (context, bloc_5, child) {
+                              child: Consumer<ProviderLoading>(
+                                  builder: (context, providerloading, child) {
                                 return Consumer<ChangeStatus>(
                                     builder: (context, providerstatus, child) {
                                   return ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: Colors.black,
+                                      backgroundColor: Colors.black,
                                     ),
                                     onPressed: () async {
-                                      if (!bloc_5.isLoading) {
-                                        bloc_5.setLoad(true);
+                                      if (!providerloading.isLoading) {
+                                        providerloading.setLoad(true);
                                         CreateDeal createDeal = CreateDeal();
                                         if (await createDeal.createDeal(
-                                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDc2MTA5OSwiZXhwIjoxNzIyNTM3MDk5fQ.-Rk_0F4vkqM49fnnUh0RCjNXuxNCy2JXil1E__SCcrU",
+                                            TokenUser.token,
                                             appId!,
                                             titleController.text,
                                             descController.text)) {
                                           onDealCreated("Accepted");
+                                          context.showSuccessMessage("Success",
+                                              "The deal has been created successfully.");
+                                        } else {
+                                          context.showErrorMessage("Error!",
+                                              "Failed to create the deal.");
                                         }
 
-                                        bloc_5.setLoad(false);
+                                        providerloading.setLoad(false);
                                       }
+                                      // ignore: use_build_context_synchronously
                                       Navigator.pop(context);
                                     },
-                                    child: !bloc_5.isLoading
-                                        ? Text("Create",
+                                    child: !providerloading.isLoading
+                                        ? const Text("Create",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold))
-                                        : SizedBox(
-                                            height: 20,
-                                            width: 20,
+                                        : const SizedBox(
+                                            height: 15,
+                                            width: 15,
                                             child: CircularProgressIndicator(
+                                              strokeWidth: 2,
                                               color: Colors.white,
                                             ),
                                           ),

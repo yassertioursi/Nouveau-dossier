@@ -1,11 +1,15 @@
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Select_job.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/filter__widget.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Select_job.dart';
+
 import 'package:easyhome/utils/constants/Categorys.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class FilterWidgetWorker extends StatelessWidget {
   GlobalKey<FormState> formstate_min = GlobalKey();
   GlobalKey<FormState> formstate_max = GlobalKey();
@@ -37,14 +41,14 @@ class FilterWidgetWorker extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+              padding: const EdgeInsets.only(top: 10.0, bottom: 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
+                      padding: EdgeInsets.only(bottom: 10.0),
                       child: Text(
                         "Price :",
                         style: TextStyle(
@@ -81,16 +85,18 @@ class FilterWidgetWorker extends StatelessWidget {
                                   return "Min must be\nless than max";
                                 }
                               }
+                              return null;
                             },
                             keyboardType: TextInputType.number,
-                            style: TextStyle(fontSize: 14, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.black),
                             textAlign: TextAlign.start,
                             onChanged: (value) {
                               formstate_min.currentState!.validate();
                             },
                             controller: minController,
                             cursorColor: Colors.black,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               errorMaxLines: 3,
                               errorStyle: TextStyle(fontSize: 8),
                               counterText: "",
@@ -160,15 +166,17 @@ class FilterWidgetWorker extends StatelessWidget {
                                   return "Max must be \ngreater than Min";
                                 }
                               }
+                              return null;
                             },
                             keyboardType: TextInputType.number,
-                            style: TextStyle(fontSize: 14, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.black),
                             onChanged: (value) {
                               formstate_max.currentState!.validate();
                             },
                             controller: maxController,
                             cursorColor: Colors.black,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               errorMaxLines: 3,
                               errorStyle: TextStyle(fontSize: 8),
                               counterText: "",
@@ -223,15 +231,15 @@ class FilterWidgetWorker extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                top: 20.0,
+                top: 0.0,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 5.0),
+                      padding: EdgeInsets.only(bottom: 5.0),
                       child: Text(
                         "Jobs:",
                         style: TextStyle(
@@ -256,41 +264,46 @@ class FilterWidgetWorker extends StatelessWidget {
                                 for (int index = 0; index < 3; index++)
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8),
-                                    child: Container(
-                                      height: 35,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: MyColors.mainblue),
-                                        color: bloc_select.selectedItems
-                                                .contains(
-                                                    Workers_Cat().cats[index])
-                                            ? MyColors.mainblue
-                                            : Colors.white,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 0, bottom: 0.0),
-                                        child: Center(
-                                          child: TextButton(
-                                            child: Text(
-                                                "${Workers_Cat().cats[index]}",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: bloc_select
-                                                            .selectedItems
-                                                            .contains(
-                                                                Workers_Cat()
-                                                                        .cats[
-                                                                    index])
-                                                        ? Colors.white
-                                                        : MyColors.mainblue,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            onPressed: () {
-                                              bloc_select.set_Selected(
-                                                  Workers_Cat().cats[index]);
-                                            },
+                                    child: InkWell(
+                                      onTap: () {
+                                        bloc_select.set_Selected(
+                                            Workers_Cat().cats[index]);
+                                      },
+                                      child: Container(
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: MyColors.mainblue),
+                                          color: bloc_select.selectedItems
+                                                  .contains(
+                                                      Workers_Cat().cats[index])
+                                              ? MyColors.mainblue
+                                              : Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 0, bottom: 0.0),
+                                          child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0, left: 8.0),
+                                              child: Text(
+                                                  "${Workers_Cat().cats[index]}",
+                                                  style: TextStyle(
+                                                      fontSize: 10,
+                                                      color: bloc_select
+                                                              .selectedItems
+                                                              .contains(
+                                                                  Workers_Cat()
+                                                                          .cats[
+                                                                      index])
+                                                          ? Colors.white
+                                                          : MyColors.mainblue,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -322,25 +335,29 @@ class FilterWidgetWorker extends StatelessWidget {
                                         padding: const EdgeInsets.only(
                                             top: 0, bottom: 0.0),
                                         child: Center(
-                                          child: TextButton(
-                                            child: Text(
-                                                "${Workers_Cat().cats[index]}",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: bloc_select
-                                                            .selectedItems
-                                                            .contains(
-                                                                Workers_Cat()
-                                                                        .cats[
-                                                                    index])
-                                                        ? Colors.white
-                                                        : MyColors.mainblue,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            onPressed: () {
+                                          child: InkWell(
+                                            onTap: () {
                                               bloc_select.set_Selected(
                                                   Workers_Cat().cats[index]);
                                             },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0, left: 8.0),
+                                              child: Text(
+                                                  "${Workers_Cat().cats[index]}",
+                                                  style: TextStyle(
+                                                      fontSize: 10,
+                                                      color: bloc_select
+                                                              .selectedItems
+                                                              .contains(
+                                                                  Workers_Cat()
+                                                                          .cats[
+                                                                      index])
+                                                          ? Colors.white
+                                                          : MyColors.mainblue,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -372,25 +389,29 @@ class FilterWidgetWorker extends StatelessWidget {
                                         padding: const EdgeInsets.only(
                                             top: 0, bottom: 0.0),
                                         child: Center(
-                                          child: TextButton(
-                                            child: Text(
-                                                "${Workers_Cat().cats[index]}",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: bloc_select
-                                                            .selectedItems
-                                                            .contains(
-                                                                Workers_Cat()
-                                                                        .cats[
-                                                                    index])
-                                                        ? Colors.white
-                                                        : MyColors.mainblue,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            onPressed: () {
+                                          child: InkWell(
+                                            onTap: () {
                                               bloc_select.set_Selected(
                                                   Workers_Cat().cats[index]);
                                             },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0, left: 8.0),
+                                              child: Text(
+                                                  "${Workers_Cat().cats[index]}",
+                                                  style: TextStyle(
+                                                      fontSize: 10,
+                                                      color: bloc_select
+                                                              .selectedItems
+                                                              .contains(
+                                                                  Workers_Cat()
+                                                                          .cats[
+                                                                      index])
+                                                          ? Colors.white
+                                                          : MyColors.mainblue,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -424,25 +445,29 @@ class FilterWidgetWorker extends StatelessWidget {
                                         padding: const EdgeInsets.only(
                                             top: 0, bottom: 0.0),
                                         child: Center(
-                                          child: TextButton(
-                                            child: Text(
-                                                "${Workers_Cat().cats[index]}",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: bloc_select
-                                                            .selectedItems
-                                                            .contains(
-                                                                Workers_Cat()
-                                                                        .cats[
-                                                                    index])
-                                                        ? Colors.white
-                                                        : MyColors.mainblue,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            onPressed: () {
+                                          child: InkWell(
+                                            onTap: () {
                                               bloc_select.set_Selected(
                                                   Workers_Cat().cats[index]);
                                             },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0, left: 8.0),
+                                              child: Text(
+                                                  "${Workers_Cat().cats[index]}",
+                                                  style: TextStyle(
+                                                      fontSize: 10,
+                                                      color: bloc_select
+                                                              .selectedItems
+                                                              .contains(
+                                                                  Workers_Cat()
+                                                                          .cats[
+                                                                      index])
+                                                          ? Colors.white
+                                                          : MyColors.mainblue,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -463,7 +488,7 @@ class FilterWidgetWorker extends StatelessWidget {
                           builder: (context, bloc_select, child) {
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.black,
+                            backgroundColor: Colors.black,
                           ),
                           onPressed: () {
                             if (formstate_min.currentState!.validate()) {
@@ -485,14 +510,18 @@ class FilterWidgetWorker extends StatelessWidget {
 
                                 Navigator.pop(context);
                               } else {
-                                print("Min must be less than or equal to Max");
+                                context.showErrorMessage("Error!",
+                                    "Min must be less than or equal to Max");
                               }
                             }
                           },
-                          child: Text(
-                            "Apply",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: const Text(
+                              "Apply",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         );

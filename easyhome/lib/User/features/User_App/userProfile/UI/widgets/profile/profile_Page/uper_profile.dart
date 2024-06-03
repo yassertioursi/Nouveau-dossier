@@ -1,5 +1,6 @@
 import 'package:easyhome/User/features/User_App/userProfile/data/model/user.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
+import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -37,14 +38,7 @@ Widget _buildBackground() {
       Container(
         height: 180.h,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.topRight,
-              colors: [
-                Colors.blue,
-                Color.fromARGB(255, 87, 15, 219),
-                Colors.purple
-              ]),
+          color: MyColors.mainblue,
           // borderRadius: BorderRadius.only(
           //     bottomLeft: Radius.circular(30),
           //     bottomRight: Radius.circular(30))
@@ -57,43 +51,36 @@ Widget _buildBackground() {
 
 Widget _buildPhoneCall() {
   return Container(
-    height: 79.h,
+    height: 0.h,
   );
 }
 
 Widget _buildAvatar(BuildContext context, User userDetails) {
   return Padding(
-      padding: EdgeInsets.only(top: 120.h),
-      //ORANGE BORDER
-      child: Center(
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              border: Border.all(color: Mycolors.myOrange, width: 2.3.w)),
-          //WHITE BORDER
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 4.w),
-                borderRadius: BorderRadius.circular(100)),
-            //THE CIRCLE
-            child: CircleAvatar(
-                radius: 59.sp,
-                child: profilepic(userDetails.data?.profilePicture, true)),
-          ),
-        ),
-      ));
+    padding: EdgeInsets.only(top: 120.h),
+    //ORANGE BORDER
+    child: Center(child: profilepic(userDetails.data?.profilePicture, true)),
+  );
 }
 
 Widget profilepic(String? pic, bool big) {
   if (pic == null || pic == '' || pic == 'default.jpg') {
-    if (big) {
-      return Icon(
-        Icons.person,
-        size: 100.sp,
-      );
-    } else {
-      return Icon(Icons.person, size: 40.sp);
-    }
+    return ClipOval(
+        child: Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: Colors.white,
+          width: 7,
+        ),
+      ),
+      child: ClipOval(
+        child: SizedBox(
+            height: 120.sp,
+            width: 120.sp,
+            child: Image.asset("lib/utils/images/default.jpg")),
+      ),
+    ));
   } else {
     return Image.network(
       pic,

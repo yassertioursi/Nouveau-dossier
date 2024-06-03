@@ -22,6 +22,6 @@ class SlideRight extends PageRouteBuilder {
 
             return slideTransition;
           },
-          transitionDuration: Duration(milliseconds: 400),
+          transitionDuration: const Duration(milliseconds: 400),
         );
 }

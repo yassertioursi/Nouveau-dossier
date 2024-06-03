@@ -1,4 +1,4 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/dialogs.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/services/Verify_email.dart';
 import 'package:easyhome/utils/constants/colors.dart';
@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class Verify_Field extends StatelessWidget {
   Verify_Field(
       {Key? key,
@@ -18,7 +19,7 @@ class Verify_Field extends StatelessWidget {
   GlobalKey<FormState> formstate_code = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Consumer<bloc_five>(builder: (context, bloc_5, child) {
+    return Consumer<ProviderLoading>(builder: (context, bloc_5, child) {
       return Form(
         key: formstate_code,
         child: SizedBox(
@@ -30,12 +31,12 @@ class Verify_Field extends StatelessWidget {
             cursorWidth: 3,
             textAlign: TextAlign.center,
             cursorColor: MyColors.mainblue,
-            style: TextStyle(
+            style: const TextStyle(
                 color: MyColors.mainblue,
                 fontWeight: FontWeight.w800,
                 fontSize: 24,
                 letterSpacing: 7),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               counterText: '',
               filled: true,
               fillColor: Colors.white,
@@ -67,6 +68,7 @@ class Verify_Field extends StatelessWidget {
               if (value!.length < 4) {
                 return "Enter a valid code";
               }
+              return null;
             },
             onChanged: (value) async {
               if (value.length == 4) {

@@ -1,21 +1,25 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/Dwwira.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Ok_Provider.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Services/Get_Worker_ById.dart';
-import 'package:easyhome/User/features/User_App/F4_Deals_Apps/BloC/Change_Status.dart';
-import 'package:easyhome/User/features/User_App/F4_Deals_Apps/BloC/Refresh_Apps.dart';
-import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Create_Deal.dart';
+// ignore: file_names
+// ignore_for_file: must_be_immutable
+
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+
+import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Change_Status.dart';
+import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Refresh_Apps.dart';
+
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Decline_App.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Get_My_Apps.dart';
-import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Get_PostByID.dart';
+
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/common_widgets/CreateDealWidget.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     GetApps getapps = GetApps();
@@ -24,14 +28,17 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (BuildContext context) => RefreshApps()),
       ],
       child: FutureBuilder<String>(
-        future: getapps.getApps(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA"),
+        future: getapps.getApps(TokenUser.token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child:
-                  Dwwira(color: MyColors.mainblue, height: 60.0, width: 60.0),
-            );
+            return const Center(
+                child: SizedBox(
+              height: 50,
+              width: 50,
+              child: CircularProgressIndicator(
+                color: MyColors.mainblue,
+              ),
+            ));
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
@@ -61,6 +68,7 @@ class App extends StatelessWidget {
 }
 
 class AppItem extends StatelessWidget {
+  // ignore: non_constant_identifier_names
   GlobalKey<FormState> formstate_desc = GlobalKey();
   int index;
   String postTitle;
@@ -74,6 +82,7 @@ class AppItem extends StatelessWidget {
   List<String> stss;
 
   AppItem({
+    super.key,
     required this.postTitle,
     required this.appId,
     required this.workerId,
@@ -88,18 +97,18 @@ class AppItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool yesorno = true;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
             create: (BuildContext context) => ChangeStatus()),
-        ChangeNotifierProvider(create: (BuildContext context) => bloc_five()),
         ChangeNotifierProvider(
-            create: (BuildContext context) => bloc_five_One()),
+            create: (BuildContext context) => ProviderLoading()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderLoading1()),
       ],
       child: Container(
-        margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-        padding: EdgeInsets.all(20),
+        margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -118,7 +127,7 @@ class AppItem extends StatelessWidget {
                     ),
                   ),
                   child: ClipOval(
-                    child: Container(
+                    child: SizedBox(
                         height: 60,
                         width: 60,
                         child: profilePicture != "default.jpg"
@@ -140,24 +149,24 @@ class AppItem extends StatelessWidget {
                         children: [
                           Text(
                             name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
                           ),
                           isCertified
-                              ? Icon(
+                              ? const Icon(
                                   Icons.verified_user_rounded,
                                   color: MyColors.green,
                                 )
-                              : Text(''),
+                              : const Text(''),
                         ],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0, left: 0),
                         child: Text(
                           job,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: MyColors.mainorange,
                               fontWeight: FontWeight.bold),
                         ),
@@ -167,7 +176,7 @@ class AppItem extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(15, 15, 0, 7),
               child: Align(
                 alignment: Alignment.topLeft,
@@ -189,7 +198,7 @@ class AppItem extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(5, 20, 5, 20),
+              padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
               child: Form(
                 key: formstate_desc,
                 child: SizedBox(
@@ -199,7 +208,7 @@ class AppItem extends StatelessWidget {
                     readOnly: true,
                     maxLines: 7,
                     cursorColor: MyColors.mainblue,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       label: Text(
                         "Description :",
                         style: TextStyle(
@@ -235,34 +244,41 @@ class AppItem extends StatelessWidget {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Consumer<bloc_five>(builder: (context, bloc_5_1, child) {
+                    Consumer<ProviderLoading>(
+                        builder: (context, providerloading, child) {
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.red[800],
+                          backgroundColor: Colors.red[800],
                         ),
                         onPressed: () async {
-                          if (!bloc_5_1.isLoading) {
-                            bloc_5_1.setLoad(true);
+                          if (!providerloading.isLoading) {
+                            providerloading.setLoad(true);
                             DeclineApp declineApp = DeclineApp();
-                            await declineApp.declineApp(
-                                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjQ4M2MyMDEyOGRjNzM0N2UwZjQ1OCIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNDg2MjEwMSwiZXhwIjoxNzIyNjM4MTAxfQ.8laIC_xG-0deFsBKHfR4Ie_wVv6oiqHLnHYSHBCmpRA",
-                                appId);
+                            if (await declineApp.declineApp(
+                                TokenUser.token, appId)) {
+                              context.showSuccessMessage("Success",
+                                  "The application has been declined successfully.");
+                            } else {
+                              context.showErrorMessage("Error!",
+                                  "Failed to decline the application.");
+                            }
 
                             stss[index] = "Declined";
 
                             providerstatus.setStatus("Declined");
-                            bloc_5_1.setLoad(false);
+                            providerloading.setLoad(false);
                           }
                         },
-                        child: bloc_5_1.isLoading
-                            ? SizedBox(
-                                height: 20,
-                                width: 20,
+                        child: providerloading.isLoading
+                            ? const SizedBox(
+                                height: 15,
+                                width: 15,
                                 child: CircularProgressIndicator(
+                                  strokeWidth: 2,
                                   color: Colors.white,
                                 ),
                               )
-                            : Text(
+                            : const Text(
                                 "Decline",
                                 style: TextStyle(
                                     color: Colors.white,
@@ -270,21 +286,21 @@ class AppItem extends StatelessWidget {
                               ),
                       );
                     }),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
-                    Consumer<bloc_five_One>(
-                        builder: (context, bloc_5_2, child) {
+                    Consumer<ProviderLoading1>(
+                        builder: (context, providerloading1, child) {
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: MyColors.green,
+                          backgroundColor: MyColors.green,
                         ),
                         onPressed: () async {
                           showModalBottomSheet(
                             backgroundColor: Colors.white,
                             useSafeArea: true,
                             isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20.0),
                                 topRight: Radius.circular(20.0),
@@ -313,15 +329,16 @@ class AppItem extends StatelessWidget {
                             bloc_5_2.setLoad(false);
                           }*/
                         },
-                        child: bloc_5_2.isLoading
-                            ? SizedBox(
-                                height: 20,
-                                width: 20,
+                        child: providerloading1.isLoading
+                            ? const SizedBox(
+                                height: 15,
+                                width: 15,
                                 child: CircularProgressIndicator(
+                                  strokeWidth: 2,
                                   color: Colors.white,
                                 ),
                               )
-                            : Text(
+                            : const Text(
                                 "Accept",
                                 style: TextStyle(
                                     color: Colors.white,

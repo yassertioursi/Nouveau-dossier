@@ -1,33 +1,37 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/Dwwira.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Bloc/Ok_Provider.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/BloC/Provider_Filter.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/BloC/Provider_Posts.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Apply_For_Post.dart';
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
+
+import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
+import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Filter.dart';
+import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Posts.dart';
+
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Delete_App.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/GetMyRequests.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Get_All_Posts.dart';
+import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Provider/ProviderMyRequests.dart';
+import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Service/Decline_Requ.dart';
+import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Service/GetMyRequests.dart';
+
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Get_Me_Worker.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Save_Post.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/common_widgets/Filter_Widget_Worker.dart';
+
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/common_widgets/SendApp.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/common_widgets/details.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Requests extends StatelessWidget {
+  // ignore: prefer_const_constructors_in_immutables
   Requests({super.key});
 
   @override
   Widget build(BuildContext context) {
     GetMeWorker getMeWorker = GetMeWorker();
+
     return FutureBuilder<String>(
-        future: getMeWorker.getMeWorker(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE1MjY1ODIxLCJleHAiOjE3MjMwNDE4MjF9.xvSfns86_RrA4fUCiVJGmTCqGu9IV2yPISumotOp25w"),
+        future: getMeWorker.getMeWorker(TokenWorker.token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
@@ -35,9 +39,14 @@ class Requests extends StatelessWidget {
                 elevation: 0,
                 backgroundColor: Colors.white,
               ),
-              body: Center(
-                  child:
-                      Dwwira(color: MyColors.mainblue, height: 60, width: 60)),
+              body: const Center(
+                  child: SizedBox(
+                height: 60.0,
+                width: 60.0,
+                child: CircularProgressIndicator(
+                  color: MyColors.mainblue,
+                ),
+              )),
             );
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
@@ -48,8 +57,10 @@ class Requests extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class HomeWorker extends StatefulWidget {
   String myJob;
+
   HomeWorker({Key? key, required this.myJob}) : super(key: key);
 
   @override
@@ -59,60 +70,76 @@ class HomeWorker extends StatefulWidget {
 class _HomeWorkerState extends State<HomeWorker> {
   @override
   Widget build(BuildContext context) {
+    bool yesorno = true;
     GetMyRequests getMyRequests = GetMyRequests();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
             create: (BuildContext context) => ProviderFilter()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderMyRequests()),
       ],
       child: Scaffold(
         body: FutureBuilder<String>(
-          future: getMyRequests.getMyRequests(
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE1MjY1ODIxLCJleHAiOjE3MjMwNDE4MjF9.xvSfns86_RrA4fUCiVJGmTCqGu9IV2yPISumotOp25w"),
+          future: getMyRequests.getMyRequests(TokenWorker.token),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Dwwira(
+              return const Center(
+                  child: SizedBox(
+                height: 60.0,
+                width: 60.0,
+                child: CircularProgressIndicator(
                   color: MyColors.mainblue,
-                  height: 60.0,
-                  width: 60.0,
                 ),
-              );
+              ));
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
-              return ListView.builder(
-                itemCount: getMyRequests.requests!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return SafeArea(
-                    child: RequestItem(
-                      userName: getMyRequests.requests![index]["post"]["user"]
-                          ["name"],
-                      userId: getMyRequests.requests![index]["post"]["user"]
-                          ["_id"],
-                      userWilaya: getMyRequests.requests![index]["post"]["user"]
-                          ["wilaya"],
-                      postId: getMyRequests.requests![index]["post"]["_id"],
-                      postTitle: getMyRequests.requests![index]["post"]
-                          ["title"],
-                      postDesc: getMyRequests.requests![index]["post"]
-                          ["description"],
-                      postPrice: getMyRequests.requests![index]["post"]["price"]
-                          .toString(),
-                      postCreatedAt: getMyRequests.requests![index]["post"]
-                          ["createdAt"],
-                      postImages: getMyRequests.requests![index]["post"]
-                          ["images"],
-                      userProfilePicture: getMyRequests.requests![index]["post"]
-                          ["user"]["profilePicture"],
-                      isSaved: getMyRequests.requests![index]["isSaved"],
-                      application: getMyRequests.requests![index]
-                          ["application"],
-                      Post: getMyRequests.requests![index],
-                    ),
-                  );
-                },
-              );
+              return Consumer<ProviderMyRequests>(
+                  builder: (context, providermyrequests, child) {
+                if (yesorno) {
+                  providermyrequests.requests = getMyRequests.requests!;
+                  yesorno = false;
+                }
+                return ListView.builder(
+                  itemCount: providermyrequests.requests.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return SafeArea(
+                      child: RequestItem(
+                        requestId: providermyrequests.requests[index]["post"]
+                            ["_id"],
+                        userName: providermyrequests.requests[index]["post"]
+                            ["user"]["name"],
+                        userId: providermyrequests.requests[index]["post"]
+                            ["user"]["_id"],
+                        userWilaya: providermyrequests.requests[index]["post"]
+                            ["user"]["wilaya"],
+                        postId: providermyrequests.requests[index]["post"]
+                            ["_id"],
+                        postTitle: providermyrequests.requests[index]["post"]
+                            ["title"],
+                        postDesc: providermyrequests.requests[index]["post"]
+                            ["description"],
+                        postPrice: providermyrequests.requests[index]["post"]
+                                ["price"]
+                            .toString(),
+                        postCreatedAt: providermyrequests.requests[index]
+                            ["post"]["createdAt"],
+                        postImages: providermyrequests.requests[index]["post"]
+                            ["images"],
+                        userProfilePicture: providermyrequests.requests[index]
+                            ["post"]["user"]["profilePicture"],
+                        isSaved: providermyrequests.requests[index]["isSaved"],
+                        application: providermyrequests.requests[index]
+                            ["application"],
+                        Post: providermyrequests.requests[index],
+                        index: index,
+                        providermyrequests: providermyrequests,
+                      ),
+                    );
+                  },
+                );
+              });
             }
           },
         ),
@@ -121,8 +148,11 @@ class _HomeWorkerState extends State<HomeWorker> {
   }
 }
 
+// ignore: must_be_immutable
 class RequestItem extends StatelessWidget {
   var Image_Controller = PageController();
+  int index;
+  ProviderMyRequests providermyrequests;
   String userName;
   String userId;
   String userWilaya;
@@ -136,9 +166,13 @@ class RequestItem extends StatelessWidget {
   bool isSaved;
   Map application;
   Map Post;
+  String requestId;
 
   RequestItem({
     Key? key,
+    required this.index,
+    required this.providermyrequests,
+    required this.requestId,
     required this.userName,
     required this.userId,
     required this.userWilaya,
@@ -164,10 +198,10 @@ class RequestItem extends StatelessWidget {
           create: (BuildContext context) => ProviderOk(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => bloc_five(),
+          create: (BuildContext context) => ProviderLoading(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => bloc_five_One(),
+          create: (BuildContext context) => ProviderLoading1(),
         ),
         ChangeNotifierProvider(
           create: (BuildContext context) => ProviderOk2(),
@@ -175,13 +209,15 @@ class RequestItem extends StatelessWidget {
         ChangeNotifierProvider(
           create: (BuildContext context) => ProviderPosts(),
         ),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderMyRequests()),
       ],
       child: Container(
         decoration: BoxDecoration(
             border: Border.symmetric(
                 horizontal: BorderSide(
                     color: Colors.grey.withOpacity(0.3), width: 0.5))),
-        padding: EdgeInsets.only(top: 30, bottom: 30),
+        padding: const EdgeInsets.only(top: 30, bottom: 30),
         height: postImages.isEmpty ? (postTitle.length > 40 ? 400 : 300) : 800,
         width: MediaQuery.of(context).size.width - 80,
         child: Column(
@@ -194,7 +230,7 @@ class RequestItem extends StatelessWidget {
                   Row(
                     children: [
                       ClipOval(
-                        child: Container(
+                        child: SizedBox(
                           height: 55,
                           width: 55,
                           child: userProfilePicture == "default.jpg"
@@ -215,39 +251,69 @@ class RequestItem extends StatelessWidget {
                           children: [
                             Text(
                               userName,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 4),
+                              padding: const EdgeInsets.only(top: 4),
                               child: Text(
                                 userWilaya,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: MyColors.mainorange,
                                     fontWeight: FontWeight.w600),
                               ),
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          size: 40,
-                          Icons.more_vert,
-                          color: Colors.black,
-                        )),
-                  )
+                  Consumer<ProviderLoading1>(
+                      builder: (context, providerloading, child) {
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red[800],
+                      ),
+                      onPressed: () async {
+                        if (!providerloading.isLoading) {
+                          providerloading.setLoad(true);
+                          DeclineRequest declineRequest = DeclineRequest();
+                          if (await declineRequest.declineRequest(
+                              TokenWorker.token, requestId)) {
+                            providermyrequests.requests.removeAt(index);
+                            providermyrequests.notifyListeners();
+                            context.showSuccessMessage("Success",
+                                "The application has been declined successfully.");
+                          } else {
+                            context.showErrorMessage(
+                                "Error!", "Failed to decline the application.");
+                          }
+                          providerloading.setLoad(false);
+                        }
+                      },
+                      child: !providerloading.isLoading
+                          ? const Text(
+                              "Decline",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          : const SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            ),
+                    );
+                  }),
                 ],
               ),
             ),
-            !postImages.isEmpty
+            postImages.isNotEmpty
                 ? Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 15.0, bottom: 5),
@@ -266,7 +332,7 @@ class RequestItem extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox(
+                : const SizedBox(
                     height: 20,
                   ),
             Padding(
@@ -275,7 +341,7 @@ class RequestItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Consumer<ProviderOk2>(builder: (context, providerok2, child) {
-                    return Consumer<bloc_five_One>(
+                    return Consumer<ProviderLoading1>(
                         builder: (context, providerload, child) {
                       if (yesorno1) {
                         providerok2.setOk(application["applied"]);
@@ -283,7 +349,7 @@ class RequestItem extends StatelessWidget {
                       }
                       return InkWell(
                         child: providerok2.isOk
-                            ? Icon(
+                            ? const Icon(
                                 Icons.work,
                                 size: 40,
                                 color: Colors.black,
@@ -296,7 +362,7 @@ class RequestItem extends StatelessWidget {
                               backgroundColor: Colors.white,
                               useSafeArea: true,
                               isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(20.0),
                                   topRight: Radius.circular(20.0),
@@ -337,7 +403,7 @@ class RequestItem extends StatelessWidget {
                             child: SmoothPageIndicator(
                               controller: Image_Controller,
                               count: postImages.length,
-                              effect: ScrollingDotsEffect(
+                              effect: const ScrollingDotsEffect(
                                 dotColor: Color(0xFFD7D4D4),
                                 activeDotColor: MyColors.mainorange,
                                 dotHeight: 9,
@@ -347,13 +413,13 @@ class RequestItem extends StatelessWidget {
                             ),
                           ),
                         )
-                      : Text(""),
+                      : const Text(""),
                   SizedBox(
                     height: 60,
                     width: 60,
                     child: Consumer<ProviderOk>(
                         builder: (context, providerok, child) {
-                      return Consumer<bloc_five>(
+                      return Consumer<ProviderLoading>(
                           builder: (context, providerload, child) {
                         if (yesorno) {
                           providerok.setOk(isSaved);
@@ -364,8 +430,8 @@ class RequestItem extends StatelessWidget {
                             padding: const EdgeInsets.all(15.0),
                             child: Image.asset(
                               providerok.isOk
-                                  ? "lib/utils/images/save-instagram.png"
-                                  : "lib/utils/images/save-instagram1.png",
+                                  ? "lib/utils/images/save.png"
+                                  : "lib/utils/images/save1.png",
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -376,13 +442,21 @@ class RequestItem extends StatelessWidget {
 
                               SavePost savePost = SavePost();
                               if (await savePost.savePost(
-                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
-                                  postId)) {
-                                print("+++");
+                                  TokenWorker.token, postId)) {
+                                if (providerok.isOk) {
+                                  context.showSuccessMessage(
+                                      "Success", "Post saved successfully.");
+                                } else {
+                                  context.showSuccessMessage(
+                                      "Success", "Post unsaved successfully.");
+                                }
                                 Post["isSaved"] = !Post["isSaved"];
                                 providerload.setLoad(false);
+                              } else {
+                                context.showErrorMessage(
+                                    "Error!", "Failed to save the post.");
+                                providerok.setOk(!providerok.isOk);
                               }
-                              ;
                             }
                           },
                         );
@@ -398,7 +472,7 @@ class RequestItem extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Text(
                     postTitle,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: 17),
@@ -411,7 +485,7 @@ class RequestItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         "MaxPrice :",
                         style: TextStyle(
                             color: Color(0xFF3E3E3E),
@@ -422,7 +496,7 @@ class RequestItem extends StatelessWidget {
                         postPrice != "null"
                             ? " $postPrice DA"
                             : " Not Mentioned",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Color(0xFF137A23),
                             fontWeight: FontWeight.bold),
                       ),
@@ -434,7 +508,7 @@ class RequestItem extends StatelessWidget {
                         backgroundColor: Colors.white,
                         useSafeArea: true,
                         isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20.0),
                             topRight: Radius.circular(20.0),
@@ -449,8 +523,8 @@ class RequestItem extends StatelessWidget {
                         },
                       );
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.only(
+                    child: const Padding(
+                      padding: EdgeInsets.only(
                         left: 12.0,
                         right: 12,
                       ),

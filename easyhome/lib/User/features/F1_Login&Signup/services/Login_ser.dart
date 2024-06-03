@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/dialogs.dart';
+
 import 'package:easyhome/Models/User_model.dart';
-import 'package:flutter/material.dart';
 
 Dio dio = Dio();
 

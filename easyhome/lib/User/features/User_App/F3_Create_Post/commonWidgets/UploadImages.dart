@@ -1,16 +1,18 @@
 import 'dart:io';
-import 'package:easyhome/User/features/User_App/F3_Create_Post/Bloc/images_bloc.dart';
+import 'package:easyhome/User/features/User_App/F3_Create_Post/Provider/ProviderImages.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'package:image_picker/image_picker.dart';
 
 class ImagesUpload {
-  Future<void> uploadImages(BuildContext context, Bloc_Image blocImage) async {
+  Future<void> uploadImages(
+      BuildContext context, ProviderImages blocImage) async {
     final picker = ImagePicker();
     List<XFile> pickedImages = await picker.pickMultiImage(
       maxWidth: 800,
     );
 
+    // ignore: unnecessary_null_comparison
     if (pickedImages != null) {
       List<File> imageFiles =
           pickedImages.map((image) => File(image.path)).toList();
@@ -24,7 +26,7 @@ class ImagesUpload {
   }
 
   Future<void> uploadImageFromCamera(
-      BuildContext context, Bloc_Image blocImage) async {
+      BuildContext context, ProviderImages blocImage) async {
     final picker = ImagePicker();
     XFile? pickedImage = await picker.pickImage(
       source: ImageSource.camera,

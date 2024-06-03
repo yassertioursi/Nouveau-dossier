@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
 
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Home_Worker.dart';
-
-class GetMyRequests {
+class GetCountNotification {
   Dio dio = Dio();
-  List? requests;
+  int? mycount;
 
-  Future<String> getMyRequests(String jwtToken) async {
+  Future<String> getmycount(String jwtToken) async {
     String url =
-        "https://easyhome-lcvx.onrender.com/api/v1/workers/me/requests";
+        "https://easyhome-lcvx.onrender.com/api/v1/users/me/notificationsCount";
+
     try {
       Response response = await dio.get(
         url,
@@ -21,8 +20,8 @@ class GetMyRequests {
       );
 
       if (response.statusCode == 200) {
-        requests = response.data["data"];
-        print(requests);
+        print("----------------${response.data}---------------");
+        mycount = response.data["count"];
 
         return "true";
       } else {

@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/dialogs.dart';
-import 'package:easyhome/Models/User_model.dart';
-import 'package:flutter/material.dart';
 
-Dio dio = new Dio();
+import 'package:easyhome/Models/User_model.dart';
+
+Dio dio = Dio();
 
 class Reset_pass_ser {
   UserYasser user = new UserYasser();

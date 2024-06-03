@@ -1,4 +1,4 @@
-import 'package:easyhome/User/features/F1_Login&Signup/BLoC/bloc_auth.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,31 +19,34 @@ class Confirm_field extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (BuildContext context) => bloc_one()),
-        ChangeNotifierProvider(create: (BuildContext context) => bloc_two()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderValidate()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => ProviderObscure()),
       ],
-      child: Consumer<bloc_one>(builder: (context, bloc_1, child) {
+      child: Consumer<ProviderValidate>(
+          builder: (context, providervalidate, child) {
         return Padding(
           padding: const EdgeInsets.all(20),
           child: Container(
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  offset: Offset(0, 0.5),
-                  blurRadius: bloc_1.validated ? 18 : 2,
-                  color: bloc_1.validated
+                  offset: const Offset(0, 0.2),
+                  blurRadius: providervalidate.validated ? 4 : 2,
+                  color: providervalidate.validated
                       ? Colors.black.withOpacity(0.25)
                       : Colors.black.withOpacity(0.0),
                 ),
               ],
             ),
-            child: Consumer<bloc_two>(
-              builder: (context, bloc_2, child) => Form(
+            child: Consumer<ProviderObscure>(
+              builder: (context, providerobscure, child) => Form(
                 key: formstate_confirm_password,
                 child: TextFormField(
                   cursorWidth: 3,
                   cursorColor: MyColors.mainblue,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: MyColors.mainblue,
                     fontWeight: FontWeight.w800,
                     fontSize: 20,
@@ -51,16 +54,17 @@ class Confirm_field extends StatelessWidget {
                   controller: confirm_password_Controller,
                   validator: (value) {
                     if (value != passwordController.text) {
-                      bloc_1.setValidated(false);
+                      providervalidate.setValidated(false);
                       return "Password not confitmed";
                     } else {
-                      bloc_1.setValidated(true);
+                      providervalidate.setValidated(true);
                     }
+                    return null;
                   },
                   keyboardType: TextInputType.text,
-                  obscureText: bloc_2.isObscured,
+                  obscureText: providerobscure.isObscured,
                   decoration: InputDecoration(
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.check,
                         color: MyColors.mainblue,
                       ),
@@ -72,14 +76,14 @@ class Confirm_field extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         fontSize: 17,
                       ),
-                      border: OutlineInputBorder(),
-                      enabledBorder: OutlineInputBorder(
+                      border: const OutlineInputBorder(),
+                      enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(0)),
                         borderSide: BorderSide(
                           color: MyColors.loggrey1,
                         ),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(0)),
                         borderSide: BorderSide(
                           color: Colors.white,
@@ -88,13 +92,14 @@ class Confirm_field extends StatelessWidget {
                       hintMaxLines: 1,
                       suffixIcon: IconButton(
                           icon: Icon(
-                            bloc_2.isObscured
+                            providerobscure.isObscured
                                 ? Icons.visibility
                                 : Icons.visibility_off,
                             color: MyColors.mainblue,
                           ),
                           onPressed: () {
-                            bloc_2.setObscure(!bloc_2.isObscured);
+                            providerobscure
+                                .setObscure(!providerobscure.isObscured);
                           })),
                 ),
               ),
