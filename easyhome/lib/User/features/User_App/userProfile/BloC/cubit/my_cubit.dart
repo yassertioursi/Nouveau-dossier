@@ -12,6 +12,7 @@ class MyCubit extends Cubit<MyState> {
 
   Future<void> emitGetUserDetails(String userId) async {
     await repo.getUserById(userId).then((userDetails) {
+      print(userDetails.user?.toJson());
       emit(GetUserDetails(user: userDetails));
     });
   }

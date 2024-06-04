@@ -62,7 +62,7 @@ Widget _buildAvatar(BuildContext context, User userDetails) {
   return Padding(
     padding: EdgeInsets.only(top: 120.h),
     //ORANGE BORDER
-    child: Center(child: profilepic(userDetails.data?.profilePicture, true)),
+    child: Center(child: profilepic(userDetails.user?.profilePicture, true)),
   );
 }
 

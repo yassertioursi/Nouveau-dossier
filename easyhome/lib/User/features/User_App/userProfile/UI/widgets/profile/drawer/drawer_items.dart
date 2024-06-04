@@ -83,12 +83,12 @@ class _drawerHeaderState extends State<drawerHeader> {
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(
-              user?.data?.name ?? 'unknown',
+              user?.user?.name ?? 'unknown',
               style: TextStyle(color: Colors.white, fontSize: 20.sp),
             ),
           ),
           Text(
-            user?.data?.email ?? 'unknown@gmail.com',
+            user?.user?.email ?? 'unknown@gmail.com',
             style: TextStyle(
               color: Colors.grey[200],
               fontSize: 14.sp,

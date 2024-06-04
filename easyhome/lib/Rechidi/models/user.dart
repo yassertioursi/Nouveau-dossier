@@ -35,7 +35,7 @@ class UserEntity {
   }
 
   factory UserEntity.fromUser(User x) {
-    final user = x.data;
+    final user = x.user;
     return UserEntity(
       id: user?.id,
       profilePicture: user?.profilePicture,
