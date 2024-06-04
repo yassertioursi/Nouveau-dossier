@@ -7,5 +7,6 @@ class RatingProvider extends ChangeNotifier {
 
   setrating(r) {
     rating = r;
+    notifyListeners();
   }
 }

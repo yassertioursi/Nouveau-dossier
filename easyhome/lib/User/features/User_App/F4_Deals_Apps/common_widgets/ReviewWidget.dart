@@ -97,7 +97,8 @@ class Review extends StatelessWidget {
                         FontAwesomeIcons.solidStar,
                       ),
                       onRatingUpdate: (rating) {
-                        providerrating.setrating(rating.toInt());
+                        providerrating.setrating(rating);
+                        
                       },
                     ),
                   );
@@ -221,7 +222,12 @@ class Review extends StatelessWidget {
                                       AcceptFinishDeal();
                                   if (await acceptfinishDeal.acceptfinishDeal(
                                       TokenUser.token, dealId)) {
+                                    context.showSuccessMessage("Success",
+                                        "The deal has been finished successfully.");
                                     onDealFinished(acceptfinishDeal.status!);
+                                  } else {
+                                    context.showErrorMessage(
+                                        "Error!", "Failed to finish the deal.");
                                   }
                                   Navigator.pop(context);
                                   // providerstatus.setStatus(acceptfinishDeal.status!);
@@ -262,6 +268,7 @@ class Review extends StatelessWidget {
                             builder: (context, providerRating, child) {
                           return InkWell(
                             onTap: () async {
+                              print(providerRating.rating);
                               if (!providerloaing1.isLoading) {
                                 providerloaing1.setLoad(true);
 
@@ -271,7 +278,12 @@ class Review extends StatelessWidget {
                                     dealId,
                                     providerRating.rating,
                                     reviewController.text)) {
+                                  context.showSuccessMessage("Success",
+                                      "The review has been left successfully.");
                                   onReviewCreated(true);
+                                } else {
+                                  context.showErrorMessage(
+                                      "Error!", "Failed to leave the review.");
                                 }
 
                                 Navigator.pop(context);

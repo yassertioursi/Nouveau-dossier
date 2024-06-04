@@ -115,7 +115,7 @@ class DealItem extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
           ),
-          height: 400,
+          height: 450,
           width: MediaQuery.of(context).size.width - 40,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -354,7 +354,9 @@ class DealItem extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.topRight,
                         child: Text(
-                          providerstatus.status,
+                          providerstatus.status == "FinishRequestSent"
+                              ? "Finish\nRequest\nSent"
+                              : providerstatus.status,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

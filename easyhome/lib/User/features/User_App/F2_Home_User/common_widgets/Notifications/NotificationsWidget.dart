@@ -3,7 +3,7 @@ import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dar
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Provider/ProviderNotificationsSelected.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/DeleteNotification.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/GetNorification.dart';
-import 'package:easyhome/User/features/User_App/GetToken.dart';
+
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -356,7 +356,7 @@ class NotificationItem extends StatelessWidget {
                           title,
                           style: const TextStyle(
                             color: MyColors.mainblue,
-                            fontSize: 22,
+                            fontSize: 19,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -369,7 +369,8 @@ class NotificationItem extends StatelessWidget {
                             body,
                             style: const TextStyle(
                                 color: Colors.black,
-                                fontSize: 18,
+                                fontSize: 15
+                                ,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),

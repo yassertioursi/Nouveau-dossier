@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
@@ -48,7 +50,7 @@ class Worker_two extends StatelessWidget {
               create: (BuildContext context) => ProviderLoading()),
         ],
         child: Container(
-          margin: const EdgeInsets.fromLTRB(20, 25, 20, 20),
+          margin: const EdgeInsets.fromLTRB(15, 20, 15, 15),
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -212,10 +214,19 @@ class Worker_two extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            "          ${experience.toInt()} \n(experience)",
-                            style: const TextStyle(color: Color(0xFFC7C7C7)),
-                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "EXP",
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                              ),
+                              Text(
+                                "$experience",
+                                style:
+                                    const TextStyle(color: Color(0xFFC7C7C7)),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ),

@@ -12,7 +12,6 @@ import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Sear
 
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'common_widgets/Worker_One.dart';
@@ -232,17 +231,7 @@ class HomeUser extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        "lib/utils/images/pageview1.png",
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0, right: 20),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
-                        "lib/utils/images/worker.png",
+                        "lib/utils/images/mymainimage.png",
                         fit: BoxFit.cover,
                       ),
                     ),

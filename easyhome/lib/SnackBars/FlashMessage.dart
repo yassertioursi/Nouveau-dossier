@@ -10,7 +10,7 @@ extension SnackBars on BuildContext {
         children: [
           Container(
             padding: const EdgeInsets.all(16),
-            height: 90,
+            height: 110,
             decoration: BoxDecoration(
               color: Colors.green[700],
               borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -94,7 +94,7 @@ extension SnackBars on BuildContext {
         children: [
           Container(
             padding: const EdgeInsets.all(16),
-            height: 90,
+            height: 100,
             decoration: BoxDecoration(
               color: Colors.yellow[700],
               borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -178,7 +178,7 @@ extension SnackBars on BuildContext {
         children: [
           Container(
             padding: const EdgeInsets.all(16),
-            height: 90,
+            height: 100,
             decoration: BoxDecoration(
               color: Colors.red[700],
               borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -262,7 +262,7 @@ extension SnackBars on BuildContext {
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            height: 90,
+            height: 100,
             decoration: BoxDecoration(
               color: Colors.blue[700],
               borderRadius: const BorderRadius.all(Radius.circular(20)),

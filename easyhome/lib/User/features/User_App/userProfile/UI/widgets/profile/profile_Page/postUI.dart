@@ -1,7 +1,13 @@
+import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/SearchWorkers.dart';
+import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Get_PostByID.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/profile_Page/uper_profile.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/post.dart';
+import 'package:easyhome/User/features/User_App/userProfile/updatePost.dart/updatemyPost.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +26,11 @@ Widget postUI(BuildContext context, PData post) {
                   color: const Color.fromARGB(255, 20, 19, 19).withOpacity(0.3),
                   width: 0.3))),
       padding: const EdgeInsets.only(top: 30, bottom: 30),
-      height: post.images?.length != 0 ? 650.h : 200.h,
+      height: post.images?.length != 0
+          ? 700.h
+          : post.title!.length > 40
+              ? 320.h
+              : 270.h,
       width: MediaQuery.of(context).size.width - 80,
       child: Column(
         children: [
@@ -33,8 +43,8 @@ Widget postUI(BuildContext context, PData post) {
                   children: [
                     ClipOval(
                       child: SizedBox(
-                          height: 55,
-                          width: 55,
+                          height: 65,
+                          width: 65,
                           child: profilepic(post.user?.profilePicture, false)),
                     ),
                     Padding(
@@ -79,7 +89,10 @@ Widget postUI(BuildContext context, PData post) {
                   itemBuilder: (BuildContext context, int imageIndex) {
                     return AspectRatio(
                         aspectRatio: 1.0,
-                        child: profilepic(post.images?[imageIndex], true));
+                        child: Image.network(
+                          post.images![imageIndex],
+                          fit: BoxFit.cover,
+                        ));
                   },
                 ),
               ),
@@ -117,6 +130,28 @@ Widget postUI(BuildContext context, PData post) {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      showSearch(
+                          context: context,
+                          delegate: SearchWorkers(
+                            Id_Search: 1,
+                            jobs: [],
+                            rating: 0,
+                            wilaya: "All",
+                            sort: 'Default',
+                            postId: post.id!,
+                          ));
+                    },
+                    child: Icon(
+                      Icons.share,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                  ),
+                ),
                 // if (userDetails.data?.currentRole == 'worker')
                 //   SizedBox(
                 //     height: 60,
@@ -139,7 +174,7 @@ Widget postUI(BuildContext context, PData post) {
             child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  post.title ?? 'title',
+                  post.title ?? '',
                   style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
@@ -161,7 +196,7 @@ Widget postUI(BuildContext context, PData post) {
                           fontSize: 16),
                     ),
                     Text(
-                      "  ${post.price} DA",
+                      "  ${post.price ?? "Not Mentioned"} DA",
                       style: const TextStyle(
                           color: Color(0xFF137A23),
                           fontWeight: FontWeight.bold),
@@ -331,8 +366,9 @@ Widget _popupmenu(PData post) {
             fontWeight: FontWeight.w600,
           ),
           child: InkWell(
-            onTap: () {
-              Navigator.of(context).pop();
+            onTap: () async {
+              UpdateMyPost updateMyPost = UpdateMyPost();
+              updateMyPost.update_post(context, post.id!);
             },
             child: const Row(
               children: [
@@ -353,6 +389,8 @@ Widget _popupmenu(PData post) {
               onTap: () {
                 // post.id ?? ''
                 BlocProvider.of<PostCubit>(context).emitDeletePost(post);
+                context.showSuccessMessage(
+                    "Success", "The post has been deleted successfully.");
                 Navigator.of(context).pop();
               },
               child: const Row(

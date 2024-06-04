@@ -1,6 +1,7 @@
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/user.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
+import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -55,7 +56,7 @@ class _drawerHeaderState extends State<drawerHeader> {
     });
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(colors: [Mycolors.myBlue, Mycolors.myOrange]),
+        color: MyColors.mainblue,
       ),
       width: double.infinity,
       height: 200.h,
@@ -63,16 +64,28 @@ class _drawerHeaderState extends State<drawerHeader> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: 32.sp,
-            child: Icon(
-              Icons.person,
-              size: 50.sp,
+          ClipOval(
+              child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white,
+                width: 7,
+              ),
             ),
-          ),
-          Text(
-            user?.data?.name ?? 'unknown',
-            style: TextStyle(color: Colors.white, fontSize: 20.sp),
+            child: ClipOval(
+              child: SizedBox(
+                  height: 80.sp,
+                  width: 80.sp,
+                  child: Image.asset("lib/utils/images/default.jpg")),
+            ),
+          )),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Text(
+              user?.data?.name ?? 'unknown',
+              style: TextStyle(color: Colors.white, fontSize: 20.sp),
+            ),
           ),
           Text(
             user?.data?.email ?? 'unknown@gmail.com',

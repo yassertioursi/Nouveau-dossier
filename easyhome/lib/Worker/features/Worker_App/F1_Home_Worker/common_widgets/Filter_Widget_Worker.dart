@@ -520,6 +520,7 @@ class FilterWidgetWorker extends StatelessWidget {
                             child: const Text(
                               "Apply",
                               style: TextStyle(
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

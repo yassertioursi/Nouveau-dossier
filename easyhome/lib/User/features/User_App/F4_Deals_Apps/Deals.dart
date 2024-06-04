@@ -16,6 +16,7 @@ import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -132,7 +133,7 @@ class DealItem extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
           ),
-          height: 400,
+          height: 450,
           width: MediaQuery.of(context).size.width - 40,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -388,7 +389,9 @@ class DealItem extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.topRight,
                           child: Text(
-                            providerstatus.status,
+                            providerstatus.status == "FinishRequestSent"
+                                ? "Finish\nRequest\nSent"
+                                : providerstatus.status,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

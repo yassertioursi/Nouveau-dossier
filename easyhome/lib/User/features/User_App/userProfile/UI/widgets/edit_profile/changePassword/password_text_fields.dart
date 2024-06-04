@@ -1,5 +1,6 @@
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/changePassword/confirm_paswword.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
+import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,13 +9,13 @@ Widget passTextFields() {
     children: [
       textField(
         label: "Current Password",
-        inputText: "your password",
+        inputText: "PASSWORD :",
       ),
       textField(
         label: "Password",
-        inputText: "new password",
+        inputText: "NEW PASSWORD :",
       ),
-      textField(label: "Password Confirm", inputText: "confirm new password"),
+      textField(label: "Password Confirm", inputText: "CONFIRM NEW PASSWORD :"),
     ],
   );
 }
@@ -46,6 +47,10 @@ class _textfieldState extends State<textField> {
       child: SizedBox(
         height: 70.h,
         child: TextField(
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+          ),
           controller: _textController,
           obscureText: _obscureText,
           onChanged: (value) {
@@ -58,12 +63,14 @@ class _textfieldState extends State<textField> {
             }
           },
           decoration: InputDecoration(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
               enabled: true,
               floatingLabelBehavior: FloatingLabelBehavior.always,
               labelText: widget.label,
               labelStyle: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20.sp,
+                fontSize: 23.sp,
                 color: Mycolors.myBlue,
               ),
               enabledBorder: OutlineInputBorder(
@@ -75,12 +82,12 @@ class _textfieldState extends State<textField> {
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 2.sp,
-                  color: Mycolors.myOrange,
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
               suffixIcon: IconButton(
                 icon: Icon(
+                  color: MyColors.mainblue,
                   _obscureText ? Icons.visibility : Icons.visibility_off,
                 ),
                 onPressed: () {
@@ -90,7 +97,8 @@ class _textfieldState extends State<textField> {
                 },
               ),
               hintText: widget.inputText,
-              hintStyle: TextStyle(fontSize: 16.sp)),
+              hintStyle:
+                  TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
         ),
       ),
     );

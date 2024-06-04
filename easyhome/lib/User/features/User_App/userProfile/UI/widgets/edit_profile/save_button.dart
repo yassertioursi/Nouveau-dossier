@@ -31,14 +31,14 @@ class _SaveButtonState extends State<SaveButton> {
           height: 60,
           width: 50,
           decoration: BoxDecoration(
-            color: Mycolors.myBlue,
+            color: Colors.black,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Center(
             child: Text(
               'Save',
               style: TextStyle(
-                fontSize: 40.sp,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/favorite_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
@@ -8,10 +10,11 @@ import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_prof
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/text_fields.dart';
 import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
-import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
+
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/cubit/worker_cubit.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/portfolio/portfolio_cubit.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/UI/screens/worker_profile_sceen.dart';
+import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,23 +85,37 @@ class _EditUserScreenState extends State<EditUserScreen> {
 
 AppBar _myAppBar(BuildContext context) {
   return AppBar(
+    backgroundColor: MyColors.mainblue,
     leading: IconButton(
       onPressed: () {
         Navigator.of(context).pop();
       },
-      icon: const Icon(Icons.arrow_back),
-    ),
-    title: Padding(
-      padding: EdgeInsets.only(left: 67.w),
-      child: Text(
-        "Edit Profile",
-        style: TextStyle(
-            fontSize: 25.sp,
-            color: Mycolors.myBlue,
-            fontWeight: FontWeight.bold),
+      icon: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+          size: 28.sp,
+        ),
       ),
     ),
-    // backgroundColor: Mycolors.myWhite,
+    title: Padding(
+      padding: const EdgeInsets.only(top: 23),
+      child: Center(
+        child: Text(
+          "Edit My Profile",
+          style: TextStyle(
+              fontSize: 20.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+    ),
+    bottom: PreferredSize(
+      preferredSize: Size.fromHeight(30.0), // Set the height here
+      child: SizedBox
+          .shrink(), // Use SizedBox.shrink() to avoid rendering anything in the PreferredSize
+    ),
   );
 }
 

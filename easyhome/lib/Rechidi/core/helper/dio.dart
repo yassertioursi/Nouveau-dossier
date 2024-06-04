@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioFactory {
@@ -14,11 +15,8 @@ class DioFactory {
         ..options.connectTimeout = timeOut
         ..options.receiveTimeout = timeOut
         ..options.contentType = Headers.formUrlEncodedContentType
-        ..options.headers.addAll({
-          "Accept": "*/*",
-          "Authorization":
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWFkYWQ2Mjk0NjA5ZmJmNGU2NmMxMiIsImN1cnJlbnRSb2xlIjoiVXNlciIsImlhdCI6MTcxNzIzMDM4MywiZXhwIjoxNzI1MDA2MzgzfQ.yPENcwf0aZFf_b6yImKMKEeXBx_FzWjyapOPjWB0_yE"
-        });
+        ..options.headers.addAll(
+            {"Accept": "*/*", "Authorization": "Bearer ${TokenUser.token}"});
       addDioInterceptor();
     }
     return dio!;

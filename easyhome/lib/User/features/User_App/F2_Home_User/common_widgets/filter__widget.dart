@@ -120,10 +120,10 @@ class FilterWidget extends StatelessWidget {
                         "Wilaya :",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: 18,
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         height: 40,
                         child: DropdownButton<String>(
                           alignment: Alignment.center,
@@ -150,8 +150,7 @@ class FilterWidget extends StatelessWidget {
                                 textAlign: TextAlign.left,
                                 selectionColor: MyColors.mainblue,
                                 style: const TextStyle(
-                                  color: MyColors.mainblue,
-                                ),
+                                    color: MyColors.mainblue, fontSize: 14),
                               ),
                             );
                           }).toList(),
@@ -486,7 +485,7 @@ class FilterWidget extends StatelessWidget {
                                     rating: provider_rating.rating,
                                     wilaya: provider_wilaya.selectedWilaya,
                                     sort: provider_sort.selectedSort,
-                                    postId: "",
+                                    postId: postID,
                                   ));
                             },
                             child: Padding(

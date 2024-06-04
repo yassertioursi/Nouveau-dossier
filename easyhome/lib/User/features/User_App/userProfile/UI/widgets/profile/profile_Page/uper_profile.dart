@@ -21,14 +21,14 @@ Widget _buildDrawer(GlobalKey<ScaffoldState> key, User userDetails) {
   return Positioned(
     right: 0,
     child: Padding(
-      padding: const EdgeInsets.only(top: 15.0, right: 8),
+      padding: const EdgeInsets.only(top: 10.0, right: 8),
       child: IconButton(
           onPressed: () {
             key.currentState!.openEndDrawer();
           },
           icon: Icon(
             Icons.format_list_bulleted,
-            size: 40.sp,
+            size: 35.sp,
             color: Mycolors.myWhite,
           )),
     ),
@@ -67,27 +67,26 @@ Widget _buildAvatar(BuildContext context, User userDetails) {
 }
 
 Widget profilepic(String? pic, bool big) {
-  if (pic == null || pic == '' || pic == 'default.jpg') {
-    return ClipOval(
-        child: Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: Colors.white,
-          width: 7,
-        ),
+  return ClipOval(
+      child: Container(
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      border: Border.all(
+        color: Colors.white,
+        width: 7,
       ),
-      child: ClipOval(
-        child: SizedBox(
-            height: 120.sp,
-            width: 120.sp,
-            child: Image.asset("lib/utils/images/default.jpg")),
+    ),
+    child: ClipOval(
+      child: SizedBox(
+        height: 120.sp,
+        width: 120.sp,
+        child: pic == null || pic == '' || pic == 'default.jpg'
+            ? Image.asset("lib/utils/images/default.jpg")
+            : Image.network(
+                pic,
+                fit: BoxFit.fill,
+              ),
       ),
-    ));
-  } else {
-    return Image.network(
-      pic,
-      fit: BoxFit.fill,
-    );
-  }
+    ),
+  ));
 }

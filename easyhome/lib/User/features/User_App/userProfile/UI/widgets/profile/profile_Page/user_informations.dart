@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/user.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
@@ -22,7 +24,7 @@ Widget _buildName(String name) {
   );
 }
 
-Widget _buildBio() {
+Widget _buildBio(User userdetails) {
   return Column(
     children: [
       Container(
@@ -55,6 +57,31 @@ Widget _contact() {
         ),
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.place_rounded,
+                        color: MyColors.mainblue,
+                        size: 25.sp,
+                      ),
+                      Text(
+                        userDetails.data?.wilaya ?? "",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
             Container(
               width: 360.w,
               padding: EdgeInsets.fromLTRB(8, 10.h, 0, 4),
@@ -116,7 +143,7 @@ Widget _infoItems(IconData icon, String title) {
 List<Widget> _infos(User userDetails) {
   return [
     _buildName(userDetails.data?.name ?? ''),
-    _buildBio(),
+    _buildBio(userDetails),
     _contact(),
   ];
 }

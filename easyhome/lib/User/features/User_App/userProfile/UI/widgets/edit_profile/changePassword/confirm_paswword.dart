@@ -39,14 +39,14 @@ class _confirmPasswordState extends State<confirmPassword> {
           height: 60,
           width: 50,
           decoration: BoxDecoration(
-            color: Mycolors.myBlue,
+            color: Colors.black,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Center(
             child: Text(
               'Confirm',
               style: TextStyle(
-                fontSize: 40.sp,
+                fontSize: 22.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),

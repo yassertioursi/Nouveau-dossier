@@ -1,6 +1,7 @@
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/changePassword/confirm_paswword.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/changePassword/password_text_fields.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
+import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,23 +24,37 @@ class _ChangePasswordState extends State<ChangePassword> {
 
 AppBar _myAppBar(BuildContext context) {
   return AppBar(
+    backgroundColor: MyColors.mainblue,
     leading: IconButton(
       onPressed: () {
         Navigator.of(context).pop();
       },
-      icon: const Icon(Icons.arrow_back),
-    ),
-    title: Padding(
-      padding: EdgeInsets.only(left: 30.w),
-      child: Text(
-        "Change Password",
-        style: TextStyle(
-            fontSize: 25.sp,
-            color: Mycolors.myBlue,
-            fontWeight: FontWeight.bold),
+      icon: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+          size: 28.sp,
+        ),
       ),
     ),
-    // backgroundColor: Mycolors.myWhite,
+    title: Padding(
+      padding: const EdgeInsets.only(top: 23),
+      child: Center(
+        child: Text(
+          "Change Password",
+          style: TextStyle(
+              fontSize: 20.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+    ),
+    bottom: PreferredSize(
+      preferredSize: Size.fromHeight(30.0), // Set the height here
+      child: SizedBox
+          .shrink(), // Use SizedBox.shrink() to avoid rendering anything in the PreferredSize
+    ),
   );
 }
 
@@ -49,8 +64,8 @@ Widget _buildBody(BuildContext context) {
     scrollDirection: Axis.vertical,
     children: [
       Divider(
-        thickness: 0.8.sp,
-        color: Colors.black,
+        thickness: 0.0.sp,
+        color: Colors.transparent,
       ),
       SizedBox(
         height: 50.h,

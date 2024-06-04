@@ -324,7 +324,6 @@ class WorkersList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    postId = "663428a0685145d9db5d5067";
     return Consumer<WorkersSearch>(builder: (context, workersprovider, child) {
       return Consumer<WorkersSelect>(
           builder: (context, workerselectprovider, child) {
@@ -338,6 +337,11 @@ class WorkersList extends StatelessWidget {
               ListView.builder(
                   itemCount: search.workers!.length,
                   itemBuilder: (BuildContext context, int index) {
+                    if (workerselectprovider.workers.isNotEmpty) {
+                      SystemChannels.textInput.invokeMethod('TextInput.hide');
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    }
+
                     String rt1 = search.workers![index]["rating"].toString();
                     String exp1 =
                         search.workers![index]["experience"].toString();
@@ -411,14 +415,12 @@ class WorkersList extends StatelessWidget {
                           onTap: () async {
                             if (!providerloading.isLoading) {
                               providerloading.setLoad(true);
-                              print(workerselectprovider.workers);
+
                               SendRequest sendRequest = SendRequest();
-                              if (await sendRequest.sendRequest(
-                                  TokenUser.token,
-                                  "663428a0685145d9db5d5067",
-                                  workerselectprovider.workers)) {
+                              if (await sendRequest.sendRequest(TokenUser.token,
+                                  postId, workerselectprovider.workers)) {
                                 context.showSuccessMessage("Success",
-                                    "The post has been declined successfully.");
+                                    "The post has been sent successfully.");
                               } else {
                                 context.showErrorMessage(
                                     "Error!", "Failed to send your post.");

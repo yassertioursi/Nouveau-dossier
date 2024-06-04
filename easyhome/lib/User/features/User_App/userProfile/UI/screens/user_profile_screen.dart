@@ -26,7 +26,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
   void initState() {
     super.initState();
     BlocProvider.of<MyCubit>(context)
-        .emitGetUserDetails("66380575b0a95c051bb5e786");
+        .emitGetUserDetails("65f483c20128dc7347e0f458");
   }
 
   Widget buildBloc() {
