@@ -1,10 +1,6 @@
 import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
-import 'package:easyhome/User/features/User_App/All_5_features.dart';
-import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
-import 'package:easyhome/Rechidi/core/injection/index.dart';
-import 'package:easyhome/Worker/features/Worker_App/All_4_features.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Home_Worker.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Screens/Signup_1.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,15 +16,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ScreenUtilInit(
+    return ScreenUtilInit(
       // ignore: prefer_const_constructors
       designSize: Size(360, 800),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home:
-            Home_User(), /* routes: 
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: Login()
+          /* routes:  
           
             '/login': (context) => Login(),
             '/Signup_1': (context) => Signup(),
@@ -36,7 +30,7 @@ class MainApp extends StatelessWidget {
             '/Email_Verification': (context) => Email_verifcation(),
             '/Forget_password': (context) => Forget_Pass(),
           }*/
-      ),
+          ),
     );
   }
 }

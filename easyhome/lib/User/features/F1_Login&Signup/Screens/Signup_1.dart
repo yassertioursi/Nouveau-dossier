@@ -10,8 +10,8 @@ import 'package:provider/provider.dart';
 import '../common_widgets/confirm_field.dart';
 
 // ignore: must_be_immutable
-class Signup extends StatelessWidget {
-  Signup({Key? key}) : super(key: key);
+class SignUp extends StatelessWidget {
+  SignUp({Key? key}) : super(key: key);
 
   TextEditingController emailController = TextEditingController();
 
@@ -155,6 +155,9 @@ class Signup extends StatelessWidget {
                         },
                         child: const Text(
                           "CONTINUE",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         )),
                     const SizedBox(
                       height: 15,
@@ -171,10 +174,11 @@ class Signup extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(SlideRight(
-                                Page: Login(),
-                                begin: const Offset(-1, 0),
-                                end: const Offset(0, 0)));
+                            // Navigator.of(context).pushReplacement(SlideRight(
+                            //     Page: Login(),
+                            //     begin: const Offset(-1, 0),
+                            //     end: const Offset(0, 0)));
+                            Navigator.of(context).pop();
                           },
                           child: const Text(
                             "Login",

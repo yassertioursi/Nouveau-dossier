@@ -130,10 +130,10 @@ class Signup_2 extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(30, 20, 40, 20),
                     child: DropDownWilaya(
-                      formstate_wilaya: formstate_wilaya,
                       onWilayaChanged: (wilya) {
                         selectedWilaya = wilya;
                       },
+                      formstateWilaya: formstate_wilaya,
                     ),
                   ),
                   Padding(
@@ -192,6 +192,7 @@ class Signup_2 extends StatelessWidget {
                               )
                             : const Text(
                                 "CREATE ACCOUNT",
+                                style: TextStyle(color: Colors.white),
                               ),
                       );
                     }),
