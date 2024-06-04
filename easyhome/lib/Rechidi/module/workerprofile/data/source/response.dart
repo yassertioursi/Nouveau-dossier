@@ -57,7 +57,7 @@ class _CertificateResponse {
   factory _CertificateResponse.fromJson(Map<String, dynamic> json) =>
       _CertificateResponse(
         certificates: List<CertificateEntity>.from(
-          json['data'].map(
+          json['certificates'].map(
             (x) => CertificateEntity.fromJson(x),
           ),
         ),

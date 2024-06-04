@@ -49,7 +49,7 @@ abstract class WorkerProfileDataSource {
     @Path("id") String id,
   );
 
-  @GET("/api/v1/workers/certificates/{id}")
+  @GET("/api/v1/workers/{id}/certificates")
   Future<_CertificateResponse> getCertificates(
     @Path("id") String id,
   );
