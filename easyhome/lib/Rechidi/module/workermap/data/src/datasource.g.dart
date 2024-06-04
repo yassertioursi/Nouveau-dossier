@@ -22,10 +22,8 @@ Map<String, dynamic> _$LocationResponseToJson(_LocationResponse instance) =>
 PostCard _$PostCardFromJson(Map<String, dynamic> json) => PostCard(
       title: json['title'] as String,
       description: json['description'] as String,
-      location: LocationEntity.fromJson({
-        ...json['location'] as Map<String, dynamic>,
-        'subTitle': json['job'] as String,
-      }),
+      location:
+          LocationEntity.fromJson(json['location'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PostCardToJson(PostCard instance) => <String, dynamic>{
@@ -56,14 +54,14 @@ class _PostsMapDataSource implements PostsMapDataSource {
   Future<_LocationResponse> getLocations(
     double lat,
     double lng,
-    double diameter,
+    double radius,
     String? job,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'lat': lat,
       r'lng': lng,
-      r'diameter': diameter,
+      r'radius': radius,
       r'job': job,
     };
     queryParameters.removeWhere((k, v) => v == null);
