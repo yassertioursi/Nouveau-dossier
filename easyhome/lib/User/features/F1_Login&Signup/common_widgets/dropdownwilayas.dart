@@ -105,9 +105,6 @@ class _DropDownState extends State<DropDownWilaya> {
                     fontWeight: FontWeight.w600,
                     fontSize: 17,
                   ),
-                  contentPadding: valueChoose == null
-                      ? EdgeInsets.only(bottom: 20)
-                      : EdgeInsets.only(bottom: 10),
                   border: const OutlineInputBorder(),
                   enabledBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(0)),
