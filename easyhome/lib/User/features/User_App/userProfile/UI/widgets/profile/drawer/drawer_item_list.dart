@@ -89,7 +89,7 @@ class _DrawerItemListState extends State<DrawerItemList> {
           text: "Edit Profile",
           function: () {
             Navigator.push(
-                context,
+                context,  
                 MaterialPageRoute( //TODO RECHIDI EDIT
                   builder: (context) => BlocProvider(
                     create: (context) => UpdateCubit(locator<Repo>()),
