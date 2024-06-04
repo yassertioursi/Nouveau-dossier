@@ -11,9 +11,9 @@ class CertificateEntity {
 
   factory CertificateEntity.fromJson(Map<String, dynamic> json) {
     return CertificateEntity(
-      id: json['id'],
+      id: json['_id'],
       title: json['title'],
-      imageUrl: json['imageUrl'],
+      imageUrl: json['image'],
     );
   }
 }

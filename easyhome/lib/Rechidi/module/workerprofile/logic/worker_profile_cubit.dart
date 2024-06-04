@@ -94,7 +94,10 @@ class WorkerProfileCubit extends Cubit<WorkerProfileState> {
   Future<void> fetchProfile(String id) async {
     emit(const WorkerProfileState.fetchigProfile());
     worker = await _repository.getWorkerProfile(id);
+    await fetchPortfolioPosts();
+    await fetchReviews();
+    await fetchCertificates();
     emit(const WorkerProfileState.profileFetched());
-    fetchPortfolioPosts();
+    
   }
 }

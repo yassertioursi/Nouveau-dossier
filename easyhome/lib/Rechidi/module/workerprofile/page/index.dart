@@ -7,7 +7,6 @@ import 'package:easyhome/Rechidi/core/theme/colors.dart';
 import 'package:easyhome/Rechidi/models/woker.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/logic/worker_profile_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,6 +24,7 @@ part 'portfolio.dart';
 part 'reviews.dart';
 part 'certificates.dart';
 part 'drawer.dart';
+part 'floatingactionbutton.dart';
 
 class WorkerProfile extends StatelessWidget {
   const WorkerProfile({super.key, required String workerId})
@@ -45,7 +45,8 @@ class WorkerProfile extends StatelessWidget {
           reviews: _Reviews(_isMe),
           certificates: _Certificates(_isMe),
         ),
-        drawer: _Drawer(),
+        drawer: const _Drawer(),
+        floationgActionButton:  _FloatingActionButton(_isMe),
       ),
     );
   }
