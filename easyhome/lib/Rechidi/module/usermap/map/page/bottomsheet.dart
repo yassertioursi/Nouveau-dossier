@@ -10,7 +10,9 @@ class _BottomSheet extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            context.to(WorkerProfile(workerId: _worker.id!));
+          },
           child: Container(
             height: 100.r,
             width: 100.r,

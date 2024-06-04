@@ -1,13 +1,13 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:easyhome/Rechidi/models/user.dart';
 
-class WorkerEntity {
+class WorkerEntity extends UserEntity {
   WorkerEntity({
-    this.id,
-    this.name,
+    super.id,
+    super.name,
     this.bio,
     this.job,
     this.wilaya,
-    this.profilePicture,
+    super.profilePicture,
     this.rating,
     this.experience,
     this.phoneNumber,
@@ -16,31 +16,43 @@ class WorkerEntity {
     this.facebook,
   });
 
-  final String? id;
-  final String? name;
+
   final String? bio;
   final String? job;
   final String? wilaya;
-  final String? profilePicture;
   final double? rating;
   final double? experience;
   final String? phoneNumber;
   final String? email;
   final bool? isCertified;
   final String? facebook;
+  
 
-  factory WorkerEntity.fromJson(Map<String, dynamic> json) => WorkerEntity(
-        id: json['_id'] as String?,
-        name: json['name'] as String?,
-        bio: json['bio'] as String?,
-        job: json['job'] as String?,
-        wilaya: json['wilaya'] as String?,
-        profilePicture: json['profilePicture'] as String?,
-        rating: json['rating'] as double?,
-        experience: json['experience'] as double?,
-        phoneNumber: json['phoneNumber'] as String?,
-        email: json['email'] as String?,
-        isCertified: json['isCertified'] as bool?,
-        facebook: json['facebook'] as String?,
-      );
+  factory WorkerEntity.fromJson(Map<String, dynamic>? json) {
+    json?['rating'] = _converter(json['rating']);
+    json?['experience'] = _converter(json['experience']);
+
+    return WorkerEntity(
+      id: json?['_id'] as String?,
+      name: json?['name'] as String?,
+      bio: json?['bio'] as String?,
+      job: json?['job'] as String?,
+      wilaya: json?['wilaya'] as String?,
+      profilePicture: json?['profilePicture'] as String?,
+      rating: json?['rating'],
+      experience: json?['experience'],
+      phoneNumber: json?['phoneNumber'] as String?,
+      email: json?['email'] as String?,
+      isCertified: json?['isCertified'] as bool?,
+      facebook: json?['facebook'] as String?,
+    );
+  }
+}
+
+double? _converter(x) {
+  if (x.runtimeType == int) {
+    return (x as int).toDouble();
+  } else {
+    return x as double?;
+  }
 }

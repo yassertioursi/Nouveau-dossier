@@ -37,6 +37,7 @@ WorkerCard _$WorkerCardFromJson(Map<String, dynamic> json) {
     name: json['name'] as String?,
     job: json['job'] as String?,
     image: json['profilePicture'] as String?,
+    id: json['_id'] as String?,
   );
 }
 
