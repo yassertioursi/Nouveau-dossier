@@ -58,9 +58,8 @@ class _UserProfileScreenState extends State<UserProfileScreen>
                       context,
                       userDetails,
                     ),
-                    Text('RChidi'),
+                   
                     userInformations(userDetails),
-                    Text('RChidi'),
                   ],
                 ),
               ),
