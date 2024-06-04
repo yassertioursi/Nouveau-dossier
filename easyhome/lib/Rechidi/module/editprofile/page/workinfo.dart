@@ -1,7 +1,9 @@
 part of 'index.dart';
 
 class _WorkInfo extends StatelessWidget {
-  const _WorkInfo();
+  const _WorkInfo(this._isWorker);
+
+  final bool _isWorker;
 
   @override
   Widget build(BuildContext context) {
@@ -9,12 +11,13 @@ class _WorkInfo extends StatelessWidget {
     return Column(
       children: [
         ...[
-          _WorkInfoItem(
-            label: 'Job',
-            controller: cubit.job,
-            icon: Icons.work,
-            items: StaticStuf.jobs,
-          ),
+          if (_isWorker)
+            _WorkInfoItem(
+              label: 'Job',
+              controller: cubit.job,
+              icon: Icons.work,
+              items: StaticStuf.jobs,
+            ),
           _WorkInfoItem(
             label: 'Wilaya',
             controller: cubit.wilaya,

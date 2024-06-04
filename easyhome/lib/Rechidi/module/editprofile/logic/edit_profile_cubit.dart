@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:easyhome/Rechidi/core/helper/validator.dart';
+import 'package:easyhome/Rechidi/models/user.dart';
 import 'package:easyhome/Rechidi/models/woker.dart';
 import 'package:easyhome/Rechidi/module/editprofile/data/repository/repository.dart';
 import 'package:flutter/material.dart';
@@ -15,20 +16,20 @@ part 'edit_profile_cubit.freezed.dart';
 class EditProfileCubit extends Cubit<EditProfileState> {
   final EditProfileRepository _repository;
   EditProfileCubit(
-      {required WorkerEntity worker, required EditProfileRepository repository})
-      : _worker = worker,
+      {required UserEntity user, required EditProfileRepository repository})
+      : _user = user,
         _repository = repository,
         super(const EditProfileState.initial()) {
-    name.text = worker.name!;
-    bio.text = worker.bio ?? '';
-    phone.text = worker.phoneNumber ?? '';
-    email.text = worker.email ?? '';
-    facebook.text = worker.facebook ?? '';
-    wilaya.text = worker.wilaya ?? '';
-    job.text = worker.job ?? '';
+    name.text = user.name ?? '';
+    bio.text = user.bio ?? '';
+    phone.text = user.phoneNumber ?? '';
+    email.text = user.email ?? '';
+    facebook.text = user.facebook ?? '';
+    wilaya.text = user.wilaya ?? '';
+    if (user is WorkerEntity) job.text = user.job ?? '';
   }
 
-  final WorkerEntity _worker;
+  final UserEntity _user;
 
   final name = TextEditingController();
   final bio = TextEditingController();
@@ -49,7 +50,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
   ImageProvider get image {
     if (_image != null) return FileImage(_image!);
-    return NetworkImage(_worker.profilePicture!);
+    return NetworkImage(_user.profilePicture ?? '');
   }
 
   void pickImage(ImageSource source) async {
@@ -91,7 +92,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       );
     } on DioException catch (e) {
       return emit(EditProfileState.error(
-          e.response?.data['message'] ?? 'An error occurred'));
+          e.response?.data?['message'] ?? 'An error occurred'));
     }
 
     emit(const EditProfileState.submitted());
