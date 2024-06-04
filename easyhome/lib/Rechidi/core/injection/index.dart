@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:easyhome/Rechidi/module/editprofile/data/source/source.dart';
+import 'package:easyhome/Rechidi/module/workerprofile/data/repository/repository.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/favorite_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/password_Cubit/passwrod_cubit.dart';
@@ -16,11 +18,13 @@ import 'package:get_it/get_it.dart';
 
 
 
+import '../../module/editprofile/data/repository/repository.dart';
 import '../../module/signupworker/data/source.dart';
 import '../../module/usermap/map/data/repo/repo.dart';
 import '../../module/usermap/map/data/src/source.dart';
 import '../../module/workermap/data/repository/repository.dart';
 import '../../module/workermap/data/src/datasource.dart';
+import '../../module/workerprofile/data/source/source.dart';
 import '../helper/dio.dart';
 
 final locator = GetIt.instance;
@@ -35,6 +39,12 @@ Future<void> setupLocator() async {
 
   locator.registerLazySingleton(() => PostsMapDataSource(locator<Dio>()));
   locator.registerLazySingleton(() => PostsMapRepository(locator()));
+
+  locator.registerLazySingleton(() => WorkerProfileDataSource(locator<Dio>()));
+  locator.registerLazySingleton(() => WorkerProfileRepository(locator()));
+
+  locator.registerLazySingleton(() => EditProfileDataSource(locator<Dio>()));
+  locator.registerLazySingleton(() => EditProfileRepository(locator()));
 
   locator.registerLazySingleton<MyCubit>(() => MyCubit(locator()));
   locator.registerLazySingleton<UpdateCubit>(() => UpdateCubit(locator()));

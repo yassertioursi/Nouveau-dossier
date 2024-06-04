@@ -15,6 +15,7 @@ class LocationResponse extends Equatable {
 }
 
 class WorkerCard extends Equatable {
+  final String? id;
   final LocationEntity? location;
   final String? name;
   final String? job;
@@ -23,6 +24,7 @@ class WorkerCard extends Equatable {
 
   const WorkerCard(
       {required this.location,
+      required this.id,
       required this.name,
       required this.job,
       required this.image});

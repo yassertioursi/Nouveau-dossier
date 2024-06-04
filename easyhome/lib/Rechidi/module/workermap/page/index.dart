@@ -26,17 +26,13 @@ class PostsMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PostsMapCubit>(
-      create: (context) => PostsMapCubit(locator()),
-      child: Builder(builder: (context) {
-        context.read<PostsMapCubit>().setMyLocation();
-        context.read<PostsMapCubit>().fecthPosts();
-        return const _Scaffold(
-          jobList: _JobList(),
-          map: _Map(),
-          radiusSlider: _Slider(),
-          floatingActionButton: _FloatingButton(),
-        );
-      }),
+      create: (context) => PostsMapCubit(locator())..setMyLocation()..fecthPosts(),
+      child: const _Scaffold(
+        jobList: _JobList(),
+        map: _Map(),
+        radiusSlider: _Slider(),
+        floatingActionButton: _FloatingButton(),
+      ),
     );
   }
 }
