@@ -5,6 +5,7 @@ import 'package:easyhome/Rechidi/core/extension/snackbar.dart';
 import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/Rechidi/core/shared/spacing.dart';
 import 'package:easyhome/Rechidi/core/theme/colors.dart';
+import 'package:easyhome/Rechidi/models/user.dart';
 import 'package:easyhome/Rechidi/models/woker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,16 +21,18 @@ part 'workinfo.dart';
 part 'submitbutton.dart';
 
 class EditProfile extends StatelessWidget {
-  const EditProfile({super.key, required WorkerEntity worker})
-      : __worker = worker;
+  const EditProfile({super.key, required UserEntity worker})
+      : _user = worker,
+        _isWorker = worker is WorkerEntity;
 
-  final WorkerEntity __worker;
+  final UserEntity _user;
+  final bool _isWorker;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => EditProfileCubit(
-        worker: __worker,
+        user: _user,
         repository: locator(),
       ),
       child: BlocListener<EditProfileCubit, EditProfileState>(
@@ -39,11 +42,11 @@ class EditProfile extends StatelessWidget {
             submitted: () => context.back(),
           );
         },
-        child: const _Scaffold(
-          updatePic: _UpdatePic(),
-          personalInfo: _PersonalInfo(),
-          workInfo: _WorkInfo(),
-          submitButton: _SubmitButton(),
+        child:  _Scaffold(
+          updatePic: const _UpdatePic(),
+          personalInfo: const _PersonalInfo(),
+          workInfo: _WorkInfo(_isWorker),
+          submitButton: const _SubmitButton(),
         ),
       ),
     );

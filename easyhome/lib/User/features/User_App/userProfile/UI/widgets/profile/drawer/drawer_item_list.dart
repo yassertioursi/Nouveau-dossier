@@ -1,3 +1,6 @@
+import 'package:easyhome/Rechidi/core/extension/navigation.dart';
+import 'package:easyhome/Rechidi/models/user.dart';
+import 'package:easyhome/Rechidi/module/editprofile/page/index.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/password_Cubit/passwrod_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/update_cubit/update_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/edit_user_profile_screen.dart';
@@ -88,14 +91,7 @@ class _DrawerItemListState extends State<DrawerItemList> {
           myicon: Icons.edit,
           text: "Edit Profile",
           function: () {
-            Navigator.push(
-                context,  
-                MaterialPageRoute( //TODO RECHIDI EDIT
-                  builder: (context) => BlocProvider(
-                    create: (context) => UpdateCubit(locator<Repo>()),
-                    child: const EditUserScreen(isUser: true),
-                  ),
-                ));
+            context.to(EditProfile(worker: UserEntity.fromUser(widget.user)));
           }),
       drawerItem(
         myicon: Icons.lock,

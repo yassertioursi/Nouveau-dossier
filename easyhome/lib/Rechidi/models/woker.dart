@@ -4,28 +4,23 @@ class WorkerEntity extends UserEntity {
   WorkerEntity({
     super.id,
     super.name,
-    this.bio,
+    super.bio,
     this.job,
-    this.wilaya,
+    super.wilaya,
     super.profilePicture,
     this.rating,
     this.experience,
-    this.phoneNumber,
-    this.email,
+    super.phoneNumber,
+    super.email,
     this.isCertified,
-    this.facebook,
+    super.facebook,
   });
 
 
-  final String? bio;
   final String? job;
-  final String? wilaya;
   final double? rating;
   final double? experience;
-  final String? phoneNumber;
-  final String? email;
   final bool? isCertified;
-  final String? facebook;
   
 
   factory WorkerEntity.fromJson(Map<String, dynamic>? json) {
