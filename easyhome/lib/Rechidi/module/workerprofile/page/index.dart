@@ -14,9 +14,15 @@ import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_prof
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/drawer_items.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
+<<<<<<< HEAD
+=======
+import 'package:easyhome/Worker/features/Worker_App/workerProfile/UI/screens/worker_profile_sceen.dart';
+import 'package:easyhome/Worker/features/Worker_App/workerProfile/UI/widgets/profile/profile_page/build_certificate.dart';
+>>>>>>> 676577b (message)
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:readmore/readmore.dart';
@@ -56,7 +62,31 @@ class WorkerProfile extends StatelessWidget {
           certificates: _Certificates(_isMe),
         ),
         drawer: const _Drawer(),
-        floationgActionButton: _FloatingActionButton(_isMe),
+        floationgActionButton: _isMe ? _FloatingActionButton(_isMe) : _call(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      ),
+    );
+  }
+
+  _call() {
+    return Container(
+      height: 70,
+      width: 70,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(60),
+        color: Colors.green,
+      ),
+      child: IconButton(
+        icon: Icon(
+          // TODO implement the Create portfolio element button
+          Icons.call,
+          size: 45.sp,
+        ),
+        color: Colors.white,
+        onPressed: () async {
+          await FlutterPhoneDirectCaller.callNumber(
+              workerDetails?.worker?.phoneNumber ?? '0');
+        },
       ),
     );
   }
