@@ -1,11 +1,8 @@
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/injection/index.dart';
-import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
-import 'package:easyhome/User/features/F1_Login&Signup/Screens/Signup_1.dart';
 import 'package:easyhome/User/features/User_App/All_5_features.dart';
-import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
 import 'package:easyhome/Worker/features/Worker_App/All_4_features.dart';
-import 'package:easyhome/Worker/features/Worker_App/workerProfile/data/model/worker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +16,12 @@ void main() async {
 class MainApp extends StatelessWidget {
   MainApp({super.key});
 
+  final firstWidget = AuthCache.token == null
+      ? Login()
+      : AuthCache.isWorker
+          ? const Home_Worker()
+          : const Home_User();
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -26,7 +29,10 @@ class MainApp extends StatelessWidget {
       designSize: Size(360, 800),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(debugShowCheckedModeBanner: false, home: Login()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: firstWidget,
+      ),
     );
   }
 }

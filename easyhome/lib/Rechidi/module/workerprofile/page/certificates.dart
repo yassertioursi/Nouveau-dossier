@@ -38,6 +38,7 @@ class _Certificates extends StatelessWidget {
     required VoidCallback onDelete,
     required void Function(CertificateEntity) onEdit,
   }) {
+    if (!(certificate.isValid == true) && !_isMe) return const SizedBox();
     return Column(
       children: [
         Stack(children: [
@@ -55,25 +56,26 @@ class _Certificates extends StatelessWidget {
               ]),
               child: CupertinoContextMenu(
                 actions: <Widget>[
-                  CupertinoContextMenuAction(
-                    child: const Row(
-                      children: [
-                        Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Text(
-                            "Delete Post",
+                  if (_isMe)
+                    CupertinoContextMenuAction(
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.delete,
+                            color: Colors.red,
                           ),
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      onDelete();
-                    },
-                  )
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text(
+                              "Delete Post",
+                            ),
+                          ),
+                        ],
+                      ),
+                      onPressed: () {
+                        onDelete();
+                      },
+                    )
                 ],
                 child: SafeArea(
                   child: Image.network(

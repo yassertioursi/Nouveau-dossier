@@ -16,23 +16,18 @@ class _TabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WorkerProfileCubit, WorkerProfileState>(
-      builder: (context, state) {
-        final cubit = context.read<WorkerProfileCubit>();
-        return Column(
+    return Column(
+      children: [
+        _buildTabBar(),
+        Expanded(
+            child: TabBarView(
           children: [
-            _buildTabBar(),
-            Expanded(
-                child: TabBarView(
-              children: [
-                _portfolio,
-                _reviews,
-                _certificates,
-              ],
-            )),
+            _portfolio,
+            _reviews,
+            _certificates,
           ],
-        );
-      },
+        )),
+      ],
     );
   }
 
@@ -69,41 +64,6 @@ class _TabView extends StatelessWidget {
           ),
         ),
       ]),
-    );
-  }
-
-  Widget _buildTabItem({
-    required String title,
-    required void Function() onTap,
-    required bool isSelected,
-  }) {
-    return SizedBox(
-      width: 100.w,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Column(
-          children: [
-            height(20),
-            Text(
-              title,
-              style: TextStyle(
-                color: isSelected
-                    ? AppColors.white
-                    : AppColors.white.withOpacity(0.6),
-                fontSize: isSelected ? 18.sp : 15.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            height(15),
-            if (isSelected)
-              Container(
-                height: 3,
-                width: 45.w,
-                color: AppColors.white,
-              ),
-          ],
-        ),
-      ),
     );
   }
 }

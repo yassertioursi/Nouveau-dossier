@@ -1,9 +1,9 @@
 part of 'index.dart';
 
 class _Reviews extends StatelessWidget {
-  const _Reviews(this._isMe);
+  const _Reviews();
 
-  final bool _isMe;
+ 
 
   @override
   Widget build(BuildContext context) {

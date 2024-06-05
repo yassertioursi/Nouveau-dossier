@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:retrofit/retrofit.dart';
-import 'package:http_parser/src/media_type.dart';
+
 
 part 'source.gd.dart';
 
