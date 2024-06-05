@@ -25,8 +25,11 @@ class MainApp extends StatelessWidget {
       designSize: Size(360, 800),
       minTextAdapt: true,
       splitScreenMode: true,
-      child:
-          MaterialApp(debugShowCheckedModeBanner: false, home: Home_Worker()),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: WorkerProfile(
+            workerId: '662ee1263a8b458f4dfd1348',
+          )),
     );
   }
 }
