@@ -2,7 +2,11 @@
 
 import 'dart:io';
 
+import 'package:easyhome/Rechidi/models/location.dart';
+import 'package:easyhome/Rechidi/module/usermap/selectplace/logic/map_selector_cubit.dart';
+import 'package:easyhome/Rechidi/module/usermap/selectplace/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Animation/animation.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Provider/ProviderImages.dart';
@@ -549,6 +553,13 @@ class Create_Post {
                                           backgroundColor: Colors.black,
                                         ),
                                         onPressed: () async {
+                                          final LocationEntity location = await   Navigator.of(context).push(SlideRight(
+                                Page: MapPlaceSelector(),
+                                begin: Offset(-1, 0),
+                                end: Offset(0, 0)));
+                        
+                            
+
                                           if (Workers_Cat().cats.contains(
                                               providerdrop.dropdownValue)) {
                                             if (formstate_title.currentState!
@@ -568,7 +579,10 @@ class Create_Post {
                                                   providerdrop.dropdownValue!,
                                                   providerimages.Images,
                                                   TokenUser.token,
+                                                  
+                                                  
                                                 )) {
+
                                                   Navigator.pop(context);
                                                   context.showSuccessMessage(
                                                       "Success",

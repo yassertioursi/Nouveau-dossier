@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:easyhome/Rechidi/module/workermap/page/index.dart';
+import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/Create_Post.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Deals&Apps.dart';
@@ -39,7 +40,8 @@ class _Home_UserState extends State<Home_Worker> {
         BlocProvider(create: (context) => SwitchCubit(locator())),
         BlocProvider(create: (context) => FavoriteCubit(locator())),
       ],
-      child: const WorkerProfileScreen(),
+
+      child:  WorkerProfile(workerId:"" ),
     ),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
