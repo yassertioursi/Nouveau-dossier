@@ -35,6 +35,8 @@ mixin _$WorkerProfileState {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -57,6 +59,8 @@ mixin _$WorkerProfileState {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -79,6 +83,8 @@ mixin _$WorkerProfileState {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -102,6 +108,8 @@ mixin _$WorkerProfileState {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -124,6 +132,8 @@ mixin _$WorkerProfileState {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -146,6 +156,8 @@ mixin _$WorkerProfileState {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -225,6 +237,8 @@ class _$InitialImpl implements _Initial {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -250,6 +264,8 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -275,6 +291,8 @@ class _$InitialImpl implements _Initial {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -304,6 +322,8 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
@@ -329,6 +349,8 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
@@ -354,6 +376,8 @@ class _$InitialImpl implements _Initial {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -423,6 +447,8 @@ class _$FetchingProfileImpl implements _FetchingProfile {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return fetchigProfile();
@@ -448,6 +474,8 @@ class _$FetchingProfileImpl implements _FetchingProfile {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return fetchigProfile?.call();
@@ -473,6 +501,8 @@ class _$FetchingProfileImpl implements _FetchingProfile {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -502,6 +532,8 @@ class _$FetchingProfileImpl implements _FetchingProfile {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return fetchigProfile(this);
@@ -527,6 +559,8 @@ class _$FetchingProfileImpl implements _FetchingProfile {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return fetchigProfile?.call(this);
@@ -552,6 +586,8 @@ class _$FetchingProfileImpl implements _FetchingProfile {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -621,6 +657,8 @@ class _$ProfileFetchedImpl implements _ProfileFetched {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return profileFetched();
@@ -646,6 +684,8 @@ class _$ProfileFetchedImpl implements _ProfileFetched {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return profileFetched?.call();
@@ -671,6 +711,8 @@ class _$ProfileFetchedImpl implements _ProfileFetched {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -700,6 +742,8 @@ class _$ProfileFetchedImpl implements _ProfileFetched {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return profileFetched(this);
@@ -725,6 +769,8 @@ class _$ProfileFetchedImpl implements _ProfileFetched {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return profileFetched?.call(this);
@@ -750,6 +796,8 @@ class _$ProfileFetchedImpl implements _ProfileFetched {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -819,6 +867,8 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -844,6 +894,8 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -869,6 +921,8 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -898,6 +952,8 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
@@ -923,6 +979,8 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return loading?.call(this);
@@ -948,6 +1006,8 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1017,6 +1077,8 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return loaded();
@@ -1042,6 +1104,8 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return loaded?.call();
@@ -1067,6 +1131,8 @@ class _$LoadedImpl implements _Loaded {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1096,6 +1162,8 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return loaded(this);
@@ -1121,6 +1189,8 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return loaded?.call(this);
@@ -1146,6 +1216,8 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1215,6 +1287,8 @@ class _$PortfolioLoadingImpl implements _PortfolioLoading {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return portfolioLoading();
@@ -1240,6 +1314,8 @@ class _$PortfolioLoadingImpl implements _PortfolioLoading {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return portfolioLoading?.call();
@@ -1265,6 +1341,8 @@ class _$PortfolioLoadingImpl implements _PortfolioLoading {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1294,6 +1372,8 @@ class _$PortfolioLoadingImpl implements _PortfolioLoading {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return portfolioLoading(this);
@@ -1319,6 +1399,8 @@ class _$PortfolioLoadingImpl implements _PortfolioLoading {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return portfolioLoading?.call(this);
@@ -1344,6 +1426,8 @@ class _$PortfolioLoadingImpl implements _PortfolioLoading {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1413,6 +1497,8 @@ class _$PortfolioLoadedImpl implements _PortfolioLoaded {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return portfolioLoaded();
@@ -1438,6 +1524,8 @@ class _$PortfolioLoadedImpl implements _PortfolioLoaded {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return portfolioLoaded?.call();
@@ -1463,6 +1551,8 @@ class _$PortfolioLoadedImpl implements _PortfolioLoaded {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1492,6 +1582,8 @@ class _$PortfolioLoadedImpl implements _PortfolioLoaded {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return portfolioLoaded(this);
@@ -1517,6 +1609,8 @@ class _$PortfolioLoadedImpl implements _PortfolioLoaded {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return portfolioLoaded?.call(this);
@@ -1542,6 +1636,8 @@ class _$PortfolioLoadedImpl implements _PortfolioLoaded {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1611,6 +1707,8 @@ class _$LikingPostImpl implements _LikingPost {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return likingPost();
@@ -1636,6 +1734,8 @@ class _$LikingPostImpl implements _LikingPost {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return likingPost?.call();
@@ -1661,6 +1761,8 @@ class _$LikingPostImpl implements _LikingPost {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1690,6 +1792,8 @@ class _$LikingPostImpl implements _LikingPost {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return likingPost(this);
@@ -1715,6 +1819,8 @@ class _$LikingPostImpl implements _LikingPost {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return likingPost?.call(this);
@@ -1740,6 +1846,8 @@ class _$LikingPostImpl implements _LikingPost {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1809,6 +1917,8 @@ class _$LikedPostImpl implements _LikedPost {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return likedPost();
@@ -1834,6 +1944,8 @@ class _$LikedPostImpl implements _LikedPost {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return likedPost?.call();
@@ -1859,6 +1971,8 @@ class _$LikedPostImpl implements _LikedPost {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1888,6 +2002,8 @@ class _$LikedPostImpl implements _LikedPost {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return likedPost(this);
@@ -1913,6 +2029,8 @@ class _$LikedPostImpl implements _LikedPost {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return likedPost?.call(this);
@@ -1938,6 +2056,8 @@ class _$LikedPostImpl implements _LikedPost {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -2007,6 +2127,8 @@ class _$DeletingPostImpl implements _DeletingPost {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return deletingPost();
@@ -2032,6 +2154,8 @@ class _$DeletingPostImpl implements _DeletingPost {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return deletingPost?.call();
@@ -2057,6 +2181,8 @@ class _$DeletingPostImpl implements _DeletingPost {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -2086,6 +2212,8 @@ class _$DeletingPostImpl implements _DeletingPost {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return deletingPost(this);
@@ -2111,6 +2239,8 @@ class _$DeletingPostImpl implements _DeletingPost {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return deletingPost?.call(this);
@@ -2136,6 +2266,8 @@ class _$DeletingPostImpl implements _DeletingPost {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -2205,6 +2337,8 @@ class _$DeletedPostImpl implements _DeletedPost {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return deletedPost();
@@ -2230,6 +2364,8 @@ class _$DeletedPostImpl implements _DeletedPost {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return deletedPost?.call();
@@ -2255,6 +2391,8 @@ class _$DeletedPostImpl implements _DeletedPost {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -2284,6 +2422,8 @@ class _$DeletedPostImpl implements _DeletedPost {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return deletedPost(this);
@@ -2309,6 +2449,8 @@ class _$DeletedPostImpl implements _DeletedPost {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return deletedPost?.call(this);
@@ -2334,6 +2476,8 @@ class _$DeletedPostImpl implements _DeletedPost {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -2403,6 +2547,8 @@ class _$FetchingReviewsImpl implements _FetchingReviews {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return fetchingReviews();
@@ -2428,6 +2574,8 @@ class _$FetchingReviewsImpl implements _FetchingReviews {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return fetchingReviews?.call();
@@ -2453,6 +2601,8 @@ class _$FetchingReviewsImpl implements _FetchingReviews {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -2482,6 +2632,8 @@ class _$FetchingReviewsImpl implements _FetchingReviews {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return fetchingReviews(this);
@@ -2507,6 +2659,8 @@ class _$FetchingReviewsImpl implements _FetchingReviews {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return fetchingReviews?.call(this);
@@ -2532,6 +2686,8 @@ class _$FetchingReviewsImpl implements _FetchingReviews {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -2601,6 +2757,8 @@ class _$ReviewsFetchedImpl implements _ReviewsFetched {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return reviewsFetched();
@@ -2626,6 +2784,8 @@ class _$ReviewsFetchedImpl implements _ReviewsFetched {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return reviewsFetched?.call();
@@ -2651,6 +2811,8 @@ class _$ReviewsFetchedImpl implements _ReviewsFetched {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -2680,6 +2842,8 @@ class _$ReviewsFetchedImpl implements _ReviewsFetched {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return reviewsFetched(this);
@@ -2705,6 +2869,8 @@ class _$ReviewsFetchedImpl implements _ReviewsFetched {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return reviewsFetched?.call(this);
@@ -2730,6 +2896,8 @@ class _$ReviewsFetchedImpl implements _ReviewsFetched {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -2800,6 +2968,8 @@ class _$FetchingCertificatesImpl implements _FetchingCertificates {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return fetchingCertificates();
@@ -2825,6 +2995,8 @@ class _$FetchingCertificatesImpl implements _FetchingCertificates {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return fetchingCertificates?.call();
@@ -2850,6 +3022,8 @@ class _$FetchingCertificatesImpl implements _FetchingCertificates {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -2879,6 +3053,8 @@ class _$FetchingCertificatesImpl implements _FetchingCertificates {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return fetchingCertificates(this);
@@ -2904,6 +3080,8 @@ class _$FetchingCertificatesImpl implements _FetchingCertificates {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return fetchingCertificates?.call(this);
@@ -2929,6 +3107,8 @@ class _$FetchingCertificatesImpl implements _FetchingCertificates {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -2999,6 +3179,8 @@ class _$CertificatesFetchedImpl implements _CertificatesFetched {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return certificatesFetched();
@@ -3024,6 +3206,8 @@ class _$CertificatesFetchedImpl implements _CertificatesFetched {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return certificatesFetched?.call();
@@ -3049,6 +3233,8 @@ class _$CertificatesFetchedImpl implements _CertificatesFetched {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3078,6 +3264,8 @@ class _$CertificatesFetchedImpl implements _CertificatesFetched {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return certificatesFetched(this);
@@ -3103,6 +3291,8 @@ class _$CertificatesFetchedImpl implements _CertificatesFetched {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return certificatesFetched?.call(this);
@@ -3128,6 +3318,8 @@ class _$CertificatesFetchedImpl implements _CertificatesFetched {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -3197,6 +3389,8 @@ class _$DeletingReviewImpl implements _DeletingReview {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return deletingReview();
@@ -3222,6 +3416,8 @@ class _$DeletingReviewImpl implements _DeletingReview {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return deletingReview?.call();
@@ -3247,6 +3443,8 @@ class _$DeletingReviewImpl implements _DeletingReview {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3276,6 +3474,8 @@ class _$DeletingReviewImpl implements _DeletingReview {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return deletingReview(this);
@@ -3301,6 +3501,8 @@ class _$DeletingReviewImpl implements _DeletingReview {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return deletingReview?.call(this);
@@ -3326,6 +3528,8 @@ class _$DeletingReviewImpl implements _DeletingReview {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -3395,6 +3599,8 @@ class _$ReviewDeletedImpl implements _ReviewDeleted {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return reviewDeleted();
@@ -3420,6 +3626,8 @@ class _$ReviewDeletedImpl implements _ReviewDeleted {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return reviewDeleted?.call();
@@ -3445,6 +3653,8 @@ class _$ReviewDeletedImpl implements _ReviewDeleted {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3474,6 +3684,8 @@ class _$ReviewDeletedImpl implements _ReviewDeleted {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return reviewDeleted(this);
@@ -3499,6 +3711,8 @@ class _$ReviewDeletedImpl implements _ReviewDeleted {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return reviewDeleted?.call(this);
@@ -3524,6 +3738,8 @@ class _$ReviewDeletedImpl implements _ReviewDeleted {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -3536,6 +3752,426 @@ class _$ReviewDeletedImpl implements _ReviewDeleted {
 
 abstract class _ReviewDeleted implements WorkerProfileState {
   const factory _ReviewDeleted() = _$ReviewDeletedImpl;
+}
+
+/// @nodoc
+abstract class _$$SwitchingAccountImplCopyWith<$Res> {
+  factory _$$SwitchingAccountImplCopyWith(_$SwitchingAccountImpl value,
+          $Res Function(_$SwitchingAccountImpl) then) =
+      __$$SwitchingAccountImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SwitchingAccountImplCopyWithImpl<$Res>
+    extends _$WorkerProfileStateCopyWithImpl<$Res, _$SwitchingAccountImpl>
+    implements _$$SwitchingAccountImplCopyWith<$Res> {
+  __$$SwitchingAccountImplCopyWithImpl(_$SwitchingAccountImpl _value,
+      $Res Function(_$SwitchingAccountImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SwitchingAccountImpl implements _SwitchingAccount {
+  const _$SwitchingAccountImpl();
+
+  @override
+  String toString() {
+    return 'WorkerProfileState.switchingAccount()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SwitchingAccountImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchigProfile,
+    required TResult Function() profileFetched,
+    required TResult Function() loading,
+    required TResult Function() loaded,
+    required TResult Function() portfolioLoading,
+    required TResult Function() portfolioLoaded,
+    required TResult Function() likingPost,
+    required TResult Function() likedPost,
+    required TResult Function() deletingPost,
+    required TResult Function() deletedPost,
+    required TResult Function() fetchingReviews,
+    required TResult Function() reviewsFetched,
+    required TResult Function() fetchingCertificates,
+    required TResult Function() certificatesFetched,
+    required TResult Function() deletingReview,
+    required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
+    required TResult Function(String message) error,
+  }) {
+    return switchingAccount();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchigProfile,
+    TResult? Function()? profileFetched,
+    TResult? Function()? loading,
+    TResult? Function()? loaded,
+    TResult? Function()? portfolioLoading,
+    TResult? Function()? portfolioLoaded,
+    TResult? Function()? likingPost,
+    TResult? Function()? likedPost,
+    TResult? Function()? deletingPost,
+    TResult? Function()? deletedPost,
+    TResult? Function()? fetchingReviews,
+    TResult? Function()? reviewsFetched,
+    TResult? Function()? fetchingCertificates,
+    TResult? Function()? certificatesFetched,
+    TResult? Function()? deletingReview,
+    TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
+    TResult? Function(String message)? error,
+  }) {
+    return switchingAccount?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchigProfile,
+    TResult Function()? profileFetched,
+    TResult Function()? loading,
+    TResult Function()? loaded,
+    TResult Function()? portfolioLoading,
+    TResult Function()? portfolioLoaded,
+    TResult Function()? likingPost,
+    TResult Function()? likedPost,
+    TResult Function()? deletingPost,
+    TResult Function()? deletedPost,
+    TResult Function()? fetchingReviews,
+    TResult Function()? reviewsFetched,
+    TResult Function()? fetchingCertificates,
+    TResult Function()? certificatesFetched,
+    TResult Function()? deletingReview,
+    TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (switchingAccount != null) {
+      return switchingAccount();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingProfile value) fetchigProfile,
+    required TResult Function(_ProfileFetched value) profileFetched,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_PortfolioLoading value) portfolioLoading,
+    required TResult Function(_PortfolioLoaded value) portfolioLoaded,
+    required TResult Function(_LikingPost value) likingPost,
+    required TResult Function(_LikedPost value) likedPost,
+    required TResult Function(_DeletingPost value) deletingPost,
+    required TResult Function(_DeletedPost value) deletedPost,
+    required TResult Function(_FetchingReviews value) fetchingReviews,
+    required TResult Function(_ReviewsFetched value) reviewsFetched,
+    required TResult Function(_FetchingCertificates value) fetchingCertificates,
+    required TResult Function(_CertificatesFetched value) certificatesFetched,
+    required TResult Function(_DeletingReview value) deletingReview,
+    required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
+    required TResult Function(_Error value) error,
+  }) {
+    return switchingAccount(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingProfile value)? fetchigProfile,
+    TResult? Function(_ProfileFetched value)? profileFetched,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_PortfolioLoading value)? portfolioLoading,
+    TResult? Function(_PortfolioLoaded value)? portfolioLoaded,
+    TResult? Function(_LikingPost value)? likingPost,
+    TResult? Function(_LikedPost value)? likedPost,
+    TResult? Function(_DeletingPost value)? deletingPost,
+    TResult? Function(_DeletedPost value)? deletedPost,
+    TResult? Function(_FetchingReviews value)? fetchingReviews,
+    TResult? Function(_ReviewsFetched value)? reviewsFetched,
+    TResult? Function(_FetchingCertificates value)? fetchingCertificates,
+    TResult? Function(_CertificatesFetched value)? certificatesFetched,
+    TResult? Function(_DeletingReview value)? deletingReview,
+    TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
+    TResult? Function(_Error value)? error,
+  }) {
+    return switchingAccount?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingProfile value)? fetchigProfile,
+    TResult Function(_ProfileFetched value)? profileFetched,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_PortfolioLoading value)? portfolioLoading,
+    TResult Function(_PortfolioLoaded value)? portfolioLoaded,
+    TResult Function(_LikingPost value)? likingPost,
+    TResult Function(_LikedPost value)? likedPost,
+    TResult Function(_DeletingPost value)? deletingPost,
+    TResult Function(_DeletedPost value)? deletedPost,
+    TResult Function(_FetchingReviews value)? fetchingReviews,
+    TResult Function(_ReviewsFetched value)? reviewsFetched,
+    TResult Function(_FetchingCertificates value)? fetchingCertificates,
+    TResult Function(_CertificatesFetched value)? certificatesFetched,
+    TResult Function(_DeletingReview value)? deletingReview,
+    TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (switchingAccount != null) {
+      return switchingAccount(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SwitchingAccount implements WorkerProfileState {
+  const factory _SwitchingAccount() = _$SwitchingAccountImpl;
+}
+
+/// @nodoc
+abstract class _$$AccountSwitchedImplCopyWith<$Res> {
+  factory _$$AccountSwitchedImplCopyWith(_$AccountSwitchedImpl value,
+          $Res Function(_$AccountSwitchedImpl) then) =
+      __$$AccountSwitchedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AccountSwitchedImplCopyWithImpl<$Res>
+    extends _$WorkerProfileStateCopyWithImpl<$Res, _$AccountSwitchedImpl>
+    implements _$$AccountSwitchedImplCopyWith<$Res> {
+  __$$AccountSwitchedImplCopyWithImpl(
+      _$AccountSwitchedImpl _value, $Res Function(_$AccountSwitchedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AccountSwitchedImpl implements _AccountSwitched {
+  const _$AccountSwitchedImpl();
+
+  @override
+  String toString() {
+    return 'WorkerProfileState.accountSwitched()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$AccountSwitchedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchigProfile,
+    required TResult Function() profileFetched,
+    required TResult Function() loading,
+    required TResult Function() loaded,
+    required TResult Function() portfolioLoading,
+    required TResult Function() portfolioLoaded,
+    required TResult Function() likingPost,
+    required TResult Function() likedPost,
+    required TResult Function() deletingPost,
+    required TResult Function() deletedPost,
+    required TResult Function() fetchingReviews,
+    required TResult Function() reviewsFetched,
+    required TResult Function() fetchingCertificates,
+    required TResult Function() certificatesFetched,
+    required TResult Function() deletingReview,
+    required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
+    required TResult Function(String message) error,
+  }) {
+    return accountSwitched();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchigProfile,
+    TResult? Function()? profileFetched,
+    TResult? Function()? loading,
+    TResult? Function()? loaded,
+    TResult? Function()? portfolioLoading,
+    TResult? Function()? portfolioLoaded,
+    TResult? Function()? likingPost,
+    TResult? Function()? likedPost,
+    TResult? Function()? deletingPost,
+    TResult? Function()? deletedPost,
+    TResult? Function()? fetchingReviews,
+    TResult? Function()? reviewsFetched,
+    TResult? Function()? fetchingCertificates,
+    TResult? Function()? certificatesFetched,
+    TResult? Function()? deletingReview,
+    TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
+    TResult? Function(String message)? error,
+  }) {
+    return accountSwitched?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchigProfile,
+    TResult Function()? profileFetched,
+    TResult Function()? loading,
+    TResult Function()? loaded,
+    TResult Function()? portfolioLoading,
+    TResult Function()? portfolioLoaded,
+    TResult Function()? likingPost,
+    TResult Function()? likedPost,
+    TResult Function()? deletingPost,
+    TResult Function()? deletedPost,
+    TResult Function()? fetchingReviews,
+    TResult Function()? reviewsFetched,
+    TResult Function()? fetchingCertificates,
+    TResult Function()? certificatesFetched,
+    TResult Function()? deletingReview,
+    TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (accountSwitched != null) {
+      return accountSwitched();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingProfile value) fetchigProfile,
+    required TResult Function(_ProfileFetched value) profileFetched,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_PortfolioLoading value) portfolioLoading,
+    required TResult Function(_PortfolioLoaded value) portfolioLoaded,
+    required TResult Function(_LikingPost value) likingPost,
+    required TResult Function(_LikedPost value) likedPost,
+    required TResult Function(_DeletingPost value) deletingPost,
+    required TResult Function(_DeletedPost value) deletedPost,
+    required TResult Function(_FetchingReviews value) fetchingReviews,
+    required TResult Function(_ReviewsFetched value) reviewsFetched,
+    required TResult Function(_FetchingCertificates value) fetchingCertificates,
+    required TResult Function(_CertificatesFetched value) certificatesFetched,
+    required TResult Function(_DeletingReview value) deletingReview,
+    required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
+    required TResult Function(_Error value) error,
+  }) {
+    return accountSwitched(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingProfile value)? fetchigProfile,
+    TResult? Function(_ProfileFetched value)? profileFetched,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_PortfolioLoading value)? portfolioLoading,
+    TResult? Function(_PortfolioLoaded value)? portfolioLoaded,
+    TResult? Function(_LikingPost value)? likingPost,
+    TResult? Function(_LikedPost value)? likedPost,
+    TResult? Function(_DeletingPost value)? deletingPost,
+    TResult? Function(_DeletedPost value)? deletedPost,
+    TResult? Function(_FetchingReviews value)? fetchingReviews,
+    TResult? Function(_ReviewsFetched value)? reviewsFetched,
+    TResult? Function(_FetchingCertificates value)? fetchingCertificates,
+    TResult? Function(_CertificatesFetched value)? certificatesFetched,
+    TResult? Function(_DeletingReview value)? deletingReview,
+    TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
+    TResult? Function(_Error value)? error,
+  }) {
+    return accountSwitched?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingProfile value)? fetchigProfile,
+    TResult Function(_ProfileFetched value)? profileFetched,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_PortfolioLoading value)? portfolioLoading,
+    TResult Function(_PortfolioLoaded value)? portfolioLoaded,
+    TResult Function(_LikingPost value)? likingPost,
+    TResult Function(_LikedPost value)? likedPost,
+    TResult Function(_DeletingPost value)? deletingPost,
+    TResult Function(_DeletedPost value)? deletedPost,
+    TResult Function(_FetchingReviews value)? fetchingReviews,
+    TResult Function(_ReviewsFetched value)? reviewsFetched,
+    TResult Function(_FetchingCertificates value)? fetchingCertificates,
+    TResult Function(_CertificatesFetched value)? certificatesFetched,
+    TResult Function(_DeletingReview value)? deletingReview,
+    TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (accountSwitched != null) {
+      return accountSwitched(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AccountSwitched implements WorkerProfileState {
+  const factory _AccountSwitched() = _$AccountSwitchedImpl;
 }
 
 /// @nodoc
@@ -3619,6 +4255,8 @@ class _$ErrorImpl implements _Error {
     required TResult Function() certificatesFetched,
     required TResult Function() deletingReview,
     required TResult Function() reviewDeleted,
+    required TResult Function() switchingAccount,
+    required TResult Function() accountSwitched,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -3644,6 +4282,8 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? certificatesFetched,
     TResult? Function()? deletingReview,
     TResult? Function()? reviewDeleted,
+    TResult? Function()? switchingAccount,
+    TResult? Function()? accountSwitched,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -3669,6 +4309,8 @@ class _$ErrorImpl implements _Error {
     TResult Function()? certificatesFetched,
     TResult Function()? deletingReview,
     TResult Function()? reviewDeleted,
+    TResult Function()? switchingAccount,
+    TResult Function()? accountSwitched,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -3698,6 +4340,8 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_CertificatesFetched value) certificatesFetched,
     required TResult Function(_DeletingReview value) deletingReview,
     required TResult Function(_ReviewDeleted value) reviewDeleted,
+    required TResult Function(_SwitchingAccount value) switchingAccount,
+    required TResult Function(_AccountSwitched value) accountSwitched,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -3723,6 +4367,8 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_CertificatesFetched value)? certificatesFetched,
     TResult? Function(_DeletingReview value)? deletingReview,
     TResult? Function(_ReviewDeleted value)? reviewDeleted,
+    TResult? Function(_SwitchingAccount value)? switchingAccount,
+    TResult? Function(_AccountSwitched value)? accountSwitched,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -3748,6 +4394,8 @@ class _$ErrorImpl implements _Error {
     TResult Function(_CertificatesFetched value)? certificatesFetched,
     TResult Function(_DeletingReview value)? deletingReview,
     TResult Function(_ReviewDeleted value)? reviewDeleted,
+    TResult Function(_SwitchingAccount value)? switchingAccount,
+    TResult Function(_AccountSwitched value)? accountSwitched,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {

@@ -7,10 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 Widget drawerItem(
     {required IconData myicon,
     required String text,
-    VoidCallback? function,
+    VoidCallback? onTap,
     BuildContext? context}) {
   return InkWell(
-    onTap: function,
+    onTap: onTap,
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 14.sp, vertical: 14.sp),
       child: Row(

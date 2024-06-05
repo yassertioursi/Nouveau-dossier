@@ -57,4 +57,7 @@ abstract class WorkerProfileDataSource {
   Future<void> deleteCertificate(
     @Path("id") String id,
   );
+
+  @PATCH("/api/v1/auth/switch")
+  Future<_SwitchResponse> switchAccount();
 }

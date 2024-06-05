@@ -16,8 +16,9 @@ class _Drawer extends StatelessWidget {
               //  this function switch the user to worker 3 cases
               myicon: Icons.work,
               text: "Switch To user",
-              function: () {
-                context.to(Home_User());
+              onTap: () {
+                context.read<WorkerProfileCubit>().switchAccount();
+                context.to(const Home_User());
               }),
           Divider(
             thickness: 0.8,
@@ -29,14 +30,14 @@ class _Drawer extends StatelessWidget {
               //
               myicon: Icons.edit,
               text: "Edit Profile",
-              function: () {
+              onTap: () {
                 final worker = context.read<WorkerProfileCubit>().worker!;
                 context.to(EditProfile(worker: worker));
               }),
           drawerItem(
             myicon: Icons.lock,
             text: "Change Password",
-            function: () {
+            onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(

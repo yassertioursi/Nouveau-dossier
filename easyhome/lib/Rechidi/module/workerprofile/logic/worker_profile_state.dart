@@ -28,5 +28,8 @@ class WorkerProfileState with _$WorkerProfileState {
   const factory WorkerProfileState.deletingReview() = _DeletingReview;
   const factory WorkerProfileState.reviewDeleted() = _ReviewDeleted;
 
+  const factory WorkerProfileState.switchingAccount() = _SwitchingAccount;
+  const factory WorkerProfileState.accountSwitched() = _AccountSwitched;
+
   const factory WorkerProfileState.error(String message) = _Error;
 }

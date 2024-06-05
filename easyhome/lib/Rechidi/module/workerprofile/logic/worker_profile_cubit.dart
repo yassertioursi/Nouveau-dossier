@@ -98,6 +98,11 @@ class WorkerProfileCubit extends Cubit<WorkerProfileState> {
     await fetchReviews();
     await fetchCertificates();
     emit(const WorkerProfileState.profileFetched());
-    
+  }
+
+  Future<void> switchAccount() async {
+    emit(const WorkerProfileState.switchingAccount());
+    await _repository.switchAccount();
+    emit(const WorkerProfileState.accountSwitched());
   }
 }

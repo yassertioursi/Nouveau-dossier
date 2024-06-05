@@ -24,7 +24,7 @@ List<Widget> drawerItemsList(MyWorker? worker, BuildContext context) {
     drawerItem(
       myicon: Icons.person,
       text: "Switch To user",
-      function: () {
+      onTap: () {
         BlocProvider.of<SwitchCubit>(context).emitSwitche().then((value) {
           Navigator.pushReplacement(
               context,
@@ -59,7 +59,7 @@ List<Widget> drawerItemsList(MyWorker? worker, BuildContext context) {
     drawerItem(
         myicon: Icons.save,
         text: "Saved Posts",
-        function: () {
+        onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -72,7 +72,7 @@ List<Widget> drawerItemsList(MyWorker? worker, BuildContext context) {
     drawerItem(
         myicon: Icons.edit,
         text: "Edit Profile",
-        function: () {
+        onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(

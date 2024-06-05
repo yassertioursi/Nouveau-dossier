@@ -1,6 +1,8 @@
+import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/dialogs.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/services/Verify_email.dart';
+import 'package:easyhome/User/features/User_App/All_5_features.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -77,16 +79,9 @@ class Verify_Field extends StatelessWidget {
                   Verify_ser verify_ser = Verify_ser();
                   bloc_5.setLoad(true);
                   if (await verify_ser.verify_email_post(email, value)) {
-                    
-
-
-
-
-
-                    //TODO AHMED
-                
+                    context.to(Home_User());
                   } else {
-                    Dialogs dialogs =  Dialogs();
+                    Dialogs dialogs = Dialogs();
                     dialogs.showErrorDialog_login(context, verify_ser.result);
                   }
                   bloc_5.setLoad(false);
