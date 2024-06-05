@@ -1,7 +1,8 @@
 import 'package:easyhome/Rechidi/core/helper/date.formater.dart';
+import 'package:equatable/equatable.dart';
 
-class PortfolioPostEntity {
-  PortfolioPostEntity({
+class PortfolioPostEntity extends Equatable {
+  const PortfolioPostEntity({
     this.images = const [],
     this.description,
     this.isLiked,
@@ -47,4 +48,7 @@ class PortfolioPostEntity {
       likes: likes ?? this.likes,
     );
   }
+
+  @override
+  List<Object?> get props => [id];
 }

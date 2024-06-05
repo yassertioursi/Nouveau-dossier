@@ -1,9 +1,11 @@
-class CertificateEntity {
+import 'package:equatable/equatable.dart';
+
+class CertificateEntity extends Equatable {
   final String? id;
   final String? title;
   final String? imageUrl;
 
-  CertificateEntity({
+  const CertificateEntity({
     required this.id,
     required this.title,
     required this.imageUrl,
@@ -16,4 +18,7 @@ class CertificateEntity {
       imageUrl: json['image'],
     );
   }
+
+  @override
+  List<Object?> get props => [id];
 }

@@ -14,17 +14,22 @@ class _Portfolio extends StatelessWidget {
         return Column(
           children: [
             ...posts
-                .map((post) => _buildPost(
-                      post: post,
-                      poster: poster,
-                      onLike: (post) {
-                        context.read<WorkerProfileCubit>().likePost(post);
-                      },
-                      onDelete: (post) {
-                        context.read<WorkerProfileCubit>().deletePost(post);
-                      },
-                      onReport: (post) {},
-                    ))
+                .map(
+                  (post) => _buildPost(
+                    post: post,
+                    poster: poster,
+                    onLike: (post) {
+                      context.read<WorkerProfileCubit>().likePost(post);
+                    },
+                    onDelete: (post) {
+                      context.read<WorkerProfileCubit>().deletePost(post);
+                    },
+                    onReport: (post) {},
+                    onEdit: (post) {
+                      context.to(CreateEditPost(post));
+                    },
+                  ),
+                )
                 .toList(),
           ],
         );
@@ -38,6 +43,7 @@ class _Portfolio extends StatelessWidget {
     required void Function(PortfolioPostEntity) onLike,
     required void Function(PortfolioPostEntity) onDelete,
     required void Function(PortfolioPostEntity) onReport,
+    required void Function(PortfolioPostEntity) onEdit,
   }) {
     final images = post.images;
 
@@ -85,35 +91,37 @@ class _Portfolio extends StatelessWidget {
                 color: AppColors.white,
                 itemBuilder: (x) {
                   return [
-                    _isMe
-                        ? PopupMenuItem(
-                            value: 'delete',
-                            child: InkWell(
-                              onTap: () {
-                                onDelete(post);
-                              },
-                              child: const Row(
-                                children: [
-                                  Icon(Icons.delete),
-                                  Text(' Delete'),
-                                ],
-                              ),
-                            ),
-                          )
-                        : PopupMenuItem(
-                            value: 'report',
-                            child: InkWell(
-                              onTap: () {
-                                onReport(post);
-                              },
-                              child: const Row(
-                                children: [
-                                  Icon(Icons.report),
-                                  Text(' Report'),
-                                ],
-                              ),
-                            ),
+                    if (_isMe) ...[
+                      PopupMenuItem(
+                        value: 'delete',
+                        child: InkWell(
+                          onTap: () {
+                            onDelete(post);
+                          },
+                          child: const Row(
+                            children: [
+                              Icon(Icons.delete),
+                              Text(' Delete'),
+                            ],
                           ),
+                        ),
+                      )
+                    ],
+                    if (!_isMe)
+                      PopupMenuItem(
+                        value: 'report',
+                        child: InkWell(
+                          onTap: () {
+                            onReport(post);
+                          },
+                          child: const Row(
+                            children: [
+                              Icon(Icons.report),
+                              Text(' Report'),
+                            ],
+                          ),
+                        ),
+                      ),
                   ];
                 },
               )

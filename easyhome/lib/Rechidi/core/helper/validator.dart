@@ -51,6 +51,17 @@ extension Validator on String {
     return const ValidationResult.valid();
   }
 
+  ValidationResult isTitle() {
+    if (isEmpty) {
+      return const ValidationResult.invalid('Title is required');
+    }
+    if (length < 8) {
+      return const ValidationResult.invalid(
+          'Title must be at least 8 characters');
+    }
+    return const ValidationResult.valid();
+  }
+
   ValidationResult isExist() {
     if (isEmpty) {
       return const ValidationResult.invalid('Missing field');

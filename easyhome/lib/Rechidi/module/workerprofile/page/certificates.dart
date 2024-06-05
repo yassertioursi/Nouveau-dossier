@@ -20,6 +20,11 @@ class _Certificates extends StatelessWidget {
                       .read<WorkerProfileCubit>()
                       .deleteCertificate(certificate);
                 },
+                onEdit: (certificate) {
+                  context.to(
+                    CreateEditCertificate(certificate: certificate),
+                  );
+                },
               ),
             ),
           ],
@@ -31,6 +36,7 @@ class _Certificates extends StatelessWidget {
   Widget _buildCertificate({
     required CertificateEntity certificate,
     required VoidCallback onDelete,
+    required void Function(CertificateEntity) onEdit,
   }) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 22.w),
@@ -62,15 +68,37 @@ class _Certificates extends StatelessWidget {
                   ),
                 ),
               ),
-              
               if (!_isMe)
-                IconButton(
-                  onPressed: onDelete,
-                  icon: Icon(
-                    Icons.delete,
-                    color: Colors.red,
+                PopupMenuButton(
+                  icon: const Icon(
+                    Icons.more_vert,
+                    color: AppColors.primary,
                   ),
-                ),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      onTap: onDelete,
+                      child: Row(
+                        children: [
+                          const Icon(Icons.delete),
+                          width(10),
+                          const Text('Delete'),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      onTap: () {
+                        onEdit(certificate);
+                      },
+                      child: Row(
+                        children: [
+                          const Icon(Icons.edit),
+                          width(10),
+                          const Text('Edit'),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
             ],
           ),
           height(8),

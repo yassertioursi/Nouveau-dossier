@@ -1,4 +1,5 @@
 import 'package:easyhome/Rechidi/core/injection/index.dart';
+import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
 import 'package:easyhome/User/features/User_App/All_5_features.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Home_Screen.dart';
@@ -28,9 +29,10 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home:
-            Home_User(), 
-            
-            /* routes: 
+            // Home_User(),
+            WorkerProfile(workerId: '662ee1263a8b458f4dfd1348'),
+
+        /* routes: 
           
             '/login': (context) => Login(),
             '/Signup_1': (context) => Signup(),

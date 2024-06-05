@@ -22,8 +22,8 @@ class _WorkerInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildInfoItem(AppIcons.work, worker.job!),
-              _buildInfoItem(AppIcons.location, worker.willaya!),
+              _buildInfoItem(Icons.work, worker.job!),
+              _buildInfoItem(Icons.location_on, worker.willaya!),
             ],
           ),
           _buildTitle('Contact'),
@@ -31,9 +31,9 @@ class _WorkerInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildContactItem(AppIcons.facebook, worker.facebook ?? 'N/A'),
-              _buildContactItem(AppIcons.phone, worker.phoneNumber!),
-              _buildContactItem(AppIcons.email, worker.email!),
+              _buildContactItem(Icons.facebook, worker.facebook ?? 'N/A'),
+              _buildContactItem(Icons.phone, worker.phoneNumber!),
+              _buildContactItem(Icons.email, worker.email!),
             ],
           ),
         ],
@@ -41,13 +41,13 @@ class _WorkerInfo extends StatelessWidget {
     );
   }
 
-  Widget _buildContactItem(String icon, String text) {
+  Widget _buildContactItem(IconData icon, String text) {
     return SizedBox(
       width: 85.w,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SvgPicture.asset(icon, height: 40.r, width: 40.r),
+          Icon(icon, color: AppColors.primary, size: 40.sp),
           height(10),
           Text(
             text,
@@ -75,10 +75,10 @@ class _WorkerInfo extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoItem(String icon, String text) {
+  Widget _buildInfoItem(IconData icon, String text) {
     return Row(
       children: [
-        SvgPicture.asset(icon, height: 40.r, width: 40.r),
+        Icon(icon, color: AppColors.primary, size: 40.sp),
         width(10),
         Text(
           text,

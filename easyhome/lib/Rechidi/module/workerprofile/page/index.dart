@@ -5,6 +5,8 @@ import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/Rechidi/core/shared/spacing.dart';
 import 'package:easyhome/Rechidi/core/theme/colors.dart';
 import 'package:easyhome/Rechidi/models/woker.dart';
+import 'package:easyhome/Rechidi/module/certificate/page/index.dart';
+import 'package:easyhome/Rechidi/module/posts/page/index.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/logic/worker_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
