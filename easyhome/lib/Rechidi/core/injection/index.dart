@@ -15,8 +15,7 @@ import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/portfolio
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/reviews/reviews_cubit.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/savePosts/save_posts_cubit.dart';
 import 'package:get_it/get_it.dart';
-
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../module/editprofile/data/repository/repository.dart';
 import '../../module/signupworker/data/source.dart';
@@ -31,6 +30,7 @@ final locator = GetIt.instance;
 
 Future<void> setupLocator() async {
   locator.registerLazySingleton(() => DioFactory.getDio());
+  await SharedPreferences.getInstance();
 
   locator.registerLazySingleton(() => WorkerSignUpWebService(locator<Dio>()));
 
@@ -52,13 +52,15 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<PasswrodCubit>(() => PasswrodCubit(locator()));
   locator.registerLazySingleton<FavoriteCubit>(() => FavoriteCubit(locator()));
   locator.registerLazySingleton<PostCubit>(() => PostCubit(locator()));
-  locator.registerLazySingleton<PortfolioCubit>(() => PortfolioCubit(locator()));
+  locator
+      .registerLazySingleton<PortfolioCubit>(() => PortfolioCubit(locator()));
   locator.registerLazySingleton<ReviewsCubit>(() => ReviewsCubit(locator()));
-  locator.registerLazySingleton<SavePostsCubit>(() => SavePostsCubit(locator()));
+  locator
+      .registerLazySingleton<SavePostsCubit>(() => SavePostsCubit(locator()));
 
   locator.registerLazySingleton<SwitchCubit>(() => SwitchCubit(locator()));
-  locator
-      .registerLazySingleton<CertificateCubit>(() => CertificateCubit(locator()));
+  locator.registerLazySingleton<CertificateCubit>(
+      () => CertificateCubit(locator()));
   locator.registerLazySingleton<Repo>(() => Repo(locator()));
   locator.registerLazySingleton<WebServices>(() => WebServices(locator()));
 }

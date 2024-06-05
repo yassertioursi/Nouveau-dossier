@@ -6,7 +6,7 @@ class UserYasser {
   late String password;
   late String phoneNumber;
   late String wilaya;
-  late String _id;
+  late String id;
   late String profilePicture;
 
   void fromJson(Map<String, dynamic> json) {
@@ -17,7 +17,7 @@ class UserYasser {
     json['password'] == null ? password = "n" : password = json["password"];
     phoneNumber = json['phoneNumber'] as String;
     wilaya = json['wilaya'] as String;
-    _id = json['_id'] as String;
+    id = json['_id'] as String;
     profilePicture = json['profilePicture'];
   }
 
@@ -28,7 +28,7 @@ class UserYasser {
       'password': password,
       'phoneNumber': phoneNumber,
       'wilaya': wilaya,
-      '_id': _id,
+      '_id': id,
       'profilePicture': profilePicture,
     };
   }

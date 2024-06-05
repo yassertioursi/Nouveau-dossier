@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import 'package:easyhome/Models/User_Model.dart';
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 
 Dio dio = Dio();
 
@@ -19,6 +20,9 @@ class Verify_ser {
     try {
       Response response = await dio.post(postUrl, data: data);
       if (response.statusCode == 201) {
+        AuthCache.setToken(response.data['token']);
+        user.fromJson(response.data['user']);
+        AuthCache.setUserId(user.id);
         return true;
       } else {
         return false;
