@@ -7,6 +7,7 @@ import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Save_Text
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Decline_Deal.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Delete_Deal.dart';
 import 'package:easyhome/User/features/User_App/GetToken.dart';
+import 'package:easyhome/User/features/User_App/userProfile/visitProfile/visitProfileUser.dart';
 import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Service/Finish_Deal.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Get_My_Deals.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Update_Deal.dart';
@@ -122,7 +123,9 @@ class DealItem extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  //TODO
+                  VisitProfileUser visitProfileUser = VisitProfileUser();
+                  visitProfileUser.visitProfileUser(
+                      context, name, profilePicture, wilaya, "");
                 },
                 child: Row(
                   children: [

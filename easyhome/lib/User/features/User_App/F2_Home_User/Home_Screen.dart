@@ -301,22 +301,28 @@ class HomeUser extends StatelessWidget {
                         double exp = double.parse(exp1);
                         return Padding(
                           padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
-                          child: Worker_One(
-                            name: getBestWorkers.bestWorkers![index]["name"] ??
-                                "",
-                            wilaya: getBestWorkers.bestWorkers![index]
-                                    ["wilaya"] ??
-                                "",
-                            experience: "44",
-                            profilePicture: getBestWorkers.bestWorkers![index]
-                                    ["profilePicture"] ??
-                                "",
-                            job:
-                                getBestWorkers.bestWorkers![index]["job"] ?? "",
-                            isCertified: getBestWorkers.bestWorkers![index]
-                                    ["isCertified"] ??
-                                false,
-                            rating: rating,
+                          child: InkWell(
+                            onTap: () {
+                              print("++");
+                            },
+                            child: Worker_One(
+                              name: getBestWorkers.bestWorkers![index]
+                                      ["name"] ??
+                                  "",
+                              wilaya: getBestWorkers.bestWorkers![index]
+                                      ["wilaya"] ??
+                                  "",
+                              experience: "44",
+                              profilePicture: getBestWorkers.bestWorkers![index]
+                                      ["profilePicture"] ??
+                                  "",
+                              job: getBestWorkers.bestWorkers![index]["job"] ??
+                                  "",
+                              isCertified: getBestWorkers.bestWorkers![index]
+                                      ["isCertified"] ??
+                                  false,
+                              rating: rating,
+                            ),
                           ),
                         );
                       }),

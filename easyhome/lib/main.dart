@@ -3,6 +3,7 @@ import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/Signup_1.dart';
 import 'package:easyhome/User/features/User_App/All_5_features.dart';
 import 'package:easyhome/Worker/features/Worker_App/All_4_features.dart';
+import 'package:easyhome/Worker/features/Worker_App/workerProfile/data/model/worker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,8 +24,7 @@ class MainApp extends StatelessWidget {
       designSize: Size(360, 800),
       minTextAdapt: true,
       splitScreenMode: true,
-      child:
-          MaterialApp(debugShowCheckedModeBanner: false, home: Home_Worker()),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: Home_User()),
     );
   }
 }

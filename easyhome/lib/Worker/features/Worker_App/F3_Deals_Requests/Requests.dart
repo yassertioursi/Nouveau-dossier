@@ -3,8 +3,8 @@ import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dar
 
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
 import 'package:easyhome/User/features/User_App/GetToken.dart';
+import 'package:easyhome/User/features/User_App/userProfile/visitProfile/visitProfileUser.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Filter.dart';
-import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Posts.dart';
 
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Delete_App.dart';
 import 'package:easyhome/Worker/features/Worker_App/F3_Deals_Requests/Provider/ProviderMyRequests.dart';
@@ -229,7 +229,9 @@ class RequestItem extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      //TODO
+                      VisitProfileUser visitProfileUser = VisitProfileUser();
+                      visitProfileUser.visitProfileUser(context, userName,
+                          userProfilePicture, userWilaya, "");
                     },
                     child: Row(
                       children: [
@@ -386,23 +388,27 @@ class RequestItem extends StatelessWidget {
                               },
                             );
                           } else {
-                            print("1");
-                            if (!providerload.isLoading) {
-                              print("2");
-                              providerload.setLoad(true);
-                              DeleteApp deleteApp = DeleteApp();
-                              providerok2.setOk(!providerok2.isOk);
-                              if (await deleteApp.deleteApp(
-                                  TokenWorker.token, application["_id"])) {
-                                context.showErrorMessage("Success",
-                                    "The application has been deleted  successfully .");
+                            if (application["_id"] == null) {
+                              context.showErrorMessage("Error!",
+                                  "You have a deal with the application.");
+                            } else {
+                              if (!providerload.isLoading) {
+                                providerload.setLoad(true);
+                                DeleteApp deleteApp = DeleteApp();
+                                providerok2.setOk(!providerok2.isOk);
+                                if (await deleteApp.deleteApp(
+                                    TokenWorker.token, application["id"])) {
+                                  context.showSuccessMessage("Success",
+                                      "The application has been deleted  successfully .");
 
-                                providerload.setLoad(false);
-                              } else {
-                                context.showErrorMessage("Error!",
-                                    "Failed to delete the application.");
+                                  providerload.setLoad(false);
+                                } else {
+                                  context.showSuccessMessage("Success",
+                                      "Failed to delete the application.");
+                                }
                               }
                             }
+                            providerload.setLoad(false);
                           }
                         },
                       );

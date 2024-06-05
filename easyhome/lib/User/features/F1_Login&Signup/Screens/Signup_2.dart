@@ -29,7 +29,7 @@ class Signup_2 extends StatelessWidget {
 
   GlobalKey<FormState> formstate_pnonenbr = GlobalKey<FormState>();
   final GlobalKey<FormState> formstate_wilaya = GlobalKey<FormState>();
-  String selectedWilaya = '';
+  String selectedWilaya = "16 Alger";
 
   @override
   Widget build(BuildContext context) {
