@@ -46,8 +46,8 @@ class _DrawerItemListState extends State<DrawerItemList> {
           myicon: Icons.work,
           text: "Switch To worker",
           function: () {
-            if (user.data?.role == "Worker" &&
-                user.data!.authentication!.isVerified!) {
+            if (user.user?.role == "Worker" &&
+                user.user!.authentication!.isVerified!) {
               BlocProvider.of<SwitchCubit>(context).emitSwitche().then((value) {
                 Navigator.pushReplacement(
                     context,
@@ -76,7 +76,7 @@ class _DrawerItemListState extends State<DrawerItemList> {
                       ),
                     ));
               });
-            } else if (!user.data!.authentication!.isVerified!) {
+            } else if (!user.user!.authentication!.isVerified!) {
               showCustomSnackBar();
             }
           }),

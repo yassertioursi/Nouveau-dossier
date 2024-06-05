@@ -1,24 +1,40 @@
-part of 'index.dart';
+import 'package:easyhome/Rechidi/core/extension/bottomsheet.dart';
+import 'package:easyhome/Rechidi/core/shared/spacing.dart';
+import 'package:easyhome/Rechidi/core/theme/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class _BottomSheet extends StatelessWidget {
-  const _BottomSheet(this._post);
-
-  final PostCard _post;
+class Test extends StatelessWidget {
+  const Test({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final user = _post.user;
+    return Center(
+        child: ElevatedButton(
+      onPressed: () {
+        context.showBottomSheet(page: const _Bottom());
+      },
+      child: const Text('Test'),
+    ));
+  }
+}
+
+class _Bottom extends StatelessWidget {
+  const _Bottom({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
           children: [
-            _buildProfilePic(user.profilePicture ?? ''),
+            _buildProfilePic('ImgUrl'),
             width(10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildName(user.name ?? ''),
-                _buildWillaya(user.willaya ?? ''),
+                _buildName('Rechidi Ahmed'),
+                _buildWillaya('El Bayadh'),
               ],
             ),
             const Spacer(),
@@ -26,9 +42,11 @@ class _BottomSheet extends StatelessWidget {
           ],
         ),
         _divider(),
-        _buildTitle(_post.title),
+        _buildTitle('Looking for cleaning service'),
         _divider(width: 50),
-        _buildDescription(_post.description),
+        _buildDescription(
+          'I need someone to clean my house, it is a small house with 2 rooms and a kitchen. I need someone to clean my house, it is a small house with 2 rooms and a kitchen. I need someone to clean my house, it is a small house with 2 rooms and a kitchen.',
+        ),
         height(12),
         _buildApplyButton(apply: () {}),
       ],

@@ -23,7 +23,7 @@ class _WorkerInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildInfoItem(AppIcons.work, worker.job!),
-              _buildInfoItem(AppIcons.location, worker.wilaya!),
+              _buildInfoItem(AppIcons.location, worker.willaya!),
             ],
           ),
           _buildTitle('Contact'),

@@ -1,4 +1,5 @@
 import 'package:easyhome/Rechidi/models/location.dart';
+import 'package:easyhome/Rechidi/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';

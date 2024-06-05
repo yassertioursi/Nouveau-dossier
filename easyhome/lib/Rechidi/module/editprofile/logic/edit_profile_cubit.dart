@@ -25,7 +25,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     phone.text = user.phoneNumber ?? '';
     email.text = user.email ?? '';
     facebook.text = user.facebook ?? '';
-    wilaya.text = user.wilaya ?? '';
+    wilaya.text = user.willaya ?? '';
     if (user is WorkerEntity) job.text = user.job ?? '';
   }
 

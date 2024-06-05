@@ -31,7 +31,7 @@ Widget _buildBio(User userdetails) {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: RichText(
             text: TextSpan(
-                text: userDetails.data?.bio ?? '',
+                text: userDetails.user?.bio ?? '',
                 style: TextStyle(
                     fontSize: 16.sp,
                     color: const Color.fromRGBO(117, 117, 117, 0.91),
@@ -70,7 +70,7 @@ Widget _contact() {
                         size: 25.sp,
                       ),
                       Text(
-                        userDetails.data?.wilaya ?? "",
+                        userDetails.user?.wilaya ?? "",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -101,11 +101,11 @@ Widget _contact() {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _infoItems(Icons.mail, userDetails.data?.email ?? ''),
-                  _infoItems(Icons.phone, userDetails.data?.phoneNumber ?? ''),
-                  if (userDetails.data?.facebook?.isEmpty == true)
+                  _infoItems(Icons.mail, userDetails.user?.email ?? ''),
+                  _infoItems(Icons.phone, userDetails.user?.phoneNumber ?? ''),
+                  if (userDetails.user?.facebook?.isEmpty == true)
                     _infoItems(
-                        Icons.facebook, userDetails.data?.facebook ?? ''),
+                        Icons.facebook, userDetails.user?.facebook ?? ''),
                 ],
               ),
             ),
@@ -142,7 +142,7 @@ Widget _infoItems(IconData icon, String title) {
 
 List<Widget> _infos(User userDetails) {
   return [
-    _buildName(userDetails.data?.name ?? ''),
+    _buildName(userDetails.user?.name ?? 'Rchidi'),
     _buildBio(userDetails),
     _contact(),
   ];

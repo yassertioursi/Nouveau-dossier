@@ -6,7 +6,7 @@ class UserEntity {
   final String? name;
   final String? email;
   final String? bio;
-  final String? wilaya;
+  final String? willaya;
   final String? phoneNumber;
   final String? facebook;
 
@@ -16,7 +16,7 @@ class UserEntity {
     this.name,
     this.email,
     this.bio,
-    this.wilaya,
+    this.willaya,
     this.phoneNumber,
     this.facebook,
   });
@@ -28,21 +28,34 @@ class UserEntity {
       name: json?['name'],
       email: json?['email'],
       bio: json?['bio'],
-      wilaya: json?['wilaya'],
+      willaya: json?['wilaya'],
       phoneNumber: json?['phoneNumber'],
       facebook: json?['facebook'],
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'profilePicture': profilePicture,
+      'name': name,
+      'email': email,
+      'bio': bio,
+      'wilaya': willaya,
+      'phoneNumber': phoneNumber,
+      'facebook': facebook,
+    };
+  }
+
   factory UserEntity.fromUser(User x) {
-    final user = x.data;
+    final user = x.user;
     return UserEntity(
       id: user?.id,
       profilePicture: user?.profilePicture,
       name: user?.name,
       email: user?.email,
       bio: user?.bio,
-      wilaya: user?.wilaya,
+      willaya: user?.wilaya,
       phoneNumber: user?.phoneNumber,
       facebook: user?.facebook,
     );
