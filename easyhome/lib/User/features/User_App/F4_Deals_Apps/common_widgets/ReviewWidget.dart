@@ -98,7 +98,6 @@ class Review extends StatelessWidget {
                       ),
                       onRatingUpdate: (rating) {
                         providerrating.setrating(rating);
-                        
                       },
                     ),
                   );
@@ -159,12 +158,12 @@ class Review extends StatelessWidget {
                                     AcceptFinishDeal acceptfinishDeal =
                                         AcceptFinishDeal();
                                     if (await acceptfinishDeal.acceptfinishDeal(
-                                        TokenUser.token, dealId)) {
+                                        AuthCache.token, dealId)) {
                                       onDealFinished(acceptfinishDeal.status!);
                                       CreateReview createReview =
                                           CreateReview();
                                       if (await createReview.createReview(
-                                          TokenUser.token,
+                                          AuthCache.token,
                                           dealId,
                                           providerRating.rating,
                                           reviewController.text)) {
@@ -221,7 +220,7 @@ class Review extends StatelessWidget {
                                   AcceptFinishDeal acceptfinishDeal =
                                       AcceptFinishDeal();
                                   if (await acceptfinishDeal.acceptfinishDeal(
-                                      TokenUser.token, dealId)) {
+                                      AuthCache.token, dealId)) {
                                     context.showSuccessMessage("Success",
                                         "The deal has been finished successfully.");
                                     onDealFinished(acceptfinishDeal.status!);
@@ -274,7 +273,7 @@ class Review extends StatelessWidget {
 
                                 CreateReview createReview = CreateReview();
                                 if (await createReview.createReview(
-                                    TokenUser.token,
+                                    AuthCache.token,
                                     dealId,
                                     providerRating.rating,
                                     reviewController.text)) {

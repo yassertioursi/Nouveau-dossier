@@ -42,7 +42,7 @@ class UpdateMyPost {
   void update_post(BuildContext context, String postId) async {
     GetPost getmyPost = GetPost();
 
-    await getmyPost.getpost(TokenUser.token, postId);
+    await getmyPost.getpost(AuthCache.token, postId);
     titleController.text = getmyPost.post["title"] ?? "";
     descController.text = getmyPost.post["description"] ?? "";
     priceController.text = getmyPost.post["price"].toString() ?? "".toString();

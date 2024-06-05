@@ -30,7 +30,7 @@ class Deal extends StatelessWidget {
     GetDeals getdeals = GetDeals();
 
     return FutureBuilder<String>(
-      future: getdeals.getDeals(TokenUser.token),
+      future: getdeals.getDeals(AuthCache.token),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -247,7 +247,7 @@ class DealItem extends StatelessWidget {
                                     bloc_save_text.setChanged(false);
                                     UpdateDeal updateDeal = UpdateDeal();
                                     await updateDeal.updateDealtitle(
-                                        TokenUser.token,
+                                        AuthCache.token,
                                         dealId,
                                         titleController.text);
                                     deal["userTitle"] = titleController.text;
@@ -333,7 +333,7 @@ class DealItem extends StatelessWidget {
                                           bloc_save_text1.setChanged(false);
                                           UpdateDeal updateDeal = UpdateDeal();
                                           await updateDeal.updateDealdesc(
-                                              TokenUser.token,
+                                              AuthCache.token,
                                               dealId,
                                               descriptionController.text);
                                           deal["userDescription"] =
@@ -429,7 +429,7 @@ class DealItem extends StatelessWidget {
                                           DeclineDeal declinedeal =
                                               DeclineDeal();
                                           if (await declinedeal.declineDeal(
-                                              TokenUser.token, dealId)) {
+                                              AuthCache.token, dealId)) {
                                             providerstatus
                                                 .setStatus(declinedeal.status!);
                                             deal["status"] =
@@ -567,7 +567,7 @@ class DealItem extends StatelessWidget {
                                               DeleteDeal deleteDeal =
                                                   DeleteDeal();
                                               if (await deleteDeal.deleteDeal(
-                                                  TokenUser.token, dealId)) {
+                                                  AuthCache.token, dealId)) {
                                                 deal["status"] =
                                                     deleteDeal.status!;
                                                 providerstatus.setStatus(

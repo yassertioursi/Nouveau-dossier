@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class DeclineApp {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
 
   Future<bool> declineApp(String jwtToken, String appId) async {
     String url =

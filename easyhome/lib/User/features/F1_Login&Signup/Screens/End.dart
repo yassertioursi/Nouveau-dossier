@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class End extends StatelessWidget {
-  const End({super.key});
+  const End(this._title, {super.key});
+
+  final String _title;
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text("Done"),
+        child: Text(_title),
       ),
     );
   }

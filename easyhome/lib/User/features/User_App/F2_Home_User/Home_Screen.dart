@@ -132,7 +132,7 @@ class HomeUser extends StatelessWidget {
                         padding: EdgeInsets.only(top: 0.0, left: 26),
                         child: FutureBuilder<String>(
                             future: getCountNotification
-                                .getmycount(TokenUser.token),
+                                .getmycount(AuthCache.token),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -155,7 +155,7 @@ class HomeUser extends StatelessWidget {
                   ),
                   onTap: () {
                     MyNotifications notifications =
-                        MyNotifications(TokenUser.token);
+                        MyNotifications(AuthCache.token);
                     notifications.showMyNotifications(context);
                   },
                 ),
@@ -267,7 +267,7 @@ class HomeUser extends StatelessWidget {
             ),
           ),
           FutureBuilder<String>(
-            future: getBestWorkers.getbestworkers(TokenUser.token),
+            future: getBestWorkers.getbestworkers(AuthCache.token),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Padding(

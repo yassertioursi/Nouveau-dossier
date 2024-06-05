@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class SendRequest {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
 
   Future<bool> sendRequest(
       String jwtToken, String idOfPost, List<String> selectedWorkers) async {

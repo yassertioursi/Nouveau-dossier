@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
+
 
 class CreatePostService {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
   late String result;
 
   Future<bool> createPost(

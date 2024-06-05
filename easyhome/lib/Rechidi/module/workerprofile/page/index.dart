@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easyhome/Rechidi/core/constants/icons.dart';
 import 'package:easyhome/Rechidi/core/extension/navigation.dart';
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/Rechidi/core/shared/spacing.dart';
 import 'package:easyhome/Rechidi/core/theme/colors.dart';
@@ -8,6 +9,11 @@ import 'package:easyhome/Rechidi/models/woker.dart';
 import 'package:easyhome/Rechidi/module/certificate/page/index.dart';
 import 'package:easyhome/Rechidi/module/posts/page/index.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/logic/worker_profile_cubit.dart';
+import 'package:easyhome/User/features/User_App/All_5_features.dart';
+import 'package:easyhome/User/features/User_App/userProfile/BloC/password_Cubit/passwrod_cubit.dart';
+import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/changePassword/change_password.dart';
+import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/drawer_items.dart';
+import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,9 +35,9 @@ part 'drawer.dart';
 part 'floatingactionbutton.dart';
 
 class WorkerProfile extends StatelessWidget {
-  const WorkerProfile({super.key, required String workerId})
+  WorkerProfile({super.key, required String workerId})
       : _id = workerId,
-        _isMe = workerId == '';
+        _isMe = workerId == AuthCache.userId;
 
   final String _id;
   final bool _isMe;
@@ -48,7 +54,7 @@ class WorkerProfile extends StatelessWidget {
           certificates: _Certificates(_isMe),
         ),
         drawer: const _Drawer(),
-        floationgActionButton:  _FloatingActionButton(_isMe),
+        floationgActionButton: _FloatingActionButton(_isMe),
       ),
     );
   }

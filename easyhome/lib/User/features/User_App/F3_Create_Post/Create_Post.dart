@@ -648,10 +648,7 @@ class Create_Post {
                                                   descController.text,
                                                   providerdrop.dropdownValue!,
                                                   providerimages.Images,
-                                                  TokenUser.token,
-                                                  location.latitude,
-                                                  location.longitude,
-                                                  locationtitleController.text,
+                                                  AuthCache.token,
                                                 )) {
                                                   Navigator.pop(context);
                                                   context.showSuccessMessage(

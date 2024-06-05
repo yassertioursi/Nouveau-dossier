@@ -142,7 +142,7 @@ class Worker_two extends StatelessWidget {
 
                                       providerok.setOk(!providerok.isOk);
                                       if (await addFav.addFav(
-                                          TokenUser.token, id)) {
+                                          AuthCache.token, id)) {
                                         if (providerok.isOk) {
                                           context.showSuccessMessage("Success",
                                               "Worker added to your favorites");

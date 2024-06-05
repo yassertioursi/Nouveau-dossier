@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class GetAllPosts {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
   List? posts;
 
   Future<String> getAllPosts(String jwtToken, String url) async {
