@@ -20,8 +20,9 @@ class Login_ser {
       Response response = await dio.post(postUrl, data: data);
       if (response.statusCode == 200) {
         user.fromJson(response.data['user']);
-        AuthCache.setToken(response.data['token']);
-        AuthCache.setUserId(user.id);
+        await AuthCache.setToken(response.data['token']);
+        await AuthCache.setUserId(user.id);
+        await AuthCache.setIsWorker(user.currentRole != 'User');
 
         return true;
       } else {

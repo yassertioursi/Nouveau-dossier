@@ -3,18 +3,19 @@
 class UserYasser {
   late String name;
   late String email;
-  late String password;
   late String phoneNumber;
   late String wilaya;
   late String id;
   late String profilePicture;
+  late String currentRole;
 
   void fromJson(Map<String, dynamic> json) {
     name = json['name'] as String;
 
     email = json['email'] as String;
-    password = json['password'] ?? "" as String;
-    json['password'] == null ? password = "n" : password = json["password"];
+    currentRole = json['currentRole'] as String;
+    
+    
     phoneNumber = json['phoneNumber'] as String;
     wilaya = json['wilaya'] as String;
     id = json['_id'] as String;
@@ -25,7 +26,8 @@ class UserYasser {
     return {
       'name': name,
       'email': email,
-      'password': password,
+      'currentRole': currentRole,
+      
       'phoneNumber': phoneNumber,
       'wilaya': wilaya,
       '_id': id,

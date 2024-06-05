@@ -31,6 +31,10 @@ class SharedPrefHelper {
 class AuthCache {
   static String? get token => SharedPrefHelper.getString('TOKEN');
   static String? get userId => SharedPrefHelper.getString('USER_ID');
+  static bool get isWorker => SharedPrefHelper.getBool('IS_WORKER') ?? false;
+
+  static Future<void> setIsWorker(bool isWorker) async =>
+      await SharedPrefHelper.setBool('IS_WORKER', isWorker);
 
   static Future<void> setUserId(String userId) async =>
       await SharedPrefHelper.setString('USER_ID', userId);
@@ -41,6 +45,12 @@ class AuthCache {
   static Future<void> removeToken() async =>
       await SharedPrefHelper.remove('TOKEN');
 
+   
+
   static Future<void> removeUserId() async =>
       await SharedPrefHelper.remove('USER_ID');
+
+  
+
+
 }
