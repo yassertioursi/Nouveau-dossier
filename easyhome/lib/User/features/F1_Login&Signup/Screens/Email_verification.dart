@@ -105,10 +105,7 @@ class Email_verifcation extends StatelessWidget {
                           providerloading.setLoad(true);
                           Send_ser verify_ser = Send_ser();
                           if (await verify_ser.send_email_post(email)) {
-                            Navigator.of(context).pushReplacement(SlideRight(
-                                Page: const End("Done"),
-                                begin: const Offset(1, 0),
-                                end: const Offset(0, 0)));
+                            print("resended");
                           } else {
                             Dialogs dialogs = Dialogs();
                             dialogs.showErrorDialog_login(

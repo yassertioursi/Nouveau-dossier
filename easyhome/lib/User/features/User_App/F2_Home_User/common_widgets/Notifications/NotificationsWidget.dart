@@ -72,7 +72,7 @@ class MyNotifications {
                         color: Colors.grey,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey,
+                            color: Colors.grey, 
                             spreadRadius: 1,
                             blurRadius: 1,
                             offset: Offset(0, -1),
@@ -124,7 +124,7 @@ class MyNotifications {
                                         style: TextStyle(
                                           color: MyColors.mainblue,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 30,
+                                          fontSize: 25,
                                         ),
                                       ),
                                     ),
@@ -369,8 +369,7 @@ class NotificationItem extends StatelessWidget {
                             body,
                             style: const TextStyle(
                                 color: Colors.black,
-                                fontSize: 15
-                                ,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),

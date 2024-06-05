@@ -113,8 +113,9 @@ class FilterWidget extends StatelessWidget {
                 }
                 return Padding(
                   padding: const EdgeInsets.only(top: 10.0, bottom: 10),
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
                         "Wilaya :",

@@ -74,12 +74,19 @@ class Verify_Field extends StatelessWidget {
               if (value.length == 4) {
                 SystemChannels.textInput.invokeMethod('TextInput.hide');
                 if (id == "verify-email") {
-                  Verify_ser verify_ser = new Verify_ser();
+                  Verify_ser verify_ser = Verify_ser();
                   bloc_5.setLoad(true);
                   if (await verify_ser.verify_email_post(email, value)) {
-                    print("true");
+                    
+
+
+
+
+
+                    //TODO AHMED
+                
                   } else {
-                    Dialogs dialogs = new Dialogs();
+                    Dialogs dialogs =  Dialogs();
                     dialogs.showErrorDialog_login(context, verify_ser.result);
                   }
                   bloc_5.setLoad(false);

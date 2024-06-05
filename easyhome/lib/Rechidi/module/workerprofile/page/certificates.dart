@@ -47,7 +47,7 @@ class _Certificates extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.only(right: 15.w, left: 15.w),
               decoration: const BoxDecoration(boxShadow: [
-                BoxShadow(
+                BoxShadow( // TODO rigle design 
                   spreadRadius: 0,
                   offset: Offset(0, 0),
                   color: Color.fromARGB(255, 53, 53, 53),

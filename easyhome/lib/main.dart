@@ -16,7 +16,7 @@ void main() async {
 class MainApp extends StatelessWidget {
   MainApp({super.key});
 
-  final firstWidget = AuthCache.token == null
+  final firstWidget = AuthCache.token == null && false
       ? Login()
       : AuthCache.isWorker
           ? const Home_Worker()

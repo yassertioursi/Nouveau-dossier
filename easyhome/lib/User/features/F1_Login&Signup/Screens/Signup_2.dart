@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/constants/statics.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/dialogs.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Animation/animation.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
@@ -29,7 +30,7 @@ class Signup_2 extends StatelessWidget {
 
   GlobalKey<FormState> formstate_pnonenbr = GlobalKey<FormState>();
   final GlobalKey<FormState> formstate_wilaya = GlobalKey<FormState>();
-  String selectedWilaya = "16 Alger";
+  String selectedWilaya = StaticStuf.wilayas[15];
 
   @override
   Widget build(BuildContext context) {
