@@ -58,6 +58,7 @@ class WorkerProfile extends StatelessWidget {
         ),
         drawer: const _Drawer(),
         floationgActionButton: _FloatingActionButton(_isMe),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );
   }
