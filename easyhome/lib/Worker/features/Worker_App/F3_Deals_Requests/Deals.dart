@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
@@ -26,7 +27,7 @@ class DealWorker extends StatelessWidget {
     GetDeals getdeals = GetDeals();
 
     return FutureBuilder<String>(
-      future: getdeals.getDeals(TokenWorker.token),
+      future: getdeals.getDeals( AuthCache.token!),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -216,7 +217,7 @@ class DealItem extends StatelessWidget {
                                     bloc_save_text.setChanged(false);
                                     UpdateDeal updateDeal = UpdateDeal();
                                     await updateDeal.updateDealtitle(
-                                        TokenWorker.token,
+                                         AuthCache.token!,
                                         dealId,
                                         titleController.text);
                                     deal["workerTitle"] = titleController.text;
@@ -303,7 +304,7 @@ class DealItem extends StatelessWidget {
                                           bloc_save_text1.setChanged(false);
                                           UpdateDeal updateDeal = UpdateDeal();
                                           await updateDeal.updateDealdesc(
-                                              TokenWorker.token,
+                                              AuthCache.token!,
                                               dealId,
                                               descriptionController.text);
                                           deal["workerDescription"] =
@@ -391,7 +392,7 @@ class DealItem extends StatelessWidget {
                                           providerloading.setLoad(true);
                                           DeleteDeal deleteDeal = DeleteDeal();
                                           if (await deleteDeal.deleteDeal(
-                                              TokenWorker.token, dealId)) {
+                                               AuthCache.token!, dealId)) {
                                             deal["status"] = deleteDeal.status!;
                                             providerstatus
                                                 .setStatus(deleteDeal.status!);
@@ -434,7 +435,7 @@ class DealItem extends StatelessWidget {
                                         providerloading1.setLoad(true);
                                         FinishDeal finishDeal = FinishDeal();
                                         if (await finishDeal.finishDeal(
-                                            TokenWorker.token, dealId)) {
+                                             AuthCache.token!, dealId)) {
                                           deal["status"] = finishDeal.status!;
                                           providerstatus
                                               .setStatus(finishDeal.status!);
@@ -481,7 +482,7 @@ class DealItem extends StatelessWidget {
                                         DeclineDeal declineDeal = DeclineDeal();
 
                                         if (await declineDeal.declineDeal(
-                                            TokenWorker.token, dealId)) {
+                                             AuthCache.token!, dealId)) {
                                           deal["status"] = declineDeal.status!;
                                           providerstatus
                                               .setStatus(declineDeal.status!);

@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
@@ -31,7 +32,7 @@ class Requests extends StatelessWidget {
     GetMeWorker getMeWorker = GetMeWorker();
 
     return FutureBuilder<String>(
-        future: getMeWorker.getMeWorker(TokenWorker.token),
+        future: getMeWorker.getMeWorker( AuthCache.token!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
@@ -81,7 +82,7 @@ class _HomeWorkerState extends State<HomeWorker> {
       ],
       child: Scaffold(
         body: FutureBuilder<String>(
-          future: getMyRequests.getMyRequests(TokenWorker.token),
+          future: getMyRequests.getMyRequests( AuthCache.token!),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -288,7 +289,7 @@ class RequestItem extends StatelessWidget {
                           providerloading.setLoad(true);
                           DeclineRequest declineRequest = DeclineRequest();
                           if (await declineRequest.declineRequest(
-                              TokenWorker.token, requestId)) {
+                               AuthCache.token!, requestId)) {
                             providermyrequests.requests.removeAt(index);
                             providermyrequests.notifyListeners();
                             context.showSuccessMessage("Success",
@@ -397,7 +398,7 @@ class RequestItem extends StatelessWidget {
                                 DeleteApp deleteApp = DeleteApp();
                                 providerok2.setOk(!providerok2.isOk);
                                 if (await deleteApp.deleteApp(
-                                    TokenWorker.token, application["id"])) {
+                                     AuthCache.token!, application["id"])) {
                                   context.showSuccessMessage("Success",
                                       "The application has been deleted  successfully .");
 
@@ -460,7 +461,7 @@ class RequestItem extends StatelessWidget {
 
                               SavePost savePost = SavePost();
                               if (await savePost.savePost(
-                                  TokenWorker.token, postId)) {
+                                  AuthCache.token!, postId)) {
                                 if (providerok.isOk) {
                                   context.showSuccessMessage(
                                       "Success", "Post saved successfully.");

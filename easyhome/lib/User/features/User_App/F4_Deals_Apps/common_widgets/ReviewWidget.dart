@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
@@ -158,12 +159,12 @@ class Review extends StatelessWidget {
                                     AcceptFinishDeal acceptfinishDeal =
                                         AcceptFinishDeal();
                                     if (await acceptfinishDeal.acceptfinishDeal(
-                                        AuthCache.token, dealId)) {
+                                        AuthCache.token!, dealId)) {
                                       onDealFinished(acceptfinishDeal.status!);
                                       CreateReview createReview =
                                           CreateReview();
                                       if (await createReview.createReview(
-                                          AuthCache.token,
+                                          AuthCache.token!,
                                           dealId,
                                           providerRating.rating,
                                           reviewController.text)) {
@@ -220,7 +221,7 @@ class Review extends StatelessWidget {
                                   AcceptFinishDeal acceptfinishDeal =
                                       AcceptFinishDeal();
                                   if (await acceptfinishDeal.acceptfinishDeal(
-                                      AuthCache.token, dealId)) {
+                                      AuthCache.token!, dealId)) {
                                     context.showSuccessMessage("Success",
                                         "The deal has been finished successfully.");
                                     onDealFinished(acceptfinishDeal.status!);
@@ -273,7 +274,7 @@ class Review extends StatelessWidget {
 
                                 CreateReview createReview = CreateReview();
                                 if (await createReview.createReview(
-                                    AuthCache.token,
+                                    AuthCache.token!,
                                     dealId,
                                     providerRating.rating,
                                     reviewController.text)) {

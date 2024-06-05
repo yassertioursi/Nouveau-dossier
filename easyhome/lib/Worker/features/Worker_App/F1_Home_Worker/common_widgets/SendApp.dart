@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/GetToken.dart';
@@ -160,7 +161,7 @@ class SendAppWidget extends StatelessWidget {
                                         ApplyForPost applyForPost =
                                             ApplyForPost();
                                         if (await applyForPost.applyforPost(
-                                          TokenWorker.token,
+                                          AuthCache.token!,
                                           postId,
                                           descController.text,
                                         )) {

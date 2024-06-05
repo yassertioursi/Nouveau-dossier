@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
@@ -142,7 +143,7 @@ class Worker_two extends StatelessWidget {
 
                                       providerok.setOk(!providerok.isOk);
                                       if (await addFav.addFav(
-                                          AuthCache.token, id)) {
+                                          AuthCache.token!, id)) {
                                         if (providerok.isOk) {
                                           context.showSuccessMessage("Success",
                                               "Worker added to your favorites");

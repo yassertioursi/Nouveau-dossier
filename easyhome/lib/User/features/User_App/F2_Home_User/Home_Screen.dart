@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/GetBestWorker.dart';
@@ -132,7 +133,7 @@ class HomeUser extends StatelessWidget {
                         padding: EdgeInsets.only(top: 0.0, left: 26),
                         child: FutureBuilder<String>(
                             future: getCountNotification
-                                .getmycount(AuthCache.token),
+                                .getmycount(AuthCache.token!),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -155,7 +156,7 @@ class HomeUser extends StatelessWidget {
                   ),
                   onTap: () {
                     MyNotifications notifications =
-                        MyNotifications(AuthCache.token);
+                        MyNotifications(AuthCache.token!);
                     notifications.showMyNotifications(context);
                   },
                 ),
@@ -267,7 +268,7 @@ class HomeUser extends StatelessWidget {
             ),
           ),
           FutureBuilder<String>(
-            future: getBestWorkers.getbestworkers(AuthCache.token),
+            future: getBestWorkers.getbestworkers(AuthCache.token!),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Padding(

@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/models/location.dart';
 import 'package:easyhome/Rechidi/module/usermap/selectplace/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
@@ -42,7 +43,7 @@ class UpdateMyPost {
   void update_post(BuildContext context, String postId) async {
     GetPost getmyPost = GetPost();
 
-    await getmyPost.getpost(AuthCache.token, postId);
+    await getmyPost.getpost(AuthCache.token!, postId);
     titleController.text = getmyPost.post["title"] ?? "";
     descController.text = getmyPost.post["description"] ?? "";
     priceController.text = getmyPost.post["price"].toString() ?? "".toString();
@@ -431,7 +432,7 @@ class UpdateMyPost {
                                               titleLocationController.text,
                                               location.latitude,
                                               location.longitude,
-                                              TokenUser.token,
+                                               AuthCache.token!,
                                             )) {
                                               Navigator.pop(context);
                                               context.showSuccessMessage(

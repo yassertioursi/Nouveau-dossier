@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Provider/Change_Status.dart';
@@ -249,7 +250,7 @@ class CreateDealWidget extends StatelessWidget {
                                         providerloading.setLoad(true);
                                         CreateDeal createDeal = CreateDeal();
                                         if (await createDeal.createDeal(
-                                            AuthCache.token,
+                                            AuthCache.token!,
                                             appId!,
                                             titleController.text,
                                             descController.text)) {

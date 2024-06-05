@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/models/location.dart';
 import 'package:easyhome/Rechidi/module/usermap/selectplace/logic/map_selector_cubit.dart';
 import 'package:easyhome/Rechidi/module/usermap/selectplace/page/index.dart';
@@ -648,7 +649,10 @@ class Create_Post {
                                                   descController.text,
                                                   providerdrop.dropdownValue!,
                                                   providerimages.Images,
-                                                  AuthCache.token,
+                                                  AuthCache.token!,
+                                                  location.latitude,
+                                                  location.longitude,
+                                                  locationtitleController.text,
                                                 )) {
                                                   Navigator.pop(context);
                                                   context.showSuccessMessage(

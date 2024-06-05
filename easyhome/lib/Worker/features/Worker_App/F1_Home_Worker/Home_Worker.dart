@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
@@ -31,7 +32,7 @@ class HomeWorkerMain extends StatelessWidget {
   Widget build(BuildContext context) {
     GetMeWorker getMeWorker = GetMeWorker();
     return FutureBuilder<String>(
-        future: getMeWorker.getMeWorker(TokenWorker.token),
+        future: getMeWorker.getMeWorker( AuthCache.token!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
@@ -179,7 +180,7 @@ class _HomeWorkerState extends State<HomeWorker> {
                     padding: EdgeInsets.only(top: 8.0, left: 20),
                     child: FutureBuilder<String>(
                         future:
-                            getCountNotification.getmycount(TokenWorker.token),
+                            getCountNotification.getmycount( AuthCache.token!),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -202,7 +203,7 @@ class _HomeWorkerState extends State<HomeWorker> {
               ),
               onTap: () {
                 MyNotifications notifications =
-                    MyNotifications(TokenWorker.token);
+                    MyNotifications( AuthCache.token!);
                 notifications.showMyNotifications(context);
               },
             ),
@@ -210,7 +211,7 @@ class _HomeWorkerState extends State<HomeWorker> {
         ),
         body: FutureBuilder<String>(
           future: getAllPosts.getAllPosts(
-            TokenWorker.token,
+           AuthCache.token!,
             postUrl,
           ),
           builder: (context, snapshot) {
@@ -461,7 +462,7 @@ class PostItem extends StatelessWidget {
                                   DeleteApp deleteApp = DeleteApp();
                                   providerok2.setOk(!providerok2.isOk);
                                   if (await deleteApp.deleteApp(
-                                      TokenWorker.token, application["id"])) {
+                                     AuthCache.token!, application["id"])) {
                                     context.showSuccessMessage("Success",
                                         "The application has been deleted  successfully .");
 
@@ -523,7 +524,7 @@ class PostItem extends StatelessWidget {
 
                               SavePost savePost = SavePost();
                               if (await savePost.savePost(
-                                  TokenWorker.token, postId)) {
+                                   AuthCache.token!, postId)) {
                                 if (providerok.isOk) {
                                   context.showSuccessMessage(
                                       "Success", "Post saved successfully.");
