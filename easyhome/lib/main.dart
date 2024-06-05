@@ -27,9 +27,7 @@ class MainApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: WorkerProfile(
-            workerId: '662ee1263a8b458f4dfd1348',
-          )),
+          home: Login()),
     );
   }
 }

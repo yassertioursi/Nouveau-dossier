@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class FinishDeal {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
   String? status;
 
   Future<bool> finishDeal(String jwtToken, String dealId) async {

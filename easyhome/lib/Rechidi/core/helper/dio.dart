@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/User/features/User_App/GetToken.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -16,7 +17,7 @@ class DioFactory {
         ..options.receiveTimeout = timeOut
         ..options.contentType = Headers.formUrlEncodedContentType
         ..options.headers.addAll(
-            {"Accept": "*/*", "Authorization": "Bearer ${TokenUser.token}"});
+            {"Accept": "*/*", "Authorization": "Bearer ${AuthCache.token}"});
       addDioInterceptor();
     }
     return dio!;

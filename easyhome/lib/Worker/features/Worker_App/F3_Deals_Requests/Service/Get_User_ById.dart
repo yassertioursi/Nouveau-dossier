@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class GetUser {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
 
   Map? user;
 

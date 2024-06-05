@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/module/editprofile/data/source/source.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/data/repository/repository.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
@@ -30,7 +31,7 @@ final locator = GetIt.instance;
 
 Future<void> setupLocator() async {
   locator.registerLazySingleton(() => DioFactory.getDio());
-  await SharedPreferences.getInstance();
+  await SharedPrefHelper.init();
 
   locator.registerLazySingleton(() => WorkerSignUpWebService(locator<Dio>()));
 

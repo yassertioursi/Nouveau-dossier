@@ -106,7 +106,7 @@ class Email_verifcation extends StatelessWidget {
                           Send_ser verify_ser = Send_ser();
                           if (await verify_ser.send_email_post(email)) {
                             Navigator.of(context).pushReplacement(SlideRight(
-                                Page: const End(),
+                                Page: const End("Done"),
                                 begin: const Offset(1, 0),
                                 end: const Offset(0, 0)));
                           } else {

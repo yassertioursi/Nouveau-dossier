@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class GetPost {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
   Map post = {};
 
   Future<String> getpost(String jwtToken, String idOfPost) async {

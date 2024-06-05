@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class GetApps {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
   List apps = [];
 
   Future<String> getApps(String jwtToken) async {

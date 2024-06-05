@@ -249,7 +249,7 @@ class CreateDealWidget extends StatelessWidget {
                                         providerloading.setLoad(true);
                                         CreateDeal createDeal = CreateDeal();
                                         if (await createDeal.createDeal(
-                                            TokenUser.token,
+                                            AuthCache.token,
                                             appId!,
                                             titleController.text,
                                             descController.text)) {

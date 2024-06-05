@@ -3,7 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:easyhome/Models/User_Model.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
 
-Dio dio = Dio();
+import 'package:easyhome/Rechidi/core/injection/index.dart';
+
+Dio dio = locator<Dio>();
 
 class Signup_ser {
   late String result;
@@ -23,7 +25,6 @@ class Signup_ser {
     try {
       Response response = await dio.post(postUrl, data: data);
       if (response.statusCode == 200) {
-        
         return true;
       } else {
         return false;

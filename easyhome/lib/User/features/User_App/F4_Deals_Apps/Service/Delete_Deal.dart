@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class DeleteDeal {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
   String? status;
 
   Future<bool> deleteDeal(String jwtToken, String dealId) async {

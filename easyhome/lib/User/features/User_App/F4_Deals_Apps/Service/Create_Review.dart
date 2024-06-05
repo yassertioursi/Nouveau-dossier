@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class CreateReview {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
 
   Future<bool> createReview(
       String jwtToken, String workerId, double rating, String review) async {

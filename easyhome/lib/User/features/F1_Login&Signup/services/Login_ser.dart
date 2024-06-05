@@ -3,7 +3,9 @@ import 'package:easyhome/Models/User_Model.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/injection/index.dart';
 
-Dio dio = Dio();
+import 'package:easyhome/Rechidi/core/injection/index.dart';
+
+Dio dio = locator<Dio>();
 
 class Login_ser {
   UserYasser user = UserYasser();

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 
-Dio dio = Dio();
+import 'package:easyhome/Rechidi/core/injection/index.dart';
+
+Dio dio = locator<Dio>();
 
 class Forgot_pass_ser {
   late String result;

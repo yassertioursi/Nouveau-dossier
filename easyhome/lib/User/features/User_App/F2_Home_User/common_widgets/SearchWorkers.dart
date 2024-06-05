@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_search.dart';
@@ -158,7 +159,7 @@ class SearchWorkers extends SearchDelegate {
       }
 
       return FutureBuilder<String>(
-        future: search.search_workers(TokenUser.token),
+        future: search.search_workers(AuthCache.token!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -180,7 +181,7 @@ class SearchWorkers extends SearchDelegate {
                     create: (BuildContext context) => WorkersSelect()),
               ],
               child: FutureBuilder<String>(
-                future: search.search_workers(TokenUser.token),
+                future: search.search_workers(AuthCache.token!),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -221,7 +222,7 @@ class SearchWorkers extends SearchDelegate {
                 create: (BuildContext context) => WorkersSelect()),
           ],
           child: FutureBuilder<String>(
-            future: search.search_workers(TokenUser.token),
+            future: search.search_workers(AuthCache.token!),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -286,7 +287,7 @@ class SearchWorkers extends SearchDelegate {
               create: (BuildContext context) => WorkersSelect()),
         ],
         child: FutureBuilder<String>(
-          future: search.search_workers(TokenUser.token),
+          future: search.search_workers(AuthCache.token!),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -422,7 +423,7 @@ class WorkersList extends StatelessWidget {
                               providerloading.setLoad(true);
 
                               SendRequest sendRequest = SendRequest();
-                              if (await sendRequest.sendRequest(TokenUser.token,
+                              if (await sendRequest.sendRequest(AuthCache.token!,
                                   postId, workerselectprovider.workers)) {
                                 context.showSuccessMessage("Success",
                                     "The post has been sent successfully.");

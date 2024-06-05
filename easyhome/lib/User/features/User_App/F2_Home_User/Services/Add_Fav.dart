@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class AddFav {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
 
   Future<bool> addFav(String jwtToken, String idOfWorker) async {
     String url =
