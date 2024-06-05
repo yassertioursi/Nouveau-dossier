@@ -128,7 +128,7 @@ class HomeUser extends StatelessWidget {
                         color: MyColors.mainblue,
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 8.0, left: 20),
+                        padding: EdgeInsets.only(top: 0.0, left: 26),
                         child: FutureBuilder<String>(
                             future: getCountNotification
                                 .getmycount(TokenUser.token),
@@ -142,9 +142,9 @@ class HomeUser extends StatelessWidget {
                                 return Text(
                                   "${getCountNotification.mycount}",
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: MyColors.mainblue,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 10,
+                                    fontSize: 12,
                                   ),
                                 );
                               }
@@ -301,22 +301,28 @@ class HomeUser extends StatelessWidget {
                         double exp = double.parse(exp1);
                         return Padding(
                           padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
-                          child: Worker_One(
-                            name: getBestWorkers.bestWorkers![index]["name"] ??
-                                "",
-                            wilaya: getBestWorkers.bestWorkers![index]
-                                    ["wilaya"] ??
-                                "",
-                            experience: "44",
-                            profilePicture: getBestWorkers.bestWorkers![index]
-                                    ["profilePicture"] ??
-                                "",
-                            job:
-                                getBestWorkers.bestWorkers![index]["job"] ?? "",
-                            isCertified: getBestWorkers.bestWorkers![index]
-                                    ["isCertified"] ??
-                                false,
-                            rating: rating,
+                          child: InkWell(
+                            onTap: () {
+                              print("++");
+                            },
+                            child: Worker_One(
+                              name: getBestWorkers.bestWorkers![index]
+                                      ["name"] ??
+                                  "",
+                              wilaya: getBestWorkers.bestWorkers![index]
+                                      ["wilaya"] ??
+                                  "",
+                              experience: "44",
+                              profilePicture: getBestWorkers.bestWorkers![index]
+                                      ["profilePicture"] ??
+                                  "",
+                              job: getBestWorkers.bestWorkers![index]["job"] ??
+                                  "",
+                              isCertified: getBestWorkers.bestWorkers![index]
+                                      ["isCertified"] ??
+                                  false,
+                              rating: rating,
+                            ),
                           ),
                         );
                       }),

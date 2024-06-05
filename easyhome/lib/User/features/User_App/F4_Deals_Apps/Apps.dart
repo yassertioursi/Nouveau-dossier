@@ -116,65 +116,70 @@ class AppItem extends StatelessWidget {
         width: MediaQuery.of(context).size.width - 40,
         child: Column(
           children: [
-            Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
+            InkWell(
+              onTap: () {
+                print(" +++ "); //TODO
+              },
+              child: Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 2,
+                      ),
+                    ),
+                    child: ClipOval(
+                      child: SizedBox(
+                          height: 60,
+                          width: 60,
+                          child: profilePicture != "default.jpg"
+                              ? Image.network(
+                                  profilePicture,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.asset(
+                                  "lib/utils/images/default.jpg",
+                                  fit: BoxFit.cover,
+                                )),
                     ),
                   ),
-                  child: ClipOval(
-                    child: SizedBox(
-                        height: 60,
-                        width: 60,
-                        child: profilePicture != "default.jpg"
-                            ? Image.network(
-                                profilePicture,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.asset(
-                                "lib/utils/images/default.jpg",
-                                fit: BoxFit.cover,
-                              )),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
                             ),
-                          ),
-                          isCertified
-                              ? const Icon(
-                                  Icons.verified_user_rounded,
-                                  color: MyColors.green,
-                                )
-                              : const Text(''),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0, left: 0),
-                        child: Text(
-                          job,
-                          style: const TextStyle(
-                              color: MyColors.mainorange,
-                              fontWeight: FontWeight.bold),
+                            isCertified
+                                ? const Icon(
+                                    Icons.verified_user_rounded,
+                                    color: MyColors.green,
+                                  )
+                                : const Text(''),
+                          ],
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0, left: 0),
+                          child: Text(
+                            job,
+                            style: const TextStyle(
+                                color: MyColors.mainorange,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(15, 15, 0, 7),

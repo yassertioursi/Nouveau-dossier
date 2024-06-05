@@ -33,9 +33,12 @@ class _BuildFavoriteState extends State<BuildFavorite> {
       child: ListView.builder(
           itemCount: favworker.length,
           itemBuilder: (context, index) {
-            return Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 10.sp, vertical: 8.sp),
+            return InkWell(
+              onTap: () {
+                // TODO
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10.0),
                 child: Worker_two(
                   name: favworker[index].name!,
                   wilaya: favworker[index].wilaya!,
@@ -46,7 +49,9 @@ class _BuildFavoriteState extends State<BuildFavorite> {
                   isCertified: favworker[index].isCertified!,
                   id: favworker[index].id!,
                   isFav: true,
-                ));
+                ),
+              ),
+            );
           }),
     );
   }

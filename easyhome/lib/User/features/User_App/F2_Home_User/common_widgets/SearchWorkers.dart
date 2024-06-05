@@ -349,18 +349,23 @@ class WorkersList extends StatelessWidget {
                     double exp = double.parse(exp1);
 
                     return Stack(children: [
-                      Worker_two(
-                        name: search.workers![index]["name"] ?? "",
-                        wilaya: search.workers![index]["wilaya"] ?? "",
-                        rating: rating,
-                        experience: exp,
-                        profilePicture:
-                            search.workers![index]["profilePicture"] ?? "",
-                        job: search.workers![index]["job"] ?? "",
-                        isCertified:
-                            search.workers![index]["isCertified"] ?? "",
-                        id: search.workers![index]["_id"] ?? "",
-                        isFav: search.workers![index]["isFavorite"] ?? "",
+                      InkWell(
+                        onTap: () {
+                          print("++");
+                        },
+                        child: Worker_two(
+                          name: search.workers![index]["name"] ?? "",
+                          wilaya: search.workers![index]["wilaya"] ?? "",
+                          rating: rating,
+                          experience: exp,
+                          profilePicture:
+                              search.workers![index]["profilePicture"] ?? "",
+                          job: search.workers![index]["job"] ?? "",
+                          isCertified:
+                              search.workers![index]["isCertified"] ?? "",
+                          id: search.workers![index]["_id"] ?? "",
+                          isFav: search.workers![index]["isFavorite"] ?? "",
+                        ),
                       ),
                       postId.isNotEmpty
                           ? Align(

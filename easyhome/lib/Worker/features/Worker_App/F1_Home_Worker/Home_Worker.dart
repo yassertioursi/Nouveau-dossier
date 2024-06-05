@@ -7,6 +7,7 @@ import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provide
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/NotificationsWidget.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/Services/GetCount.dart';
 import 'package:easyhome/User/features/User_App/GetToken.dart';
+import 'package:easyhome/User/features/User_App/userProfile/visitProfile/visitProfileUser.dart';
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Provider/Provider_Filter.dart';
 
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/Service/Delete_App.dart';
@@ -117,8 +118,6 @@ class _HomeWorkerState extends State<HomeWorker> {
           actions: [
             InkWell(
               onTap: () {
-                /*  SystemChannels.textInput.invokeMethod('TextInput.hide');
-                      FocusScope.of(context).requestFocus(FocusNode());*/
                 showDialog(
                   barrierColor: Colors.black.withOpacity(0.0),
                   context: context,
@@ -328,6 +327,9 @@ class PostItem extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
+                VisitProfileUser visitProfileUser = VisitProfileUser();
+                visitProfileUser.visitProfileUser(
+                    context, userName, userProfilePicture, userWilaya, "");
                 //TODO
               },
               child: Padding(
@@ -338,7 +340,7 @@ class PostItem extends StatelessWidget {
                     Row(
                       children: [
                         ClipOval(
-                          child: Container(
+                          child: SizedBox(
                             height: 55,
                             width: 55,
                             child: userProfilePicture == "default.jpg"
@@ -450,22 +452,27 @@ class PostItem extends StatelessWidget {
                                 },
                               );
                             } else {
-                              if (!providerload.isLoading) {
-                                providerload.setLoad(true);
-                                DeleteApp deleteApp = DeleteApp();
-                                providerok2.setOk(!providerok2.isOk);
-                                if (await deleteApp.deleteApp(
-                                    TokenWorker.token, application["id"])) {
-                                  context.showSuccessMessage("Success",
-                                      "the application has been deleted  successfully.");
-                                } else {
-                                  context.showSuccessMessage("Success",
-                                      "Failed to delete the application.");
+                              if (application["id"] == null) {
+                                context.showErrorMessage("Error!",
+                                    "You have a deal with the application.");
+                              } else {
+                                if (!providerload.isLoading) {
+                                  providerload.setLoad(true);
+                                  DeleteApp deleteApp = DeleteApp();
                                   providerok2.setOk(!providerok2.isOk);
-                                }
+                                  if (await deleteApp.deleteApp(
+                                      TokenWorker.token, application["id"])) {
+                                    context.showSuccessMessage("Success",
+                                        "The application has been deleted  successfully .");
 
-                                providerload.setLoad(false);
+                                    providerload.setLoad(false);
+                                  } else {
+
+                                    
+                                  }
+                                }
                               }
+                              providerload.setLoad(false);
                             }
                           });
                     });
