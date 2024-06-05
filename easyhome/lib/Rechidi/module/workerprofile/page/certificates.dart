@@ -10,7 +10,7 @@ class _Certificates extends StatelessWidget {
     return BlocBuilder<WorkerProfileCubit, WorkerProfileState>(
       builder: (context, state) {
         final certificates = context.watch<WorkerProfileCubit>().certificates;
-        return Column(
+        return ListView(
           children: [
             ...certificates.map(
               (certificate) => _buildCertificate(
@@ -38,84 +38,78 @@ class _Certificates extends StatelessWidget {
     required VoidCallback onDelete,
     required void Function(CertificateEntity) onEdit,
   }) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 22.w),
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(10.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.grey.withOpacity(0.2),
-            blurRadius: 10.r,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              width(23),
-              Expanded(
-                child: Text(
-                  certificate.title!,
-                  maxLines: 2,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.sp,
-                    color: AppColors.primary,
+    return Column(
+      children: [
+        Stack(children: [
+          Opacity(
+            opacity: certificate.isValid! ? 1 : 0.55,
+            child: Container(
+              padding: EdgeInsets.only(right: 15.w, left: 15.w),
+              decoration: const BoxDecoration(boxShadow: [
+                BoxShadow(
+                  spreadRadius: 0,
+                  offset: Offset(0, 0),
+                  color: Color.fromARGB(255, 53, 53, 53),
+                  blurRadius: 50,
+                ),
+              ]),
+              child: CupertinoContextMenu(
+                actions: <Widget>[
+                  CupertinoContextMenuAction(
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            "Delete Post",
+                          ),
+                        ),
+                      ],
+                    ),
+                    onPressed: () {
+                      onDelete();
+                    },
+                  )
+                ],
+                child: SafeArea(
+                  child: Image.network(
+                    certificate.imageUrl!,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
-              if (!_isMe)
-                PopupMenuButton(
-                  icon: const Icon(
-                    Icons.more_vert,
-                    color: AppColors.primary,
-                  ),
-                  itemBuilder: (context) => [
-                    PopupMenuItem(
-                      onTap: onDelete,
-                      child: Row(
-                        children: [
-                          const Icon(Icons.delete),
-                          width(10),
-                          const Text('Delete'),
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem(
-                      onTap: () {
-                        onEdit(certificate);
-                      },
-                      child: Row(
-                        children: [
-                          const Icon(Icons.edit),
-                          width(10),
-                          const Text('Edit'),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-            ],
-          ),
-          height(8),
-          Container(
-            height: 320.r,
-            width: 320.r,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.r),
-              border: Border.all(color: AppColors.grey),
-              image: DecorationImage(
-                image: NetworkImage(certificate.imageUrl!),
-                fit: BoxFit.contain,
-              ),
             ),
           ),
-        ],
-      ),
+          if (!certificate.isValid!)
+            Positioned(
+              left: 20.w,
+              top: 5.h,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.report,
+                    color: Colors.red,
+                    size: 25.sp,
+                  ),
+                  Text(
+                    "Not Valid Yet",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 25.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+        ]),
+        SizedBox(
+          height: 23.h,
+        )
+      ],
     );
   }
 }

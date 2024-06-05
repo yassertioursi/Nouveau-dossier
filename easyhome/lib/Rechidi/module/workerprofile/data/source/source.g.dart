@@ -227,7 +227,7 @@ class _WorkerProfileDataSource implements WorkerProfileDataSource {
     )
         .compose(
           _dio.options,
-          '/api/v1/workers/certificates',
+          '/api/v1/workers/certificates/${id}',
           queryParameters: queryParameters,
           data: _data,
         )

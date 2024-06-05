@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/myDrawer.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/profile_Page/build_favorite.dart';
@@ -23,16 +24,12 @@ User userDetails = User();
 class _UserProfileScreenState extends State<UserProfileScreen>
     with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> key = GlobalKey();
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<MyCubit>(context)
-        .emitGetUserDetails("662ee1263a8b458f4dfd1348");
-  }
 
   Widget buildBloc() {
     return BlocBuilder<MyCubit, MyState>(
       builder: (context, state) {
+        BlocProvider.of<MyCubit>(context)
+            .emitGetUserDetails("662ee1263a8b458f4dfd1438");
         if (state is GetUserDetails) {
           userDetails = state.user;
 
@@ -59,7 +56,6 @@ class _UserProfileScreenState extends State<UserProfileScreen>
                       context,
                       userDetails,
                     ),
-                   
                     userInformations(userDetails),
                   ],
                 ),
@@ -90,11 +86,14 @@ class _UserProfileScreenState extends State<UserProfileScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          buildBloc(),
-        ],
+    return BlocProvider(
+      create: (context) => MyCubit(locator()),
+      child: Scaffold(
+        body: Stack(
+          children: [
+            buildBloc(),
+          ],
+        ),
       ),
     );
   }

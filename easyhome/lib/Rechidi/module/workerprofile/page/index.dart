@@ -14,10 +14,14 @@ import 'package:easyhome/User/features/User_App/userProfile/BloC/password_Cubit/
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/changePassword/change_password.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/drawer_items.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
+import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
+import 'package:easyhome/Worker/features/Worker_App/workerProfile/UI/widgets/profile/profile_page/build_certificate.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:readmore/readmore.dart';
 
 import '../../../models/certificate.dart';
 import '../../../models/portfoliopost.dart';

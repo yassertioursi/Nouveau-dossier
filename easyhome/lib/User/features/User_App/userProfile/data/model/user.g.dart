@@ -32,6 +32,7 @@ MyData _$MyDataFromJson(Map<String, dynamic> json) => MyData(
       favoriteWorkers: json['favoriteWorkers'] as List<dynamic>?,
       role: json['role'] as String?,
       currentRole: json['currentRole'] as String?,
+      workerAcountVerified: json['workerAcountVerified'] as bool?,
       facebook: json['facebook'] as String?,
     )..authentication = json['authentication'] == null
         ? null
@@ -52,6 +53,7 @@ Map<String, dynamic> _$MyDataToJson(MyData instance) => <String, dynamic>{
       'reported': instance.reported,
       'posts': instance.posts,
       'favoriteWorkers': instance.favoriteWorkers,
+      'workerAcountVerified': instance.workerAcountVerified,
       'role': instance.role,
       'currentRole': instance.currentRole,
     };
