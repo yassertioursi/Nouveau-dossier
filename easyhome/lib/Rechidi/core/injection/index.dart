@@ -16,7 +16,6 @@ import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/portfolio
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/reviews/reviews_cubit.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/Bloc/savePosts/save_posts_cubit.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../module/editprofile/data/repository/repository.dart';
 import '../../module/signupworker/data/source.dart';
