@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 
 import 'package:easyhome/Models/User_Model.dart';
 
-Dio dio = Dio();
+import 'package:easyhome/Rechidi/core/injection/index.dart';
+
+Dio dio = locator<Dio>();
 
 class Send_ser {
   UserYasser user = UserYasser();

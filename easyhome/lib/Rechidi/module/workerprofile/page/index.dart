@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easyhome/Rechidi/core/constants/icons.dart';
 import 'package:easyhome/Rechidi/core/extension/navigation.dart';
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/Rechidi/core/shared/spacing.dart';
 import 'package:easyhome/Rechidi/core/theme/colors.dart';
@@ -38,9 +39,9 @@ part 'drawer.dart';
 part 'floatingactionbutton.dart';
 
 class WorkerProfile extends StatelessWidget {
-  const WorkerProfile({super.key, required String workerId})
+  WorkerProfile({super.key, required String workerId})
       : _id = workerId,
-        _isMe = workerId == '';
+        _isMe = workerId == AuthCache.userId;
 
   final String _id;
   final bool _isMe;

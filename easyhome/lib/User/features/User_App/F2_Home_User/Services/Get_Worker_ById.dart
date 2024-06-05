@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:easyhome/Models/Worker_Model.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class GetWorker {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
   late bool isFav;
 
   WorkerYasser? worker;

@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class GetCountNotification {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
   int? mycount;
 
   Future<String> getmycount(String jwtToken) async {

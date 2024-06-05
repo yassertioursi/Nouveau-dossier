@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class DeleteApp {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
 
   Future<bool> deleteApp(String jwtToken, String appId) async {
     String url =

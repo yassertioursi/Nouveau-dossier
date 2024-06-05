@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/End.dart';
 
 import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/dialogs.dart';
@@ -7,6 +8,8 @@ import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dar
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/Signup_1.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/text_log_sign_field.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/services/Login_ser.dart';
+import 'package:easyhome/User/features/User_App/All_5_features.dart';
+import 'package:easyhome/Worker/features/Worker_App/All_4_features.dart';
 
 import 'package:easyhome/utils/constants/colors.dart';
 
@@ -162,7 +165,9 @@ class Login extends StatelessWidget {
                                   true) {
                                 Navigator.of(context).pushReplacement(
                                     SlideRight(
-                                        Page: const End(),
+                                        Page: AuthCache.isWorker
+                                            ? Home_Worker()
+                                            : Home_User(),
                                         begin: const Offset(1, 0),
                                         end: const Offset(0, 0)));
                               } else {

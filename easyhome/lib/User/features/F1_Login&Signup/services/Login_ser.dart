@@ -1,7 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:easyhome/Models/User_Model.dart';
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 
-Dio dio = Dio();
+import 'package:easyhome/Rechidi/core/injection/index.dart';
+
+Dio dio = locator<Dio>();
 
 class Login_ser {
   UserYasser user = UserYasser();
@@ -18,7 +22,9 @@ class Login_ser {
       Response response = await dio.post(postUrl, data: data);
       if (response.statusCode == 200) {
         user.fromJson(response.data['user']);
-        print(user.name);
+        await AuthCache.setToken(response.data['token']);
+        await AuthCache.setUserId(user.id);
+        await AuthCache.setIsWorker(user.currentRole != 'User');
 
         return true;
       } else {
@@ -26,13 +32,8 @@ class Login_ser {
       }
     } on DioError catch (error) {
       if (error.response != null) {
-        print('Error Response data: ${error.response!.data}');
         result = error.response!.data['message'];
-        print('Error Response status: ${error.response!.statusCode}');
-        print('Error Response headers: ${error.response!.headers}');
-      } else {
-        print('Error: $error');
-      }
+      } else {}
       return false;
     }
   }

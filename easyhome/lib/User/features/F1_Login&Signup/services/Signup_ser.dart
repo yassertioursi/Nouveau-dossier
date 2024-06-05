@@ -1,24 +1,20 @@
 import 'package:dio/dio.dart';
 
 import 'package:easyhome/Models/User_Model.dart';
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 
-Dio dio = Dio();
+import 'package:easyhome/Rechidi/core/injection/index.dart';
+
+Dio dio = locator<Dio>();
 
 class Signup_ser {
   late String result;
   UserYasser user = UserYasser();
-  Future<bool> sign_up_post(
-   
-      String name,
-      String wilaya,
-      String phoneNumber,
-      String email,
-      String password,
-      String passwordConfirm) async {
+  Future<bool> sign_up_post(String name, String wilaya, String phoneNumber,
+      String email, String password, String passwordConfirm) async {
     String postUrl = 'https://easyhome-lcvx.onrender.com/api/v1/auth/signup';
     dio.options.headers['Content-type'] = 'application/json';
     final data = {
- 
       "name": name,
       "wilaya": wilaya,
       "phoneNumber": phoneNumber,

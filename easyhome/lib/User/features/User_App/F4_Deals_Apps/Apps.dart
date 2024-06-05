@@ -28,7 +28,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (BuildContext context) => RefreshApps()),
       ],
       child: FutureBuilder<String>(
-        future: getapps.getApps(TokenUser.token),
+        future: getapps.getApps(AuthCache.token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -260,7 +260,7 @@ class AppItem extends StatelessWidget {
                             providerloading.setLoad(true);
                             DeclineApp declineApp = DeclineApp();
                             if (await declineApp.declineApp(
-                                TokenUser.token, appId)) {
+                                AuthCache.token, appId)) {
                               context.showSuccessMessage("Success",
                                   "The application has been declined successfully.");
                             } else {

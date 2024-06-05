@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class SavePost {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
 
   Future<bool> savePost(String jwtToken, String postId) async {
     String url =

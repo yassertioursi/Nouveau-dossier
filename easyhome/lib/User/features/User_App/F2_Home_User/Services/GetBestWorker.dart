@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:easyhome/Models/Worker_Model.dart';
+  import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class GetBestWorkers {
-  Dio dio = Dio();
+Dio dio = locator<Dio>();
+
 
   List? bestWorkers;
   Future<String> getbestworkers(String jwtToken) async {

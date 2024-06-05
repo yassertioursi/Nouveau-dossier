@@ -26,8 +26,7 @@ class MainApp extends StatelessWidget {
       designSize: Size(360, 800),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false, home: const UserProfileScreen()),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: Login()),
     );
   }
 }
