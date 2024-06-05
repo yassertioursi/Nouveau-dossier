@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/myDrawer.dart';
@@ -28,14 +29,14 @@ class _UserProfileScreenState extends State<UserProfileScreen>
   Widget buildBloc() {
     return BlocBuilder<MyCubit, MyState>(
       builder: (context, state) {
-        BlocProvider.of<MyCubit>(context)
-            .emitGetUserDetails("662ee1263a8b458f4dfd1438");
+        BlocProvider.of<MyCubit>(context).emitGetUserDetails(AuthCache.userId!);
         if (state is GetUserDetails) {
           userDetails = state.user;
 
           return _buildBody(userDetails);
         } else {
-          return const Center(child: CircularProgressIndicator( color : MyColors.mainblue));
+          return const Center(
+              child: CircularProgressIndicator(color: MyColors.mainblue));
         }
       },
     );
@@ -67,7 +68,6 @@ class _UserProfileScreenState extends State<UserProfileScreen>
               myTabBar(),
               const Expanded(
                 child: TabBarView(
-                  
                   children: [
                     BuildPost(),
                     BuildFavorite(),
