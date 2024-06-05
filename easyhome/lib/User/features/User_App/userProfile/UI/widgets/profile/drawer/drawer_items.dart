@@ -1,6 +1,5 @@
 import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/user.dart';
-import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
