@@ -128,7 +128,7 @@ class HomeUser extends StatelessWidget {
                         color: MyColors.mainblue,
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 8.0, left: 20),
+                        padding: EdgeInsets.only(top: 0.0, left: 26),
                         child: FutureBuilder<String>(
                             future: getCountNotification
                                 .getmycount(TokenUser.token),
@@ -142,9 +142,9 @@ class HomeUser extends StatelessWidget {
                                 return Text(
                                   "${getCountNotification.mycount}",
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: MyColors.mainblue,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 10,
+                                    fontSize: 12,
                                   ),
                                 );
                               }
