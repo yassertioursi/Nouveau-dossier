@@ -41,10 +41,9 @@ abstract class WorkerProfileDataSource {
     @Path("id") String id,
     @Query("page") int page, {
     @Query("limit") int limit = 15,
-    }
-  );
+  });
 
-   @DELETE("/api/v1/reviews/{id}")
+  @DELETE("/api/v1/reviews/{id}")
   Future<void> deleteReview(
     @Path("id") String id,
   );
@@ -54,18 +53,8 @@ abstract class WorkerProfileDataSource {
     @Path("id") String id,
   );
 
-  @DELETE("/api/v1/workers/certificates")
+  @DELETE("/api/v1/workers/certificates/{id}")
   Future<void> deleteCertificate(
     @Path("id") String id,
   );
-
-
-
-
-
-
-
-
-
-
 }

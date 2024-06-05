@@ -53,15 +53,19 @@ class _Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _personalInfo,
-            height(24),
-            _workInfo,
-            height(12),
-            _tabView,
-          ],
+      body: DefaultTabController(
+        length: 3,
+        child: NestedScrollView(
+          headerSliverBuilder: (context, _) {
+            return [
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [_personalInfo, _workInfo],
+                ),
+              ),
+            ];
+          },
+          body: _tabView,
         ),
       ),
       endDrawer: _drawer,

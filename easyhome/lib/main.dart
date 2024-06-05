@@ -3,6 +3,7 @@ import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/Signup_1.dart';
 import 'package:easyhome/User/features/User_App/All_5_features.dart';
+import 'package:easyhome/User/features/User_App/userProfile/UI/screens/user_profile_screen.dart';
 import 'package:easyhome/Worker/features/Worker_App/All_4_features.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/data/model/worker.dart';
 
@@ -25,9 +26,7 @@ class MainApp extends StatelessWidget {
       designSize: Size(360, 800),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Login()),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: Login()),
     );
   }
 }

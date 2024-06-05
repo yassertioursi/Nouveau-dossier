@@ -11,14 +11,11 @@ class _Reviews extends StatelessWidget {
       builder: (context, state) {
         final reviews = context.read<WorkerProfileCubit>().reviews;
 
-        return Column(
+        return ListView(
           children: [
             ...reviews.map(
               (review) => _buidlReviewCard(
                 review: review,
-                onDelete: () {
-                  context.read<WorkerProfileCubit>().deleteReview(review);
-                },
               ),
             ),
           ],
@@ -29,68 +26,94 @@ class _Reviews extends StatelessWidget {
 
   Widget _buidlReviewCard({
     required ReviewEntity review,
-    required VoidCallback onDelete,
   }) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 22.w),
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.grey.withOpacity(0.5),
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Row(
+      color: Colors.white,
+      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 20.h),
+      child: Column(
         children: [
-          CircleAvatar(
-            radius: 30.r,
-            backgroundImage: NetworkImage(review.user!.profilePicture!),
-          ),
-          width(8),
-          Column(
+          Row(
             children: [
+              CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(review.user!.profilePicture!),
+                child: Icon(
+                  Icons.person,
+                  size: 30.sp,
+                ),
+              ),
+              SizedBox(width: 16.w),
               Text(
                 review.user!.name!,
                 style: TextStyle(
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16.sp,
-                  color: AppColors.black,
                 ),
-              ),
-              height(4),
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    AppIcons.star,
-                    height: 20.r,
-                    width: 20.r,
-                  ),
-                  width(5),
-                  Text(
-                    review.rating.toString(),
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.primary,
-                    ),
-                  ),
-                ],
               ),
             ],
           ),
-          const Spacer(),
-          if (_isMe)
-            IconButton(
-              onPressed: onDelete,
-              icon: const Icon(Icons.delete),
+          SizedBox(
+            height: 12.h,
+          ),
+          Row(
+            children: stars(4.1),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          if (review.review != '')
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: ReadMoreText(
+                review.review!,
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
+                trimMode: TrimMode.Line,
+                trimLines: 3,
+                colorClickableText: Mycolors.myBlue,
+                trimCollapsedText: 'Show more',
+                trimExpandedText: '  Show less',
+                moreStyle:
+                    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                lessStyle:
+                    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+              ),
             ),
+          SizedBox(
+            height: 5.h,
+          ),
+          Divider(
+            endIndent: 20.w,
+            indent: 20.w,
+          )
         ],
       ),
     );
+  }
+
+  List<Widget> stars(double rating) {
+    List<Widget> list = [];
+    for (int i = 0; i < 5; i++) {
+      if (rating >= 1) {
+        list.add(Icon(
+          Icons.star,
+          size: 25.sp,
+          color: Mycolors.myOrange,
+        ));
+      } else if (rating < 1 && rating > 0) {
+        list.add(Icon(
+          Icons.star_half,
+          size: 25.sp,
+          color: Mycolors.myOrange,
+        ));
+      } else {
+        list.add(Icon(
+          Icons.star_outline,
+          size: 25.sp,
+          color: Mycolors.myOrange,
+        ));
+      }
+      rating = rating - 1;
+    }
+    return list;
   }
 }
