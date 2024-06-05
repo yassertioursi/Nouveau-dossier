@@ -3,8 +3,6 @@ part of 'index.dart';
 class _Reviews extends StatelessWidget {
   const _Reviews();
 
- 
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WorkerProfileCubit, WorkerProfileState>(
@@ -56,28 +54,27 @@ class _Reviews extends StatelessWidget {
             height: 12.h,
           ),
           Row(
-            children: stars(4.1),
+            children: stars(review.rating!),
           ),
           SizedBox(
             height: 10.h,
           ),
-          if (review.review != '')
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: ReadMoreText(
-                review.review!,
-                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
-                trimMode: TrimMode.Line,
-                trimLines: 3,
-                colorClickableText: Mycolors.myBlue,
-                trimCollapsedText: 'Show more',
-                trimExpandedText: '  Show less',
-                moreStyle:
-                    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-                lessStyle:
-                    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-              ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: ReadMoreText(
+              review.review!,
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
+              trimMode: TrimMode.Line,
+              trimLines: 3,
+              colorClickableText: Mycolors.myBlue,
+              trimCollapsedText: 'Show more',
+              trimExpandedText: '  Show less',
+              moreStyle:
+                  TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+              lessStyle:
+                  TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
             ),
+          ),
           SizedBox(
             height: 5.h,
           ),
@@ -90,7 +87,7 @@ class _Reviews extends StatelessWidget {
     );
   }
 
-  List<Widget> stars(double rating) {
+  List<Widget> stars(num rating) {
     List<Widget> list = [];
     for (int i = 0; i < 5; i++) {
       if (rating >= 1) {

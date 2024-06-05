@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:easyhome/Rechidi/core/constants/icons.dart';
 import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/injection/index.dart';
@@ -16,7 +15,6 @@ import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/d
 import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/UI/screens/worker_profile_sceen.dart';
-import 'package:easyhome/Worker/features/Worker_App/workerProfile/UI/widgets/profile/profile_page/build_certificate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +54,7 @@ class WorkerProfile extends StatelessWidget {
         workInfo: const _WorkerInfo(),
         tabView: _TabView(
           portfolio: _Portfolio(_isMe),
-          reviews: _Reviews(),
+          reviews: const _Reviews(),
           certificates: _Certificates(_isMe),
         ),
         drawer: const _Drawer(),
