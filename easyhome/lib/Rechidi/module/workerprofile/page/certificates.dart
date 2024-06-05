@@ -10,24 +10,28 @@ class _Certificates extends StatelessWidget {
     return BlocBuilder<WorkerProfileCubit, WorkerProfileState>(
       builder: (context, state) {
         final certificates = context.watch<WorkerProfileCubit>().certificates;
-        return ListView(
-          children: [
-            ...certificates.map(
-              (certificate) => _buildCertificate(
-                certificate: certificate,
-                onDelete: () {
-                  context
-                      .read<WorkerProfileCubit>()
-                      .deleteCertificate(certificate);
-                },
-                onEdit: (certificate) {
-                  context.to(
-                    CreateEditCertificate(certificate: certificate),
-                  );
-                },
+        return NoItemsWidget(
+          condition: certificates.isNotEmpty,
+          message: 'No certificates found',
+          child: ListView(
+            children: [
+              ...certificates.map(
+                (certificate) => _buildCertificate(
+                  certificate: certificate,
+                  onDelete: () {
+                    context
+                        .read<WorkerProfileCubit>()
+                        .deleteCertificate(certificate);
+                  },
+                  onEdit: (certificate) {
+                    context.to(
+                      CreateEditCertificate(certificate: certificate),
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );
