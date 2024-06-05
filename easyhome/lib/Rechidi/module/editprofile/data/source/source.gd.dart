@@ -70,7 +70,6 @@ class _EditProfileDataSource implements EditProfileDataSource {
         MultipartFile.fromFileSync(
           profilePicture.path,
           filename: profilePicture.path.split(Platform.pathSeparator).last,
-          contentType: MediaType('image', 'jpeg'),
         ),
       ));
     }

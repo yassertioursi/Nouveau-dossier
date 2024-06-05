@@ -5,6 +5,7 @@ class ReviewEntity {
   ReviewEntity(
       {required this.id,
       required this.rating,
+      required this.review,
       required this.user,
       DateTime? createdAt})
       : _createdAt = createdAt;
@@ -12,6 +13,7 @@ class ReviewEntity {
   final String? id;
   final num? rating;
   final UserEntity? user;
+  final String? review;
   final DateTime? _createdAt;
 
   String get date => _createdAt!.ddMONyyyy;
@@ -21,6 +23,7 @@ class ReviewEntity {
       id: json['_id'],
       rating: json['rating'],
       user: UserEntity.fromJson(json['user']),
+      review: json["review"],
       createdAt: DateTime.parse(json['createdAt']),
     );
   }

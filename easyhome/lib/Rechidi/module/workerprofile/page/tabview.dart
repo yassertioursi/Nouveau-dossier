@@ -21,46 +21,54 @@ class _TabView extends StatelessWidget {
         final cubit = context.read<WorkerProfileCubit>();
         return Column(
           children: [
-            _buildTabBar(cubit.tabIndex, cubit.changeTab),
-            height(8),
-            [_portfolio, _reviews, _certificates][cubit.tabIndex],
+            _buildTabBar(),
+            Expanded(
+                child: TabBarView(
+              children: [
+                _portfolio,
+                _reviews,
+                _certificates,
+              ],
+            )),
           ],
         );
       },
     );
   }
 
-  Widget _buildTabBar(
-    int currentIndex,
-    void Function(int) onTap,
-  ) {
-    return Container(
-      width: double.infinity,
-      // margin: EdgeInsets.symmetric(horizontal: 5.w),
-      decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(5.r),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildTabItem(
-            title: 'Portfolio',
-            onTap: () => onTap(0),
-            isSelected: currentIndex == 0,
+  Widget _buildTabBar() {
+    return Padding(
+      padding: EdgeInsets.only(top: 20.h),
+      child: Column(children: [
+        Container(
+          color: Mycolors.myBlue,
+          child: TabBar(
+            padding: EdgeInsets.zero,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorColor: Colors.white,
+            labelStyle: TextStyle(
+              fontSize: 19.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+            unselectedLabelStyle: TextStyle(
+                fontSize: 15.sp,
+                color: Colors.white,
+                fontWeight: FontWeight.w500),
+            tabs: const [
+              Tab(
+                text: "Portfolio",
+              ),
+              Tab(
+                text: "Reviews",
+              ),
+              Tab(
+                text: "Certificates",
+              ),
+            ],
           ),
-          _buildTabItem(
-            title: 'Reviews',
-            onTap: () => onTap(1),
-            isSelected: currentIndex == 1,
-          ),
-          _buildTabItem(
-            title: 'Certificates',
-            onTap: () => onTap(2),
-            isSelected: currentIndex == 2,
-          ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 

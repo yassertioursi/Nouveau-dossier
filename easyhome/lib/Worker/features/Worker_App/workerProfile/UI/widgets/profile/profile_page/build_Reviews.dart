@@ -46,66 +46,63 @@ class _BuildReviewsState extends State<BuildReviews> {
 
   Widget _review(ReviewsData review) {
     return Container(
-      child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 20.h),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  child: Icon(
-                    Icons.person,
-                    size: 30.sp,
-                  ),
-                ),
-                SizedBox(width: 16.w),
-                Text(
-                  review.user!,
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 12.h,
-            ),
-            Row(
-              children: stars(4.1),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            if (review.review != '')
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: ReadMoreText(
-                  review.review!,
-                  style:
-                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
-                  trimMode: TrimMode.Line,
-                  trimLines: 3,
-                  colorClickableText: Mycolors.myBlue,
-                  trimCollapsedText: 'Show more',
-                  trimExpandedText: '  Show less',
-                  moreStyle:
-                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-                  lessStyle:
-                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+      color: Colors.white,
+      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 20.h),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 30,
+                child: Icon(
+                  Icons.person,
+                  size: 30.sp,
                 ),
               ),
-            SizedBox(
-              height: 5.h,
+              SizedBox(width: 16.w),
+              Text(
+                review.user!,
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 12.h,
+          ),
+          Row(
+            children: stars(4.1),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          if (review.review != '')
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: ReadMoreText(
+                review.review!,
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
+                trimMode: TrimMode.Line,
+                trimLines: 3,
+                colorClickableText: Mycolors.myBlue,
+                trimCollapsedText: 'Show more',
+                trimExpandedText: '  Show less',
+                moreStyle:
+                    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                lessStyle:
+                    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+              ),
             ),
-            Divider(
-              endIndent: 20.w,
-              indent: 20.w,
-            )
-          ],
-        ),
+          SizedBox(
+            height: 5.h,
+          ),
+          Divider(
+            endIndent: 20.w,
+            indent: 20.w,
+          )
+        ],
       ),
     );
   }
