@@ -27,10 +27,12 @@ import 'commonWidgets/Drop__jobs.dart';
 
 class Create_Post {
   GlobalKey<FormState> formstate_title = GlobalKey();
+  GlobalKey<FormState> formstate_location_title = GlobalKey();
   GlobalKey<FormState> formstate_desc = GlobalKey();
   GlobalKey<FormState> formstate_price = GlobalKey();
   TextEditingController priceController = TextEditingController();
   TextEditingController titleController = TextEditingController();
+  TextEditingController locationtitleController = TextEditingController();
   TextEditingController descController = TextEditingController();
   var Image_Controller = PageController();
 
@@ -217,6 +219,72 @@ class Create_Post {
                                             Radius.circular(10)),
                                         borderSide: BorderSide(
                                             width: 2, color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(15, 20, 15, 20),
+                              child: Form(
+                                key: formstate_location_title,
+                                child: TextFormField(
+                                  onChanged: (value) {
+                                    formstate_title.currentState!.validate();
+                                  },
+                                  controller: locationtitleController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "Enter a title for your location";
+                                    }
+                                    return null;
+                                  },
+                                  maxLengthEnforcement:
+                                      MaxLengthEnforcement.enforced,
+                                  maxLength: 40,
+                                  cursorColor: MyColors.mainblue,
+                                  decoration: const InputDecoration(
+                                    label: Text(
+                                      "Location Title :",
+                                      style: TextStyle(
+                                        color: MyColors.mainblue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    focusColor: Colors.white,
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    border: OutlineInputBorder(),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      borderSide: BorderSide(
+                                        width: 1.5,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      borderSide: BorderSide(
+                                          width: 2, color: Colors.black),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      borderSide: BorderSide(
+                                        width: 2,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      borderSide: BorderSide(
+                                        width: 1.5,
+                                        color: Colors.red,
                                       ),
                                     ),
                                   ),
@@ -553,12 +621,12 @@ class Create_Post {
                                           backgroundColor: Colors.black,
                                         ),
                                         onPressed: () async {
-                                          final LocationEntity location = await   Navigator.of(context).push(SlideRight(
-                                Page: MapPlaceSelector(),
-                                begin: Offset(-1, 0),
-                                end: Offset(0, 0)));
-                        
-                            
+                                          final LocationEntity location =
+                                              await Navigator.of(context).push(
+                                                  SlideRight(
+                                                      Page: MapPlaceSelector(),
+                                                      begin: Offset(1, 0),
+                                                      end: Offset(0, 0)));
 
                                           if (Workers_Cat().cats.contains(
                                               providerdrop.dropdownValue)) {
@@ -579,10 +647,10 @@ class Create_Post {
                                                   providerdrop.dropdownValue!,
                                                   providerimages.Images,
                                                   TokenUser.token,
-                                                  
-                                                  
+                                                  location.latitude,
+                                                  location.longitude,
+                                                  locationtitleController.text,
                                                 )) {
-
                                                   Navigator.pop(context);
                                                   context.showSuccessMessage(
                                                       "Success",

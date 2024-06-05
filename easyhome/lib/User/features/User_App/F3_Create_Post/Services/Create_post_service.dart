@@ -13,6 +13,9 @@ class CreatePostService {
     String job,
     List<File> images,
     String jwtToken,
+    double lat,
+    double lng,
+    String locationTitle,
   ) async {
     String postUrl = 'https://easyhome-lcvx.onrender.com/api/v1/users/posts';
 
@@ -38,6 +41,9 @@ class CreatePostService {
       "job": job,
       "images": imageFiles,
       "price": price,
+      "lat": lat,
+      "lng": lng,
+      "locationTitle": locationTitle,
     });
 
     try {
