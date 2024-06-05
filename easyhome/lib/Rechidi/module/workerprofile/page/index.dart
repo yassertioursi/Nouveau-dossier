@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
@@ -91,3 +92,6 @@ class WorkerProfile extends StatelessWidget {
     );
   }
 }
+=======
+
+>>>>>>> 84aa337783764433356eb45dc55a8fb499d42fa5
