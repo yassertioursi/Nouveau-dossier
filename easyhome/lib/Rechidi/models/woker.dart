@@ -6,7 +6,7 @@ class WorkerEntity extends UserEntity {
     super.name,
     super.bio,
     this.job,
-    super.wilaya,
+    super.willaya,
     super.profilePicture,
     this.rating,
     this.experience,
@@ -16,12 +16,10 @@ class WorkerEntity extends UserEntity {
     super.facebook,
   });
 
-
   final String? job;
   final double? rating;
   final double? experience;
   final bool? isCertified;
-  
 
   factory WorkerEntity.fromJson(Map<String, dynamic>? json) {
     json?['rating'] = _converter(json['rating']);
@@ -32,7 +30,7 @@ class WorkerEntity extends UserEntity {
       name: json?['name'] as String?,
       bio: json?['bio'] as String?,
       job: json?['job'] as String?,
-      wilaya: json?['wilaya'] as String?,
+      willaya: json?['wilaya'] as String?,
       profilePicture: json?['profilePicture'] as String?,
       rating: json?['rating'],
       experience: json?['experience'],

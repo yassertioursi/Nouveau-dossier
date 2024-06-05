@@ -19,7 +19,7 @@ class _Scaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Edit Profile'), centerTitle: true),
+      appBar: _buildAppBar(context),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -37,4 +37,21 @@ class _Scaffold extends StatelessWidget {
       ),
     );
   }
+
+  AppBar _buildAppBar(BuildContext context) => AppBar(
+        backgroundColor: AppColors.primary,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppColors.white),
+          onPressed: () => context.back(),
+        ),
+        title: Text(
+          'Edit Profile',
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        centerTitle: true,
+      );
 }
