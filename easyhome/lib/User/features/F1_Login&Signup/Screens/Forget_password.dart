@@ -103,10 +103,11 @@ class Forget_Pass extends StatelessWidget {
                         builder: (context, bloc_5, child) {
                       return bloc_5.isLoading
                           ? const SizedBox(
-                              height: 20,
-                              width: 20,
+                              height: 15,
+                              width: 15,
                               child: CircularProgressIndicator(
                                 color: MyColors.mainblue,
+                                strokeWidth: 2,
                               ),
                             )
                           : TextButton(
@@ -205,13 +206,14 @@ class Forget_Pass extends StatelessWidget {
                               if (key) {
                                 Dialogs dialogs = new Dialogs();
                                 dialogs.showSuccessDialog(context,
-                                    "Your password was successfully changed.");
+                                    "Your password has successfully changed.");
                               }
                             } else {}
                           }
                         },
                         child: const Text(
                           "CONFIRM",
+                          style: TextStyle(color: Colors.white),
                         ));
                   }),
                 ],

@@ -326,55 +326,60 @@ class PostItem extends StatelessWidget {
         width: MediaQuery.of(context).size.width - 80,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 12.0, right: 7),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      ClipOval(
-                        child: Container(
-                          height: 55,
-                          width: 55,
-                          child: userProfilePicture == "default.jpg"
-                              ? Image.asset(
-                                  "lib/utils/images/default.jpg",
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.network(
-                                  userProfilePicture,
-                                  fit: BoxFit.cover,
-                                ),
+            InkWell(
+              onTap: () {
+                //TODO
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12.0, right: 7),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        ClipOval(
+                          child: Container(
+                            height: 55,
+                            width: 55,
+                            child: userProfilePicture == "default.jpg"
+                                ? Image.asset(
+                                    "lib/utils/images/default.jpg",
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    userProfilePicture,
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              userName,
-                              style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4),
-                              child: Text(
-                                userWilaya,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                userName,
                                 style: const TextStyle(
-                                    color: MyColors.mainorange,
-                                    fontWeight: FontWeight.w600),
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: Text(
+                                  userWilaya,
+                                  style: const TextStyle(
+                                      color: MyColors.mainorange,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             !postImages.isEmpty

@@ -8,8 +8,8 @@ class Signup_ser {
   late String result;
   UserYasser user = UserYasser();
   Future<bool> sign_up_post(
-      String firstName,
-      String lastName,
+   
+      String name,
       String wilaya,
       String phoneNumber,
       String email,
@@ -18,8 +18,8 @@ class Signup_ser {
     String postUrl = 'https://easyhome-lcvx.onrender.com/api/v1/auth/signup';
     dio.options.headers['Content-type'] = 'application/json';
     final data = {
-      "firstName": firstName,
-      "lastName": lastName,
+ 
+      "name": name,
       "wilaya": wilaya,
       "phoneNumber": phoneNumber,
       "email": email,

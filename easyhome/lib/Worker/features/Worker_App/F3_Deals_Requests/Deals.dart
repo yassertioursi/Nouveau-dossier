@@ -120,55 +120,60 @@ class DealItem extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 2,
+              InkWell(
+                onTap: () {
+                  //TODO
+                },
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2,
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: SizedBox(
+                            height: 60,
+                            width: 60,
+                            child: profilePicture != "default.jpg"
+                                ? Image.network(
+                                    profilePicture,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(
+                                    "lib/utils/images/default.jpg",
+                                    fit: BoxFit.cover,
+                                  )),
                       ),
                     ),
-                    child: ClipOval(
-                      child: SizedBox(
-                          height: 60,
-                          width: 60,
-                          child: profilePicture != "default.jpg"
-                              ? Image.network(
-                                  profilePicture,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.asset(
-                                  "lib/utils/images/default.jpg",
-                                  fit: BoxFit.cover,
-                                )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          name,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5.0, left: 0),
-                          child: Text(
-                            wilaya,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            name,
                             style: const TextStyle(
-                                color: MyColors.mainorange,
-                                fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0, left: 0),
+                            child: Text(
+                              wilaya,
+                              style: const TextStyle(
+                                  color: MyColors.mainorange,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Consumer<ChangeStatus>(builder: (context, providerstatus, child) {
                 if (yesorno) {
@@ -187,7 +192,7 @@ class DealItem extends StatelessWidget {
                         onChanged: (value) {
                           bloc_save_text.setChanged(true);
                         },
-                        maxLength: 100,
+                        maxLength: 70,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         cursorColor: MyColors.mainblue,
                         decoration: InputDecoration(
@@ -266,7 +271,7 @@ class DealItem extends StatelessWidget {
                           bloc_save_text1.setChanged(true);
                         },
                         controller: descriptionController,
-                        maxLength: 100,
+                        maxLength: 200,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         maxLines: 7,
                         cursorColor: MyColors.mainblue,

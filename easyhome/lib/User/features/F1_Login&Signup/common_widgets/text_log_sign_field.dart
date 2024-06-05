@@ -65,7 +65,7 @@ class Log_Field extends StatelessWidget {
                   ),
                   onChanged: (value) {
                     switch (field_id) {
-                      case "signup-password":
+                      case "signup-password" || "login-email":
                         formstate.currentState!.validate();
                         break;
                     }
@@ -81,7 +81,13 @@ class Log_Field extends StatelessWidget {
                   validator: (value) {
                     switch (field_id) {
                       case "login-email":
-                        //
+                        if (value!.isEmpty) {
+                          providervalidate.setValidated(false);
+                          return "Email can't be empty";
+                        } else {
+                          providervalidate.setValidated(true);
+                        }
+                        ;
                         break;
                       case "login-password":
                         //
@@ -106,7 +112,7 @@ class Log_Field extends StatelessWidget {
                           providervalidate.setValidated(true);
                         ;
                         break;
-                      case "signup-fname" || "signup-lname":
+                      case "signup-name" || "signup-lname":
                         if (validators.Validate_name(value!) ==
                             "Enter a valid name") {
                           providervalidate.setValidated(false);

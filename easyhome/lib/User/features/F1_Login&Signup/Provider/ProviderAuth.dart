@@ -53,3 +53,12 @@ class ProviderLoading1 with ChangeNotifier {
     notifyListeners();
   }
 }
+
+class ProviderLoading2 with ChangeNotifier {
+  bool isLoading = false;
+
+  void setLoad(bool value) {
+    isLoading = value;
+    notifyListeners();
+  }
+}

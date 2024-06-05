@@ -40,7 +40,7 @@ class Login extends StatelessWidget {
           body: SingleChildScrollView(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 80),
+                padding: const EdgeInsets.only(top: 60),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -115,12 +115,15 @@ class Login extends StatelessWidget {
                         children: [
                           TextButton(
                             onPressed: () {
-                              Dialogs dialogs = Dialogs();
-                              dialogs.showErrorDialog_forget_password(
-                                  context,
-                                  "Don't remember your password",
-                                  "If you forget your password for this email :${emailController.text} , press confirm to reset your password ",
-                                  emailController.text);
+                              if (formstate_email.currentState!.validate()) {
+                                Dialogs dialogs = Dialogs();
+                                dialogs.showErrorDialog_forget_password(
+                                    context,
+                                    "Don't remember your password",
+                                    "If you forget your password for this email :${emailController.text} , press confirm to reset your password ",
+                                    emailController.text);
+                              }
+
                               /* Navigator.of(context).push(SlideRight(
                                   Page: Email_verifcation(
                                     email: emailController.text,
@@ -150,41 +153,48 @@ class Login extends StatelessWidget {
                           fixedSize: const Size(330, 50),
                         ),
                         onPressed: () async {
-                          if (!providerloading.isLoading) {
-                            providerloading.setLoad(true);
-                            if (await login_ser.login_post(emailController.text,
-                                    passwordController.text) ==
-                                true) {
-                              Navigator.of(context).pushReplacement(SlideRight(
-                                  Page: const End(),
-                                  begin: const Offset(1, 0),
-                                  end: const Offset(0, 0)));
-                            } else {
-                              Dialogs dialogs = Dialogs();
-                              login_ser.result ==
-                                      "You are not verified! Please verify your email account and login"
-                                  ? dialogs.showErrorDialog_login2(
-                                      context,
-                                      "Error :",
-                                      login_ser.result,
-                                      emailController.text)
-                                  : dialogs.showErrorDialog_login(
-                                      context, login_ser.result);
+                          if (formstate_email.currentState!.validate()) {
+                            if (!providerloading.isLoading) {
+                              providerloading.setLoad(true);
+                              if (await login_ser.login_post(
+                                      emailController.text,
+                                      passwordController.text) ==
+                                  true) {
+                                Navigator.of(context).pushReplacement(
+                                    SlideRight(
+                                        Page: const End(),
+                                        begin: const Offset(1, 0),
+                                        end: const Offset(0, 0)));
+                              } else {
+                                Dialogs dialogs = Dialogs();
+                                login_ser.result ==
+                                        "You are not verified! Please verify your email account and login"
+                                    ? dialogs.showErrorDialog_login2(
+                                        context,
+                                        "Error :",
+                                        login_ser.result,
+                                        emailController.text)
+                                    : dialogs.showErrorDialog_login(
+                                        context, login_ser.result);
 
-                              print("false");
+                                print("false");
+                              }
+
+                              providerloading.setLoad(false);
                             }
-                            providerloading.setLoad(false);
-                          } else {}
+                          }
                         },
                         child: providerloading.isLoading
                             ? const SizedBox(
-                                height: 25,
-                                width: 25,
+                                height: 18,
+                                width: 18,
                                 child: CircularProgressIndicator(
                                   color: Colors.white,
+                                  strokeWidth: 2,
                                 ),
                               )
                             : const Text(
+                                style: TextStyle(color: Colors.white),
                                 "LOGIN",
                               ),
                       );
@@ -205,7 +215,7 @@ class Login extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).push(SlideRight(
-                                Page: Signup(),
+                                Page: SignUp(),
                                 begin: const Offset(1, 0),
                                 end: const Offset(0, 0)));
                           },
