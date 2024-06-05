@@ -84,9 +84,8 @@ class Log_Field extends StatelessWidget {
                         if (value!.isEmpty) {
                           providervalidate.setValidated(false);
                           return "Email can't be empty";
-                        }
-                        else { 
-                           providervalidate.setValidated(true );
+                        } else {
+                          providervalidate.setValidated(true);
                         }
                         ;
                         break;
@@ -113,7 +112,7 @@ class Log_Field extends StatelessWidget {
                           providervalidate.setValidated(true);
                         ;
                         break;
-                      case "signup-fname" || "signup-lname":
+                      case "signup-name" || "signup-lname":
                         if (validators.Validate_name(value!) ==
                             "Enter a valid name") {
                           providervalidate.setValidated(false);

@@ -22,11 +22,11 @@ class Signup_2 extends StatelessWidget {
       required this.passwordConfirm})
       : super(key: key);
 
-  TextEditingController fnameController = TextEditingController();
-  TextEditingController lnameController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  // TextEditingController lnameController = TextEditingController();
   TextEditingController phonenbrController = TextEditingController();
-  GlobalKey<FormState> formstate_fname = GlobalKey<FormState>();
-  GlobalKey<FormState> formstate_lname = GlobalKey<FormState>();
+  GlobalKey<FormState> formstate_name = GlobalKey<FormState>();
+
   GlobalKey<FormState> formstate_pnonenbr = GlobalKey<FormState>();
   final GlobalKey<FormState> formstate_wilaya = GlobalKey<FormState>();
   String selectedWilaya = '';
@@ -85,29 +85,15 @@ class Signup_2 extends StatelessWidget {
                         SizedBox(
                           width: 180,
                           child: Log_Field(
-                            formstate: formstate_fname,
-                            hint_text: "FIRST NAME",
+                            formstate: formstate_name,
+                            hint_text: "FULL NAME",
                             prefixIcon: const Icon(
                               Icons.person,
                               color: MyColors.mainblue,
                             ),
-                            field_id: "signup-fname",
-                            controller: fnameController,
+                            field_id: "signup-name",
+                            controller: nameController,
                             keyboardtype: TextInputType.name,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 180,
-                          child: Log_Field(
-                            keyboardtype: TextInputType.name,
-                            formstate: formstate_lname,
-                            hint_text: "LAST NAME",
-                            prefixIcon: const Icon(
-                              Icons.person,
-                              color: MyColors.mainblue,
-                            ),
-                            field_id: "signup-lname",
-                            controller: lnameController,
                           ),
                         ),
                       ],
@@ -118,7 +104,7 @@ class Signup_2 extends StatelessWidget {
                     child: Log_Field(
                       keyboardtype: TextInputType.phone,
                       formstate: formstate_pnonenbr,
-                      hint_text: "PHONE NUMBER(0XXXXXXXXX)",
+                      hint_text: "PHONE NUMBER",
                       prefixIcon: const Icon(
                         Icons.phone,
                         color: MyColors.mainblue,
@@ -146,31 +132,31 @@ class Signup_2 extends StatelessWidget {
                           fixedSize: const Size(330, 50),
                         ),
                         onPressed: () async {
-                          bool v1 = formstate_fname.currentState!.validate();
-                          bool v2 = formstate_lname.currentState!.validate();
+                          bool v1 = formstate_name.currentState!.validate();
+
                           bool v3 = formstate_pnonenbr.currentState!.validate();
 
                           bool v4 = formstate_wilaya.currentState!.validate();
 
-                          if (v1 && v2 && v3 && v4) {
+                          if (v1 && v3 && v4) {
                             if (!providerloading.isLoading) {
                               providerloading.setLoad(true);
                               if (await signup_ser.sign_up_post(
-                                  fnameController.text,
-                                  lnameController.text,
+                                  nameController.text,
                                   selectedWilaya,
                                   phonenbrController.text,
                                   this.email,
                                   this.password,
                                   this.passwordConfirm)) {
-                                Navigator.of(context).push(SlideRight(
-                                    Page: Email_verifcation(
-                                      email: email,
-                                    ),
-                                    begin: const Offset(1, 0),
-                                    end: const Offset(0, 0)));
+                                Navigator.of(context)
+                                    .pushReplacement(SlideRight(
+                                        Page: Email_verifcation(
+                                          email: email,
+                                        ),
+                                        begin: const Offset(1, 0),
+                                        end: const Offset(0, 0)));
                               } else {
-                                Dialogs dialogs = new Dialogs();
+                                Dialogs dialogs = Dialogs();
                                 signup_ser.result.contains(
                                         "E11000 duplicate key error collection")
                                     ? dialogs.showErrorDialog_signup(context,
@@ -184,10 +170,11 @@ class Signup_2 extends StatelessWidget {
                         },
                         child: providerloading.isLoading
                             ? const SizedBox(
-                                height: 25,
-                                width: 25,
+                                height: 18,
+                                width: 18,
                                 child: CircularProgressIndicator(
                                   color: Colors.white,
+                                  strokeWidth: 2,
                                 ),
                               )
                             : const Text(

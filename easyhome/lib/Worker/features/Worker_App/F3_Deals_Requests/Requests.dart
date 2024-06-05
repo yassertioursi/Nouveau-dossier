@@ -204,10 +204,10 @@ class RequestItem extends StatelessWidget {
           create: (BuildContext context) => ProviderLoading1(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => ProviderOk2(),
+          create: (BuildContext context) => ProviderLoading2(),
         ),
         ChangeNotifierProvider(
-          create: (BuildContext context) => ProviderPosts(),
+          create: (BuildContext context) => ProviderOk2(),
         ),
         ChangeNotifierProvider(
             create: (BuildContext context) => ProviderMyRequests()),
@@ -227,50 +227,55 @@ class RequestItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      ClipOval(
-                        child: SizedBox(
-                          height: 55,
-                          width: 55,
-                          child: userProfilePicture == "default.jpg"
-                              ? Image.asset(
-                                  "lib/utils/images/default.jpg",
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.network(
-                                  userProfilePicture,
-                                  fit: BoxFit.cover,
-                                ),
+                  InkWell(
+                    onTap: () {
+                      //TODO
+                    },
+                    child: Row(
+                      children: [
+                        ClipOval(
+                          child: SizedBox(
+                            height: 55,
+                            width: 55,
+                            child: userProfilePicture == "default.jpg"
+                                ? Image.asset(
+                                    "lib/utils/images/default.jpg",
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    userProfilePicture,
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              userName,
-                              style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4),
-                              child: Text(
-                                userWilaya,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                userName,
                                 style: const TextStyle(
-                                    color: MyColors.mainorange,
-                                    fontWeight: FontWeight.w600),
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: Text(
+                                  userWilaya,
+                                  style: const TextStyle(
+                                      color: MyColors.mainorange,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  Consumer<ProviderLoading1>(
+                  Consumer<ProviderLoading>(
                       builder: (context, providerloading, child) {
                     return ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -285,10 +290,10 @@ class RequestItem extends StatelessWidget {
                             providermyrequests.requests.removeAt(index);
                             providermyrequests.notifyListeners();
                             context.showSuccessMessage("Success",
-                                "The application has been declined successfully.");
+                                "The request has been declined successfully.");
                           } else {
                             context.showErrorMessage(
-                                "Error!", "Failed to decline the application.");
+                                "Error!", "Failed to decline the request.");
                           }
                           providerloading.setLoad(false);
                         }
@@ -381,14 +386,21 @@ class RequestItem extends StatelessWidget {
                               },
                             );
                           } else {
+                            print("1");
                             if (!providerload.isLoading) {
+                              print("2");
                               providerload.setLoad(true);
                               DeleteApp deleteApp = DeleteApp();
                               providerok2.setOk(!providerok2.isOk);
                               if (await deleteApp.deleteApp(
-                                  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWY3NDZkOTcwODZjYmQ4ZWU2M2FlOCIsImN1cnJlbnRSb2xlIjoiV29ya2VyIiwiaWF0IjoxNzE0Njg5OTI1LCJleHAiOjE3MjI0NjU5MjV9.7V_Vl_kuzSpqKppoJsnZgeuaTBzxZXWHgrWsGHtn2-g",
-                                  application["id"])) {
+                                  TokenWorker.token, application["_id"])) {
+                                context.showErrorMessage("Success",
+                                    "The application has been deleted  successfully .");
+
                                 providerload.setLoad(false);
+                              } else {
+                                context.showErrorMessage("Error!",
+                                    "Failed to delete the application.");
                               }
                             }
                           }
@@ -419,7 +431,7 @@ class RequestItem extends StatelessWidget {
                     width: 60,
                     child: Consumer<ProviderOk>(
                         builder: (context, providerok, child) {
-                      return Consumer<ProviderLoading>(
+                      return Consumer<ProviderLoading2>(
                           builder: (context, providerload, child) {
                         if (yesorno) {
                           providerok.setOk(isSaved);

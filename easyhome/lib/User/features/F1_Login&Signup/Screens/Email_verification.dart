@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, prefer_const_constructors
 
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/End.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/dialogs.dart';
@@ -110,7 +110,7 @@ class Email_verifcation extends StatelessWidget {
                                 begin: const Offset(1, 0),
                                 end: const Offset(0, 0)));
                           } else {
-                            Dialogs dialogs = new Dialogs();
+                            Dialogs dialogs = Dialogs();
                             dialogs.showErrorDialog_login(
                                 context, verify_ser.result);
                           }

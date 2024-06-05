@@ -72,6 +72,9 @@ class _DropDownState extends State<DropDownWilaya> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      valueChoose = "16   Alger";
+    });
     return ChangeNotifierProvider(
       create: (context) => ProviderValidate(),
       child: Consumer<ProviderValidate>(
@@ -99,7 +102,6 @@ class _DropDownState extends State<DropDownWilaya> {
                     Icons.place,
                     color: MyColors.mainblue,
                   ),
-                  hintText: "SELECT YOUR WILAYA",
                   hintStyle: TextStyle(
                     color: Colors.grey[500],
                     fontWeight: FontWeight.w600,
