@@ -11,27 +11,31 @@ class _Portfolio extends StatelessWidget {
     final poster = context.watch<WorkerProfileCubit>().worker!;
     return BlocBuilder<WorkerProfileCubit, WorkerProfileState>(
       builder: (context, state) {
-        return Column(
-          children: [
-            ...posts
-                .map(
-                  (post) => _buildPost(
-                    post: post,
-                    poster: poster,
-                    onLike: (post) {
-                      context.read<WorkerProfileCubit>().likePost(post);
-                    },
-                    onDelete: (post) {
-                      context.read<WorkerProfileCubit>().deletePost(post);
-                    },
-                    onReport: (post) {},
-                    onEdit: (post) {
-                      context.to(CreateEditPost(post));
-                    },
-                  ),
-                )
-                .toList(),
-          ],
+        return NoItemsWidget(
+          condition: posts.isNotEmpty,
+          message: 'No posts found',
+          child: Column(
+            children: [
+              ...posts
+                  .map(
+                    (post) => _buildPost(
+                      post: post,
+                      poster: poster,
+                      onLike: (post) {
+                        context.read<WorkerProfileCubit>().likePost(post);
+                      },
+                      onDelete: (post) {
+                        context.read<WorkerProfileCubit>().deletePost(post);
+                      },
+                      onReport: (post) {},
+                      onEdit: (post) {
+                        context.to(CreateEditPost(post));
+                      },
+                    ),
+                  )
+                  .toList(),
+            ],
+          ),
         );
       },
     );

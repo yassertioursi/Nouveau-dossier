@@ -3,22 +3,24 @@ part of 'index.dart';
 class _Reviews extends StatelessWidget {
   const _Reviews();
 
- 
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WorkerProfileCubit, WorkerProfileState>(
       builder: (context, state) {
         final reviews = context.read<WorkerProfileCubit>().reviews;
 
-        return ListView(
-          children: [
-            ...reviews.map(
-              (review) => _buidlReviewCard(
-                review: review,
+        return NoItemsWidget(
+          condition: reviews.isNotEmpty,
+          message: 'No reviews found',
+          child: ListView(
+            children: [
+              ...reviews.map(
+                (review) => _buidlReviewCard(
+                  review: review,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

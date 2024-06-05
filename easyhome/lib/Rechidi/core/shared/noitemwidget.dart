@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:easyhome/Rechidi/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class NoItemsWidget extends StatelessWidget {
@@ -19,15 +20,19 @@ class NoItemsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConditionalBuilder(
       condition: _condition,
-      builder: (context) => _child,
-      fallback: (context) => Center(
-        child: Text(
-          _message,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+      builder: (_) => _child,
+      fallback: (_) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            _message,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
