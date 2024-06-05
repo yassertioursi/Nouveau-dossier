@@ -7,6 +7,7 @@ class _Scaffold extends StatelessWidget {
     required Widget tabView,
     required Widget drawer,
     required Widget floationgActionButton,
+    required FloatingActionButtonLocation floatingActionButtonLocation,
   })  : _personalInfo = personalInfo,
         _workInfo = workInfo,
         _tabView = tabView,
