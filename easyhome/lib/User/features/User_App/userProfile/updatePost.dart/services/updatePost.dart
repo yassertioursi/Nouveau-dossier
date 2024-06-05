@@ -9,6 +9,9 @@ class UpdatePostService {
     String description,
     String job,
     String postId,
+    String locationTitle,
+    double lat,
+    double lng,
     String jwtToken,
   ) async {
     String postUrl =
@@ -21,6 +24,9 @@ class UpdatePostService {
       "description": description,
       "job": job,
       "price": price,
+      "lat": lat,
+      "lng": lng,
+      "locationTitle": locationTitle,
     };
 
     try {

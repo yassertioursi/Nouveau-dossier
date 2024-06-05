@@ -368,6 +368,7 @@ Widget _popupmenu(PData post) {
           child: InkWell(
             onTap: () async {
               UpdateMyPost updateMyPost = UpdateMyPost();
+              Navigator.pop(context);
               updateMyPost.update_post(context, post.id!);
             },
             child: const Row(

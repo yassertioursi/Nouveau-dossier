@@ -9,6 +9,7 @@ Widget myTabBar() {
       Container(
         color: MyColors.mainblue,
         child: TabBar(
+          
           padding: EdgeInsets.zero,
           indicatorSize: TabBarIndicatorSize.tab,
           indicatorColor: Colors.white,

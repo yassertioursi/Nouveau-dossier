@@ -621,20 +621,22 @@ class Create_Post {
                                           backgroundColor: Colors.black,
                                         ),
                                         onPressed: () async {
-                                          final LocationEntity location =
-                                              await Navigator.of(context).push(
-                                                  SlideRight(
-                                                      Page: MapPlaceSelector(),
-                                                      begin: Offset(1, 0),
-                                                      end: Offset(0, 0)));
-
                                           if (Workers_Cat().cats.contains(
                                               providerdrop.dropdownValue)) {
-                                            if (formstate_title.currentState!
-                                                    .validate() &&
+                                            if (formstate_title.currentState!.validate() &&
                                                 formstate_price.currentState!
+                                                    .validate() &&
+                                                formstate_location_title
+                                                    .currentState!
                                                     .validate()) {
                                               if (!providerloading.isLoading) {
+                                                final LocationEntity location =
+                                                    await Navigator.of(context)
+                                                        .push(SlideRight(
+                                                            Page:
+                                                                MapPlaceSelector(),
+                                                            begin: Offset(1, 0),
+                                                            end: Offset(0, 0)));
                                                 providerloading.setLoad(true);
                                                 CreatePostService
                                                     create_post_ser =

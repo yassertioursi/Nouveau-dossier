@@ -1,5 +1,6 @@
 // ignore_for_file: sort_child_properties_last
 
+import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/Ok_Provider.dart';
@@ -140,7 +141,12 @@ class DealItem extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  print("+++");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            WorkerProfile(workerId: workerId)),
+                  );
                 },
                 child: Row(
                   children: [

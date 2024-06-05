@@ -1,6 +1,7 @@
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/worker_two.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/favorite_cubit/favorite_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/favorite.dart';
+import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +22,9 @@ class _BuildFavoriteState extends State<BuildFavorite> {
         if (!(state is Loading && cubit.workers.isEmpty)) {
           return _favorite(cubit.workers);
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(
+            color: MyColors.mainblue,
+          ));
         }
       },
     );

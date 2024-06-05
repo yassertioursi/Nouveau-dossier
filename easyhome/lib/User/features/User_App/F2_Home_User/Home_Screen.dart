@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/GetBestWorker.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/Notifications/NotificationsWidget.dart';
@@ -303,9 +304,16 @@ class HomeUser extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
                           child: InkWell(
                             onTap: () {
-                              print("++");
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WorkerProfile(
+                                        workerId: getBestWorkers
+                                            .bestWorkers![index]["_id"])),
+                              );
                             },
                             child: Worker_One(
+                              id: getBestWorkers.bestWorkers![index]["_id"],
                               name: getBestWorkers.bestWorkers![index]
                                       ["name"] ??
                                   "",

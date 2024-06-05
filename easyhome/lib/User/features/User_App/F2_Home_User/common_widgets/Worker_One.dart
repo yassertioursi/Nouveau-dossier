@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // ignore: must_be_immutable
 class Worker_One extends StatelessWidget {
   String name;
+  String id; 
 
   String wilaya;
   String profilePicture;
@@ -15,6 +16,7 @@ class Worker_One extends StatelessWidget {
   String job;
   bool isCertified;
   Worker_One({
+    required this.id , 
     required this.name,
     required this.wilaya,
     required this.rating,

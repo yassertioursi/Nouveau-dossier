@@ -7,6 +7,7 @@ import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/p
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/profile_Page/user_informations.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/user.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
+import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,7 +38,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
 
           return _buildBody(userDetails);
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator( color : MyColors.mainblue));
         }
       },
     );
@@ -70,6 +71,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
               myTabBar(),
               const Expanded(
                 child: TabBarView(
+                  
                   children: [
                     BuildPost(),
                     BuildFavorite(),

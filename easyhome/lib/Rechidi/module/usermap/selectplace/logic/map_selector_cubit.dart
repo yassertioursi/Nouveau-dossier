@@ -11,7 +11,7 @@ class MapSelectorCubit extends Cubit<MapSelectorState> {
   MapSelectorCubit() : super(const MapSelectorState.initial());
 
   CameraPosition cameraPosition = const CameraPosition(
-    target: LatLng(30.5670197, 4.6911217),
+    target: LatLng(35.2053765, -0.7137929),
     zoom: 15,
   );
   final Completer<GoogleMapController> controller = Completer();

@@ -2,7 +2,10 @@
 
 import 'dart:io';
 
+import 'package:easyhome/Rechidi/models/location.dart';
+import 'package:easyhome/Rechidi/module/usermap/selectplace/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Animation/animation.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F3_Create_Post/commonWidgets/Drop__jobs.dart';
 
@@ -26,10 +29,13 @@ import '../../F3_Create_Post/Services/drop_jobs_provider.dart';
 
 class UpdateMyPost {
   GlobalKey<FormState> formstate_title = GlobalKey();
+  GlobalKey<FormState> formstate_locationTitle = GlobalKey();
   GlobalKey<FormState> formstate_desc = GlobalKey();
   GlobalKey<FormState> formstate_price = GlobalKey();
   TextEditingController priceController = TextEditingController();
   TextEditingController titleController = TextEditingController();
+
+  TextEditingController titleLocationController = TextEditingController();
   TextEditingController descController = TextEditingController();
   var Image_Controller = PageController();
 
@@ -39,8 +45,10 @@ class UpdateMyPost {
     await getmyPost.getpost(TokenUser.token, postId);
     titleController.text = getmyPost.post["title"] ?? "";
     descController.text = getmyPost.post["description"] ?? "";
-    priceController.text = getmyPost.post["price"] ?? "".toString();
-    showModalBottomSheet(
+    priceController.text = getmyPost.post["price"].toString() ?? "".toString();
+    titleLocationController.text =
+        getmyPost.post["titleLocation"] ?? "".toString();
+    await showModalBottomSheet(
         backgroundColor: Colors.white,
         useSafeArea: true,
         isScrollControlled: true,
@@ -222,6 +230,71 @@ class UpdateMyPost {
                               ),
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
+                            child: Form(
+                              key: formstate_locationTitle,
+                              child: TextFormField(
+                                onChanged: (value) {
+                                  formstate_title.currentState!.validate();
+                                },
+                                controller: titleLocationController,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter a title for your location.";
+                                  }
+                                  return null;
+                                },
+                                maxLengthEnforcement:
+                                    MaxLengthEnforcement.enforced,
+                                maxLength: 70,
+                                cursorColor: MyColors.mainblue,
+                                decoration: const InputDecoration(
+                                  label: Text(
+                                    "Location Title :",
+                                    style: TextStyle(
+                                      color: MyColors.mainblue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  focusColor: Colors.white,
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    borderSide: BorderSide(
+                                      width: 1.5,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    borderSide: BorderSide(
+                                        width: 2, color: Colors.black),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    borderSide: BorderSide(
+                                      width: 2,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    borderSide: BorderSide(
+                                      width: 1.5,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -334,19 +407,32 @@ class UpdateMyPost {
                                                 .validate() &&
                                             Workers_Cat()
                                                 .cats
-                                                .contains(selectedJob)) {
+                                                .contains(selectedJob) &&
+                                            formstate_locationTitle
+                                                .currentState!
+                                                .validate()) {
                                           if (!providerloading.isLoading) {
+                                            final LocationEntity location =
+                                                await Navigator.of(context)
+                                                    .push(SlideRight(
+                                                        Page:
+                                                            MapPlaceSelector(),
+                                                        begin: Offset(1, 0),
+                                                        end: Offset(0, 0)));
                                             providerloading.setLoad(true);
                                             UpdatePostService updatemyPost =
                                                 UpdatePostService();
                                             if (await updatemyPost.updatePost(
-                                                titleController.text,
-                                                priceController.text,
-                                                descController.text,
-                                                selectedJob,
-                                                postId,
-                                                TokenUser.token)) {
-                                              Navigator.pop(context);
+                                              titleController.text,
+                                              priceController.text,
+                                              descController.text,
+                                              selectedJob,
+                                              postId,
+                                              titleLocationController.text,
+                                              location.latitude,
+                                              location.longitude,
+                                              TokenUser.token,
+                                            )) {
                                               Navigator.pop(context);
                                               context.showSuccessMessage(
                                                   "Success",

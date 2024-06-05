@@ -1,6 +1,7 @@
 // ignore: file_names
 // ignore_for_file: must_be_immutable
 
+import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
@@ -118,7 +119,12 @@ class AppItem extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                print(" +++ "); //TODO
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WorkerProfile(workerId: workerId),
+                  ),
+                ); //TODO
               },
               child: Row(
                 children: [
