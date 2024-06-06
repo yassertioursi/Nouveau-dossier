@@ -66,7 +66,6 @@ class WorkerProfile extends StatelessWidget {
     );
   }
 
-<<<<<<< HEAD
   _call() {
     return Container(
       height: 70,
@@ -89,7 +88,4 @@ class WorkerProfile extends StatelessWidget {
       ),
     );
   }
-=======
-
->>>>>>> a04c8d2286deecf5118e794f476b6f4fda6415b5
 }
