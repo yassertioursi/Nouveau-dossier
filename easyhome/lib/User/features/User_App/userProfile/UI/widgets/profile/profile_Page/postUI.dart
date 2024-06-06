@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/common_widgets/SearchWorkers.dart';
 import 'package:easyhome/User/features/User_App/F4_Deals_Apps/Service/Get_PostByID.dart';
@@ -146,8 +147,7 @@ Widget postUI(BuildContext context, PData post) {
                           ));
                     },
                     child: Icon(
-                      Icons.send,  
-                      
+                      Icons.send,
                       color: Colors.black,
                       size: 30,
                     ),
@@ -361,27 +361,23 @@ Widget _popupmenu(PData post) {
     color: Colors.white,
     child: PopupMenuButton(
       itemBuilder: (context) => [
-        PopupMenuItem(
-          textStyle: const TextStyle(
-            fontSize: 35,
-            fontWeight: FontWeight.w600,
-          ),
-          child: InkWell(
-            onTap: () async {
-              UpdateMyPost updateMyPost = UpdateMyPost();
-              Navigator.pop(context);
-              updateMyPost.update_post(context, post.id!);
-            },
-            child: const Row(
-              children: [
-                Icon(Icons.edit),
-                Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text("Edit Post")),
-              ],
-            ),
-          ),
-        ),
+        // PopupMenuItem(
+        //   textStyle: const TextStyle(
+        //     fontSize: 35,
+        //     fontWeight: FontWeight.w600,
+        //   ),
+        //   child: InkWell(
+        //     onTap: () async {},
+        //     child: const Row(
+        //       children: [
+        //         Icon(Icons.edit),
+        //         Padding(
+        //             padding: EdgeInsets.only(left: 10),
+        //             child: Text("Edit Post")),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         PopupMenuItem(
             textStyle: const TextStyle(
               fontSize: 35,
