@@ -13,7 +13,7 @@ class _WorkerSignUpWebService implements WorkerSignUpWebService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://easyhome-lcvx.onrender.com/api/v1/auth';
+    baseUrl ??= 'https://easyhome-lcvx.onrender.com';
   }
 
   final Dio _dio;
@@ -50,12 +50,13 @@ class _WorkerSignUpWebService implements WorkerSignUpWebService {
     ));
 
     _data.files.add(MapEntry(
-      'idPicture',
-      MultipartFile.fromFileSync(idPicture.file.path,
+        'idPicture',
+        MultipartFile.fromFileSync(
+          idPicture.file.path,
           filename: idPicture.file.path.split(Platform.pathSeparator).last,
-          contentType: MediaType.parse('image/jpeg')),
-    ));
-    
+          contentType: MediaType('image', 'jpeg'),
+        )));
+
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'POST',
       headers: _headers,
@@ -63,7 +64,7 @@ class _WorkerSignUpWebService implements WorkerSignUpWebService {
     )
         .compose(
           _dio.options,
-          '/signupAsWorker',
+          '/api/v1/auth/signupAsWorker',
           queryParameters: queryParameters,
           data: _data,
         )

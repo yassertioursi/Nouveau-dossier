@@ -33,7 +33,7 @@ final locator = GetIt.instance;
 
 Future<void> setupLocator() async {
   locator.registerLazySingleton(() => DioFactory.getDio());
-  await SharedPrefHelper.init();
+  
 
   locator.registerLazySingleton(() => WorkerSignUpWebService(locator<Dio>()));
   locator.registerLazySingleton(() => WorkerSignUpRepository(locator()));

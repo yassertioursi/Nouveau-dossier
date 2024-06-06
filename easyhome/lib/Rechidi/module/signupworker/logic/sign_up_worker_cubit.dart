@@ -60,6 +60,12 @@ class SignUpWorkerCubit extends Cubit<SignUpWorkerState> {
       return;
     }
 
+    location = LocationEntity(
+      latitude: location!.latitude,
+      longitude: location!.longitude,
+      title: locationController.text,
+    );
+
     await _webService.signUpWorker(
       WorkerSignUpRequest(
         job: jobController.text,

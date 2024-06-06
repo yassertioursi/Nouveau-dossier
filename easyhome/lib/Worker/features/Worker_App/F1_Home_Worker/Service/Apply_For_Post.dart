@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
-  import 'package:easyhome/Rechidi/core/injection/index.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class ApplyForPost {
-Dio dio = locator<Dio>();
-
+  Dio dio = locator<Dio>();
 
   Future<bool> applyforPost(
       String jwtToken, String postId, String description) async {

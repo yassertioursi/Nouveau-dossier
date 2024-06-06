@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
-  import 'package:easyhome/Rechidi/core/injection/index.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class GetPost {
-Dio dio = locator<Dio>();
-
+  Dio dio = locator<Dio>();
 
   Map? post;
 

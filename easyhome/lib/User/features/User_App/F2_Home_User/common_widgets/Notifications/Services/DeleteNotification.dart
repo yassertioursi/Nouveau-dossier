@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
-  import 'package:easyhome/Rechidi/core/injection/index.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class DeleteNotification {
-Dio dio = locator<Dio>();
-
+  Dio dio = locator<Dio>();
 
   Future<bool> deleteNot(String jwtToken, String idOfNotification) async {
     String url =
