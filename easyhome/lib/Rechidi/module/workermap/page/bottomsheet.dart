@@ -33,7 +33,10 @@ class _BottomSheet extends StatelessWidget {
         _divider(width: 50),
         _buildDescription(_post.description),
         height(12),
-        _buildApplyButton(apply: () {}),
+        _buildApplyButton(apply: () {
+            
+            Appliy
+        }),
       ],
     );
   }
