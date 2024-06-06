@@ -29,7 +29,6 @@ class _UserProfileScreenState extends State<UserProfileScreen>
   Widget buildBloc() {
     return BlocBuilder<MyCubit, MyState>(
       builder: (context, state) {
-        BlocProvider.of<MyCubit>(context).emitGetUserDetails(AuthCache.userId!);
         if (state is GetUserDetails) {
           userDetails = state.user;
 
@@ -87,7 +86,8 @@ class _UserProfileScreenState extends State<UserProfileScreen>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MyCubit(locator()),
+      create: (context) =>
+          MyCubit(locator())..emitGetUserDetails(AuthCache.userId!),
       child: Scaffold(
         body: Stack(
           children: [

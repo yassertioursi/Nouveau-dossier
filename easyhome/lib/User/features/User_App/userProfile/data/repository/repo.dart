@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/delete_post.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/favorite.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/post.dart';
@@ -8,7 +9,6 @@ import 'package:easyhome/Worker/features/Worker_App/workerProfile/data/model/cer
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/data/model/portfolio.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/data/model/reviews.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/data/model/saved_posts.dart';
-import 'package:easyhome/Worker/features/Worker_App/workerProfile/data/model/switch.dart';
 import 'package:easyhome/Worker/features/Worker_App/workerProfile/data/model/worker.dart';
 
 class Repo {
@@ -76,7 +76,12 @@ class Repo {
     return await webServices.deleteCertificate(certificateID);
   }
 
-  Future<Switch> switche() async {
-    return await webServices.switche();
+  Future<void> switche() async {
+    final x = await webServices.switchToWorker();
+    print('CHECK TOKEN ${AuthCache.token}');
+    await AuthCache.setToken(x.token!);
+    print('------------------------');
+    print('CHECK TOKEN ${AuthCache.token}');
+    await AuthCache.setIsWorker(true);
   }
 }

@@ -11,7 +11,7 @@ class _Slider extends StatelessWidget {
         return Slider(
           value: cubit.radius,
           max: 100,
-          divisions: 5,
+          divisions: 10,
           activeColor: AppColors.primary,
           label: '${cubit.radius.round()} Km',
           onChanged: (double value) {

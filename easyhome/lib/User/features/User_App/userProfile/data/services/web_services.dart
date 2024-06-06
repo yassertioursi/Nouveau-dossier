@@ -65,5 +65,5 @@ abstract class WebServices {
   Future<RemFav> deleteCertificate(@Path("_id") String id);
 
   @PATCH("auth/switch")
-  Future<Switch> switche();
+  Future<Switch> switchToWorker();
 }

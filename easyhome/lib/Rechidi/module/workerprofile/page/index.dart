@@ -46,7 +46,7 @@ class WorkerProfile extends StatelessWidget {
   final bool _isMe;
   @override
   Widget build(BuildContext context) {
-    print('rechidia >> ${AuthCache.userId}');
+    
     return BlocProvider(
       create: (context) => WorkerProfileCubit(locator())..fetchProfile(_id),
       child: _Scaffold(
@@ -63,4 +63,6 @@ class WorkerProfile extends StatelessWidget {
       ),
     );
   }
+
+
 }

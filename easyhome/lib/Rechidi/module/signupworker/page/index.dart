@@ -1,6 +1,7 @@
-
+import 'package:easyhome/Rechidi/core/constants/statics.dart';
 import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/Rechidi/core/extension/snackbar.dart';
+import 'package:easyhome/User/features/User_App/All_5_features.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,7 @@ class SignUpWorkerPage extends StatelessWidget {
             error: (message) {
               context.showSnackBarError(message);
             },
+            submitted: () => context.to(const Home_User()),
           );
         },
         child: const _Scaffold(

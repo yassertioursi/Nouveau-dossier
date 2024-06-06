@@ -8,8 +8,8 @@ class SwitchCubit extends Cubit<SwitchState> {
 
   Future<void> emitSwitche() async {
     emit(Loading());
-    await repo.switche().then((token) {
-      emit(Switche(switchDete: token));
-    });
+    await repo.switche();
+
+    emit(Switche());
   }
 }

@@ -6,13 +6,15 @@ part of 'datasource.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_LocationResponse _$LocationResponseFromJson(Map<String, dynamic> json) =>
-    _LocationResponse(
-      posts: (json['posts'] as List<dynamic>?)
-              ?.map((e) => PostCard.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
-    );
+_LocationResponse _$LocationResponseFromJson(Map<String, dynamic> json) {
+  
+  return _LocationResponse(
+    posts: (json['posts'] as List<dynamic>?)
+            ?.map((e) => PostCard.fromJson(e))
+            .toList() ??
+        const [],
+  );
+}
 
 Map<String, dynamic> _$LocationResponseToJson(_LocationResponse instance) =>
     <String, dynamic>{
@@ -63,7 +65,7 @@ class _PostsMapDataSource implements PostsMapDataSource {
     final queryParameters = <String, dynamic>{
       r'lat': lat,
       r'lng': lng,
-      r'radius': radius,
+      r'diameter': radius,
       r'job': job,
     };
     queryParameters.removeWhere((k, v) => v == null);
