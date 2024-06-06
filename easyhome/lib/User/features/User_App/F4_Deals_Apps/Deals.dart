@@ -1,5 +1,6 @@
 // ignore_for_file: sort_child_properties_last
 
+import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
@@ -146,12 +147,16 @@ class DealItem extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.push(
+                    context.to(WorkerProfile(
+                                workerId: workerId ?? ""));
+             /*     Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
                             WorkerProfile(workerId: workerId)),
                   );
+                  */
+                  
                 },
                 child: Row(
                   children: [

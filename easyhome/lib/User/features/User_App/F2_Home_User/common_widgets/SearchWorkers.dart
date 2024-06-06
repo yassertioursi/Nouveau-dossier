@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
+import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_search.dart';
@@ -230,9 +232,7 @@ class SearchWorkers extends SearchDelegate {
                 );
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
-              } else if (!snapshot.hasData ||
-                  search.workers == null
-                ) {
+              } else if (!snapshot.hasData || search.workers == null) {
                 return Center(
                     child: Text(
                   'No Internet Connection',
@@ -364,7 +364,16 @@ class WorkersList extends StatelessWidget {
                       return Stack(children: [
                         InkWell(
                           onTap: () {
-                            print("++");
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => WorkerProfile(
+                            //       workerId: search.workers![index]["_id"] ?? "",
+                            //     ),
+                            //   ),
+                            // );
+                            context.to(WorkerProfile(
+                                workerId: search.workers![index]["_id"] ?? ""));
                           },
                           child: Worker_two(
                             name: search.workers![index]["name"] ?? "",

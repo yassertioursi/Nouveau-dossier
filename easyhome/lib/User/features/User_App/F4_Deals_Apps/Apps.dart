@@ -1,6 +1,7 @@
 // ignore: file_names
 // ignore_for_file: must_be_immutable
 
+import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
@@ -124,12 +125,8 @@ class AppItem extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WorkerProfile(workerId: workerId),
-                  ),
-                ); //TODO
+               context.to(WorkerProfile(
+                                workerId: workerId ?? ""));//TODO
               },
               child: Row(
                 children: [

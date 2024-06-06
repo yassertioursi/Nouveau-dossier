@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
@@ -350,7 +351,7 @@ class HomeUser extends StatelessWidget {
                             padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
                             child: InkWell(
                               onTap: () {
-                                Navigator.push(
+                                /*Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => WorkerProfile(
@@ -359,6 +360,11 @@ class HomeUser extends StatelessWidget {
                                     ),
                                   ),
                                 );
+
+                                */
+                                context.to(WorkerProfile(
+                                    workerId: getBestWorkers.bestWorkers![index]
+                                        ["_id"]!));
                               },
                               child: Worker_One(
                                 id: getBestWorkers.bestWorkers![index]["_id"],

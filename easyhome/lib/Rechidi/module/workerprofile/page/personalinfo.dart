@@ -28,7 +28,6 @@ class _PersonalInfo extends StatelessWidget {
                   children: [
                     _buildProfilePicture(worker.profilePicture!),
                     height(8),
-                    
                     _buildName(worker.name!),
                     _buildBio(worker.bio),
                   ],
@@ -142,7 +141,7 @@ class _PersonalInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            '$experience',
+            '${experience.toInt()}',
             style: TextStyle(
               color: AppColors.grey,
               fontSize: 15.sp,

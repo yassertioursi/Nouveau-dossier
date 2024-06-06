@@ -33,8 +33,9 @@ class _Scaffold extends StatelessWidget {
             _drawer,
             _floationgActionButton,
           ),
-          fallback: (context) =>
-              const Scaffold(body: Center(child: CircularProgressIndicator())),
+          fallback: (context) => const Scaffold(
+              body: Center(
+                  child: CircularProgressIndicator(color: MyColors.mainblue))),
         );
       },
     );

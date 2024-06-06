@@ -70,12 +70,6 @@ class _DrawerItemListState extends State<DrawerItemList> {
           onTap: () {
             context.to(EditProfile(worker: UserEntity.fromUser(widget.user)));
           }),
-      Divider(
-        thickness: 0.8.sp,
-        endIndent: 16,
-        indent: 16,
-        color: Colors.black,
-      ),
       drawerItem(
         myicon: Icons.lock,
         text: "Change Password",
@@ -89,6 +83,12 @@ class _DrawerItemListState extends State<DrawerItemList> {
                 ),
               ));
         },
+      ),
+      Divider(
+        thickness: 0.8.sp,
+        endIndent: 16,
+        indent: 16,
+        color: Colors.black,
       ),
       drawerItem(
         myicon: Icons.logout,
