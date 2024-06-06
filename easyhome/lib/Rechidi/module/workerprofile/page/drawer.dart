@@ -58,6 +58,10 @@ class _Drawer extends StatelessWidget {
           drawerItem(
             myicon: Icons.logout,
             text: "Log Out",
+            onTap: () {
+              AuthCache.logOut();
+              context.off(Login());
+            },
           )
 
           // ...[

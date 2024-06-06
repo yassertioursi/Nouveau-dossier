@@ -45,12 +45,11 @@ class AuthCache {
   static Future<void> removeToken() async =>
       await SharedPrefHelper.remove('TOKEN');
 
-   
-
   static Future<void> removeUserId() async =>
       await SharedPrefHelper.remove('USER_ID');
 
-  
-
-
+  static Future<void> logOut() async {
+    await removeToken();
+    await removeUserId();
+  }
 }
