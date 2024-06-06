@@ -51,44 +51,21 @@ class WorkerProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => WorkerProfileCubit(locator())..fetchProfile(_id),
-      child: Builder(builder: (context) {
-        final phone = context.read<WorkerProfileCubit>().worker!.phoneNumber!;
-        return _Scaffold(
-          personalInfo: _PersonalInfo(_isMe),
-          workInfo: const _WorkerInfo(),
-          tabView: _TabView(
-            portfolio: _Portfolio(_isMe),
-            reviews: const _Reviews(),
-            certificates: _Certificates(_isMe),
-          ),
-          drawer: const _Drawer(),
-          floationgActionButton:
-              _isMe ? _FloatingActionButton(_isMe) : _call(phone),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        );
-      }),
+      child: _Scaffold(
+        personalInfo: _PersonalInfo(_isMe),
+        workInfo: const _WorkerInfo(),
+        tabView: _TabView(
+          portfolio: _Portfolio(_isMe),
+          reviews: const _Reviews(),
+          certificates: _Certificates(_isMe),
+        ),
+        drawer: const _Drawer(),
+        floationgActionButton:
+            _FloatingActionButton(_isMe) ,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      ),
     );
   }
 
-  Widget _call(String phone) {
-    return Container(
-      height: 70,
-      width: 70,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(60),
-        color: Colors.green,
-      ),
-      child: IconButton(
-        icon: Icon(
-          // TODO implement the Create portfolio element button
-          Icons.call,
-          size: 45.sp,
-        ),
-        color: Colors.white,
-        onPressed: () async {
-          await FlutterPhoneDirectCaller.callNumber(phone);
-        },
-      ),
-    );
-  }
+  
 }

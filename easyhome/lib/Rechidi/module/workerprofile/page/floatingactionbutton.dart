@@ -23,12 +23,10 @@ class _FloatingActionButton extends StatelessWidget {
               _PopUpItem(
                 icon: Icons.add,
                 title: 'Add new post',
-                onTap: ()async {
+                onTap: () async {
                   final post = await context
                       .to<PortfolioPostEntity>(const CreateEditPost(null));
                   cubit.addPost(post);
-                  
-                  
                 },
               ),
             ].map((item) {
@@ -56,7 +54,26 @@ class _FloatingActionButton extends StatelessWidget {
               ),
             ),
           )
-        : const SizedBox();
+        : Container(
+            height: 70,
+            width: 70,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(60),
+              color: Colors.green,
+            ),
+            child: IconButton(
+              icon: Icon(
+                // TODO implement the Create portfolio element button
+                Icons.call,
+                size: 45.sp,
+              ),
+              color: Colors.white,
+              onPressed: () async {
+                await FlutterPhoneDirectCaller.callNumber(cubit.worker!.phone!);
+              },
+            ),
+          );
+    ;
   }
 }
 

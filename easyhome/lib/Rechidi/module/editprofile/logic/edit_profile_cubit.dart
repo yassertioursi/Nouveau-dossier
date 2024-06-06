@@ -22,7 +22,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         super(const EditProfileState.initial()) {
     name.text = user.name ?? '';
     bio.text = user.bio ?? '';
-    phone.text = user.phoneNumber ?? '';
+    phone.text = user.phone ?? '';
     email.text = user.email ?? '';
     facebook.text = user.facebook ?? '';
     wilaya.text = user.willaya ?? '';
