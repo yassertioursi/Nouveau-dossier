@@ -1,15 +1,21 @@
 import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/Rechidi/models/user.dart';
 import 'package:easyhome/Rechidi/module/editprofile/page/index.dart';
 import 'package:easyhome/Rechidi/module/signupworker/page/index.dart';
+import 'package:easyhome/Rechidi/module/workerprofile/logic/worker_profile_cubit.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
+import 'package:easyhome/User/features/User_App/userProfile/BloC/password_Cubit/passwrod_cubit.dart';
+import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_profile/changePassword/change_password.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/drawer_items.dart';
 
 import 'package:easyhome/User/features/User_App/userProfile/data/model/user.dart';
+import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
 import 'package:easyhome/Worker/features/Worker_App/All_4_features.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DrawerItemList extends StatefulWidget {
@@ -40,6 +46,7 @@ class _DrawerItemListState extends State<DrawerItemList> {
           text: "Switch To worker",
           onTap: () {
             if (user.user!.workerAcountVerified!) {
+              context.read<WorkerProfileCubit>().switchAccount();
               context.to(const Home_Worker());
             } else if (user.user?.role == "Worker") {
               showCustomSnackBar();
