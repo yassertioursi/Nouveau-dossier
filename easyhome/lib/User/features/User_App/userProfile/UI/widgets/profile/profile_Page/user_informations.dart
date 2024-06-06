@@ -102,7 +102,7 @@ Widget _contact() {
                 children: [
                   _infoItems(Icons.mail, userDetails.user?.email ?? ''),
                   _infoItems(Icons.phone, userDetails.user?.phoneNumber ?? ''),
-                  if (userDetails.user?.facebook?.isEmpty == true)
+                  if (userDetails.user?.facebook?.isEmpty == false)
                     _infoItems(
                         Icons.facebook, userDetails.user?.facebook ?? ''),
                 ],
