@@ -150,6 +150,8 @@ class _HomeWorkerState extends State<HomeWorker> {
                             Post: providermyrequests.requests[index],
                             index: index,
                             providermyrequests: providermyrequests,
+                            phoneNumber: providermyrequests.requests[index]
+                                ["post"]["user"]["phoneNumber"],
                           ),
                         );
                       },
@@ -183,6 +185,7 @@ class RequestItem extends StatelessWidget {
   bool isSaved;
   Map application;
   Map Post;
+  String phoneNumber;
   String requestId;
 
   RequestItem({
@@ -203,6 +206,7 @@ class RequestItem extends StatelessWidget {
     required this.isSaved,
     required this.application,
     required this.Post,
+    required this.phoneNumber,
   }) : super(key: key);
 
   @override
@@ -248,7 +252,7 @@ class RequestItem extends StatelessWidget {
                     onTap: () {
                       VisitProfileUser visitProfileUser = VisitProfileUser();
                       visitProfileUser.visitProfileUser(context, userName,
-                          userProfilePicture, userWilaya, "");
+                          userProfilePicture, userWilaya, phoneNumber);
                     },
                     child: Row(
                       children: [

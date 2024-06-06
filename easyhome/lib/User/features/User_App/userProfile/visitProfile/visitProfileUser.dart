@@ -7,6 +7,7 @@ import 'package:easyhome/User/features/User_App/F3_Create_Post/Provider/Provider
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 import 'package:provider/provider.dart';
 
@@ -106,7 +107,10 @@ class VisitProfileUser {
                               Padding(
                                 padding: const EdgeInsets.only(right: 15.0),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: ()async { 
+                                     await FlutterPhoneDirectCaller.callNumber(
+             phoneNumber );
+                                  },
                                   child: Icon(
                                     Icons.phone,
                                     color: MyColors.mainblue,

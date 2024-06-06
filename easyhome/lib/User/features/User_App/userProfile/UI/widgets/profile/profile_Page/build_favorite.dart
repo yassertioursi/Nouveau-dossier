@@ -50,7 +50,7 @@ class _BuildFavoriteState extends State<BuildFavorite> {
                       favworker[index].name!,
                       favworker[index].profilePicture!,
                       favworker[index].wilaya!,
-                      favworker[index].phoneNumber!);
+                      favworker[index].phoneNumber! ?? "0");
 
                   // TODO
                 },

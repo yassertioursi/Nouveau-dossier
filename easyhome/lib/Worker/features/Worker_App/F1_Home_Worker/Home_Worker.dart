@@ -20,6 +20,7 @@ import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/common_widget
 import 'package:easyhome/Worker/features/Worker_App/F1_Home_Worker/common_widgets/SendApp.dart';
 import 'package:easyhome/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -254,9 +255,11 @@ class _HomeWorkerState extends State<HomeWorker> {
                     return SafeArea(
                       child: PostItem(
                         userName: getAllPosts.posts![index]["post"]["user"]
-                            ["name"] ?? "",
+                                ["name"] ??
+                            "",
                         userId: getAllPosts.posts![index]["post"]["user"]
-                            ["_id"] ?? "",
+                                ["_id"] ??
+                            "",
                         userWilaya: getAllPosts.posts![index]["post"]["user"]
                             ["wilaya"],
                         postId: getAllPosts.posts![index]["post"]["_id"],
@@ -273,6 +276,9 @@ class _HomeWorkerState extends State<HomeWorker> {
                         isSaved: getAllPosts.posts![index]["isSaved"],
                         application: getAllPosts.posts![index]["application"],
                         Post: getAllPosts.posts![index],
+                        phoneNumber: getAllPosts.posts![index]["post"]["user"]
+                                ["phoneNumber"] ??
+                            "0",
                       ),
                     );
                   },
@@ -301,6 +307,8 @@ class PostItem extends StatelessWidget {
   List postImages;
   bool isSaved;
   Map application;
+  String phoneNumber;
+
   Map Post;
 
   PostItem({
@@ -317,6 +325,7 @@ class PostItem extends StatelessWidget {
     required this.postImages,
     required this.isSaved,
     required this.application,
+    required this.phoneNumber,
     required this.Post,
   }) : super(key: key);
 
@@ -352,9 +361,8 @@ class PostItem extends StatelessWidget {
             InkWell(
               onTap: () {
                 VisitProfileUser visitProfileUser = VisitProfileUser();
-                visitProfileUser.visitProfileUser(
-                    context, userName, userProfilePicture, userWilaya, "");
-                //TODO
+                visitProfileUser.visitProfileUser(context, userName,
+                    userProfilePicture, userWilaya, phoneNumber);
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 12.0, right: 7),

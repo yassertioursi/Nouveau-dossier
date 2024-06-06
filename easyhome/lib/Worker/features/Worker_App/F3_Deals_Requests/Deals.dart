@@ -56,7 +56,7 @@ class DealWorker extends StatelessWidget {
                   status: getdeals.deals[index]["status"],
                   userId: getdeals.deals[index]["user"]["_id"],
                   wilaya: getdeals.deals[index]["user"]["wilaya"],
-                  deal: getdeals.deals[index],
+                  deal: getdeals.deals[index], phoneNumber:getdeals.deals[index]["user"]["phoneNumber"] ?? "",
                 );
               },
             ),
@@ -77,6 +77,7 @@ class DealItem extends StatelessWidget {
   String userId;
   String name;
   String wilaya;
+  String phoneNumber  ; 
   String profilePicture;
   String title;
   String description;
@@ -89,6 +90,7 @@ class DealItem extends StatelessWidget {
     required this.userId,
     required this.name,
     required this.wilaya,
+    required this.phoneNumber , 
     required this.profilePicture,
     required this.title,
     required this.description,
@@ -130,7 +132,7 @@ class DealItem extends StatelessWidget {
                 onTap: () {
                   VisitProfileUser visitProfileUser = VisitProfileUser();
                   visitProfileUser.visitProfileUser(
-                      context, name, profilePicture, wilaya, "");
+                      context, name, profilePicture, wilaya, phoneNumber );
                 },
                 child: Row(
                   children: [
