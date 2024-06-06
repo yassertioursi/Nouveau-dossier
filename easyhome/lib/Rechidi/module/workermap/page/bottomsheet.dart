@@ -24,7 +24,7 @@ class _BottomSheet extends StatelessWidget {
             const Spacer(),
             _buildCallButton(call: () async {
               await FlutterPhoneDirectCaller.callNumber(
-             _post.phone);
+             _post.user.phone!);
             }),
           ],
         ),
@@ -35,7 +35,26 @@ class _BottomSheet extends StatelessWidget {
         height(12),
         _buildApplyButton(apply: () {
             
-            Appliy
+           showModalBottomSheet(
+                                backgroundColor: Colors.white,
+                                useSafeArea: true,
+                                isScrollControlled: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20.0),
+                                    topRight: Radius.circular(20.0),
+                                  ),
+                                ),
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SendAppWidget(
+                                    postId: _post.id,
+                                    onAppCreated: (bool status) {
+                                  
+                                    },
+                                  );
+                                },
+                              );
         }),
       ],
     );

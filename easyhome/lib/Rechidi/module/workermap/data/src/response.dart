@@ -20,12 +20,14 @@ class PostCard {
   final String description;
   final LocationEntity location;
   final UserEntity user;
+  final  String id   ; 
 
   PostCard({
     required this.title,
     required this.description,
     required this.location,
     required this.user,
+    required this.id,
   });
 
   factory PostCard.fromJson(Map<String, dynamic> json) =>
