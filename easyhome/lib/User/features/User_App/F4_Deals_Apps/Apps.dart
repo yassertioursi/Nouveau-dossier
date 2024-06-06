@@ -2,6 +2,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
+import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
@@ -45,23 +46,26 @@ class App extends StatelessWidget {
             return Text('Error: ${snapshot.error}');
           } else {
             List<String> stss = List.filled(getapps.apps.length, '');
-            return ListView.builder(
-                itemCount: getapps.apps.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return AppItem(
-                    postTitle: getapps.apps[index]["post"]["title"],
-                    appId: getapps.apps[index]["_id"],
-                    name: getapps.apps[index]["worker"]["name"],
-                    job: getapps.apps[index]["worker"]["job"],
-                    isCertified: getapps.apps[index]["worker"]["isCertified"],
-                    profilePicture: getapps.apps[index]["worker"]
-                        ["profilePicture"],
-                    description: getapps.apps[index]["description"],
-                    workerId: getapps.apps[index]["worker"]["_id"],
-                    stss: stss,
-                    index: index,
-                  );
-                });
+            return NoItemsWidget(
+              condition: getapps.apps.isNotEmpty,
+              child: ListView.builder(
+                  itemCount: getapps.apps.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return AppItem(
+                      postTitle: getapps.apps[index]["post"]["title"],
+                      appId: getapps.apps[index]["_id"],
+                      name: getapps.apps[index]["worker"]["name"],
+                      job: getapps.apps[index]["worker"]["job"],
+                      isCertified: getapps.apps[index]["worker"]["isCertified"],
+                      profilePicture: getapps.apps[index]["worker"]
+                          ["profilePicture"],
+                      description: getapps.apps[index]["description"],
+                      workerId: getapps.apps[index]["worker"]["_id"],
+                      stss: stss,
+                      index: index,
+                    );
+                  }),
+            );
           }
         },
       ),

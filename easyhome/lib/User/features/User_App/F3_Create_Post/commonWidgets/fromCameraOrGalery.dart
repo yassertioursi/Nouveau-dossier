@@ -36,9 +36,9 @@ class CameraOrGalery extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "Upload Images",
+                    "Upload Images from :",
                     style: TextStyle(
-                      fontSize: 21,
+                      fontSize: 18,
                       color: Color(0xFF3E3E3E),
                       fontWeight: FontWeight.bold,
                     ),
@@ -77,7 +77,7 @@ class CameraOrGalery extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "From Camera",
+                        "Camera",
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
@@ -102,7 +102,7 @@ class CameraOrGalery extends StatelessWidget {
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: const Text(
-                      "From Galery",
+                      "Galery",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),

@@ -36,7 +36,7 @@ class SendAppWidget extends StatelessWidget {
       ],
       child: Container(
         padding: const EdgeInsets.only(top: 20),
-        height: MediaQuery.of(context).size.height / 2 + 60,
+        height: MediaQuery.of(context).size.height-40,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(

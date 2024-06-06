@@ -63,7 +63,7 @@ class _PostsMapDataSource implements PostsMapDataSource {
     final queryParameters = <String, dynamic>{
       r'lat': lat,
       r'lng': lng,
-      r'radius': radius,
+      r'diameter': radius,
       r'job': job,
     };
     queryParameters.removeWhere((k, v) => v == null);

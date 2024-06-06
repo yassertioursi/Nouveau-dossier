@@ -66,10 +66,11 @@ class ShowMapCubit extends Cubit<MapState> {
 
   Future<void> fetchWorkerList() async {
     emit(const MapState.fetchingWorkers());
+    
     final result = await _repository.getLocations(
       lat: _myLocation.latitude,
       long: _myLocation.longitude,
-      radius: _radius * 1000,
+      radius: _radius * 2000,
       job: _job,
     );
 

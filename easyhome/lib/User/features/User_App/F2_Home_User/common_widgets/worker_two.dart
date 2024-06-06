@@ -222,7 +222,7 @@ class Worker_two extends StatelessWidget {
                                 style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                "$experience",
+                                "${experience.toInt()}",
                                 style:
                                     const TextStyle(color: Color(0xFFC7C7C7)),
                               ),

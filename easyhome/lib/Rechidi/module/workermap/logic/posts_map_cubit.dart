@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-
 import '../../../core/constants/statics.dart';
 
 part 'posts_map_state.dart';
@@ -24,7 +23,7 @@ class PostsMapCubit extends Cubit<PostsMapState> {
   LatLng myLocation = const LatLng(35.2053765, -0.7137929);
   CameraPosition cameraPosition =
       const CameraPosition(target: LatLng(35.2053765, -0.7137929), zoom: 15);
-  List<PostCard> _posts = [];
+  final List<PostCard> _posts = [];
 
   Circle get circle => Circle(
         circleId: const CircleId('ME'),
@@ -71,10 +70,13 @@ class PostsMapCubit extends Cubit<PostsMapState> {
     final posts = await _repository.getPosts(
       lat: myLocation.latitude,
       lng: myLocation.longitude,
-      radius: raduis * 1000,
+      radius: raduis * 2000,
       job: _job,
     );
-    _posts = posts;
+
+    _posts.clear();
+    _posts.addAll(posts);
+    
     emit(const PostsMapState.fetchingPostsSuccess());
   }
 

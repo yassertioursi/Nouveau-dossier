@@ -146,7 +146,8 @@ Widget postUI(BuildContext context, PData post) {
                           ));
                     },
                     child: Icon(
-                      Icons.share,
+                      Icons.send,  
+                      
                       color: Colors.black,
                       size: 30,
                     ),

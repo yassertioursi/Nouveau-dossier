@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
+import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Provider/workers_search.dart';
@@ -161,7 +162,9 @@ class SearchWorkers extends SearchDelegate {
       return FutureBuilder<String>(
         future: search.search_workers(AuthCache.token!),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState == ConnectionState.none) {
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            print("Connection started for worker search, waiting for data...");
             return const Center(
                 child: SizedBox(
               height: 50,
@@ -170,40 +173,34 @@ class SearchWorkers extends SearchDelegate {
                 color: MyColors.mainblue,
               ),
             ));
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            return MultiProvider(
-              providers: [
-                ChangeNotifierProvider(
-                    create: (BuildContext context) => WorkersSearch()),
-                ChangeNotifierProvider(
-                    create: (BuildContext context) => WorkersSelect()),
-              ],
-              child: FutureBuilder<String>(
-                future: search.search_workers(AuthCache.token!),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                        child: SizedBox(
-                      height: 50.0,
-                      width: 50.0,
-                      child: CircularProgressIndicator(
-                        color: MyColors.mainblue,
-                      ),
-                    ));
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    return WorkersList(
-                      search: search,
-                      postId: postId,
-                    );
-                  }
-                },
-              ),
-            );
+          } else if (snapshot.connectionState == ConnectionState.active) {
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData || search.workers == null) {
+              return Center(
+                  child: Text(
+                'No Internet Connection',
+                style: TextStyle(color: MyColors.mainblue),
+              ));
+            } else {
+              return MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(
+                      create: (BuildContext context) => WorkersSearch()),
+                  ChangeNotifierProvider(
+                      create: (BuildContext context) => WorkersSelect()),
+                ],
+                child: WorkersList(
+                  search: search,
+                  postId: postId,
+                ),
+              );
+            }
           }
+
+          // Default case to handle unexpected state
+          return Container();
         },
       );
     } else if (Id_Search == 1) {
@@ -226,15 +223,24 @@ class SearchWorkers extends SearchDelegate {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
-                    child: SizedBox(
-                  height: 50.0,
-                  width: 50.0,
-                  child: CircularProgressIndicator(
-                    color: MyColors.mainblue,
+                  child: SizedBox(
+                    height: 50.0,
+                    width: 50.0,
+                    child: CircularProgressIndicator(
+                      color: MyColors.mainblue,
+                    ),
                   ),
-                ));
+                );
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
+              } else if (!snapshot.hasData ||
+                  search.workers == null
+                ) {
+                return Center(
+                    child: Text(
+                  'No Internet Connection',
+                  style: TextStyle(color: MyColors.mainblue),
+                ));
               } else {
                 return WorkersList(
                   search: search,
@@ -291,15 +297,22 @@ class SearchWorkers extends SearchDelegate {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                  child: SizedBox(
-                height: 50,
-                width: 50,
-                child: CircularProgressIndicator(
-                  color: MyColors.mainblue,
+                child: SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: CircularProgressIndicator(
+                    color: MyColors.mainblue,
+                  ),
                 ),
-              ));
+              );
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData || search.workers == null) {
+              return Center(
+                  child: Text(
+                'No Internet Connection',
+                style: TextStyle(color: MyColors.mainblue),
+              ));
             } else {
               return WorkersList(
                 search: search,
@@ -335,83 +348,87 @@ class WorkersList extends StatelessWidget {
           ],
           child: Stack(
             children: [
-              ListView.builder(
-                  itemCount: search.workers!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (workerselectprovider.workers.isNotEmpty) {
-                      SystemChannels.textInput.invokeMethod('TextInput.hide');
-                      FocusScope.of(context).requestFocus(FocusNode());
-                    }
+              NoItemsWidget(
+                condition: search.workers!.isNotEmpty,
+                child: ListView.builder(
+                    itemCount: search.workers!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (workerselectprovider.workers.isNotEmpty) {
+                        SystemChannels.textInput.invokeMethod('TextInput.hide');
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      }
 
-                    String rt1 = search.workers![index]["rating"].toString();
-                    String exp1 =
-                        search.workers![index]["experience"].toString();
-                    double rating = double.parse(rt1);
-                    double exp = double.parse(exp1);
+                      String rt1 = search.workers![index]["rating"].toString();
+                      String exp1 =
+                          search.workers![index]["experience"].toString();
+                      double rating = double.parse(rt1);
+                      double exp = double.parse(exp1);
 
-                    return Stack(children: [
-                      InkWell(
-                        onTap: () {
-                          print("++");
-                        },
-                        child: Worker_two(
-                          name: search.workers![index]["name"] ?? "",
-                          wilaya: search.workers![index]["wilaya"] ?? "",
-                          rating: rating,
-                          experience: exp,
-                          profilePicture:
-                              search.workers![index]["profilePicture"] ?? "",
-                          job: search.workers![index]["job"] ?? "",
-                          isCertified:
-                              search.workers![index]["isCertified"] ?? "",
-                          id: search.workers![index]["_id"] ?? "",
-                          isFav: search.workers![index]["isFavorite"] ?? "",
+                      return Stack(children: [
+                        InkWell(
+                          onTap: () {
+                            print("++");
+                          },
+                          child: Worker_two(
+                            name: search.workers![index]["name"] ?? "",
+                            wilaya: search.workers![index]["wilaya"] ?? "",
+                            rating: rating,
+                            experience: exp,
+                            profilePicture:
+                                search.workers![index]["profilePicture"] ?? "",
+                            job: search.workers![index]["job"] ?? "",
+                            isCertified:
+                                search.workers![index]["isCertified"] ?? "",
+                            id: search.workers![index]["_id"] ?? "",
+                            isFav: search.workers![index]["isFavorite"] ?? "",
+                          ),
                         ),
-                      ),
-                      postId.isNotEmpty
-                          ? Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 30, left: 22),
-                                child: InkWell(
-                                  onTap: () {
-                                    if (workerselectprovider.workers.contains(
-                                        search.workers![index]["_id"])) {
-                                      workerselectprovider.workers.remove(
-                                          search.workers![index]["_id"]);
-                                    } else {
-                                      workerselectprovider.workers
-                                          .add(search.workers![index]["_id"]);
-                                    }
-                                    workerselectprovider.notifyListeners();
-                                  },
-                                  child: !workerselectprovider.workers.contains(
-                                          search.workers![index]["_id"])
-                                      ? const Icon(Icons.circle_outlined)
-                                      : const Icon(Icons.check_circle),
+                        postId.isNotEmpty
+                            ? Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 30, left: 22),
+                                  child: InkWell(
+                                    onTap: () {
+                                      if (workerselectprovider.workers.contains(
+                                          search.workers![index]["_id"])) {
+                                        workerselectprovider.workers.remove(
+                                            search.workers![index]["_id"]);
+                                      } else {
+                                        workerselectprovider.workers
+                                            .add(search.workers![index]["_id"]);
+                                      }
+                                      workerselectprovider.notifyListeners();
+                                    },
+                                    child: !workerselectprovider.workers
+                                            .contains(
+                                                search.workers![index]["_id"])
+                                        ? const Icon(Icons.circle_outlined)
+                                        : const Icon(Icons.check_circle),
+                                  ),
                                 ),
-                              ),
-                            )
-                          : const Text(" "),
-                      Align(
-                          alignment: Alignment.topRight,
-                          child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 24, right: 30),
-                              child: InkWell(
-                                  onTap: () {
-                                    search.workers!.removeAt(index);
+                              )
+                            : const Text(" "),
+                        Align(
+                            alignment: Alignment.topRight,
+                            child: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 24, right: 30),
+                                child: InkWell(
+                                    onTap: () {
+                                      search.workers!.removeAt(index);
 
-                                    workersprovider.notifyListeners();
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8.0, right: 8),
-                                    child: const Icon(Icons.close),
-                                  )))),
-                    ]);
-                  }),
+                                      workersprovider.notifyListeners();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 8.0, right: 8),
+                                      child: const Icon(Icons.close),
+                                    )))),
+                      ]);
+                    }),
+              ),
               postId.isNotEmpty && workerselectprovider.workers.length > 0
                   ? Align(
                       alignment: Alignment.bottomCenter,
@@ -423,8 +440,10 @@ class WorkersList extends StatelessWidget {
                               providerloading.setLoad(true);
 
                               SendRequest sendRequest = SendRequest();
-                              if (await sendRequest.sendRequest(AuthCache.token!,
-                                  postId, workerselectprovider.workers)) {
+                              if (await sendRequest.sendRequest(
+                                  AuthCache.token!,
+                                  postId,
+                                  workerselectprovider.workers)) {
                                 context.showSuccessMessage("Success",
                                     "The post has been sent successfully.");
                               } else {

@@ -1,4 +1,5 @@
 import 'package:easyhome/Rechidi/core/extension/navigation.dart';
+import 'package:easyhome/Rechidi/core/extension/snackbar.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/Rechidi/models/user.dart';
@@ -30,11 +31,11 @@ class _DrawerItemListState extends State<DrawerItemList> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: drawerItemsList(widget.user),
+      children: drawerItemsList(widget.user, context),
     );
   }
 
-  List<Widget> drawerItemsList(User user) {
+  List<Widget> drawerItemsList(User user, BuildContext context) {
     return [
       const drawerHeader(),
       SizedBox(
@@ -45,11 +46,13 @@ class _DrawerItemListState extends State<DrawerItemList> {
           myicon: Icons.work,
           text: "Switch To worker",
           onTap: () {
-            if (user.user!.workerAcountVerified!) {
-              context.read<WorkerProfileCubit>().switchAccount();
-              context.to(const Home_Worker());
+            if (user.user?.workerAccountVerified == true) {
+              locator<Repo>().switche().then((value) {
+                context.to(const Home_Worker());
+              });
             } else if (user.user?.role == "Worker") {
-              showCustomSnackBar();
+              context.showSnackBarError(
+                  "Your account is not verified yet, please wait for the admin to verify it");
             } else {
               context.to(const SignUpWorkerPage());
             }
@@ -74,42 +77,28 @@ class _DrawerItemListState extends State<DrawerItemList> {
         color: Colors.black,
       ),
       drawerItem(
+        myicon: Icons.lock,
+        text: "Change Password",
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                  create: (context) => PasswrodCubit(locator<Repo>()),
+                  child: const ChangePassword(),
+                ),
+              ));
+        },
+      ),
+      drawerItem(
         myicon: Icons.logout,
         text: "Log Out",
         onTap: () {
           AuthCache.removeToken();
+
           context.to(Login());
         },
       )
     ];
-  }
-
-  void showCustomSnackBar() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Icon(
-              Icons.report_gmailerrorred_rounded,
-              color: Colors.white,
-              size: 25.sp,
-            ),
-            SizedBox(width: 8.w),
-            Text(
-              'Your account is not verfied yet.',
-              style: TextStyle(color: Colors.white, fontSize: 15.sp),
-            ),
-          ],
-        ),
-        backgroundColor: const Color(0xffff0f0f),
-        duration: const Duration(seconds: 5),
-        action: SnackBarAction(
-          label: 'OK',
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-    );
   }
 }

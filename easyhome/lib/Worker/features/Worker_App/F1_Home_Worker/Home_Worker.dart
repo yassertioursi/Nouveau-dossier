@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
+import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
@@ -32,29 +33,37 @@ class HomeWorkerMain extends StatelessWidget {
   Widget build(BuildContext context) {
     GetMeWorker getMeWorker = GetMeWorker();
     return FutureBuilder<String>(
-        future: getMeWorker.getMeWorker( AuthCache.token!),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: Colors.white,
-              ),
-              body: const Center(
-                  child: SizedBox(
+      future: getMeWorker.getMeWorker(AuthCache.token!),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.white,
+            ),
+            body: const Center(
+              child: SizedBox(
                 height: 50.0,
                 width: 50.0,
                 child: CircularProgressIndicator(
                   color: MyColors.mainblue,
                 ),
-              )),
-            );
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            return HomeWorker(myJob: getMeWorker.worker!["job"]);
-          }
-        });
+              ),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (!snapshot.hasData || getMeWorker.worker == null) {
+          return Center(
+              child: Text(
+            '',
+            style: TextStyle(color: MyColors.mainblue),
+          ));
+        } else {
+          return HomeWorker(myJob: getMeWorker.worker!["job"]);
+        }
+      },
+    );
   }
 }
 
@@ -179,31 +188,34 @@ class _HomeWorkerState extends State<HomeWorker> {
                   Padding(
                     padding: EdgeInsets.only(top: 8.0, left: 20),
                     child: FutureBuilder<String>(
-                        future:
-                            getCountNotification.getmycount( AuthCache.token!),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Text("");
-                          } else if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            return Text(
-                              "${getCountNotification.mycount}",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                              ),
-                            );
-                          }
-                        }),
+                      future: getCountNotification.getmycount(AuthCache.token!),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Text("");
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else if (!snapshot.hasData ||
+                            getCountNotification.mycount == null) {
+                          return Text('');
+                        } else {
+                          return Text(
+                            "${getCountNotification.mycount}",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),
               onTap: () {
                 MyNotifications notifications =
-                    MyNotifications( AuthCache.token!);
+                    MyNotifications(AuthCache.token!);
                 notifications.showMyNotifications(context);
               },
             ),
@@ -211,49 +223,60 @@ class _HomeWorkerState extends State<HomeWorker> {
         ),
         body: FutureBuilder<String>(
           future: getAllPosts.getAllPosts(
-           AuthCache.token!,
+            AuthCache.token!,
             postUrl,
           ),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                  child: SizedBox(
-                height: 50,
-                width: 50,
-                child: CircularProgressIndicator(
-                  color: MyColors.mainblue,
+                child: SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: CircularProgressIndicator(
+                    color: MyColors.mainblue,
+                  ),
                 ),
-              ));
+              );
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData || getAllPosts.posts == null) {
+              return Center(
+                  child: Text(
+                'No Internet Connection',
+                style: TextStyle(color: MyColors.mainblue),
+              ));
             } else {
-              return ListView.builder(
-                itemCount: getAllPosts.posts!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return SafeArea(
-                    child: PostItem(
-                      userName: getAllPosts.posts![index]["post"]["user"]
-                          ["name"],
-                      userId: getAllPosts.posts![index]["post"]["user"]["_id"],
-                      userWilaya: getAllPosts.posts![index]["post"]["user"]
-                          ["wilaya"],
-                      postId: getAllPosts.posts![index]["post"]["_id"],
-                      postTitle: getAllPosts.posts![index]["post"]["title"],
-                      postDesc: getAllPosts.posts![index]["post"]
-                          ["description"],
-                      postPrice:
-                          getAllPosts.posts![index]["post"]["price"].toString(),
-                      postCreatedAt: getAllPosts.posts![index]["post"]
-                          ["createdAt"],
-                      postImages: getAllPosts.posts![index]["post"]["images"],
-                      userProfilePicture: getAllPosts.posts![index]["post"]
-                          ["user"]["profilePicture"],
-                      isSaved: getAllPosts.posts![index]["isSaved"],
-                      application: getAllPosts.posts![index]["application"],
-                      Post: getAllPosts.posts![index],
-                    ),
-                  );
-                },
+              return NoItemsWidget(
+                condition: getAllPosts.posts!.isNotEmpty,
+                child: ListView.builder(
+                  itemCount: getAllPosts.posts!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return SafeArea(
+                      child: PostItem(
+                        userName: getAllPosts.posts![index]["post"]["user"]
+                            ["name"],
+                        userId: getAllPosts.posts![index]["post"]["user"]
+                            ["_id"],
+                        userWilaya: getAllPosts.posts![index]["post"]["user"]
+                            ["wilaya"],
+                        postId: getAllPosts.posts![index]["post"]["_id"],
+                        postTitle: getAllPosts.posts![index]["post"]["title"],
+                        postDesc: getAllPosts.posts![index]["post"]
+                            ["description"],
+                        postPrice: getAllPosts.posts![index]["post"]["price"]
+                            .toString(),
+                        postCreatedAt: getAllPosts.posts![index]["post"]
+                            ["createdAt"],
+                        postImages: getAllPosts.posts![index]["post"]["images"],
+                        userProfilePicture: getAllPosts.posts![index]["post"]
+                            ["user"]["profilePicture"],
+                        isSaved: getAllPosts.posts![index]["isSaved"],
+                        application: getAllPosts.posts![index]["application"],
+                        Post: getAllPosts.posts![index],
+                      ),
+                    );
+                  },
+                ),
               );
             }
           },
@@ -363,7 +386,7 @@ class PostItem extends StatelessWidget {
                               Text(
                                 userName,
                                 style: const TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -462,15 +485,12 @@ class PostItem extends StatelessWidget {
                                   DeleteApp deleteApp = DeleteApp();
                                   providerok2.setOk(!providerok2.isOk);
                                   if (await deleteApp.deleteApp(
-                                     AuthCache.token!, application["id"])) {
+                                      AuthCache.token!, application["id"])) {
                                     context.showSuccessMessage("Success",
                                         "The application has been deleted  successfully .");
 
                                     providerload.setLoad(false);
-                                  } else {
-
-                                    
-                                  }
+                                  } else {}
                                 }
                               }
                               providerload.setLoad(false);
@@ -524,7 +544,7 @@ class PostItem extends StatelessWidget {
 
                               SavePost savePost = SavePost();
                               if (await savePost.savePost(
-                                   AuthCache.token!, postId)) {
+                                  AuthCache.token!, postId)) {
                                 if (providerok.isOk) {
                                   context.showSuccessMessage(
                                       "Success", "Post saved successfully.");

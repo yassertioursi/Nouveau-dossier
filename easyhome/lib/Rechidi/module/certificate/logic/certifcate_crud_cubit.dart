@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:easyhome/Rechidi/core/helper/validator.dart';
 import 'package:easyhome/Rechidi/models/certificate.dart';
+import 'package:easyhome/Rechidi/module/certificate/data/src/source.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,15 +12,14 @@ part 'certifcate_crud_state.dart';
 part 'certifcate_crud_cubit.freezed.dart';
 
 class CertifcateCrudCubit extends Cubit<CertifcateCrudState> {
-  CertifcateCrudCubit({CertificateEntity? certificate})
+  final CertificateSource _remote;
+  CertifcateCrudCubit(this._remote, {CertificateEntity? certificate})
       : _certificate = certificate,
-        _isNew = certificate == null,
         super(const CertifcateCrudState.initial()) {
     title.text = _certificate?.title ?? '';
   }
 
   final CertificateEntity? _certificate;
-  final bool _isNew;
   final title = TextEditingController();
   final _picker = ImagePicker();
 
@@ -60,13 +60,9 @@ class CertifcateCrudCubit extends Cubit<CertifcateCrudState> {
       return emit(const CertifcateCrudState.error('Image is required'));
     }
 
+    final response = await _remote.createCertificate(title.text, _image!);
+    final result = response.certificate;
 
-    if (!_isNew) {
-      await Future.delayed(const Duration(seconds: 1));
-    } else {
-      await Future.delayed(const Duration(seconds: 2));
-    }
-
-    emit(const CertifcateCrudState.saved());
+    emit(CertifcateCrudState.saved(result));
   }
 }

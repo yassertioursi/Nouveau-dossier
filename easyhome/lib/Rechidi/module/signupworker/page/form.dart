@@ -25,8 +25,8 @@ class _Form extends StatelessWidget {
                   controller: cubit.locationController,
                   location: cubit.location,
                   onTap: () async {
-                    final location =
-                        await context.to<LocationEntity>(const MapPlaceSelector());
+                    final location = await context
+                        .to<LocationEntity>(const MapPlaceSelector());
                     cubit.setLocation(location);
                   }),
               height(20),
@@ -126,7 +126,7 @@ class _Form extends StatelessWidget {
 
   Widget _selectWilayaField(TextEditingController controller) {
     return AppDropDown(
-      items: const ['01 Adrar', '02 Chlef', '32 El Bayadh', '45 Naama'],
+      items: StaticStuf.wilayas,
       textEditingController: controller,
       hintText: 'Select your Wilaya',
     );
@@ -134,7 +134,7 @@ class _Form extends StatelessWidget {
 
   Widget _selectJobField(TextEditingController controller) {
     return AppDropDown(
-      items: const ['Job', 'Pic Id', 'Location', 'Certs'],
+      items: StaticStuf.jobs,
       textEditingController: controller,
       hintText: 'Select your Job',
     );

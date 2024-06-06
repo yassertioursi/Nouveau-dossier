@@ -27,6 +27,32 @@ class WorkerProfileCubit extends Cubit<WorkerProfileState> {
     emit(const WorkerProfileState.loaded());
   }
 
+  void addCertificate(CertificateEntity? certificate) {
+    emit(const WorkerProfileState.loading());
+    if (certificate != null) certificates.add(certificate);
+    emit(const WorkerProfileState.loaded());
+  }
+
+  void addPost(PortfolioPostEntity? post) {
+    emit(const WorkerProfileState.loading());
+    if (post != null) portfolioPosts.add(post);
+    emit(const WorkerProfileState.loaded());
+  }
+
+  void replacePost(PortfolioPostEntity? post) {
+    emit(const WorkerProfileState.loading());
+    if (post != null) {
+      final index =
+          portfolioPosts.indexWhere((element) => element.id == post.id);
+      if (index != -1) {
+        portfolioPosts[index] = post;
+      } else {
+        portfolioPosts.add(post);
+      }
+    }
+    emit(const WorkerProfileState.loaded());
+  }
+
   Future<void> fetchPortfolioPosts() async {
     final id = worker!.id!;
     final page = portfolioPosts.length ~/ 15 + 1;

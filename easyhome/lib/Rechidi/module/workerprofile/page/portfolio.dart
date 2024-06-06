@@ -9,12 +9,13 @@ class _Portfolio extends StatelessWidget {
   Widget build(BuildContext context) {
     final posts = context.watch<WorkerProfileCubit>().portfolioPosts;
     final poster = context.watch<WorkerProfileCubit>().worker!;
+    final cubit = context.read<WorkerProfileCubit>();
     return BlocBuilder<WorkerProfileCubit, WorkerProfileState>(
       builder: (context, state) {
         return NoItemsWidget(
           condition: posts.isNotEmpty,
           message: 'No posts found',
-          child: Column(
+          child: ListView(
             children: [
               ...posts
                   .map(
@@ -28,8 +29,11 @@ class _Portfolio extends StatelessWidget {
                         context.read<WorkerProfileCubit>().deletePost(post);
                       },
                       onReport: (post) {},
-                      onEdit: (post) {
-                        context.to(CreateEditPost(post));
+                      onEdit: (post) async {
+                        final newPost = await context.to<PortfolioPostEntity>(
+                          CreateEditPost(post),
+                        );
+                        cubit.replacePost(newPost);
                       },
                     ),
                   )

@@ -113,15 +113,18 @@ class FilterWidget extends StatelessWidget {
                 }
                 return Padding(
                   padding: const EdgeInsets.only(top: 10.0, bottom: 10),
-                  child: Column(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Wilaya :",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 6.0),
+                        child: const Text(
+                          "Wilaya :",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -286,7 +289,7 @@ class FilterWidget extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 10),
                             child: Row(
                               children: [
-                                for (int index = 3; index < 6; index++)
+                                for (int index = 3; index < 5; index++)
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: InkWell(
@@ -341,7 +344,7 @@ class FilterWidget extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 10.0),
                             child: Row(
                               children: [
-                                for (int index = 6; index < 8; index++)
+                                for (int index = 5; index < 7; index++)
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: InkWell(
@@ -396,7 +399,7 @@ class FilterWidget extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 10),
                             child: Row(
                               children: [
-                                for (int index = 8;
+                                for (int index = 7;
                                     index < Workers_Cat().cats.length;
                                     index++)
                                   Padding(

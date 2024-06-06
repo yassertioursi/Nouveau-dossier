@@ -76,19 +76,23 @@ class _WorkerInfo extends StatelessWidget {
   }
 
   Widget _buildInfoItem(IconData icon, String text) {
-    return Row(
-      children: [
-        Icon(icon, color: AppColors.primary, size: 40.sp),
-        width(10),
-        Text(
-          text,
-          style: TextStyle(
-            color: AppColors.black,
-            fontSize: 17.sp,
-            fontWeight: FontWeight.w600,
+    return Expanded(
+      child: Row(
+        children: [
+          Icon(icon, color: AppColors.primary, size: 35.sp),
+          Expanded(
+            child: Text(
+              text,
+              maxLines: 2,
+              style: TextStyle(
+                color: AppColors.black,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

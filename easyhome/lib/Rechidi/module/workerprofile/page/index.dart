@@ -15,9 +15,11 @@ import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/edit_prof
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/drawer_items.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
 import 'package:easyhome/User/features/User_App/userProfile/utils/constants/colors.dart';
+import 'package:easyhome/Worker/features/Worker_App/workerProfile/UI/screens/worker_profile_sceen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:readmore/readmore.dart';
@@ -46,11 +48,11 @@ class WorkerProfile extends StatelessWidget {
   final bool _isMe;
   @override
   Widget build(BuildContext context) {
-    print('rechidia >> ${AuthCache.userId}');
+    
     return BlocProvider(
       create: (context) => WorkerProfileCubit(locator())..fetchProfile(_id),
       child: _Scaffold(
-        personalInfo: const _PersonalInfo(),
+        personalInfo:  _PersonalInfo(_isMe),
         workInfo: const _WorkerInfo(),
         tabView: _TabView(
           portfolio: _Portfolio(_isMe),
@@ -58,8 +60,31 @@ class WorkerProfile extends StatelessWidget {
           certificates: _Certificates(_isMe),
         ),
         drawer: const _Drawer(),
-        floationgActionButton: _FloatingActionButton(_isMe),
+        floationgActionButton: _isMe ? _FloatingActionButton(_isMe) : _call(),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      ),
+    );
+  }
+
+  _call() {
+    return Container(
+      height: 70,
+      width: 70,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(60),
+        color: Colors.green,
+      ),
+      child: IconButton(
+        icon: Icon(
+          // TODO implement the Create portfolio element button
+          Icons.call,
+          size: 45.sp,
+        ),
+        color: Colors.white,
+        onPressed: () async {
+          await FlutterPhoneDirectCaller.callNumber(
+              workerDetails?.worker?.phoneNumber ?? '0');
+        },
       ),
     );
   }

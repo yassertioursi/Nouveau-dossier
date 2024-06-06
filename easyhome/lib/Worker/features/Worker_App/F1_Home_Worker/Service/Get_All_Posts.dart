@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-  import 'package:easyhome/Rechidi/core/injection/index.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 
 class GetAllPosts {
-Dio dio = locator<Dio>();
+  Dio dio = locator<Dio>();
 
   List? posts;
 

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
+import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/User_App/F2_Home_User/Services/GetBestWorker.dart';
@@ -132,14 +133,33 @@ class HomeUser extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: 0.0, left: 26),
                         child: FutureBuilder<String>(
-                            future: getCountNotification
-                                .getmycount(AuthCache.token!),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Text("");
-                              } else if (snapshot.hasError) {
+                          future:
+                              getCountNotification.getmycount(AuthCache.token!),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.none) {
+                              print(
+                                  "Connection not started yet for notification count");
+                            } else if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              print(
+                                  "Connection started for notification count, waiting for data...");
+                              return Text("");
+                            } else if (snapshot.connectionState ==
+                                ConnectionState.active) {
+                              print(
+                                  "Connection active for notification count, data being fetched...");
+                            } else if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              if (snapshot.hasError) {
+                                // Print error message for debugging
+
                                 return Text('Error: ${snapshot.error}');
+                              } else if (!snapshot.hasData ||
+                                  getCountNotification.mycount == null) {
+                                // Handle empty data scenario
+
+                                return Text('');
                               } else {
                                 return Text(
                                   "${getCountNotification.mycount}",
@@ -150,7 +170,12 @@ class HomeUser extends StatelessWidget {
                                   ),
                                 );
                               }
-                            }),
+                            }
+
+                            // Default case to handle unexpected state
+                            return Container();
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -247,7 +272,7 @@ class HomeUser extends StatelessWidget {
               padding: const EdgeInsets.only(top: 7.0, bottom: 20),
               child: SmoothPageIndicator(
                   controller: Image_Controller,
-                  count: 3,
+                  count: 1,
                   effect: const ExpandingDotsEffect(
                       dotColor: Color(0xFFD7D4D4),
                       activeDotColor: Color(0xFF666363),
@@ -270,7 +295,11 @@ class HomeUser extends StatelessWidget {
           FutureBuilder<String>(
             future: getBestWorkers.getbestworkers(AuthCache.token!),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              // Print message when the connection starts
+              if (snapshot.connectionState == ConnectionState.none) {
+                print("Connection not started yet");
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                print("Connection started, waiting for data...");
                 return Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: const Center(
@@ -284,61 +313,87 @@ class HomeUser extends StatelessWidget {
                     ),
                   )),
                 );
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                return SizedBox(
-                  height: 210,
-                  child: ListView.builder(
-                      itemCount: getBestWorkers.bestWorkers!.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        String rt1 = getBestWorkers.bestWorkers![index]
-                                ["rating"]
-                            .toString();
-                        String exp1 = getBestWorkers.bestWorkers![index]
-                                ["experience"]
-                            .toString();
-                        double rating = double.parse(rt1);
-                        double exp = double.parse(exp1);
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
+              } else if (snapshot.connectionState == ConnectionState.active) {
+              } else if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError) {
+                  // Print error message for debugging
+
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData ||
+                    getBestWorkers.bestWorkers == null) {
+                  // Handle empty data scenario
+
+                  return Center(
+                      child: Text(
+                    'No Internet Connection',
+                    style: TextStyle(color: MyColors.mainblue),
+                  ));
+                } else {
+                  print("Data fetched successfully");
+                  return SizedBox(
+                    height: 210,
+                    child: NoItemsWidget(
+                      condition: getBestWorkers.bestWorkers!.isNotEmpty,
+                      child: ListView.builder(
+                        itemCount: getBestWorkers.bestWorkers!.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          String rt1 = getBestWorkers.bestWorkers![index]
+                                  ["rating"]
+                              .toString();
+                          String exp1 = getBestWorkers.bestWorkers![index]
+                                  ["experience"]
+                              .toString();
+                          double rating = double.parse(rt1);
+                          int exp = int.parse(exp1);
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(13.0, 15, 5, 15),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
                                     builder: (context) => WorkerProfile(
-                                        workerId: getBestWorkers
-                                            .bestWorkers![index]["_id"])),
-                              );
-                            },
-                            child: Worker_One(
-                              id: getBestWorkers.bestWorkers![index]["_id"],
-                              name: getBestWorkers.bestWorkers![index]
-                                      ["name"] ??
-                                  "",
-                              wilaya: getBestWorkers.bestWorkers![index]
-                                      ["wilaya"] ??
-                                  "",
-                              experience: "44",
-                              profilePicture: getBestWorkers.bestWorkers![index]
-                                      ["profilePicture"] ??
-                                  "",
-                              job: getBestWorkers.bestWorkers![index]["job"] ??
-                                  "",
-                              isCertified: getBestWorkers.bestWorkers![index]
-                                      ["isCertified"] ??
-                                  false,
-                              rating: rating,
+                                      workerId: getBestWorkers
+                                          .bestWorkers![index]["_id"],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Worker_One(
+                                id: getBestWorkers.bestWorkers![index]["_id"],
+                                name: getBestWorkers.bestWorkers![index]
+                                        ["name"] ??
+                                    "",
+                                wilaya: getBestWorkers.bestWorkers![index]
+                                        ["wilaya"] ??
+                                    "",
+                                experience: exp.toString(),
+                                profilePicture:
+                                    getBestWorkers.bestWorkers![index]
+                                            ["profilePicture"] ??
+                                        "",
+                                job: getBestWorkers.bestWorkers![index]
+                                        ["job"] ??
+                                    "",
+                                isCertified: getBestWorkers.bestWorkers![index]
+                                        ["isCertified"] ??
+                                    false,
+                                rating: rating,
+                              ),
                             ),
-                          ),
-                        );
-                      }),
-                );
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                }
               }
+
+              // Default case to handle unexpected state
+              return Container();
             },
-          ),
+          )
         ],
       ),
     );

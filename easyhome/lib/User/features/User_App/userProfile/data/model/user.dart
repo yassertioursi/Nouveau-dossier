@@ -30,7 +30,7 @@ class MyData {
   int? reported;
   List<dynamic>? posts;
   List<dynamic>? favoriteWorkers;
-  bool? workerAcountVerified;
+  bool? workerAccountVerified;
   String? role;
   String? currentRole;
 
@@ -48,7 +48,7 @@ class MyData {
       this.favoriteWorkers,
       this.role,
       this.currentRole,
-      this.workerAcountVerified,
+      this.workerAccountVerified,
       this.facebook});
   factory MyData.fromJson(Map<String, dynamic> json) => _$MyDataFromJson(json);
 
