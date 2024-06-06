@@ -28,6 +28,7 @@ class _PersonalInfo extends StatelessWidget {
                   children: [
                     _buildProfilePicture(worker.profilePicture!),
                     height(8),
+                    
                     _buildName(worker.name!),
                     _buildBio(worker.bio),
                   ],

@@ -18,7 +18,7 @@ class _Drawer extends StatelessWidget {
               text: "Switch To user",
               onTap: () {
                 context.read<WorkerProfileCubit>().switchAccount();
-                context.to(const Home_User());
+                context.off(const Home_User());
               }),
           Divider(
             thickness: 0.8,
@@ -59,7 +59,7 @@ class _Drawer extends StatelessWidget {
             myicon: Icons.logout,
             text: "Log Out",
             onTap: () {
-              AuthCache.logOut();
+              AuthCache.removeToken();
               context.off(Login());
             },
           )
