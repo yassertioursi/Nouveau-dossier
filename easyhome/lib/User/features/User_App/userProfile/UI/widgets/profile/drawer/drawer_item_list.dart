@@ -48,7 +48,7 @@ class _DrawerItemListState extends State<DrawerItemList> {
           onTap: () {
             if (user.user?.workerAccountVerified == true) {
               locator<Repo>().switche().then((value) {
-                context.to(const Home_Worker());
+                context.off(const Home_Worker());
               });
             } else if (user.user?.role == "Worker") {
               context.showSnackBarError(

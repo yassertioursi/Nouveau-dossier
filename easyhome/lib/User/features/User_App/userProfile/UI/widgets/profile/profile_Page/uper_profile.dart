@@ -84,7 +84,7 @@ Widget profilepic(String? pic, bool big) {
             ? Image.asset("lib/utils/images/default.jpg")
             : Image.network(
                 pic,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
       ),
     ),

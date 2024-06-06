@@ -254,9 +254,9 @@ class _HomeWorkerState extends State<HomeWorker> {
                     return SafeArea(
                       child: PostItem(
                         userName: getAllPosts.posts![index]["post"]["user"]
-                            ["name"],
+                            ["name"] ?? "",
                         userId: getAllPosts.posts![index]["post"]["user"]
-                            ["_id"],
+                            ["_id"] ?? "",
                         userWilaya: getAllPosts.posts![index]["post"]["user"]
                             ["wilaya"],
                         postId: getAllPosts.posts![index]["post"]["_id"],
