@@ -36,7 +36,7 @@ class Worker_One extends StatelessWidget {
       width: 170,
       child: Stack(children: [
         Padding(
-          padding: const EdgeInsets.only(top: 45.0),
+          padding: const EdgeInsets.only(top: 35.0),
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -109,6 +109,7 @@ class Worker_One extends StatelessWidget {
                         : const EdgeInsets.only(top: 0),
                     child: Text(
                       "$job",
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           color: MyColors.mainorange,
                           fontWeight: FontWeight.bold),
@@ -133,8 +134,8 @@ class Worker_One extends StatelessWidget {
                 ),
                 child: ClipOval(
                   child: SizedBox(
-                    height: 80,
-                    width: 80,
+                    height: 70,
+                    width: 70,
                     child: profilePicture == "default.jpg" ||
                             profilePicture.isEmpty
                         ? Image.asset("lib/utils/images/default.jpg")

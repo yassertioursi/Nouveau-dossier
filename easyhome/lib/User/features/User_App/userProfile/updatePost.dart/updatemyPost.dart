@@ -46,7 +46,8 @@ class UpdateMyPost {
     await getmyPost.getpost(AuthCache.token!, postId);
     titleController.text = getmyPost.post["title"] ?? "";
     descController.text = getmyPost.post["description"] ?? "";
-    priceController.text = getmyPost.post["price"].toString() ?? "".toString();
+    priceController.text = getmyPost.post["price"] ?? "".toString();
+    
     titleLocationController.text =
         getmyPost.post["titleLocation"] ?? "".toString();
     await showModalBottomSheet(
@@ -432,7 +433,7 @@ class UpdateMyPost {
                                               titleLocationController.text,
                                               location.latitude,
                                               location.longitude,
-                                               AuthCache.token!,
+                                              AuthCache.token!,
                                             )) {
                                               Navigator.pop(context);
                                               context.showSuccessMessage(

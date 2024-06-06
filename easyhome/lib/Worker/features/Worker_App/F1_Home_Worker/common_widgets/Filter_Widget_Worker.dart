@@ -250,9 +250,9 @@ class FilterWidgetWorker extends StatelessWidget {
                     ),
                   ),
                   Consumer<Select_Job>(
-                    builder: (context, bloc_select, child) {
+                    builder: (context, provider_select, child) {
                       if (yesorno && !jobs.isEmpty) {
-                        bloc_select.selectedItems = jobs;
+                        provider_select.selectedItems = jobs;
                         yesorno = false;
                       }
                       return Column(
@@ -266,7 +266,7 @@ class FilterWidgetWorker extends StatelessWidget {
                                     padding: const EdgeInsets.only(left: 8),
                                     child: InkWell(
                                       onTap: () {
-                                        bloc_select.set_Selected(
+                                        provider_select.set_Selected(
                                             Workers_Cat().cats[index]);
                                       },
                                       child: Container(
@@ -274,7 +274,62 @@ class FilterWidgetWorker extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                               color: MyColors.mainblue),
-                                          color: bloc_select.selectedItems
+                                          color: provider_select.selectedItems
+                                                  .contains(
+                                                      Workers_Cat().cats[index])
+                                              ? MyColors.mainblue
+                                              : Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 0, bottom: 0.0),
+                                          child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8.0, right: 8.0),
+                                              child: Text(
+                                                  "${Workers_Cat().cats[index]}",
+                                                  style: TextStyle(
+                                                      fontSize: 10,
+                                                      color: provider_select
+                                                              .selectedItems
+                                                              .contains(
+                                                                  Workers_Cat()
+                                                                          .cats[
+                                                                      index])
+                                                          ? Colors.white
+                                                          : MyColors.mainblue,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Row(
+                              children: [
+                                for (int index = 3; index < 5; index++)
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        provider_select.set_Selected(
+                                            Workers_Cat().cats[index]);
+                                      },
+                                      child: Container(
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: MyColors.mainblue),
+                                          color: provider_select.selectedItems
                                                   .contains(
                                                       Workers_Cat().cats[index])
                                               ? MyColors.mainblue
@@ -293,61 +348,7 @@ class FilterWidgetWorker extends StatelessWidget {
                                                   "${Workers_Cat().cats[index]}",
                                                   style: TextStyle(
                                                       fontSize: 10,
-                                                      color: bloc_select
-                                                              .selectedItems
-                                                              .contains(
-                                                                  Workers_Cat()
-                                                                          .cats[
-                                                                      index])
-                                                          ? Colors.white
-                                                          : MyColors.mainblue,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Row(
-                              children: [
-                                for (int index = 3; index < 6; index++)
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Container(
-                                      height: 35,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: MyColors.mainblue),
-                                        color: bloc_select.selectedItems
-                                                .contains(
-                                                    Workers_Cat().cats[index])
-                                            ? MyColors.mainblue
-                                            : Colors.white,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 0, bottom: 0.0),
-                                        child: Center(
-                                          child: InkWell(
-                                            onTap: () {
-                                              bloc_select.set_Selected(
-                                                  Workers_Cat().cats[index]);
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 8.0, left: 8.0),
-                                              child: Text(
-                                                  "${Workers_Cat().cats[index]}",
-                                                  style: TextStyle(
-                                                      fontSize: 10,
-                                                      color: bloc_select
+                                                      color: provider_select
                                                               .selectedItems
                                                               .contains(
                                                                   Workers_Cat()
@@ -370,38 +371,39 @@ class FilterWidgetWorker extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 10.0),
                             child: Row(
                               children: [
-                                for (int index = 6; index < 8; index++)
+                                for (int index = 5; index < 7; index++)
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
-                                    child: Container(
-                                      height: 35,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: MyColors.mainblue),
-                                        color: bloc_select.selectedItems
-                                                .contains(
-                                                    Workers_Cat().cats[index])
-                                            ? MyColors.mainblue
-                                            : Colors.white,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 0, bottom: 0.0),
-                                        child: Center(
-                                          child: InkWell(
-                                            onTap: () {
-                                              bloc_select.set_Selected(
-                                                  Workers_Cat().cats[index]);
-                                            },
+                                    child: InkWell(
+                                      onTap: () {
+                                        provider_select.set_Selected(
+                                            Workers_Cat().cats[index]);
+                                      },
+                                      child: Container(
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: MyColors.mainblue),
+                                          color: provider_select.selectedItems
+                                                  .contains(
+                                                      Workers_Cat().cats[index])
+                                              ? MyColors.mainblue
+                                              : Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 0, bottom: 0.0),
+                                          child: Center(
                                             child: Padding(
                                               padding: const EdgeInsets.only(
-                                                  right: 8.0, left: 8.0),
+                                                  right: 8.0, left: 8),
                                               child: Text(
                                                   "${Workers_Cat().cats[index]}",
                                                   style: TextStyle(
                                                       fontSize: 10,
-                                                      color: bloc_select
+                                                      color: provider_select
                                                               .selectedItems
                                                               .contains(
                                                                   Workers_Cat()
@@ -424,32 +426,33 @@ class FilterWidgetWorker extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 10),
                             child: Row(
                               children: [
-                                for (int index = 8;
+                                for (int index = 7;
                                     index < Workers_Cat().cats.length;
                                     index++)
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
-                                    child: Container(
-                                      height: 35,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: MyColors.mainblue),
-                                        color: bloc_select.selectedItems
-                                                .contains(
-                                                    Workers_Cat().cats[index])
-                                            ? MyColors.mainblue
-                                            : Colors.white,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 0, bottom: 0.0),
-                                        child: Center(
-                                          child: InkWell(
-                                            onTap: () {
-                                              bloc_select.set_Selected(
-                                                  Workers_Cat().cats[index]);
-                                            },
+                                    child: InkWell(
+                                      onTap: () {
+                                        provider_select.set_Selected(
+                                            Workers_Cat().cats[index]);
+                                      },
+                                      child: Container(
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: MyColors.mainblue),
+                                          color: provider_select.selectedItems
+                                                  .contains(
+                                                      Workers_Cat().cats[index])
+                                              ? MyColors.mainblue
+                                              : Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 0, bottom: 0.0),
+                                          child: Center(
                                             child: Padding(
                                               padding: const EdgeInsets.only(
                                                   right: 8.0, left: 8.0),
@@ -457,7 +460,7 @@ class FilterWidgetWorker extends StatelessWidget {
                                                   "${Workers_Cat().cats[index]}",
                                                   style: TextStyle(
                                                       fontSize: 10,
-                                                      color: bloc_select
+                                                      color: provider_select
                                                               .selectedItems
                                                               .contains(
                                                                   Workers_Cat()
