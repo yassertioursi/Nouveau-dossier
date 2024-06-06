@@ -38,7 +38,7 @@ class CreateDealWidget extends StatelessWidget {
       ],
       child: Container(
         padding: const EdgeInsets.only(top: 20),
-        height: MediaQuery.of(context).size.height / 2 + 60,
+        height: MediaQuery.of(context).size.height - 40,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -87,7 +87,7 @@ class CreateDealWidget extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.fromLTRB(15.0, 30, 15, 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

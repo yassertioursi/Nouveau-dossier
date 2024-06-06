@@ -1,4 +1,5 @@
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
+import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 
@@ -32,29 +33,37 @@ class Requests extends StatelessWidget {
     GetMeWorker getMeWorker = GetMeWorker();
 
     return FutureBuilder<String>(
-        future: getMeWorker.getMeWorker( AuthCache.token!),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: Colors.white,
-              ),
-              body: const Center(
-                  child: SizedBox(
+      future: getMeWorker.getMeWorker(AuthCache.token!),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.white,
+            ),
+            body: const Center(
+              child: SizedBox(
                 height: 60.0,
                 width: 60.0,
                 child: CircularProgressIndicator(
                   color: MyColors.mainblue,
                 ),
-              )),
-            );
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            return HomeWorker(myJob: getMeWorker.worker!["job"]);
-          }
-        });
+              ),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (!snapshot.hasData || getMeWorker.worker == null) {
+          return const Center(
+              child: Text(
+            'No Internet Connection',
+            style: TextStyle(color: MyColors.mainblue),
+          ));
+        } else {
+          return HomeWorker(myJob: getMeWorker.worker!["job"]);
+        }
+      },
+    );
   }
 }
 
@@ -82,65 +91,72 @@ class _HomeWorkerState extends State<HomeWorker> {
       ],
       child: Scaffold(
         body: FutureBuilder<String>(
-          future: getMyRequests.getMyRequests( AuthCache.token!),
+          future: getMyRequests.getMyRequests(AuthCache.token!),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                  child: SizedBox(
-                height: 60.0,
-                width: 60.0,
-                child: CircularProgressIndicator(
-                  color: MyColors.mainblue,
+                child: SizedBox(
+                  height: 60.0,
+                  width: 60.0,
+                  child: CircularProgressIndicator(
+                    color: MyColors.mainblue,
+                  ),
                 ),
-              ));
+              );
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
               return Consumer<ProviderMyRequests>(
-                  builder: (context, providermyrequests, child) {
-                if (yesorno) {
-                  providermyrequests.requests = getMyRequests.requests!;
-                  yesorno = false;
-                }
-                return ListView.builder(
-                  itemCount: providermyrequests.requests.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return SafeArea(
-                      child: RequestItem(
-                        requestId: providermyrequests.requests[index]["post"]
-                            ["_id"],
-                        userName: providermyrequests.requests[index]["post"]
-                            ["user"]["name"],
-                        userId: providermyrequests.requests[index]["post"]
-                            ["user"]["_id"],
-                        userWilaya: providermyrequests.requests[index]["post"]
-                            ["user"]["wilaya"],
-                        postId: providermyrequests.requests[index]["post"]
-                            ["_id"],
-                        postTitle: providermyrequests.requests[index]["post"]
-                            ["title"],
-                        postDesc: providermyrequests.requests[index]["post"]
-                            ["description"],
-                        postPrice: providermyrequests.requests[index]["post"]
-                                ["price"]
-                            .toString(),
-                        postCreatedAt: providermyrequests.requests[index]
-                            ["post"]["createdAt"],
-                        postImages: providermyrequests.requests[index]["post"]
-                            ["images"],
-                        userProfilePicture: providermyrequests.requests[index]
-                            ["post"]["user"]["profilePicture"],
-                        isSaved: providermyrequests.requests[index]["isSaved"],
-                        application: providermyrequests.requests[index]
-                            ["application"],
-                        Post: providermyrequests.requests[index],
-                        index: index,
-                        providermyrequests: providermyrequests,
-                      ),
-                    );
-                  },
-                );
-              });
+                builder: (context, providermyrequests, child) {
+                  if (yesorno) {
+                    providermyrequests.requests = getMyRequests.requests!;
+                    yesorno = false;
+                  }
+                  return NoItemsWidget(
+                    condition: getMyRequests.requests!.isNotEmpty,
+                    child: ListView.builder(
+                      itemCount: providermyrequests.requests.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return SafeArea(
+                          child: RequestItem(
+                            requestId: providermyrequests.requests[index]
+                                ["post"]["_id"],
+                            userName: providermyrequests.requests[index]["post"]
+                                ["user"]["name"],
+                            userId: providermyrequests.requests[index]["post"]
+                                ["user"]["_id"],
+                            userWilaya: providermyrequests.requests[index]
+                                ["post"]["user"]["wilaya"],
+                            postId: providermyrequests.requests[index]["post"]
+                                ["_id"],
+                            postTitle: providermyrequests.requests[index]
+                                ["post"]["title"],
+                            postDesc: providermyrequests.requests[index]["post"]
+                                ["description"],
+                            postPrice: providermyrequests.requests[index]
+                                    ["post"]["price"]
+                                .toString(),
+                            postCreatedAt: providermyrequests.requests[index]
+                                ["post"]["createdAt"],
+                            postImages: providermyrequests.requests[index]
+                                ["post"]["images"],
+                            userProfilePicture:
+                                providermyrequests.requests[index]["post"]
+                                    ["user"]["profilePicture"],
+                            isSaved: providermyrequests.requests[index]
+                                ["isSaved"],
+                            application: providermyrequests.requests[index]
+                                ["application"],
+                            Post: providermyrequests.requests[index],
+                            index: index,
+                            providermyrequests: providermyrequests,
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              );
             }
           },
         ),
@@ -259,7 +275,7 @@ class RequestItem extends StatelessWidget {
                               Text(
                                 userName,
                                 style: const TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -289,7 +305,7 @@ class RequestItem extends StatelessWidget {
                           providerloading.setLoad(true);
                           DeclineRequest declineRequest = DeclineRequest();
                           if (await declineRequest.declineRequest(
-                               AuthCache.token!, requestId)) {
+                              AuthCache.token!, requestId)) {
                             providermyrequests.requests.removeAt(index);
                             providermyrequests.notifyListeners();
                             context.showSuccessMessage("Success",
@@ -398,7 +414,7 @@ class RequestItem extends StatelessWidget {
                                 DeleteApp deleteApp = DeleteApp();
                                 providerok2.setOk(!providerok2.isOk);
                                 if (await deleteApp.deleteApp(
-                                     AuthCache.token!, application["id"])) {
+                                    AuthCache.token!, application["id"])) {
                                   context.showSuccessMessage("Success",
                                       "The application has been deleted  successfully .");
 

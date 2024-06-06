@@ -1,6 +1,7 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
+import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/page/index.dart';
 import 'package:easyhome/SnackBars/FlashMessage.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
@@ -47,25 +48,28 @@ class Deal extends StatelessWidget {
           return Text('Error: ${snapshot.error}');
         } else {
           List<bool> rvs = List.filled(getdeals.deals.length, false);
-          return ListView.builder(
-            itemCount: getdeals.deals.length,
-            itemBuilder: (BuildContext context, int index) {
-              return DealItem(
-                dealId: getdeals.deals[index]["_id"],
-                name: getdeals.deals[index]["worker"]["name"],
-                job: getdeals.deals[index]["worker"]["job"],
-                isCertified: getdeals.deals[index]["worker"]["isCertified"],
-                profilePicture: getdeals.deals[index]["worker"]
-                    ["profilePicture"],
-                title: getdeals.deals[index]["userTitle"] ?? "",
-                description: getdeals.deals[index]["userDescription"] ?? "",
-                status: getdeals.deals[index]["status"],
-                workerId: getdeals.deals[index]["worker"]["_id"],
-                deal: getdeals.deals[index],
-                reviews: rvs,
-                index: index,
-              );
-            },
+          return NoItemsWidget(
+            condition: getdeals.deals.isNotEmpty,
+            child: ListView.builder(
+              itemCount: getdeals.deals.length,
+              itemBuilder: (BuildContext context, int index) {
+                return DealItem(
+                  dealId: getdeals.deals[index]["_id"],
+                  name: getdeals.deals[index]["worker"]["name"],
+                  job: getdeals.deals[index]["worker"]["job"],
+                  isCertified: getdeals.deals[index]["worker"]["isCertified"],
+                  profilePicture: getdeals.deals[index]["worker"]
+                      ["profilePicture"],
+                  title: getdeals.deals[index]["userTitle"] ?? "",
+                  description: getdeals.deals[index]["userDescription"] ?? "",
+                  status: getdeals.deals[index]["status"],
+                  workerId: getdeals.deals[index]["worker"]["_id"],
+                  deal: getdeals.deals[index],
+                  reviews: rvs,
+                  index: index,
+                );
+              },
+            ),
           );
         }
       },

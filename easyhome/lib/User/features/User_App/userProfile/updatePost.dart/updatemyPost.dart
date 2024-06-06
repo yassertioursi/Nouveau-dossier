@@ -43,14 +43,7 @@ class UpdateMyPost {
   void update_post(BuildContext context, String postId) async {
     GetPost getmyPost = GetPost();
 
-    await getmyPost.getpost(AuthCache.token!, postId);
-    titleController.text = getmyPost.post["title"] ?? "";
-    descController.text = getmyPost.post["description"] ?? "";
-    priceController.text = getmyPost.post["price"] ?? "".toString();
-    
-    titleLocationController.text =
-        getmyPost.post["titleLocation"] ?? "".toString();
-    await showModalBottomSheet(
+    showModalBottomSheet(
         backgroundColor: Colors.white,
         useSafeArea: true,
         isScrollControlled: true,
@@ -120,359 +113,428 @@ class UpdateMyPost {
                   ),
                   Expanded(
                     child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 70, 15, 20),
-                            child: Form(
-                              key: formstate_title,
-                              child: TextFormField(
-                                onChanged: (value) {
-                                  formstate_title.currentState!.validate();
-                                },
-                                controller: titleController,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Enter a title";
-                                  }
-                                  return null;
-                                },
-                                maxLengthEnforcement:
-                                    MaxLengthEnforcement.enforced,
-                                maxLength: 70,
-                                cursorColor: MyColors.mainblue,
-                                decoration: const InputDecoration(
-                                  label: Text(
-                                    "Title :",
-                                    style: TextStyle(
-                                      color: MyColors.mainblue,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  focusColor: Colors.white,
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  border: OutlineInputBorder(),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    borderSide: BorderSide(
-                                      width: 1.5,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    borderSide: BorderSide(
-                                        width: 2, color: Colors.black),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    borderSide: BorderSide(
-                                      width: 2,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    borderSide: BorderSide(
-                                      width: 1.5,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-                            child: Form(
-                              key: formstate_desc,
-                              child: SizedBox(
-                                height: 140,
-                                child: TextFormField(
-                                  controller: descController,
-                                  maxLengthEnforcement:
-                                      MaxLengthEnforcement.enforced,
-                                  maxLength: 200,
-                                  maxLines: 7,
-                                  cursorColor: MyColors.mainblue,
-                                  decoration: const InputDecoration(
-                                    label: Text(
-                                      "Description :",
-                                      style: TextStyle(
-                                        color: MyColors.mainblue,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    alignLabelWithHint: true,
-                                    focusColor: Colors.white,
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                      borderSide: BorderSide(
-                                        width: 1.5,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                      borderSide: BorderSide(
-                                          width: 2, color: Colors.black),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
-                            child: Form(
-                              key: formstate_locationTitle,
-                              child: TextFormField(
-                                onChanged: (value) {
-                                  formstate_title.currentState!.validate();
-                                },
-                                controller: titleLocationController,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Enter a title for your location.";
-                                  }
-                                  return null;
-                                },
-                                maxLengthEnforcement:
-                                    MaxLengthEnforcement.enforced,
-                                maxLength: 70,
-                                cursorColor: MyColors.mainblue,
-                                decoration: const InputDecoration(
-                                  label: Text(
-                                    "Location Title :",
-                                    style: TextStyle(
-                                      color: MyColors.mainblue,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  focusColor: Colors.white,
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  border: OutlineInputBorder(),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    borderSide: BorderSide(
-                                      width: 1.5,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    borderSide: BorderSide(
-                                        width: 2, color: Colors.black),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    borderSide: BorderSide(
-                                      width: 2,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    borderSide: BorderSide(
-                                      width: 1.5,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              DropJobs(
-                                inital: " ${getmyPost.post["job"] ?? ""}",
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 12.0),
+                      child: FutureBuilder<String>(
+                          future: getmyPost.getpost(AuthCache.token!, postId),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
                                 child: SizedBox(
-                                  width: 120,
-                                  height: 65,
-                                  child: Form(
-                                    key: formstate_price,
-                                    child: TextFormField(
-                                      maxLengthEnforcement:
-                                          MaxLengthEnforcement.enforced,
-                                      maxLength: 10,
-                                      maxLines: 1,
-                                      validator: (value) {
-                                        if (!RegExp(r'^[0-9]+$')
-                                                .hasMatch(value!) &&
-                                            value.isNotEmpty) {
-                                          return "";
-                                        }
-                                        return null;
-                                      },
-                                      keyboardType: TextInputType.number,
-                                      style: const TextStyle(
-                                          fontSize: 14, color: Colors.black),
-                                      textAlign: TextAlign.start,
-                                      onChanged: (value) {
-                                        formstate_price.currentState!
-                                            .validate();
-                                      },
-                                      controller: priceController,
-                                      cursorColor: Colors.black,
-                                      decoration: const InputDecoration(
-                                        isDense: true,
-                                        errorMaxLines: 3,
-                                        errorStyle: TextStyle(fontSize: 8),
-                                        counterText: "",
-                                        suffixStyle: TextStyle(
-                                          color: MyColors.mainblue,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        suffixText: " DA",
-                                        hintText: "Price :",
-                                        hintStyle: TextStyle(
-                                          color: MyColors.mainblue,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        focusColor: Colors.white,
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        border: OutlineInputBorder(),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                          borderSide: BorderSide(
-                                              width: 1.5, color: Colors.black),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                          borderSide: BorderSide(
-                                              width: 2, color: Colors.black),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                          borderSide: BorderSide(
-                                              width: 2, color: Colors.red),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                          borderSide: BorderSide(
-                                              width: 1.5, color: Colors.red),
+                                  child: CircularProgressIndicator(
+                                    color: MyColors.mainblue,
+                                  ),
+                                  height: 50.0,
+                                  width: 50.0,
+                                ),
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else {
+                              titleController.text =
+                                  getmyPost.post["title"] ?? "";
+                              descController.text =
+                                  getmyPost.post["description"] ?? "";
+                              priceController.text =
+                                  getmyPost.post["price"] ?? "".toString();
+                              titleLocationController.text =
+                                  getmyPost.post["titleLocation"] ??
+                                      "".toString();
+
+                              return Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        15, 70, 15, 20),
+                                    child: Form(
+                                      key: formstate_title,
+                                      child: TextFormField(
+                                        onChanged: (value) {
+                                          formstate_title.currentState!
+                                              .validate();
+                                        },
+                                        controller: titleController,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Enter a title";
+                                          }
+                                          return null;
+                                        },
+                                        maxLengthEnforcement:
+                                            MaxLengthEnforcement.enforced,
+                                        maxLength: 70,
+                                        cursorColor: MyColors.mainblue,
+                                        decoration: const InputDecoration(
+                                          label: Text(
+                                            "Title :",
+                                            style: TextStyle(
+                                              color: MyColors.mainblue,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          focusColor: Colors.white,
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          border: OutlineInputBorder(),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            borderSide: BorderSide(
+                                              width: 1.5,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            borderSide: BorderSide(
+                                                width: 2, color: Colors.black),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            borderSide: BorderSide(
+                                              width: 2,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            borderSide: BorderSide(
+                                              width: 1.5,
+                                              color: Colors.red,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 20.0, top: 50),
-                            child: SizedBox(
-                              height: 40,
-                              width: MediaQuery.of(context).size.width - 120,
-                              child: Consumer<ProviderLoading>(
-                                  builder: (context, providerloading, child) {
-                                return Consumer<DropJobsProvider>(
-                                    builder: (context, providerdrop, child) {
-                                  return ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.black,
-                                      ),
-                                      onPressed: () async {
-                                        String selectedJob =
-                                            providerdrop.dropdownValue ??
-                                                getmyPost.post["job"];
-                                        if (formstate_title.currentState!.validate() &&
-                                            formstate_price.currentState!
-                                                .validate() &&
-                                            Workers_Cat()
-                                                .cats
-                                                .contains(selectedJob) &&
-                                            formstate_locationTitle
-                                                .currentState!
-                                                .validate()) {
-                                          if (!providerloading.isLoading) {
-                                            final LocationEntity location =
-                                                await Navigator.of(context)
-                                                    .push(SlideRight(
-                                                        Page:
-                                                            MapPlaceSelector(),
-                                                        begin: Offset(1, 0),
-                                                        end: Offset(0, 0)));
-                                            providerloading.setLoad(true);
-                                            UpdatePostService updatemyPost =
-                                                UpdatePostService();
-                                            if (await updatemyPost.updatePost(
-                                              titleController.text,
-                                              priceController.text,
-                                              descController.text,
-                                              selectedJob,
-                                              postId,
-                                              titleLocationController.text,
-                                              location.latitude,
-                                              location.longitude,
-                                              AuthCache.token!,
-                                            )) {
-                                              Navigator.pop(context);
-                                              context.showSuccessMessage(
-                                                  "Success",
-                                                  "The post has been updated successfully.");
-                                            } else {
-                                              Navigator.pop(context);
-                                              Navigator.pop(context);
-                                              context.showErrorMessage("Error!",
-                                                  "Failed to update the post.");
-                                            }
-
-                                            providerloading.setLoad(false);
-                                          }
-                                        } else {}
-                                      },
-                                      child: !providerloading.isLoading
-                                          ? const Text("Update",
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        15, 10, 15, 20),
+                                    child: Form(
+                                      key: formstate_desc,
+                                      child: SizedBox(
+                                        height: 140,
+                                        child: TextFormField(
+                                          controller: descController,
+                                          maxLengthEnforcement:
+                                              MaxLengthEnforcement.enforced,
+                                          maxLength: 200,
+                                          maxLines: 7,
+                                          cursorColor: MyColors.mainblue,
+                                          decoration: const InputDecoration(
+                                            label: Text(
+                                              "Description :",
                                               style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold))
-                                          : Center(
-                                              child: const SizedBox(
-                                                height: 15,
-                                                width: 15,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  strokeWidth: 2,
-                                                  color: Colors.white,
+                                                color: MyColors.mainblue,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            alignLabelWithHint: true,
+                                            focusColor: Colors.white,
+                                            filled: true,
+                                            fillColor: Colors.white,
+                                            border: OutlineInputBorder(),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                              borderSide: BorderSide(
+                                                width: 1.5,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                              borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        15, 20, 15, 20),
+                                    child: Form(
+                                      key: formstate_locationTitle,
+                                      child: TextFormField(
+                                        onChanged: (value) {
+                                          formstate_title.currentState!
+                                              .validate();
+                                        },
+                                        controller: titleLocationController,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Enter a title for your location.";
+                                          }
+                                          return null;
+                                        },
+                                        maxLengthEnforcement:
+                                            MaxLengthEnforcement.enforced,
+                                        maxLength: 70,
+                                        cursorColor: MyColors.mainblue,
+                                        decoration: const InputDecoration(
+                                          label: Text(
+                                            "Location Title :",
+                                            style: TextStyle(
+                                              color: MyColors.mainblue,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          focusColor: Colors.white,
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          border: OutlineInputBorder(),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            borderSide: BorderSide(
+                                              width: 1.5,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            borderSide: BorderSide(
+                                                width: 2, color: Colors.black),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            borderSide: BorderSide(
+                                              width: 2,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            borderSide: BorderSide(
+                                              width: 1.5,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      DropJobs(
+                                        inital:
+                                            " ${getmyPost.post["job"] ?? ""}",
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 12.0),
+                                        child: SizedBox(
+                                          width: 120,
+                                          height: 65,
+                                          child: Form(
+                                            key: formstate_price,
+                                            child: TextFormField(
+                                              maxLengthEnforcement:
+                                                  MaxLengthEnforcement.enforced,
+                                              maxLength: 10,
+                                              maxLines: 1,
+                                              validator: (value) {
+                                                if (!RegExp(r'^[0-9]+$')
+                                                        .hasMatch(value!) &&
+                                                    value.isNotEmpty) {
+                                                  return "";
+                                                }
+                                                return null;
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.black),
+                                              textAlign: TextAlign.start,
+                                              onChanged: (value) {
+                                                formstate_price.currentState!
+                                                    .validate();
+                                              },
+                                              controller: priceController,
+                                              cursorColor: Colors.black,
+                                              decoration: const InputDecoration(
+                                                isDense: true,
+                                                errorMaxLines: 3,
+                                                errorStyle:
+                                                    TextStyle(fontSize: 8),
+                                                counterText: "",
+                                                suffixStyle: TextStyle(
+                                                  color: MyColors.mainblue,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                suffixText: " DA",
+                                                hintText: "Price :",
+                                                hintStyle: TextStyle(
+                                                  color: MyColors.mainblue,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                focusColor: Colors.white,
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                border: OutlineInputBorder(),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                  borderSide: BorderSide(
+                                                      width: 1.5,
+                                                      color: Colors.black),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.black),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.red),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                  borderSide: BorderSide(
+                                                      width: 1.5,
+                                                      color: Colors.red),
                                                 ),
                                               ),
-                                            ));
-                                });
-                              }),
-                            ),
-                          ),
-                        ],
-                      ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 20.0, top: 50),
+                                    child: SizedBox(
+                                      height: 40,
+                                      width: MediaQuery.of(context).size.width -
+                                          120,
+                                      child: Consumer<ProviderLoading>(builder:
+                                          (context, providerloading, child) {
+                                        return Consumer<DropJobsProvider>(
+                                            builder:
+                                                (context, providerdrop, child) {
+                                          return ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.black,
+                                              ),
+                                              onPressed: () async {
+                                                String selectedJob =
+                                                    providerdrop
+                                                            .dropdownValue ??
+                                                        getmyPost.post["job"];
+                                                if (formstate_title.currentState!.validate() &&
+                                                    formstate_price
+                                                        .currentState!
+                                                        .validate() &&
+                                                    Workers_Cat().cats.contains(
+                                                        selectedJob) &&
+                                                    formstate_locationTitle
+                                                        .currentState!
+                                                        .validate()) {
+                                                  if (!providerloading
+                                                      .isLoading) {
+                                                    final LocationEntity
+                                                        location =
+                                                        await Navigator.of(context)
+                                                            .push(SlideRight(
+                                                                Page:
+                                                                    MapPlaceSelector(),
+                                                                begin: Offset(
+                                                                    1, 0),
+                                                                end: Offset(
+                                                                    0, 0)));
+                                                    providerloading
+                                                        .setLoad(true);
+                                                    UpdatePostService
+                                                        updatemyPost =
+                                                        UpdatePostService();
+                                                    if (await updatemyPost
+                                                        .updatePost(
+                                                      titleController.text,
+                                                      priceController.text,
+                                                      descController.text,
+                                                      selectedJob,
+                                                      postId,
+                                                      titleLocationController
+                                                          .text,
+                                                      location.latitude,
+                                                      location.longitude,
+                                                      AuthCache.token!,
+                                                    )) {
+                                                      Navigator.pop(context);
+                                                      context.showSuccessMessage(
+                                                          "Success",
+                                                          "The post has been updated successfully.");
+                                                    } else {
+                                                      Navigator.pop(context);
+                                                      Navigator.pop(context);
+                                                      context.showErrorMessage(
+                                                          "Error!",
+                                                          "Failed to update the post.");
+                                                    }
+
+                                                    providerloading
+                                                        .setLoad(false);
+                                                  }
+                                                } else {}
+                                              },
+                                              child: !providerloading.isLoading
+                                                  ? const Text("Update",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold))
+                                                  : Center(
+                                                      child: const SizedBox(
+                                                        height: 15,
+                                                        width: 15,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          strokeWidth: 2,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ));
+                                        });
+                                      }),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+                          }),
                     ),
                   )
                 ],
