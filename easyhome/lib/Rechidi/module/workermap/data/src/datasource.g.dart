@@ -25,6 +25,7 @@ PostCard _$PostCardFromJson(Map<String, dynamic> json) => PostCard(
       location:
           LocationEntity.fromJson(json['location'] as Map<String, dynamic>),
       user: UserEntity.fromJson(json['user'] as Map<String, dynamic>?),
+      id: json['_id'] as String,
     );
 
 Map<String, dynamic> _$PostCardToJson(PostCard instance) => <String, dynamic>{
