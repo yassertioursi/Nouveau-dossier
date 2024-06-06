@@ -28,6 +28,7 @@ class _PersonalInfo extends StatelessWidget {
                   children: [
                     _buildProfilePicture(worker.profilePicture!),
                     height(8),
+                    
                     _buildName(worker.name!),
                     _buildBio(worker.bio),
                   ],
@@ -38,25 +39,26 @@ class _PersonalInfo extends StatelessWidget {
             ),
           ],
         ),
-        if (_isMe)
-          PositionedDirectional(
-              end: 10.w,
-              top: 35.h,
-              child: IconButton(
-                icon: Icon(Icons.menu, color: AppColors.white, size: 46.r),
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-              )),
-        PositionedDirectional(
-            start: 10.w,
-            top: 35.h,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back, color: AppColors.white, size: 46.r),
-              onPressed: () {
-                context.back();
-              },
-            )),
+        _isMe
+            ? PositionedDirectional(
+                end: 10.w,
+                top: 35.h,
+                child: IconButton(
+                  icon: Icon(Icons.menu, color: AppColors.white, size: 46.r),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                ))
+            : PositionedDirectional(
+                start: 10.w,
+                top: 35.h,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back,
+                      color: AppColors.white, size: 46.r),
+                  onPressed: () {
+                    context.back();
+                  },
+                )),
       ],
     );
   }
