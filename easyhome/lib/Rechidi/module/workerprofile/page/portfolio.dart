@@ -113,7 +113,21 @@ class _Portfolio extends StatelessWidget {
                             ],
                           ),
                         ),
-                      )
+                      ),
+                      PopupMenuItem(
+                        value: 'edit',
+                        child: InkWell(
+                          onTap: () {
+                            onEdit(post);
+                          },
+                          child: const Row(
+                            children: [
+                              Icon(Icons.edit),
+                              Text(' Edit'),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                     if (!_isMe)
                       PopupMenuItem(
