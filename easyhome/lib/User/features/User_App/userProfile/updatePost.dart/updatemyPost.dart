@@ -135,7 +135,7 @@ class UpdateMyPost {
                               descController.text =
                                   getmyPost.post["description"] ?? "";
                               priceController.text =
-                                  getmyPost.post["price"] ?? "".toString();
+                                  getmyPost.post["price"].toString() ?? "";
                               titleLocationController.text =
                                   getmyPost.post["titleLocation"] ??
                                       "".toString();
