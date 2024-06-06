@@ -74,14 +74,16 @@ class _EditProfileDataSource implements EditProfileDataSource {
       ));
     }
     await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'POST',
+      method: 'PATCH',
       headers: _headers,
       extra: _extra,
       contentType: 'multipart/form-data',
     )
         .compose(
           _dio.options,
-          '/api/v1/worker/update',
+          AuthCache.isWorker
+              ? '/api/v1/workers/editMe'
+              : '/api/v1/users/editMe',
           queryParameters: queryParameters,
           data: _data,
         )

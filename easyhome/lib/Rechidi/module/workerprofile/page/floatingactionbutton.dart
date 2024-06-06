@@ -7,7 +7,7 @@ class _FloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return !_isMe
+    return _isMe
         ? PopupMenuButton(
             itemBuilder: (context) => [
               _PopUpItem(

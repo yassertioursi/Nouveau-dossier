@@ -23,7 +23,7 @@ class ReviewEntity {
       id: json['_id'],
       rating: json['rating'],
       user: UserEntity.fromJson(json['user']),
-      review: json["review"],
+      review: json["review"] ?? '',
       createdAt: DateTime.parse(json['createdAt']),
     );
   }

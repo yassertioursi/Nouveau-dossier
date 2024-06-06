@@ -15,7 +15,7 @@ abstract class PostsMapDataSource {
   Future<_LocationResponse> getLocations(
     @Query("lat") double lat,
     @Query("lng") double lng,
-    @Query("radius") double radius,
+    @Query("diameter") double radius,
     @Query("job") String? job,
   );
 }

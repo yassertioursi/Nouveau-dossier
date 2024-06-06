@@ -1,10 +1,13 @@
+import 'package:easyhome/User/features/F1_Login&Signup/Animation/animation.dart';
 import 'package:flutter/material.dart';
 
 extension NavigationExtension on BuildContext {
   Future<D?> to<D>(Widget page) {
-    return Navigator.of(this).push<D>(
-      MaterialPageRoute(builder: (_) => page),
-    );
+    return Navigator.of(this).push<D>(SlideRight(
+      Page: page,
+      begin: const Offset(1, 0),
+      end: Offset.zero,
+    ));
   }
 
   void toNamed(String routeName) {
@@ -39,5 +42,3 @@ extension NavigationExtension on BuildContext {
     Navigator.of(this).pop(result);
   }
 }
-
-

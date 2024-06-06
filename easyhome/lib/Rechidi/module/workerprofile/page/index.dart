@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../models/certificate.dart';
@@ -48,6 +48,7 @@ class WorkerProfile extends StatelessWidget {
   final bool _isMe;
   @override
   Widget build(BuildContext context) {
+    
     return BlocProvider(
       create: (context) => WorkerProfileCubit(locator())..fetchProfile(_id),
       child: _Scaffold(
@@ -65,6 +66,7 @@ class WorkerProfile extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   _call() {
     return Container(
       height: 70,
@@ -87,4 +89,7 @@ class WorkerProfile extends StatelessWidget {
       ),
     );
   }
+=======
+
+>>>>>>> a04c8d2286deecf5118e794f476b6f4fda6415b5
 }

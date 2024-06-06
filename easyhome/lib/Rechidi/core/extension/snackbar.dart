@@ -17,6 +17,7 @@ extension SnackbarExtension on BuildContext {
       SnackBar(
         backgroundColor: Colors.red,
         content: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const Icon(Icons.error, color: Colors.white),
             width(8),

@@ -22,12 +22,11 @@ class _PortfolioPostResponse {
 
   factory _PortfolioPostResponse.fromJson(Map<String, dynamic> json) =>
       _PortfolioPostResponse(
-        posts: List<PortfolioPostEntity>.from(
-          json['data'].map(
-            (x) => PortfolioPostEntity.fromJson(x),
-          ),
-        )
-      );
+          posts: List<PortfolioPostEntity>.from(
+        json['data'].map(
+          (x) => PortfolioPostEntity.fromJson(x),
+        ),
+      ));
 }
 
 class _ReviewResponse {
@@ -61,5 +60,21 @@ class _CertificateResponse {
             (x) => CertificateEntity.fromJson(x),
           ),
         ),
+      );
+}
+
+class _SwitchResponse {
+  _SwitchResponse({
+    required this.token,
+    required this.role,
+  });
+
+  final String? token;
+  final String? role;
+
+  factory _SwitchResponse.fromJson(Map<String, dynamic> json) =>
+      _SwitchResponse(
+        token: json['token'],
+        role: json['user']['currentRole'],
       );
 }

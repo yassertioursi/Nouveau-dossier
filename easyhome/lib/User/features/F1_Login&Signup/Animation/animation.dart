@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SlideRight extends PageRouteBuilder {
+class SlideRight<D> extends PageRouteBuilder<D> {
   final Widget Page;
   final Offset begin;
   final Offset end;

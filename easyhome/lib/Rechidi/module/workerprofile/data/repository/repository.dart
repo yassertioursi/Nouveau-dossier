@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/Rechidi/models/certificate.dart';
 import 'package:easyhome/Rechidi/models/woker.dart';
 
@@ -45,5 +46,11 @@ class WorkerProfileRepository {
   Future<List<CertificateEntity>> getCertificates(String id) async {
     final response = await _remote.getCertificates(id);
     return response.certificates;
+  }
+
+  Future<void> switchAccount() async {
+    final response = await _remote.switchAccount();
+    await AuthCache.setToken(response.token!);
+    await AuthCache.setIsWorker(response.role != 'user');
   }
 }

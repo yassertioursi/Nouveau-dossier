@@ -53,7 +53,7 @@ class _PersonalInfo extends StatelessWidget {
     return SizedBox(
       height: 50.h,
       child: Text(
-        bio ?? 'This is a bio.. :)',
+        bio ?? '',
         maxLines: 2,
         textAlign: TextAlign.center,
         style: TextStyle(
@@ -84,14 +84,13 @@ class _PersonalInfo extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SvgPicture.asset(
-            'assets/icons/star.svg',
+          Icon(
+            FontAwesomeIcons.solidStar,
             color: AppColors.orange,
-            height: 21.r,
-            width: 21.r,
+            size: 24.sp,
           ),
           Text(
-            '$rating',
+            rating.toStringAsFixed(1),
             style: TextStyle(
               color: AppColors.textPrimary,
               fontSize: 18.sp,

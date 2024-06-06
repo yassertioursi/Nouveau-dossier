@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LocationEntity {
-  LocationEntity(
-      {required this.latitude,
-      required this.longitude,
-      required this.title,
-      this.subTitle = '',
-      
-      });
+  LocationEntity({
+    required this.latitude,
+    required this.longitude,
+    required this.title,
+    this.subTitle = '',
+  });
   VoidCallback? onTap;
   final double latitude;
   final double longitude;
@@ -16,7 +15,7 @@ class LocationEntity {
   final String subTitle;
 
   Marker get marker => Marker(
-        markerId: MarkerId(title),
+        markerId: MarkerId('$latitude$longitude$title$subTitle'),
         position: LatLng(latitude, longitude),
         infoWindow: InfoWindow(title: title, snippet: subTitle),
         icon: BitmapDescriptor.defaultMarkerWithHue(22),
@@ -28,7 +27,7 @@ class LocationEntity {
       latitude: json['lat'] as double,
       longitude: json['lng'] as double,
       title: json['title'] as String,
-      subTitle: json['subTitle'] as String,
+      subTitle: json['subTitle'] ?? '',
     );
   }
 

@@ -9,7 +9,6 @@ abstract class StaticStuf {
     "Landscaper",
     "Cleaner",
     "Security System Installer",
-    "Location",
   ];
 
   static const wilayas = [

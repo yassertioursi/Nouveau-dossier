@@ -431,7 +431,7 @@ class _WebServices implements WebServices {
   }
 
   @override
-  Future<Switch> switche() async {
+  Future<Switch> switchToWorker() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

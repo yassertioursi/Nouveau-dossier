@@ -1,10 +1,15 @@
 import 'package:easyhome/Rechidi/core/extension/navigation.dart';
+import 'package:easyhome/Rechidi/core/extension/snackbar.dart';
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/Rechidi/models/user.dart';
 import 'package:easyhome/Rechidi/module/editprofile/page/index.dart';
 import 'package:easyhome/Rechidi/module/signupworker/page/index.dart';
+import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/drawer_items.dart';
 
 import 'package:easyhome/User/features/User_App/userProfile/data/model/user.dart';
+import 'package:easyhome/User/features/User_App/userProfile/data/services/web_services.dart';
 import 'package:easyhome/Worker/features/Worker_App/All_4_features.dart';
 
 import 'package:flutter/material.dart';
@@ -22,11 +27,11 @@ class _DrawerItemListState extends State<DrawerItemList> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: drawerItemsList(widget.user),
+      children: drawerItemsList(widget.user, context),
     );
   }
 
-  List<Widget> drawerItemsList(User user) {
+  List<Widget> drawerItemsList(User user, BuildContext context) {
     return [
       const drawerHeader(),
       SizedBox(
@@ -36,11 +41,13 @@ class _DrawerItemListState extends State<DrawerItemList> {
           //  this function switch the user to worker 3 cases
           myicon: Icons.work,
           text: "Switch To worker",
-          function: () {
-            if (user.user!.workerAcountVerified!) {
+          onTap: () {
+            if (user.user?.workerAccountVerified == true) {
+              locator<WebServices>().switchToWorker();
               context.to(const Home_Worker());
             } else if (user.user?.role == "Worker") {
-              showCustomSnackBar();
+              context.showSnackBarError(
+                  "Your account is not verified yet, please wait for the admin to verify it");
             } else {
               context.to(const SignUpWorkerPage());
             }
@@ -55,7 +62,7 @@ class _DrawerItemListState extends State<DrawerItemList> {
           //
           myicon: Icons.edit,
           text: "Edit Profile",
-          function: () {
+          onTap: () {
             context.to(EditProfile(worker: UserEntity.fromUser(widget.user)));
           }),
       Divider(
@@ -67,11 +74,16 @@ class _DrawerItemListState extends State<DrawerItemList> {
       drawerItem(
         myicon: Icons.logout,
         text: "Log Out",
+        onTap: () {
+          AuthCache.removeToken();
+
+          context.to(Login());
+        },
       )
     ];
   }
 
-  void showCustomSnackBar() {
+  void showCustomSnackBar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
