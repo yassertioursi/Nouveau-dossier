@@ -1,7 +1,9 @@
 part of 'index.dart';
 
 class _PersonalInfo extends StatelessWidget {
-  const _PersonalInfo();
+  const _PersonalInfo(this._isMe);
+
+  final bool _isMe;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +38,23 @@ class _PersonalInfo extends StatelessWidget {
             ),
           ],
         ),
+        if (_isMe)
+          PositionedDirectional(
+              end: 10.w,
+              top: 35.h,
+              child: IconButton(
+                icon: Icon(Icons.menu, color: AppColors.white, size: 46.r),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+              )),
         PositionedDirectional(
-            end: 10.w,
+            start: 10.w,
             top: 35.h,
             child: IconButton(
-              icon: Icon(Icons.menu, color: AppColors.white, size: 46.r),
+              icon: Icon(Icons.arrow_back, color: AppColors.white, size: 46.r),
               onPressed: () {
-                Scaffold.of(context).openEndDrawer();
+                context.back();
               },
             )),
       ],
