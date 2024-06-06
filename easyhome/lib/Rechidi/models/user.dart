@@ -7,7 +7,7 @@ class UserEntity {
   final String? email;
   final String? bio;
   final String? willaya;
-  final String? phoneNumber;
+  final String? phone;
   final String? facebook;
 
   UserEntity({
@@ -17,7 +17,7 @@ class UserEntity {
     this.email,
     this.bio,
     this.willaya,
-    this.phoneNumber,
+    this.phone,
     this.facebook,
   });
 
@@ -29,7 +29,7 @@ class UserEntity {
       email: json?['email'],
       bio: json?['bio'],
       willaya: json?['wilaya'],
-      phoneNumber: json?['phoneNumber'],
+      phone: json?['phoneNumber'],
       facebook: json?['facebook'],
     );
   }
@@ -42,7 +42,7 @@ class UserEntity {
       'email': email,
       'bio': bio,
       'wilaya': willaya,
-      'phoneNumber': phoneNumber,
+      'phoneNumber': phone,
       'facebook': facebook,
     };
   }
@@ -56,7 +56,7 @@ class UserEntity {
       email: user?.email,
       bio: user?.bio,
       willaya: user?.wilaya,
-      phoneNumber: user?.phoneNumber,
+      phone: user?.phoneNumber,
       facebook: user?.facebook,
     );
   }

@@ -139,21 +139,18 @@ class _HomeWorkerState extends State<HomeWorker> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: FilterWidgetWorker(
-                                jobs: jobs,
-                                minPrice: minPrice,
-                                maxPrice: maxPrice,
-                                onFilter:
-                                    (String min, String max, List<String> jbs) {
-                                  setState(() {
-                                    maxPrice = max;
-                                    minPrice = min;
-                                    jobs = jbs;
-                                  });
-                                },
-                              ),
+                            FilterWidgetWorker(
+                              jobs: jobs,
+                              minPrice: minPrice,
+                              maxPrice: maxPrice,
+                              onFilter:
+                                  (String min, String max, List<String> jbs) {
+                                setState(() {
+                                  maxPrice = max;
+                                  minPrice = min;
+                                  jobs = jbs;
+                                });
+                              },
                             ),
                           ],
                         ),
