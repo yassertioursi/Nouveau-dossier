@@ -8,7 +8,7 @@ class CertifcateCrudState with _$CertifcateCrudState {
   const factory CertifcateCrudState.loaded() = _Loaded;
 
   const factory CertifcateCrudState.saving() = _Saving;
-  const factory CertifcateCrudState.saved() = _Saved;
+  const factory CertifcateCrudState.saved(CertificateEntity x) = _Saved;
 
   const factory CertifcateCrudState.error(String message) = _Error;
 }

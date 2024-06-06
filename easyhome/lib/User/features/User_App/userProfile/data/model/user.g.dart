@@ -53,7 +53,7 @@ Map<String, dynamic> _$MyDataToJson(MyData instance) => <String, dynamic>{
       'reported': instance.reported,
       'posts': instance.posts,
       'favoriteWorkers': instance.favoriteWorkers,
-      'workerAcountVerified': instance.workerAccountVerified,
+      'workerAccountVerified': instance.workerAccountVerified,
       'role': instance.role,
       'currentRole': instance.currentRole,
     };

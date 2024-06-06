@@ -1,16 +1,21 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:easyhome/Rechidi/models/portfoliopost.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../data/source.dart';
+
 part 'portfolio_post_crud_state.dart';
 part 'portfolio_post_crud_cubit.freezed.dart';
 
 class PortfolioPostCrudCubit extends Cubit<PortfolioPostCrudState> {
-  PortfolioPostCrudCubit({
+  final PostDataSource _remote;
+  PortfolioPostCrudCubit(
+    this._remote, {
     PortfolioPostEntity? post,
   })  : _post = post,
         super(const PortfolioPostCrudState.initial()) {
@@ -22,6 +27,7 @@ class PortfolioPostCrudCubit extends Cubit<PortfolioPostCrudState> {
   final PortfolioPostEntity? _post;
   final description = TextEditingController();
   final List<File> _images = [];
+  final List<String> _deletedImages = [];
   final _picker = ImagePicker();
 
   List<ImageProvider> get images {
@@ -48,6 +54,7 @@ class PortfolioPostCrudCubit extends Cubit<PortfolioPostCrudState> {
   void removeNetworkImage(String image) {
     emit(const PortfolioPostCrudState.imageChanging());
     _post?.images.remove(image);
+    _deletedImages.add(image);
     emit(const PortfolioPostCrudState.imageChanged());
   }
 
@@ -59,7 +66,28 @@ class PortfolioPostCrudCubit extends Cubit<PortfolioPostCrudState> {
           const PortfolioPostCrudState.error('Description is required'));
     }
 
+    late PortfolioPostEntity newPost;
+    try {
+      if (_post != null) {
+        final newDescription =
+            description.text == _post?.description ? null : description.text;
+        final response = await _remote.updatePost(
+          _post!.id!,
+          newDescription,
+          _deletedImages,
+          _images,
+        );
+
+        newPost = response.portfolioPost;
+      } else {
+        final response = await _remote.createPost(description.text, _images);
+        newPost = response.portfolioPost;
+      }
+    } on DioException catch (e) {
+      emit(PortfolioPostCrudState.error(e.response?.data['message'] ?? ''));
+    }
+
     await Future.delayed(const Duration(seconds: 2));
-    emit(const PortfolioPostCrudState.saved());
+    emit(PortfolioPostCrudState.saved(newPost));
   }
 }

@@ -7,21 +7,28 @@ class _FloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<WorkerProfileCubit>();
     return _isMe
         ? PopupMenuButton(
             itemBuilder: (context) => [
               _PopUpItem(
                 icon: Icons.add,
                 title: 'Add new certificate',
-                onTap: () {
-                  context.to(const CreateEditCertificate());
+                onTap: () async {
+                  final certificate = await context
+                      .to<CertificateEntity>(const CreateEditCertificate());
+                  cubit.addCertificate(certificate);
                 },
               ),
               _PopUpItem(
                 icon: Icons.add,
                 title: 'Add new post',
-                onTap: () {
-                  context.to(const CreateEditPost(null));
+                onTap: ()async {
+                  final post = await context
+                      .to<PortfolioPostEntity>(const CreateEditPost(null));
+                  cubit.addPost(post);
+                  
+                  
                 },
               ),
             ].map((item) {

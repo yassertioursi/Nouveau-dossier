@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:easyhome/Rechidi/core/helper/cache.dart';
+import 'package:easyhome/Rechidi/module/certificate/data/src/source.dart';
 import 'package:easyhome/Rechidi/module/editprofile/data/source/source.dart';
+import 'package:easyhome/Rechidi/module/posts/data/source.dart';
 import 'package:easyhome/Rechidi/module/signupworker/data/repository.dart';
 import 'package:easyhome/Rechidi/module/workerprofile/data/repository/repository.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/cubit/my_cubit.dart';
@@ -47,6 +49,10 @@ Future<void> setupLocator() async {
 
   locator.registerLazySingleton(() => EditProfileDataSource(locator<Dio>()));
   locator.registerLazySingleton(() => EditProfileRepository(locator()));
+
+  locator.registerLazySingleton(() => CertificateSource(locator<Dio>()));
+
+  locator.registerLazySingleton(() => PostDataSource(locator()));
 
   locator.registerLazySingleton<MyCubit>(() => MyCubit(locator()));
   locator.registerLazySingleton<UpdateCubit>(() => UpdateCubit(locator()));

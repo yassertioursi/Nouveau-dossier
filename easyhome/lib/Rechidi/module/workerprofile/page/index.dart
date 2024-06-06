@@ -52,7 +52,7 @@ class WorkerProfile extends StatelessWidget {
     return BlocProvider(
       create: (context) => WorkerProfileCubit(locator())..fetchProfile(_id),
       child: _Scaffold(
-        personalInfo: const _PersonalInfo(),
+        personalInfo:  _PersonalInfo(_isMe),
         workInfo: const _WorkerInfo(),
         tabView: _TabView(
           portfolio: _Portfolio(_isMe),

@@ -1,9 +1,10 @@
 import 'package:easyhome/Rechidi/core/extension/navigation.dart';
 import 'package:easyhome/Rechidi/core/extension/snackbar.dart';
+import 'package:easyhome/Rechidi/core/injection/index.dart';
 import 'package:easyhome/Rechidi/core/shared/spacing.dart';
 import 'package:easyhome/Rechidi/core/theme/colors.dart';
 import 'package:easyhome/Rechidi/models/certificate.dart';
-import 'package:easyhome/Rechidi/module/certificate/cubit/certifcate_crud_cubit.dart';
+import 'package:easyhome/Rechidi/module/certificate/logic/certifcate_crud_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,11 +18,11 @@ class CreateEditCertificate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CertifcateCrudCubit(certificate: _certificate),
+      create: (context) => CertifcateCrudCubit( locator(),  certificate: _certificate),
       child: BlocConsumer<CertifcateCrudCubit, CertifcateCrudState>(
         listener: (context, state) {
           state.whenOrNull(
-            saved: () => context.back(),
+            saved: (certificate) => context.back(certificate),
             error: (message) {
               context.back();
               context.showSnackBarError(message);
@@ -40,26 +41,28 @@ class CreateEditCertificate extends StatelessWidget {
             body: Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.w),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    height(20),
-                    _buildTitleField(controller: cubit.title),
-                    height(20),
-                    _buildImageField(
-                      image: cubit.image,
-                      setImage: cubit.setImage,
-                      removeImage: cubit.removeImage,
-                    ),
-                    height(20),
-                    _buildSaveButton(
-                      onSave: () {
-                        cubit.saveCertificate();
-                      },
-                      isSaving: state.maybeWhen(
-                          orElse: () => false, saving: () => true),
-                    ),
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      height(20),
+                      _buildTitleField(controller: cubit.title),
+                      height(20),
+                      _buildImageField(
+                        image: cubit.image,
+                        setImage: cubit.setImage,
+                        removeImage: cubit.removeImage,
+                      ),
+                      height(20),
+                      _buildSaveButton(
+                        onSave: () {
+                          cubit.saveCertificate();
+                        },
+                        isSaving: state.maybeWhen(
+                            orElse: () => false, saving: () => true),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

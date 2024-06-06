@@ -9,6 +9,7 @@ import 'package:easyhome/User/features/F1_Login&Signup/Screens/Login.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/drawer/drawer_items.dart';
 
 import 'package:easyhome/User/features/User_App/userProfile/data/model/user.dart';
+import 'package:easyhome/User/features/User_App/userProfile/data/repository/repo.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/services/web_services.dart';
 import 'package:easyhome/Worker/features/Worker_App/All_4_features.dart';
 
@@ -43,8 +44,9 @@ class _DrawerItemListState extends State<DrawerItemList> {
           text: "Switch To worker",
           onTap: () {
             if (user.user?.workerAccountVerified == true) {
-              locator<WebServices>().switchToWorker();
-              context.to(const Home_Worker());
+              locator<Repo>().switche().then((value) {
+                context.to(const Home_Worker());
+              });
             } else if (user.user?.role == "Worker") {
               context.showSnackBarError(
                   "Your account is not verified yet, please wait for the admin to verify it");
