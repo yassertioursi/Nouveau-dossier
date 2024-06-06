@@ -39,10 +39,7 @@ class _Reviews extends StatelessWidget {
               CircleAvatar(
                 radius: 30,
                 backgroundImage: NetworkImage(review.user!.profilePicture!),
-                child: Icon(
-                  Icons.person,
-                  size: 30.sp,
-                ),
+                child: SizedBox(),
               ),
               SizedBox(width: 16.w),
               Text(

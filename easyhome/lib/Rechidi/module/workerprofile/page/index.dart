@@ -49,11 +49,10 @@ class WorkerProfile extends StatelessWidget {
   final bool _isMe;
   @override
   Widget build(BuildContext context) {
-    
     return BlocProvider(
       create: (context) => WorkerProfileCubit(locator())..fetchProfile(_id),
       child: _Scaffold(
-        personalInfo:  _PersonalInfo(_isMe),
+        personalInfo: _PersonalInfo(_isMe),
         workInfo: const _WorkerInfo(),
         tabView: _TabView(
           portfolio: _Portfolio(_isMe),
@@ -61,32 +60,12 @@ class WorkerProfile extends StatelessWidget {
           certificates: _Certificates(_isMe),
         ),
         drawer: const _Drawer(),
-        floationgActionButton: _isMe ? _FloatingActionButton(_isMe) : _call(),
+        floationgActionButton:
+            _FloatingActionButton(_isMe) ,
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );
   }
 
-  _call() {
-    return Container(
-      height: 70,
-      width: 70,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(60),
-        color: Colors.green,
-      ),
-      child: IconButton(
-        icon: Icon(
-          // TODO implement the Create portfolio element button
-          Icons.call,
-          size: 45.sp,
-        ),
-        color: Colors.white,
-        onPressed: () async {
-          await FlutterPhoneDirectCaller.callNumber(
-              workerDetails?.worker?.phoneNumber ?? '0');
-        },
-      ),
-    );
-  }
+  
 }

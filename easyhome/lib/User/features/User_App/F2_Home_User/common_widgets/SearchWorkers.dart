@@ -101,15 +101,12 @@ class SearchWorkers extends SearchDelegate {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: FilterWidget(
-                              jobs: jobs,
-                              wilaya: wilaya,
-                              rating: rating.toDouble(),
-                              sortby: sort,
-                              postID: postId,
-                            ),
+                          FilterWidget(
+                            jobs: jobs,
+                            wilaya: wilaya,
+                            rating: rating.toDouble(),
+                            sortby: sort,
+                            postID: postId,
                           ),
                         ],
                       ),

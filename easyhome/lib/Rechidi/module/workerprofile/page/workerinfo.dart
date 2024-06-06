@@ -32,7 +32,7 @@ class _WorkerInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildContactItem(Icons.facebook, worker.facebook ?? 'N/A'),
-              _buildContactItem(Icons.phone, worker.phoneNumber!),
+              _buildContactItem(Icons.phone, worker.phone!),
               _buildContactItem(Icons.email, worker.email!),
             ],
           ),
