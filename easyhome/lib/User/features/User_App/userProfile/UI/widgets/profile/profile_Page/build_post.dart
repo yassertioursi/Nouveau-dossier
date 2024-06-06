@@ -1,3 +1,4 @@
+import 'package:easyhome/Rechidi/core/shared/noitemwidget.dart';
 import 'package:easyhome/User/features/User_App/userProfile/BloC/post_cubit/post_cubit.dart';
 import 'package:easyhome/User/features/User_App/userProfile/UI/widgets/profile/profile_Page/postUI.dart';
 import 'package:easyhome/User/features/User_App/userProfile/data/model/post.dart';
@@ -36,12 +37,16 @@ class _BuildPostState extends State<BuildPost> {
   }
 
   Widget _listV(List<PData> posts) {
-    return ListView.builder(
-      itemCount: posts.length,
-      itemBuilder: (context, index) {
-        posts.length;
-        return postUI(context, posts[index]);
-      },
+    return NoItemsWidget(
+      condition: posts.isNotEmpty,
+      message: "No posts found",
+      child: ListView.builder(
+        itemCount: posts.length,
+        itemBuilder: (context, index) {
+          posts.length;
+          return postUI(context, posts[index]);
+        },
+      ),
     );
   }
 }

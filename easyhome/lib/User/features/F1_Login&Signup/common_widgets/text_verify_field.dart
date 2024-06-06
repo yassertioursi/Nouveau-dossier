@@ -1,4 +1,5 @@
 import 'package:easyhome/Rechidi/core/extension/navigation.dart';
+import 'package:easyhome/Rechidi/core/helper/cache.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/Provider/ProviderAuth.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/common_widgets/dialogs.dart';
 import 'package:easyhome/User/features/F1_Login&Signup/services/Verify_email.dart';
@@ -79,7 +80,7 @@ class Verify_Field extends StatelessWidget {
                   Verify_ser verify_ser = Verify_ser();
                   bloc_5.setLoad(true);
                   if (await verify_ser.verify_email_post(email, value)) {
-                    context.to(Home_User());
+                    context.off(Home_User());
                   } else {
                     Dialogs dialogs = Dialogs();
                     dialogs.showErrorDialog_login(context, verify_ser.result);

@@ -51,6 +51,6 @@ class WorkerProfileRepository {
   Future<void> switchAccount() async {
     final response = await _remote.switchAccount();
     await AuthCache.setToken(response.token!);
-    await AuthCache.setIsWorker(response.role != 'user');
+    await AuthCache.setIsWorker(false);
   }
 }

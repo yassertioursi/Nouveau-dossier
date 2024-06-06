@@ -22,7 +22,10 @@ class _BottomSheet extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            _buildCallButton(call: () {}),
+            _buildCallButton(call: () async {
+              await FlutterPhoneDirectCaller.callNumber(
+             _post.phone);
+            }),
           ],
         ),
         _divider(),
